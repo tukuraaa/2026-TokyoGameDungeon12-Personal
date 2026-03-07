@@ -9,6 +9,30 @@ namespace PESDISASTER
     public class PlayerController : MonoBehaviour
     {
         /// <summary>
+        /// アイテムの名前の変数
+        /// </summary>
+        [SerializeField]
+        private string itemName = "ハンドガン";
+
+        /// <summary>
+        /// カメラの参照用変数
+        /// </summary>
+        [SerializeField]
+        private Camera mainCamera = null;
+
+        /// <summary>
+        /// インタラクト可能なオブジェクトを検出するための範囲を設定する変数
+        /// </summary>
+        [SerializeField]
+        private float interactRange = 2.5f;
+
+        /// <summary>
+        /// レイヤーマスクを使用して、インタラクト可能なオブジェクトを特定するための変数
+        /// </summary>
+        [SerializeField]
+        private LayerMask interactableLayer = default;
+
+        /// <summary>
         /// 首のTransformコンポーネントへの参照用変数
         /// </summary>
         public Transform neck;
@@ -49,7 +73,12 @@ namespace PESDISASTER
         /// <summary>
         /// 視点移動の入力を保持するための変数
         /// </summary>
-        private Vector2 lookInput;
+        private Vector2 lookInput = Vector2.zero;
+
+        /// <summary>
+        /// ターゲットとなるインタラクト可能なオブジェクトを保持するための変数
+        /// </summary>
+        private IInteractable currentTarget;
 
         /// <summary>
         /// ゲーム開始時の初期設定を行う関数
@@ -86,6 +115,8 @@ namespace PESDISASTER
             neck.localPosition = new Vector3(0, 0, translationZ);// 首の位置を設定。前後移動のみ行う
 
             neck.localPosition = new Vector3(neck.localPosition.x, neckTranslationY, neck.localPosition.z);// 首の高さを一定に保つ
+
+            CheckForInteractable();// インタラクト可能なオブジェクトを検出する関数を呼び出す
         }
 
         /// <summary>
@@ -95,6 +126,61 @@ namespace PESDISASTER
         public void OnLook(InputAction.CallbackContext context)
         {
             lookInput = context.ReadValue<Vector2>();// 視点移動の入力を取得
+        }
+
+        /// <summary>
+        /// アイテムを拾うための入力を処理する関数
+        /// </summary>
+        /// <param name="context"></param>
+        public void OnInteract(InputAction.CallbackContext context)
+        {
+            // もしインタラクトの入力が開始され、ターゲットが存在する場合
+            if (context.started && currentTarget != null)
+            {
+                currentTarget.Interact();// ターゲットにインタラクト関数を呼び出す
+            }
+        }
+
+        /// <summary>
+        /// 拾うときの処理を行う関数
+        /// </summary>
+        public void Interact()
+        {
+            Destroy(gameObject);// シーン上からアイテムを消す
+        }
+
+        /// <summary>
+        /// 拾ったアイテムの名前を表示する関数
+        /// </summary>
+        /// <returns></returns>
+        public string GetInteractText()
+        {
+            return $"{itemName} を拾う";// 拾ったアイテムの名前を表示する
+        }
+
+        /// <summary>
+        /// インタラクト可能なオブジェクトを検出する関数
+        /// </summary>
+        private void CheckForInteractable()
+        {
+            // 画面中央から奥へ向かうRayを作成
+            Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));// 画面の中心から奥へ向かうRayを作成
+            RaycastHit hit;// Rayが当たった情報を格納する変数
+
+            // もしRayがインタラクト可能なオブジェクトに当たった場合
+            if (Physics.Raycast(ray, out hit, interactRange, interactableLayer))
+            {
+                IInteractable interactable = hit.collider.GetComponent<IInteractable>();// Rayが当たったオブジェクトにIInteractableコンポーネントがあるか確認
+
+                // もしIInteractableコンポーネントがある場合
+                if (interactable != null)
+                {
+                    currentTarget = interactable;// ターゲットを更新
+                    return;
+                }
+            }
+
+            currentTarget = null;
         }
     }
 }
