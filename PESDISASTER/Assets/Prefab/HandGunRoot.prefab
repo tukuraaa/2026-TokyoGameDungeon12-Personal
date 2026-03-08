@@ -101,7 +101,8 @@ GameObject:
   - component: {fileID: 5544385202272270933}
   - component: {fileID: 7970915120198972803}
   - component: {fileID: 3632673267432362333}
-  m_Layer: 0
+  - component: {fileID: 1931514978225036712}
+  m_Layer: 3
   m_Name: HandGunRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,3 +173,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.07, y: 0.2, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1931514978225036712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8789640387500088437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c2bf9c2f50b5d747b8ab1ab6b619047, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.PickupItem
+  itemName: "\u30CF\u30F3\u30C9\u30AC\u30F3"

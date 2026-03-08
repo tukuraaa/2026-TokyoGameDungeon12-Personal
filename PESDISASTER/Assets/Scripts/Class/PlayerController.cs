@@ -9,12 +9,6 @@ namespace PESDISASTER
     public class PlayerController : MonoBehaviour
     {
         /// <summary>
-        /// アイテムの名前の変数
-        /// </summary>
-        [SerializeField]
-        private string itemName = "ハンドガン";
-
-        /// <summary>
         /// カメラの参照用変数
         /// </summary>
         [SerializeField]
@@ -83,7 +77,7 @@ namespace PESDISASTER
         /// <summary>
         /// ゲーム開始時の初期設定を行う関数
         /// </summary>
-        void Start()
+        private void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;// カーソルを非表示にする
@@ -92,7 +86,7 @@ namespace PESDISASTER
         /// <summary>
         /// 毎フレーム呼び出される関数
         /// </summary>
-        void Update()
+        private void Update()
         {
             // マウスの入力を感度とフレーム時間で調整して、回転と移動の値を更新
             float mouseRotationX = lookInput.x * sensitivity * Time.deltaTime;// マウスX方向の入力を感度とフレーム時間で調整
@@ -139,23 +133,6 @@ namespace PESDISASTER
             {
                 currentTarget.Interact();// ターゲットにインタラクト関数を呼び出す
             }
-        }
-
-        /// <summary>
-        /// 拾うときの処理を行う関数
-        /// </summary>
-        public void Interact()
-        {
-            Destroy(gameObject);// シーン上からアイテムを消す
-        }
-
-        /// <summary>
-        /// 拾ったアイテムの名前を表示する関数
-        /// </summary>
-        /// <returns></returns>
-        public string GetInteractText()
-        {
-            return $"{itemName} を拾う";// 拾ったアイテムの名前を表示する
         }
 
         /// <summary>

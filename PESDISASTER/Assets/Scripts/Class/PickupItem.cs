@@ -11,7 +11,7 @@ namespace PESDISASTER
         /// アイテムの名前の変数
         /// </summary>
         [SerializeField]
-        private string itemName = "ハンドガン";
+        public string itemName = "ハンドガン";
 
         /// <summary>
         /// 拾うときの処理を行う関数
