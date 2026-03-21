@@ -8,7 +8,7 @@ namespace PESDISASTER
         /// <summary>
         /// インタラクトしたときの処理を行う関数
         /// </summary>
-        public void Interact();
+        public void Pickup();
 
         /// <summary>
         /// アイテムの説明文を返す関数

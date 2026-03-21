@@ -11,26 +11,26 @@ namespace PESDISASTER
         /// <summary>
         /// カメラの参照用変数
         /// </summary>
-        [SerializeField]
-        private Camera mainCamera = null;
-
-        /// <summary>
-        /// インタラクト可能なオブジェクトを検出するための範囲を設定する変数
-        /// </summary>
-        [SerializeField]
-        private float interactRange = 2.5f;
+        public Camera mainCamera = null;
 
         /// <summary>
         /// レイヤーマスクを使用して、インタラクト可能なオブジェクトを特定するための変数
         /// </summary>
-        [SerializeField]
-        private LayerMask interactableLayer = default;
+        public LayerMask interactableLayer = default;
 
         /// <summary>
         /// 首のTransformコンポーネントへの参照用変数
         /// </summary>
-        public Transform neck;
+        public Transform neck = null;
 
+        /// <summary>
+        /// 首の前後移動の入力を保持するための変数
+        /// </summary>
+        private float translationZ = 0f;
+        /// <summary>
+        /// 回転角度を保持するための変数
+        /// </summary>
+        private float rotationX = 0f;
         /// <summary>
         /// マウス感度を調整するための変数
         /// </summary>
@@ -44,10 +44,6 @@ namespace PESDISASTER
         /// </summary>
         public float maxVertical = 90.0f;
         /// <summary>
-        /// 回転角度を保持するための変数
-        /// </summary>
-        private float rotationX = 0f;
-        /// <summary>
         /// 首の前後移動の最小値を設定するための変数
         /// </summary>
         public float minNeckTranslationZ = -1.0f;
@@ -56,13 +52,13 @@ namespace PESDISASTER
         /// </summary>
         public float maxNeckTranslationZ = 1.0f;
         /// <summary>
-        /// 首の前後移動の入力を保持するための変数
-        /// </summary>
-        private float translationZ = 0f;
-        /// <summary>
         /// 首の前後移動の感度を調整するための変数
         /// </summary>
         public float adjustmentDivisor = 200.0f;
+        /// <summary>
+        /// インタラクト可能なオブジェクトを検出するための範囲を設定する変数
+        /// </summary>
+        public float interactRange = 2.5f;
 
         /// <summary>
         /// 視点移動の入力を保持するための変数
@@ -72,7 +68,7 @@ namespace PESDISASTER
         /// <summary>
         /// ターゲットとなるインタラクト可能なオブジェクトを保持するための変数
         /// </summary>
-        private IInteractable currentTarget;
+        private IInteractable currentTarget = null;
 
         /// <summary>
         /// ゲーム開始時の初期設定を行う関数
@@ -81,6 +77,7 @@ namespace PESDISASTER
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;// カーソルを非表示にする
+            currentTarget = GetComponent<IInteractable>();
         }
 
         /// <summary>
@@ -131,7 +128,7 @@ namespace PESDISASTER
             // もしインタラクトの入力が開始され、ターゲットが存在する場合
             if (context.started && currentTarget != null)
             {
-                currentTarget.Interact();// ターゲットにインタラクト関数を呼び出す
+                currentTarget.Pickup();// ターゲットにインタラクト関数を呼び出す
             }
         }
 
