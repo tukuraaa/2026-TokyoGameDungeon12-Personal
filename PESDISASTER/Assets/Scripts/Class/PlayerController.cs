@@ -22,6 +22,10 @@ namespace PESDISASTER
         /// 首のTransformコンポーネントへの参照用変数
         /// </summary>
         public Transform neck = null;
+        /// <summary>
+        /// カメラ右手元の位置を参照する変数
+        /// </summary>
+        public Transform holdPosition = null;
 
         /// <summary>
         /// 首の前後移動の入力を保持するための変数
@@ -68,16 +72,37 @@ namespace PESDISASTER
         /// <summary>
         /// ターゲットとなるインタラクト可能なオブジェクトを保持するための変数
         /// </summary>
-        private IInteractable currentTarget = null;
+        private I_Interactable currentTarget = null;
+        /// <summary>
+        /// Rayが当たったオブジェクトを参照する変数
+        /// </summary>
+        private I_Interactable interactable;
+
+        /// <summary>
+        /// Rayが当たった情報を格納する変数
+        /// </summary>
+        private RaycastHit hit;
+
+        /// <summary>
+        /// アイテムに関するクラスを参照する変数
+        /// </summary>
+        private ItemManager item = null;
+
+        /// <summary>
+        /// Rayを参照する変数
+        /// </summary>
+        private Ray ray;
 
         /// <summary>
         /// ゲーム開始時の初期設定を行う関数
         /// </summary>
         private void Start()
         {
+            // カーソル設定
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;// カーソルを非表示にする
-            currentTarget = GetComponent<IInteractable>();
+
+            currentTarget = GetComponent<I_Interactable>();
         }
 
         /// <summary>
@@ -85,6 +110,8 @@ namespace PESDISASTER
         /// </summary>
         private void Update()
         {
+            ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));// 画面の中心から奥へ向かうRayを作成
+
             // マウスの入力を感度とフレーム時間で調整して、回転と移動の値を更新
             float mouseRotationX = lookInput.x * sensitivity * Time.deltaTime;// マウスX方向の入力を感度とフレーム時間で調整
             float mouseRotationY = lookInput.y * sensitivity * Time.deltaTime;// マウスY方向の入力を感度とフレーム時間で調整
@@ -125,10 +152,14 @@ namespace PESDISASTER
         /// <param name="context"></param>
         public void OnInteract(InputAction.CallbackContext context)
         {
-            // もしインタラクトの入力が開始され、ターゲットが存在する場合
-            if (context.started && currentTarget != null)
+            // もしインタラクトの入力が開始された場合
+            if (context.performed)
             {
-                currentTarget.Pickup();// ターゲットにインタラクト関数を呼び出す
+                // もしターゲットが存在する場合
+                if (currentTarget != null)
+                {
+                    PerformPickupInteraction();// アイテムを拾う準備を行い、拾う
+                }
             }
         }
 
@@ -137,14 +168,10 @@ namespace PESDISASTER
         /// </summary>
         private void CheckForInteractable()
         {
-            // 画面中央から奥へ向かうRayを作成
-            Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));// 画面の中心から奥へ向かうRayを作成
-            RaycastHit hit;// Rayが当たった情報を格納する変数
-
             // もしRayがインタラクト可能なオブジェクトに当たった場合
             if (Physics.Raycast(ray, out hit, interactRange, interactableLayer))
             {
-                IInteractable interactable = hit.collider.GetComponent<IInteractable>();// Rayが当たったオブジェクトにIInteractableコンポーネントがあるか確認
+                interactable = hit.collider.GetComponent<I_Interactable>();// Rayが当たったオブジェクトにI_Interactableコンポーネントがあるか確認するため登録
 
                 // もしIInteractableコンポーネントがある場合
                 if (interactable != null)
@@ -155,6 +182,26 @@ namespace PESDISASTER
             }
 
             currentTarget = null;
+        }
+
+        /// <summary>
+        /// アイテムを拾う演出の準備を行う関数
+        /// </summary>
+        private void PerformPickupInteraction()
+        {
+            ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));// 画面の中心から奥へ向かうRayを作成
+
+            // もしRayがオブジェクトに当たった場合
+            if (Physics.Raycast(ray, out hit, interactRange))
+            {
+                item = hit.collider.GetComponent<ItemManager>(); // ヒットしたオブジェクトにItemManagerがついているか確認するため登録
+
+                // もしItemManagerコンポーネントがある場合
+                if (item != null)
+                {
+                    item.Pickup(mainCamera.transform, holdPosition);// アイテム側のPickup関数を呼び出す
+                }
+            }
         }
     }
 }

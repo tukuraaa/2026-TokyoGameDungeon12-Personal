@@ -1,14 +1,16 @@
+using UnityEngine;
+
 namespace PESDISASTER
 {
     /// <summary>
     /// インタラクト可能なオブジェクトが実装するインターフェース
     /// </summary>
-    public interface IInteractable
+    public interface I_Interactable
     {
         /// <summary>
         /// インタラクトしたときの処理を行う関数
         /// </summary>
-        public void Pickup();
+        public void Pickup(Transform cameraTransform, Transform holdPosition);
 
         /// <summary>
         /// アイテムの説明文を返す関数

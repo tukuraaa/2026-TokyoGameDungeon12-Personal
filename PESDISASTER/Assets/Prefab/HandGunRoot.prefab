@@ -186,3 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.PickupItem
   itemName: "\u30CF\u30F3\u30C9\u30AC\u30F3"
+  cameraName: MainCamera
+  holdName: HoldPosition
+  layerName: Hold_Item
+  moveDuration: 0.4
