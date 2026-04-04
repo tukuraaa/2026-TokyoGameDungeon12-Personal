@@ -9,6 +9,43 @@ namespace PESDISASTER
     public class ItemManager : MonoBehaviour, I_Interactable
     {
         /// <summary>
+        /// アイテムの物理演算を参照する変数
+        /// </summary>
+        private Rigidbody itemRigidbody;
+
+        /// <summary>
+        /// アイテムのコライダーを参照する変数
+        /// </summary>
+        private Collider itemCollider;
+
+        /// <summary>
+        /// カメラの位置を参照する変数
+        /// </summary>
+        private Transform cameraTransform;
+        /// <summary>
+        /// プレイヤー右手元の位置を参照する変数
+        /// </summary>
+        private Transform holdPosition;
+
+        /// <summary>
+        /// ハンドガンの機能を制御するクラスを参照する変数
+        /// </summary>
+        private HandgunController handgunController;
+
+        /// <summary>
+        /// カメラを参照する変数
+        /// </summary>
+        private Camera mainCamera;
+
+        /// <summary>
+        /// アイテムの名前を定数で保持
+        /// </summary>
+        private string handgunName = "ハンドガン";
+        /// <summary>
+        /// ハンドガンの管理オブジェクトの名前を参照する変数
+        /// </summary>
+        private string handgunRootName = "HandgunRoot";
+        /// <summary>
         /// アイテムの名前を参照する変数
         /// </summary>
         public string itemName = "ハンドガン";
@@ -40,28 +77,13 @@ namespace PESDISASTER
         public float moveDuration = 0.5f;
 
         /// <summary>
-        /// アイテムの物理演算を参照する変数
-        /// </summary>
-        private Rigidbody itemRigidbody = null;
-
-        /// <summary>
-        /// アイテムのコライダーを参照する変数
-        /// </summary>
-        private Collider itemCollider = null;
-
-        /// <summary>
-        /// カメラの位置を参照する変数
-        /// </summary>
-        private Transform cameraTransform = null;
-        /// <summary>
-        /// プレイヤー右手元の位置を参照する変数
-        /// </summary>
-        private Transform holdPosition = null;
-
-        /// <summary>
         /// レイヤー名をIDに変換して保持するためにIDを参照する変数
         /// </summary>
         private int holdItemLayer = -1;
+        /// <summary>
+        /// レイヤーが存在しない場合のIDを参照する変数
+        /// </summary>
+        private int null_LayerNumber = -1;
 
         /// <summary>
         /// 初期設定を行う関数
@@ -73,11 +95,14 @@ namespace PESDISASTER
             itemCollider = GetComponent<Collider>();
             cameraTransform = GameObject.Find(cameraName).GetComponent<Transform>();
             holdPosition = GameObject.Find(holdName).GetComponent<Transform>();
+            handgunController = GameObject.Find(handgunRootName).GetComponent<HandgunController>();
+            mainCamera = GameObject.Find(cameraName).GetComponent<Camera>();
+
 
             holdItemLayer = LayerMask.NameToLayer(layerName);// 毎回文字列でレイヤーを探すと重いため、最初にID（int）に変換して保持
 
             // もしレイヤーが存在しなければ
-            if (holdItemLayer == -1)
+            if (holdItemLayer == null_LayerNumber)
             {
                 this.enabled = false;// 自分を無効にする
             }
@@ -126,6 +151,14 @@ namespace PESDISASTER
             transform.SetParent(cameraTransform, true);// アイテムをカメラの子オブジェクトにする
 
             StartCoroutine(MoveToHoldPosition(holdPosition));// 手元の位置へ滑らかに移動させるコルーチンを開始
+
+            GetInteractText();// アイテムの名前を表示する
+
+            // もし拾ったアイテムがハンドガンの場合
+            if (itemName == handgunName)
+            {
+                handgunController.EquipGun(mainCamera);// ハンドガンを装備する
+            }
         }
 
         /// <summary>
@@ -174,9 +207,7 @@ namespace PESDISASTER
                 yield return null;
             }
 
-            // 最後にズレをなくすため、目標と完全に一致させる
-            transform.localPosition = targetLocal_Position;
-            transform.localRotation = targetLocal_Rotation;
+            transform.SetLocalPositionAndRotation(targetLocal_Position, targetLocal_Rotation);// 最後にズレをなくすため、目標と完全に一致させる
         }
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2318602115714666730}
   - component: {fileID: 3637536324263214485}
   m_Layer: 0
-  m_Name: HandGunModel
+  m_Name: HandgunModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,6 +90,37 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3655097332336702436
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7767437618808433387}
+  m_Layer: 0
+  m_Name: Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7767437618808433387
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3655097332336702436}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.151}
+  m_LocalScale: {x: 0.07, y: 0.20000002, z: 0.3}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5544385202272270933}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8789640387500088437
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,6 +133,7 @@ GameObject:
   - component: {fileID: 7970915120198972803}
   - component: {fileID: 3632673267432362333}
   - component: {fileID: 1931514978225036712}
+  - component: {fileID: 4883363815817356659}
   m_Layer: 3
   m_Name: HandGunRoot
   m_TagString: Untagged
@@ -123,6 +155,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7356014561220157987}
+  - {fileID: 7767437618808433387}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &7970915120198972803
@@ -190,3 +223,26 @@ MonoBehaviour:
   holdName: HoldPosition
   layerName: Hold_Item
   moveDuration: 0.4
+--- !u!114 &4883363815817356659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8789640387500088437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c083597835bf2094ba8f03ff55861999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.HandgunController
+  fpsCamera: {fileID: 0}
+  muzzleLocation: {fileID: 7767437618808433387}
+  muzzleFlash: {fileID: 0}
+  impactEffectPrefab: {fileID: 0}
+  damage: 10
+  maxClipAmmo: 10
+  currentAmmo: 10
+  reserveAmmo: 30
+  range: 50
+  fireRate: 0.3
+  reloadTime: 1.5
