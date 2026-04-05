@@ -30,6 +30,11 @@ namespace PESDISASTER
         public GameObject impactEffectPrefab;
 
         /// <summary>
+        /// リロードミニゲームのUIを管理するクラスを参照する変数
+        /// </summary>
+        private ReloadMinigameUI_Manager reloadMinigameUI;
+
+        /// <summary>
         /// 威力を参照する変数
         /// </summary>
         public int damage = 10;
@@ -75,6 +80,19 @@ namespace PESDISASTER
         /// 銃を装備しているかを参照する変数
         /// </summary>
         private bool isEquipped = false;
+
+        /// <summary>
+        /// リロードミニゲームのUIを管理するクラスのオブジェクト名を参照する変数
+        /// </summary>
+        private string reloadMinigameUI_Name = "ReloadMinigameUI";
+
+        /// <summary>
+        /// 初期設定を行う関数
+        /// </summary>
+        private void Start()
+        {
+            reloadMinigameUI = GameObject.Find(reloadMinigameUI_Name).GetComponent<ReloadMinigameUI_Manager>();// シーン内からReloadMinigameUIを探して取得
+        }
 
         /// <summary>
         /// 使用可能状態にする関数
@@ -128,7 +146,22 @@ namespace PESDISASTER
             // もしボタンが押された場合と、弾が減っている場合、予備弾薬がある場合
             if (context.performed && currentAmmo < maxClipAmmo && reserveAmmo > 0)
             {
-                StartCoroutine(ReloadRoutine());// リロードのコルーチンを開始
+                // ミニゲーム開始し、引数に「終わった後に実行する処理」を渡す
+                reloadMinigameUI.StartMinigame((bool success) => {
+
+                    // もしミニゲームが成功した場合
+                    if (success)
+                    {
+                        Debug.Log("リロード成功！");
+                        StartCoroutine(ReloadRoutine());// 成功時のみ実際のリロードを開始
+                    }
+                    else
+                    {
+                        Debug.Log("リロード失敗...");
+
+                        // 失敗時のガシャン！という音などをここで鳴らす
+                    }
+                });
             }
         }
 
