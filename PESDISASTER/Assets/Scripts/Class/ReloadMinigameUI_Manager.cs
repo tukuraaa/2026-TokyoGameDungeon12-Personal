@@ -1,7 +1,7 @@
 using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace PESDISASTER
 {
@@ -11,14 +11,19 @@ namespace PESDISASTER
     public class ReloadMinigameUI_Manager : MonoBehaviour
     {
         /// <summary>
-        /// キーを表示するテキストを参照する変数
+        /// キーを表示する画像を参照する変数
         /// </summary>
-        public TextMeshProUGUI promptText;
+        public Image promptImage;
 
         /// <summary>
         /// 成否を伝えるためのコールバックを参照する変数
         /// </summary>
         private Action<bool> onComplete;
+
+        /// <summary>
+        /// 入力プロンプトのデータベースを参照する変数
+        /// </summary>
+        public InputPromptData promptData;
 
         /// <summary>
         /// アクションが有効かどうかを示すフラグ
@@ -69,9 +74,24 @@ namespace PESDISASTER
             isActive = true;
             Show();
 
-            // ランダムにキーを選択
             targetKey = possibleKeys[UnityEngine.Random.Range(0, possibleKeys.Length)];// ランダムにキーを選ぶ
-            promptText.text = targetKey.ToString();// 指定のキーが表示される
+
+            Sprite selectedSprite = promptData.GetSprite(targetKey);// データベースから画像を取得
+
+            // もし画像が見つかった場合
+            if (selectedSprite != null)
+            {
+                promptImage.sprite = selectedSprite;// 画像をUIにセットして表示
+                Show();
+            }
+            else
+            {
+                Debug.LogError($"キー '{targetKey}' の画像がInputPromptDataに設定されていません！");
+
+                // エラー時は非表示にする処理
+                Hide(); // UIは非表示にする
+                onComplete?.Invoke(false);// 失敗扱いにする
+            }
         }
 
         /// <summary>

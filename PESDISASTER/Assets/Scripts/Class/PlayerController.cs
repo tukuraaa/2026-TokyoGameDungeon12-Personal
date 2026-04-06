@@ -11,7 +11,59 @@ namespace PESDISASTER
         /// <summary>
         /// カメラの参照用変数
         /// </summary>
-        public Camera mainCamera = null;
+        public Camera mainCamera;
+
+        /// <summary>
+        /// 首のTransformコンポーネントへの参照用変数
+        /// </summary>
+        public Transform neck;
+        /// <summary>
+        /// カメラ右手元の位置を参照する変数
+        /// </summary>
+        public Transform holdPosition;
+
+        /// <summary>
+        /// アイテムに関するクラスを参照する変数
+        /// </summary>
+        private ItemManager item;
+
+        /// <summary>
+        /// プレイヤーのキャラクターコントローラーを参照する変数
+        /// </summary>
+        private CharacterController characterController;
+
+        /// <summary>
+        /// 視点移動の入力を参照する変数
+        /// </summary>
+        private Vector2 lookInput = Vector2.zero;
+        /// <summary>
+        /// 移動入力ベクトルを参照する変数
+        /// </summary>
+        private Vector2 moveInput = Vector2.zero;
+
+        /// <summary>
+        /// Rayが当たった情報を格納する変数
+        /// </summary>
+        private RaycastHit hit;
+
+        /// <summary>
+        /// Rayを参照する変数
+        /// </summary>
+        private Ray ray;
+
+        /// <summary>
+        /// 壁の当たり判定を行うための位置を参照する変数の配列
+        /// </summary>
+        public Vector3[] wallCheckerPos;
+
+        /// <summary>
+        /// ターゲットとなるインタラクト可能なオブジェクトを保持するための変数
+        /// </summary>
+        private I_Interactable currentTarget;
+        /// <summary>
+        /// Rayが当たったオブジェクトを参照する変数
+        /// </summary>
+        private I_Interactable interactable;
 
         /// <summary>
         /// レイヤーマスクを使用して、インタラクト可能なオブジェクトを特定するための変数
@@ -19,13 +71,9 @@ namespace PESDISASTER
         public LayerMask interactableLayer = default;
 
         /// <summary>
-        /// 首のTransformコンポーネントへの参照用変数
+        /// 地面判定に使用するレイヤーを参照する変数
         /// </summary>
-        public Transform neck = null;
-        /// <summary>
-        /// カメラ右手元の位置を参照する変数
-        /// </summary>
-        public Transform holdPosition = null;
+        public LayerMask groundLayer;
 
         /// <summary>
         /// 首の前後移動の入力を保持するための変数
@@ -35,6 +83,30 @@ namespace PESDISASTER
         /// 回転角度を保持するための変数
         /// </summary>
         private float rotationX = 0f;
+        /// <summary>
+        /// 移動の速度を保持する速度を参照する変数
+        /// </summary>
+        private float currentSpeed;
+        /// <summary>
+        /// カメラのレイのX方向を参照する変数
+        /// </summary>
+        private float viewAngleX = 0.5f;
+        /// <summary>
+        /// カメラのレイのY方向を参照する変数
+        /// </summary>
+        private float viewAngleY = 0.5f;
+        /// <summary>
+        /// 移動入力の閾値を参照する変数
+        /// </summary>
+        private float moveInputThreshold = 0.01f;
+        /// <summary>
+        /// 重力の値を参照する変数
+        /// </summary>
+        private float gravityValue = -9.81f;
+        /// <summary>
+        /// 重力が地面にいるときに適用される値を参照する変数
+        /// </summary>
+        private float gravityCorrentValue = -1;
         /// <summary>
         /// マウス感度を調整するための変数
         /// </summary>
@@ -63,35 +135,27 @@ namespace PESDISASTER
         /// インタラクト可能なオブジェクトを検出するための範囲を設定する変数
         /// </summary>
         public float interactRange = 2.5f;
+        /// <summary>
+        /// 壁の当たり判定を行うための距離を参照する変数
+        /// </summary>
+        public float wallCheckerDistance = 0;
+        /// <summary>
+        /// 移動速度を参照する変数
+        /// </summary>
+        public float moveSpeed = 5.0f;
 
         /// <summary>
-        /// 視点移動の入力を保持するための変数
+        /// プレイヤーの操作を有効にするかどうかを示すフラグを参照する変数
         /// </summary>
-        private Vector2 lookInput = Vector2.zero;
+        public bool isSleeping { get; private set; }
 
-        /// <summary>
-        /// ターゲットとなるインタラクト可能なオブジェクトを保持するための変数
-        /// </summary>
-        private I_Interactable currentTarget = null;
-        /// <summary>
-        /// Rayが当たったオブジェクトを参照する変数
-        /// </summary>
-        private I_Interactable interactable;
-
-        /// <summary>
-        /// Rayが当たった情報を格納する変数
-        /// </summary>
-        private RaycastHit hit;
-
-        /// <summary>
-        /// アイテムに関するクラスを参照する変数
-        /// </summary>
-        private ItemManager item = null;
-
-        /// <summary>
-        /// Rayを参照する変数
-        /// </summary>
-        private Ray ray;
+        // モーション状態定義
+        private enum MotionState
+        {
+            Stopping,
+            Walking
+        }
+        MotionState motionState = MotionState.Stopping;// 現在のモーション状態
 
         /// <summary>
         /// ゲーム開始時の初期設定を行う関数
@@ -102,6 +166,8 @@ namespace PESDISASTER
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;// カーソルを非表示にする
 
+            // コンポーネントの登録
+            characterController = GetComponent<CharacterController>();
             currentTarget = GetComponent<I_Interactable>();
         }
 
@@ -110,7 +176,7 @@ namespace PESDISASTER
         /// </summary>
         private void Update()
         {
-            ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));// 画面の中心から奥へ向かうRayを作成
+            ray = mainCamera.ViewportPointToRay(new Vector3(viewAngleX, viewAngleY, 0f));// 画面の中心から奥へ向かうRayを作成
 
             // マウスの入力を感度とフレーム時間で調整して、回転と移動の値を更新
             float mouseRotationX = lookInput.x * sensitivity * Time.deltaTime;// マウスX方向の入力を感度とフレーム時間で調整
@@ -135,6 +201,11 @@ namespace PESDISASTER
             neck.localPosition = new Vector3(neck.localPosition.x, neckTranslationY, neck.localPosition.z);// 首の高さを一定に保つ
 
             CheckForInteractable();// インタラクト可能なオブジェクトを検出する関数を呼び出す
+
+            UpdateMotionState(); // 状態を更新
+            ApplyMovement();     // 移動を実行
+
+            DetermineCurrentState();// 入力状況から最新の MotionState を決定する
         }
 
         /// <summary>
@@ -143,7 +214,10 @@ namespace PESDISASTER
         /// <param name="context"></param>
         public void OnLook(InputAction.CallbackContext context)
         {
-            lookInput = context.ReadValue<Vector2>();// 視点移動の入力を取得
+            if (!isSleeping)
+            {
+                lookInput = context.ReadValue<Vector2>();// 視点移動の入力を取得
+            }
         }
 
         /// <summary>
@@ -153,13 +227,22 @@ namespace PESDISASTER
         public void OnInteract(InputAction.CallbackContext context)
         {
             // もしインタラクトの入力が開始された場合
-            if (context.performed)
+            if (context.performed && !isSleeping)
             {
                 // もしターゲットが存在する場合
                 if (currentTarget != null)
                 {
                     PerformPickupInteraction();// アイテムを拾う準備を行い、拾う
                 }
+            }
+        }
+
+        // Move アクションによって呼び出されるプログラムを移植（中山が編集）
+        public void OnMove(InputAction.CallbackContext context)
+        {
+            if (!isSleeping)
+            {
+                moveInput = context.ReadValue<Vector2>();
             }
         }
 
@@ -189,7 +272,7 @@ namespace PESDISASTER
         /// </summary>
         private void PerformPickupInteraction()
         {
-            ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));// 画面の中心から奥へ向かうRayを作成
+            ray = mainCamera.ViewportPointToRay(new Vector3(viewAngleX, viewAngleY, 0f));// 画面の中心から奥へ向かうRayを作成
 
             // もしRayがオブジェクトに当たった場合
             if (Physics.Raycast(ray, out hit, interactRange))
@@ -201,6 +284,64 @@ namespace PESDISASTER
                 {
                     item.Pickup(mainCamera.transform, holdPosition);// アイテム側のPickup関数を呼び出す
                 }
+            }
+        }
+
+        /// <summary>
+        /// モーション状態を更新する関数
+        /// </summary>
+        private void UpdateMotionState()
+        {
+            switch (motionState)
+            {
+                case MotionState.Stopping:
+                    currentSpeed = 0f;
+
+                    // 待機中特有の処理（例：スタミナ回復など）をここに書ける
+
+                    break;
+
+                case MotionState.Walking:
+                    currentSpeed = moveSpeed;
+
+                    // 歩行中の処理
+                    
+                    break;
+
+                default:
+                    currentSpeed = 0f;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 移動を実行する関数
+        /// </summary>
+        private void ApplyMovement()
+        {
+            Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;// カメラの向きに基づいた移動方向の計算
+
+            //接地していない場合は下に引っ張る
+            float gravity = characterController.isGrounded ? gravityCorrentValue : gravityValue;// 重力を適用するための変数
+            Vector3 finalVelocity = move * currentSpeed;// 移動ベクトルを計算
+            finalVelocity.y = gravity;// 重力を移動ベクトルに追加
+
+            characterController.Move(finalVelocity * Time.deltaTime);// キャラクターコントローラーを使用して移動を実行
+        }
+
+        /// <summary>
+        /// モーション状態を入力状況から決定する関数
+        /// </summary>
+        private void DetermineCurrentState()
+        {
+            // もし入力がない場合
+            if (moveInput.sqrMagnitude < moveInputThreshold)
+            {
+                motionState = MotionState.Stopping;
+            }
+            else
+            {
+                motionState = MotionState.Walking;
             }
         }
     }
