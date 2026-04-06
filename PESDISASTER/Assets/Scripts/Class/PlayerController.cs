@@ -181,23 +181,23 @@ namespace PESDISASTER
             // コンポーネントの登録
             characterController = GetComponent<CharacterController>();
 
-            currentTarget = null;// ターゲットを初期化
+            // もしプレイヤー視点カメラが正しく設定されている場合
+            if (mainCamera != null && mainCameraTransform != null)
+            {
+                // プレイヤー視点カメラをプレイヤー視点カメラ用ポジションの子にする
+                mainCamera.transform.SetParent(mainCameraTransform);// プレイヤー視点カメラをプレイヤー視点カメラ用ポジションの子にする
+                mainCamera.transform.localPosition = Vector3.zero;// プレイヤー視点カメラのローカル座標をゼロに設定
+                mainCamera.transform.localRotation = Quaternion.identity;// プレイヤー視点カメラのローカル回転をゼロに設定
+            }
 
-            // カメラ移動目標用のローカル座標を目標にする
-            mainCamera.transform.localPosition = mainCameraTransform.localPosition;// プレイヤー視点カメラのローカル座標を目標のローカル座標に設定
-            mainCamera.transform.localRotation = mainCameraTransform.localRotation;// プレイヤー視点カメラのローカル回転を目標のローカル回転に設定
-            weaponCamera.transform.localPosition = weaponCameraTransform.localPosition;// アイテム表示カメラのローカル座標を目標のローカル座標に設定
-            weaponCamera.transform.localRotation = weaponCameraTransform.localRotation;// アイテム表示カメラのローカル回転を目標のローカル回転に設定
-
-            // プレイヤー視点カメラをプレイヤー視点カメラ用ポジションの子にする
-            mainCamera.transform.SetParent(mainCameraTransform);// プレイヤー視点カメラをプレイヤー視点カメラ用ポジションの子にする
-            mainCamera.transform.localPosition = Vector3.zero;// プレイヤー視点カメラのローカル座標をゼロに設定
-            mainCamera.transform.localRotation = Quaternion.identity;// プレイヤー視点カメラのローカル回転をゼロに設定
-
-            // アイテムカメラをアイテムカメラ用ポジションの子にする
-            weaponCamera.transform.SetParent(weaponCameraTransform);// アイテム表示カメラをアイテム表示カメラ用ポジションの子にする
-            weaponCamera.transform.localPosition = Vector3.zero;// アイテム表示カメラのローカル座標をゼロに設定
-            weaponCamera.transform.localRotation = Quaternion.identity;// アイテム表示カメラのローカル回転をゼロに設定
+            // もしアイテム表示カメラが正しく設定されている場合
+            if (weaponCamera != null && weaponCameraTransform != null)
+            {
+                // アイテムカメラをアイテムカメラ用ポジションの子にする
+                weaponCamera.transform.SetParent(weaponCameraTransform);// アイテム表示カメラをアイテム表示カメラ用ポジションの子にする
+                weaponCamera.transform.localPosition = Vector3.zero;// アイテム表示カメラのローカル座標をゼロに設定
+                weaponCamera.transform.localRotation = Quaternion.identity;// アイテム表示カメラのローカル回転をゼロに設定
+            }
         }
 
         /// <summary>
@@ -325,16 +325,13 @@ namespace PESDISASTER
             {
                 case MotionState.Stopping:
                     currentSpeed = 0f;
-
-                    // 待機中特有の処理（例：スタミナ回復など）をここに書ける
-
                     break;
 
                 case MotionState.Walking:
                     currentSpeed = moveSpeed;
 
-                    // 歩行中の処理
-                    
+                    // ここに「歩き中のカメラの揺れ」などを追加できる
+
                     break;
 
                 default:

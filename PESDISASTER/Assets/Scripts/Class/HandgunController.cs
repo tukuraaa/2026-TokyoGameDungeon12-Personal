@@ -20,11 +20,6 @@ namespace PESDISASTER
         public Transform muzzleLocation;
 
         /// <summary>
-        /// 銃口の火花エフェクトを参照する変数
-        /// </summary>
-        public ParticleSystem muzzleFlash;
-
-        /// <summary>
         /// 着弾時の火花や弾痕のプレハブを参照する変数
         /// </summary>
         public GameObject impactEffectPrefab;
@@ -34,6 +29,15 @@ namespace PESDISASTER
         /// </summary>
         private ReloadMinigameUI_Manager reloadMinigameUI;
 
+        /// <summary>
+        /// 銃のアニメーターを参照する変数
+        /// </summary>
+        public Animator gunAnimator;
+
+        /// <summary>
+        /// 射撃アニメーションのトリガー名を参照する変数
+        /// </summary>
+        private static readonly int gunAnimatorTrigger = Animator.StringToHash("Fire");
         /// <summary>
         /// 威力を参照する変数
         /// </summary>
@@ -85,6 +89,7 @@ namespace PESDISASTER
         /// リロードミニゲームのUIを管理するクラスのオブジェクト名を参照する変数
         /// </summary>
         private string reloadMinigameUI_Name = "ReloadMinigameUI";
+
 
         /// <summary>
         /// 初期設定を行う関数
@@ -168,23 +173,22 @@ namespace PESDISASTER
         /// <summary>
         /// 実際の射撃処理を行う関数
         /// </summary>
-        private void Shoot()
+        public void Shoot()
         {
             currentAmmo--;// マガジン内の弾数を1減らす
             Debug.Log($"バン！ 残弾: {currentAmmo} / {reserveAmmo}");
 
-            // もし銃口の火花エフェクトが設定されている場合
-            if (muzzleFlash != null)
+            // もし銃のアニメーターが設定されている場合
+            if (gunAnimator != null)
             {
-                muzzleFlash.Play();
+                gunAnimator.SetTrigger(gunAnimatorTrigger);
             }
 
             // 画面中央からRayを飛ばして当たり判定を行う
             Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));// 画面中央からRayを飛ばす
-            RaycastHit hit;// Rayの当たり情報を格納する変数
 
             // もしRayが何かに当たった場合
-            if (Physics.Raycast(ray, out hit, range))
+            if (Physics.Raycast(ray, out RaycastHit hit, range))
             {
                 Debug.Log(hit.transform.name + " に命中！");
 
