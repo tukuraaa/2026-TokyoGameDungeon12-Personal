@@ -39,10 +39,6 @@ namespace PESDISASTER
         /// </summary>
         private static readonly int gunAnimatorTrigger = Animator.StringToHash("Fire");
         /// <summary>
-        /// 威力を参照する変数
-        /// </summary>
-        public int damage = 10;
-        /// <summary>
         /// マガジンの最大装弾数を参照する変数
         /// </summary>
         public int maxClipAmmo = 10;
@@ -75,6 +71,10 @@ namespace PESDISASTER
         /// リロードにかかる時間を参照する変数
         /// </summary>
         public float reloadTime = 1.5f;
+        /// <summary>
+        /// 1発のダメージ量を参照する変数
+        /// </summary>
+        public float damage = 20f;
 
         /// <summary>
         /// リロード中かどうかを参照する変数
@@ -187,14 +187,20 @@ namespace PESDISASTER
             // 画面中央からRayを飛ばして当たり判定を行う
             Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));// 画面中央からRayを飛ばす
 
+            RaycastHit hit;// Rayが何かに当たった情報を格納する変数
+
             // もしRayが何かに当たった場合
-            if (Physics.Raycast(ray, out RaycastHit hit, range))
+            if (Physics.Raycast(ray, out hit, range))
             {
                 Debug.Log(hit.transform.name + " に命中！");
+               
+                EnemyHealth enemy = hit.transform.GetComponent<EnemyHealth>();// 当たった相手に EnemyHealth スクリプトがついているか確認
 
-                // 敵に当たった場合のダメージ処理
-                // var target = hit.transform.GetComponent<EnemyHealth>();
-                // if (target != null) { target.TakeDamage(damage); }
+                // もし EnemyHealth スクリプトがついている場合
+                if (enemy != null)
+                {
+                    enemy.TakeDamage(damage);
+                }
 
                 // もし着弾エフェクトのプレハブが設定されている場合
                 if (impactEffectPrefab != null)
