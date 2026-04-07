@@ -161,7 +161,7 @@ namespace PESDISASTER
         /// </summary>
         public bool isSleeping { get; private set; }
 
-        // モーション状態定義
+        // モーション状態定義の列挙型
         private enum MotionState
         {
             Stopping,
