@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 namespace PESDISASTER
 {
@@ -24,17 +25,18 @@ namespace PESDISASTER
         public Animator animator;
 
         /// <summary>
+        /// 壁などのレイヤーを参照する変数
+        /// </summary>
+        public LayerMask obstacleMask;
+
+        /// <summary>
         /// 歩きアニメーションのパラメーター値を参照する変数
         /// </summary>
         private float canWalkValue = 1f;
         /// <summary>
         /// 攻撃の連打を防ぐためのタイマーを参照する変数
         /// </summary>
-        private float attackCooldown = 1.5f;
-        /// <summary>
-        /// 攻撃のクールダウンを管理するための最後の攻撃時間を参照する変数
-        /// </summary>
-        private float lastAttackTime;
+        private float attackCooldown = 5f;
         /// <summary>
         /// 気づいて追いかけ始める距離を参照する変数
         /// </summary>
@@ -43,6 +45,10 @@ namespace PESDISASTER
         /// 攻撃が届く距離を参照する変数
         /// </summary>
         public float attackRange = 2f;
+        /// <summary>
+        /// 視野角の片角度を参照する変数
+        /// </summary>
+        public float detectionAngle = 60f;
 
         /// <summary>
         /// プレイヤーのタグを参照する変数
@@ -66,6 +72,11 @@ namespace PESDISASTER
         /// </summary>
         private static readonly int defeat_ID = Animator.StringToHash("Defeat");
 
+        /// <summary>
+        /// 攻撃中かどうかを管理するフラグを参照する変数
+        /// </summary>
+        private bool isAttacking = false;
+
         // 敵の状態定義の列挙型
         public enum EnemyState
         {
@@ -74,7 +85,6 @@ namespace PESDISASTER
             Attacking
         }
         EnemyState currentState = EnemyState.Idle;// 初期状態は待機
-        EnemyState lastState = EnemyState.Idle;// 1フレーム前の状態を保存する変数
 
         /// <summary>
         /// 初期設定を行う関数
@@ -102,7 +112,7 @@ namespace PESDISASTER
         private void Update()
         {
             // もしプレイヤーが見つからない場合
-            if (playerTransform == null)
+            if (playerTransform == null || isAttacking)
             {
                 return;
             }
@@ -110,8 +120,6 @@ namespace PESDISASTER
             DetermineState();// 状態の決定
 
             ExecuteAction();// 状態に応じた行動の実行
-
-            lastState = currentState;// 最後に現在の状態を保存
         }
 
         /// <summary>
@@ -119,15 +127,20 @@ namespace PESDISASTER
         /// </summary>
         private void DetermineState()
         {
-            float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);// プレイヤーとゾンビの距離を計算
+            // Y軸を無視して距離を測る
+            Vector3 enemyPos = new Vector3(transform.position.x, 0, transform.position.z);// ゾンビの位置を取得
+            Vector3 playerPos = new Vector3(playerTransform.position.x, 0, playerTransform.position.z);// プレイヤーの位置を取得
+            float distanceToPlayer = Vector3.Distance(enemyPos, playerPos);// プレイヤーとゾンビの距離を計算
 
             // もしプレイヤーが攻撃範囲内にいる場合
             if (distanceToPlayer <= attackRange)
             {
                 currentState = EnemyState.Attacking;
+                return;
             }
-            // もしプレイヤーが追いかける範囲内にいる場合
-            else if (distanceToPlayer <= chaseRange)
+
+            // もし視界内にプレイヤーがいる場合
+            if (CanSeePlayer(distanceToPlayer))
             {
                 currentState = EnemyState.Chasing;
             }
@@ -146,39 +159,89 @@ namespace PESDISASTER
             switch (currentState)
             {
                 case EnemyState.Idle:
-
-                    // もし待機状態に入った瞬間の場合
-                    if (lastState != EnemyState.Idle)
-                    {
-                        agent.isStopped = true;// 移動停止
-                        animator.SetFloat(walk_ID, 0f);// 歩きアニメーションを停止
-                    }
-
+                    StopMovement();
                     break;
 
                 case EnemyState.Chasing:
-                    agent.isStopped = false;// 移動再開
-                    agent.SetDestination(playerTransform.position);// 目的地をプレイヤーに設定
-                    animator.SetFloat(walk_ID, canWalkValue);
-                    break;
+                        agent.isStopped = false;// 移動再開
+                        agent.SetDestination(playerTransform.position);// 目的地をプレイヤーに設定
+                        animator.SetFloat(walk_ID, canWalkValue);
+                        break;
 
                 case EnemyState.Attacking:
-                    agent.isStopped = true; // 攻撃時は立ち止まる
 
-                    // プレイヤーの方を向く処理
-                    Vector3 lookPos = playerTransform.position;// プレイヤーの位置を取得
-                    lookPos.y = transform.position.y;// 上下には傾かないようにする
-                    transform.LookAt(lookPos);// プレイヤーの方を向く
-
-                    // もし攻撃のクールダウンが終わっている場合
-                    if (Time.time - lastAttackTime > attackCooldown)
+                    // もし攻撃中ではない場合
+                    if (!isAttacking)
                     {
-                        animator.SetTrigger(attack_ID);// 攻撃アニメーションを再生
-                        lastAttackTime = Time.time; // 最後に攻撃した時間を記録
+                        StartCoroutine(PerformAttack());// 攻撃の一連の流れを管理するコルーチンを開始
                     }
 
                     break;
             }
+        }
+
+        /// <summary>
+        /// プレイヤーが視界内にいるかどうかを判断する関数
+        /// </summary>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        private bool CanSeePlayer(float distance)
+        {
+            // もしプレイヤーが追いかける距離より遠い場合
+            if (distance > chaseRange)
+            {
+                return false;// 遠すぎるので見えない
+            }
+
+            // 自分の正面方向とプレイヤーへの方向の角度を計算
+            Vector3 directionToPlayer = (playerTransform.position - transform.position).normalized;// プレイヤーへの方向を正規化
+            float angle = Vector3.Angle(transform.forward, directionToPlayer);// 自分の正面とプレイヤーへの方向の角度を計算
+
+            // もし角度が視野角の範囲外の場合
+            if (angle > detectionAngle)
+            {
+                return false;// 見えない
+            }
+
+            // もし壁などの障害物がある場合
+            if (Physics.Raycast(transform.position + Vector3.up, directionToPlayer, distance, obstacleMask))
+            {
+                return false;// 壁があるので見えない
+            }
+
+            return true;// すべての条件を満たしているので見える
+        }
+
+        /// <summary>
+        /// 攻撃の一連の流れを管理するコルーチン
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator PerformAttack()
+        {
+            isAttacking = true;
+
+            StopMovement();
+
+            // プレイヤーの方を向くための処理
+            Vector3 lookPos = playerTransform.position;// プレイヤーの位置を取得
+            lookPos.y = transform.position.y;// Y軸を固定してプレイヤーの方を向く
+            transform.LookAt(lookPos);// プレイヤーの方を向く
+
+            animator.SetTrigger(attack_ID);
+
+            yield return new WaitForSeconds(attackCooldown);// 攻撃のクールダウンを待つ
+
+            isAttacking = false;
+        }
+
+        /// <summary>
+        /// 動きを止めるための関数
+        /// </summary>
+        private void StopMovement()
+        {
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;// 物理的な勢いも消す
+            animator.SetFloat(walk_ID, 0f);
         }
     }
 }
