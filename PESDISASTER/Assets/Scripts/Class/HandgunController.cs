@@ -35,6 +35,15 @@ namespace PESDISASTER
         public Animator gunAnimator;
 
         /// <summary>
+        /// 通常時の銃の位置
+        /// </summary>
+        private Vector3 hipPosition;
+        /// <summary>
+        /// エイム時の銃の位置を参照する変数
+        /// </summary>
+        public Vector3 aimPosition;
+
+        /// <summary>
         /// 射撃アニメーションのトリガー名を参照する変数
         /// </summary>
         private static readonly int gunAnimatorTrigger = Animator.StringToHash("Fire");
@@ -75,6 +84,18 @@ namespace PESDISASTER
         /// 1発のダメージ量を参照する変数
         /// </summary>
         public float damage = 20f;
+        /// <summary>
+        /// 構えるスピードを参照する変数
+        /// </summary>
+        public float aimSpeed = 10f;
+        /// <summary>
+        /// 通常時のカメラ視野角を参照する変数
+        /// </summary>
+        public float normalFOV = 60f;
+        /// <summary>
+        /// エイム時のカメラ視野角を参照する変数
+        /// </summary>
+        public float aimFOV = 40f;
 
         /// <summary>
         /// リロード中かどうかを参照する変数
@@ -84,12 +105,15 @@ namespace PESDISASTER
         /// 銃を装備しているかを参照する変数
         /// </summary>
         private bool isEquipped = false;
+        /// <summary>
+        /// エイム中かどうかを参照する変数
+        /// </summary>
+        private bool isAiming = false;
 
         /// <summary>
         /// リロードミニゲームのUIを管理するクラスのオブジェクト名を参照する変数
         /// </summary>
         private string reloadMinigameUI_Name = "ReloadMinigameUI";
-
 
         /// <summary>
         /// 初期設定を行う関数
@@ -97,6 +121,14 @@ namespace PESDISASTER
         private void Start()
         {
             reloadMinigameUI = GameObject.Find(reloadMinigameUI_Name).GetComponent<ReloadMinigameUI_Manager>();// シーン内からReloadMinigameUIを探して取得
+
+            hipPosition = transform.localPosition;// ゲーム開始時の銃の位置を「通常時の位置」として記憶しておく
+
+            // もしカメラが設定されている場合
+            if (fpsCamera != null)
+            {
+                fpsCamera.fieldOfView = normalFOV;// カメラの初期FOVを設定
+            }
         }
 
         /// <summary>
@@ -234,6 +266,43 @@ namespace PESDISASTER
 
             isReloading = false;
             Debug.Log($"リロード完了！ 残弾: {currentAmmo} / {reserveAmmo}");
+        }
+
+        /// <summary>
+        /// 毎フレーム処理を行う関数
+        /// </summary>
+        private void Update()
+        {
+            float step = Time.deltaTime * aimSpeed;// エイムのスムーズさを調整するためのステップ値を計算
+
+            // 銃の位置をエイム状態に応じてスムーズに変化させる処理
+            Vector3 targetPos = isAiming ? aimPosition : hipPosition;// 目標位置を決定
+            transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, step);// 銃の位置をスムーズに移動させる
+
+            // もしカメラが設定されている場合
+            if (fpsCamera != null)
+            {
+                float targetFOV = isAiming ? aimFOV : normalFOV;// 目標FOVを決定
+                fpsCamera.fieldOfView = Mathf.Lerp(fpsCamera.fieldOfView, targetFOV, step);// カメラのFOVをスムーズに変化させる
+            }
+        }
+
+        /// <summary>
+        /// Input Systemの「Aim」アクションに紐付ける関数
+        /// </summary>
+        /// <param name="context"></param>
+        public void OnAim(InputAction.CallbackContext context)
+        {
+            // もし銃装備中にボタンが押された場合
+            if (context.performed && isEquipped)
+            {
+                isAiming = true;
+            }
+            // もし銃装備中にボタンが離された場合
+            else if (context.canceled && isEquipped)
+            {
+                isAiming = false;
+            }
         }
     }
 }

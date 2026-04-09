@@ -150,13 +150,17 @@ MonoBehaviour:
   muzzleLocation: {fileID: 7767437618808433387}
   impactEffectPrefab: {fileID: 0}
   gunAnimator: {fileID: 3329401945029180246}
-  damage: 10
+  aimPosition: {x: 0, y: -1.07, z: 1.2}
   maxClipAmmo: 10
   currentAmmo: 10
   reserveAmmo: 30
   range: 50
   fireRate: 0.3
   reloadTime: 1.5
+  damage: 10
+  aimSpeed: 10
+  normalFOV: 60
+  aimFOV: 40
 --- !u!1001 &917152872588751658
 PrefabInstance:
   m_ObjectHideFlags: 0
