@@ -1,5 +1,5 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PESDISASTER
 {
@@ -9,17 +9,24 @@ namespace PESDISASTER
     public class StageManager : MonoBehaviour
     {
         /// <summary>
-        /// クリアボタンの参照用変数
+        /// イントロ演出用のアニメーターを参照する変数
         /// </summary>
-        private Button clearButton = null;
+        private Animator introAnimator;
+
+        /// <summary>
+        /// 演出の持続時間を参照する変数
+        /// </summary>
+        private float introEventDuration = 16f;
 
         /// <summary>
         /// 初期設定を行う関数
         /// </summary>
         private void Start()
         {
-            clearButton = GameObject.Find("ClearButton").GetComponent<Button>();// シーン内からClearButtonを探して取得
-            clearButton.onClick.AddListener(MoveClear);// クリアボタンがクリックされたとき、GoScene関数を呼び出すように設定
+            introAnimator = GetComponent<Animator>();
+            TransitionUI_Manager.instance.Show();
+            PlayerController.instance.isSleeping = true;
+            StartCoroutine(IntroEventCoroutine());// イントロ演出を開始
         }
 
         /// <summary>
@@ -28,6 +35,30 @@ namespace PESDISASTER
         private void MoveClear()
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene("Clear");
+        }
+
+        /// <summary>
+        /// イントロ演出を行うコルーチン
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator IntroEventCoroutine()
+        {
+            yield return new WaitForSeconds(introEventDuration);// 演出の持続時間を待つ
+            TransitionUI_Manager.instance.Hide();
+            PlayerController.instance.isSleeping = false;
+            OnIntroEnd();// イントロ演出の終了処理を呼び出す
+        }
+
+        /// <summary>
+        /// イントロ演出の終了時にプレイヤーの操作を許可する関数
+        /// </summary>
+        private void OnIntroEnd()
+        {
+            // イントロ用のアニメーターを止める
+            introAnimator.enabled = false;
+
+            // プレイヤーの移動スクリプトを有効にする
+            PlayerController.instance.enabled = true;
         }
     }
 }

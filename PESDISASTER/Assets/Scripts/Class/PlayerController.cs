@@ -38,6 +38,10 @@ namespace PESDISASTER
         /// アイテムに関するクラスを参照する変数
         /// </summary>
         private ItemManager item;
+        /// <summary>
+        /// プレイヤーコントローラーのインスタンスを参照する変数
+        /// </summary>
+        public static PlayerController instance { get; private set; }
 
         /// <summary>
         /// プレイヤーのキャラクターコントローラーを参照する変数
@@ -159,7 +163,7 @@ namespace PESDISASTER
         /// <summary>
         /// プレイヤーの操作を有効にするかどうかを示すフラグを参照する変数
         /// </summary>
-        public bool isSleeping { get; private set; }
+        public bool isSleeping = false;
 
         // モーション状態定義の列挙型
         private enum MotionState
@@ -172,14 +176,16 @@ namespace PESDISASTER
         /// <summary>
         /// ゲーム開始時の初期設定を行う関数
         /// </summary>
-        private void Start()
+        private void Awake()
         {
-            // カーソル設定
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;// カーソルを非表示にする
+            instance = this;
 
             // コンポーネントの登録
             characterController = GetComponent<CharacterController>();
+
+            // カーソル設定
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;// カーソルを非表示にする
 
             // もしプレイヤー視点カメラが正しく設定されている場合
             if (mainCamera != null && mainCameraTransform != null)
