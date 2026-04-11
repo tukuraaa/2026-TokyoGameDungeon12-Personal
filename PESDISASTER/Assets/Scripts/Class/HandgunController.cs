@@ -18,6 +18,14 @@ namespace PESDISASTER
         /// 銃口の空オブジェクトを参照する変数
         /// </summary>
         public Transform muzzleLocation;
+        /// <summary>
+        /// エイム時の銃の位置・回転を参照する変数
+        /// </summary>
+        public Transform aimTransform;
+        /// <summary>
+        /// 腰持ち時の銃の位置・回転を参照する変数
+        /// </summary>
+        public Transform hipTransform;
 
         /// <summary>
         /// 着弾時の火花や弾痕のプレハブを参照する変数
@@ -273,11 +281,23 @@ namespace PESDISASTER
         /// </summary>
         private void Update()
         {
+            // もし装備していない場合
+            if (!isEquipped)
+            {
+                return;
+            }
+
             float step = Time.deltaTime * aimSpeed;// エイムのスムーズさを調整するためのステップ値を計算
 
-            // 銃の位置をエイム状態に応じてスムーズに変化させる処理
-            Vector3 targetPos = isAiming ? aimPosition : hipPosition;// 目標位置を決定
-            transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, step);// 銃の位置をスムーズに移動させる
+            Transform target = isAiming ? aimTransform : hipTransform ;// ターゲットを「aimTransform」か「hipTransform」で切り替える
+
+            // もしターゲットが設定されている場合
+            if (target != null)
+            {
+                // 銃本体(transform)を、ターゲットの位置・回転へ滑らかに移動させる
+                transform.localPosition = Vector3.Lerp(transform.localPosition, target.localPosition, step);// 位置をスムーズに補間
+                transform.localRotation = Quaternion.Slerp(transform.localRotation, target.localRotation, step);// 回転をスムーズに補間
+            }
 
             // もしカメラが設定されている場合
             if (fpsCamera != null)

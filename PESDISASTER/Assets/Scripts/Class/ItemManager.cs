@@ -148,11 +148,15 @@ namespace PESDISASTER
 
             SetLayerRecursively(gameObject, holdItemLayer);// オブジェクトのレイヤーを変更
 
-            transform.SetParent(cameraTransform, true);// アイテムをカメラの子オブジェクトにする
+            WeaponFollower follower = GetComponentInParent<WeaponFollower>();// このItemManagerが付いているオブジェクトの親（HandgunContainer）を取得
 
-            StartCoroutine(MoveToHoldPosition(holdPosition));// 手元の位置へ滑らかに移動させるコルーチンを開始
+            // もしWeaponFollowerがついている場合
+            if (follower != null)
+            {
+                follower.StartFollowing(cameraTransform);// WeaponFollowerの関数を呼び出して、カメラの動きに追従させる
+            }
 
-            GetInteractText();// アイテムの名前を表示する
+            StartCoroutine(MoveToHoldPosition(cameraTransform, holdPosition));// 手元の位置へ滑らかに移動させるコルーチンを開始
 
             // もし拾ったアイテムがハンドガンの場合
             if (itemName == handgunName)
@@ -180,34 +184,38 @@ namespace PESDISASTER
         /// </summary>
         /// <param name="targetHoldPosition"></param>
         /// <returns></returns>
-        private IEnumerator MoveToHoldPosition(Transform targetHoldPosition)
+        private IEnumerator MoveToHoldPosition(Transform cameraTransform, Transform targetHoldPosition)
         {
             float elapsedTime = 0f;// アイテムを拾う経過時間を参照する変数
 
-            // 移動開始前の位置と回転を記憶
-            Vector3 startLocal_Position = transform.localPosition;
-            Quaternion startLocal_Rotation = transform.localRotation;
+            // 移動開始時の、カメラから見た相対的な位置と回転を記録
+            Vector3 startRelativePos = cameraTransform.InverseTransformPoint(transform.position);// カメラの座標系での位置を計算
+            Quaternion startRelativeRot = Quaternion.Inverse(cameraTransform.rotation) * transform.rotation;// カメラの座標系での回転を計算
 
-            // ターゲット（HoldPosition）もカメラの子なので、そのローカル座標を目標にする
-            Vector3 targetLocal_Position = targetHoldPosition.localPosition;
-            Quaternion targetLocal_Rotation = targetHoldPosition.localRotation;
+            // 目標とする相対位置
+            Vector3 targetRelativePos = cameraTransform.InverseTransformPoint(targetHoldPosition.position);// カメラの座標系での位置を計算
+            Quaternion targetRelativeRot = Quaternion.Inverse(cameraTransform.rotation) * targetHoldPosition.rotation;// カメラの座標系での回転を計算
 
             // アイテムが手元に移動するまでの時間がアイテムを拾う経過時間より長い間はループ
             while (elapsedTime < moveDuration)
             {
-                float time = elapsedTime / moveDuration;// 0～1の割合を計算
+                float time = Mathf.SmoothStep(0f, easingNumber, elapsedTime / moveDuration);// 経過時間を0から1の範囲に正規化して、イージングする
 
-                time = Mathf.SmoothStep(0f, easingNumber, time); ;// より自然な動きにするためのイージング
+                // カメラの現在の位置・回転をベースに、補間した相対位置をワールド座標に変換して適用
+                Vector3 currentRelativePos = Vector3.Lerp(startRelativePos, targetRelativePos, time);// Lerpで滑らかに補間
+                Quaternion currentRelativeRot = Quaternion.Lerp(startRelativeRot, targetRelativeRot, time);// Lerpで滑らかに補間
 
-                // Lerpで滑らかに補間
-                transform.localPosition = Vector3.Lerp(startLocal_Position, targetLocal_Position, time);
-                transform.localRotation = Quaternion.Lerp(startLocal_Rotation, targetLocal_Rotation, time);
+                // カメラの座標系での位置と回転をワールド座標に変換して適用
+                transform.position = cameraTransform.TransformPoint(currentRelativePos);// カメラの座標系での位置をワールド座標に変換して適用
+                transform.rotation = cameraTransform.rotation * currentRelativeRot;// カメラの回転に相対回転を掛けてワールド座標に変換して適用
 
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
-            transform.SetLocalPositionAndRotation(targetLocal_Position, targetLocal_Rotation);// 最後にズレをなくすため、目標と完全に一致させる
+            // 最後に目標の親のローカル座標にリセット
+            transform.localPosition = targetHoldPosition.localPosition;// 目標の親のローカル位置にリセット
+            transform.localRotation = targetHoldPosition.localRotation;// 目標の親のローカル回転にリセット
         }
     }
 }

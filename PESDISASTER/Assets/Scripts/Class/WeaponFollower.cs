@@ -7,19 +7,32 @@ namespace PESDISASTER
         /// <summary>
         /// 追従する対象を参照する変数
         /// </summary>
-        public Transform targetCamera;
+        private Transform targetCamera;
+
+        /// <summary>
+        /// 追従を開始するかどうかのフラグ
+        /// </summary>
+        private bool isFollowing = false;
+
+        /// <summary>
+        /// ItemManagerからこれを呼んで追従を開始させる関数
+        /// </summary>
+        /// <param name="cameraTransform"></param>
+        public void StartFollowing(Transform cameraTransform)
+        {
+            targetCamera = cameraTransform;// 追従する対象を設定
+            isFollowing = true;// 追従を開始するフラグをオン
+        }
 
         /// <summary>
         /// 毎フレーム、LateUpdateでカメラの位置と回転を追従させる関数
         /// </summary>
-        private void LateUpdate()
+        private void Update()
         {
-            // もし追従する対象が設定されている場合
-            if (targetCamera != null)
+            // もし追従が有効で、対象のカメラが存在する場合
+            if (isFollowing && targetCamera != null)
             {
-                // 位置と回転をカメラと完全に一致させる
-                transform.position = targetCamera.position;// カメラの位置に武器を移動させる
-                transform.rotation = targetCamera.rotation;// カメラの回転に武器を回転させる
+                transform.SetPositionAndRotation(targetCamera.position, targetCamera.rotation);// カメラと全く同じ位置・回転にする
             }
         }
     }
