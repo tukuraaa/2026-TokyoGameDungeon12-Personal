@@ -39,6 +39,14 @@ namespace PESDISASTER
         /// </summary>
         private ItemManager item;
         /// <summary>
+        /// 棚の状態を管理するクラスを参照する変数
+        /// </summary>
+        private LockedShelf lockedShelf;
+        /// <summary>
+        /// ハンドガンの操作を管理するクラスを参照する変数
+        /// </summary>
+        private HandgunController handgunController;
+        /// <summary>
         /// プレイヤーコントローラーのインスタンスを参照する変数
         /// </summary>
         public static PlayerController instance { get; private set; }
@@ -165,6 +173,15 @@ namespace PESDISASTER
         /// </summary>
         public bool isSleeping = false;
 
+        /// <summary>
+        /// 棚のオブジェクトの名前を参照する変数
+        /// </summary>
+        private string shelfName = "StandObject";
+        /// <summary>
+        /// ハンドガンのオブジェクトの名前を参照する変数
+        /// </summary>
+        private string handgunName = "HandgunRoot";
+
         // モーション状態定義の列挙型
         private enum MotionState
         {
@@ -182,6 +199,8 @@ namespace PESDISASTER
 
             // コンポーネントの登録
             characterController = GetComponent<CharacterController>();
+            lockedShelf = GameObject.Find(shelfName).GetComponent<LockedShelf>();// 棚の状態を管理するクラスを検索して登録
+            handgunController = GameObject.Find(handgunName).GetComponent<HandgunController>();// ハンドガンの操作を管理するクラスを検索して登録
 
             // カーソル設定
             Cursor.lockState = CursorLockMode.Locked;
@@ -268,6 +287,14 @@ namespace PESDISASTER
                 if (currentTarget != null)
                 {
                     PerformPickupInteraction();// アイテムを拾う準備を行い、拾う
+                    return;
+                }
+
+                // もしクラスが棚の状態を管理するクラスを正しく参照している場合
+                if (lockedShelf != null)
+                {
+                    lockedShelf.OpenShelf();// 棚を開ける処理
+                    return;
                 }
             }
         }

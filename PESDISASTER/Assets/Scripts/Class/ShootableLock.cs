@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 namespace PESDISASTER
 {
@@ -16,11 +17,25 @@ namespace PESDISASTER
         /// 破壊時のエフェクトのプレハブを参照する変数
         /// </summary>
         public GameObject breakEffectPrefab;
+        /// <summary>
+        /// 錠前のオブジェクトを参照する変数
+        /// </summary>
+        public GameObject padlockObject;
 
         /// <summary>
-        /// 銃弾が当たった時に呼ばれる関数
+        /// 錠前が破壊されたかどうかを管理する変数
         /// </summary>
-        public void BreakLock()
+        public bool isBroken = false;
+
+        /// <summary>
+        /// 壊れる演出の時間を参照する変数
+        /// </summary>
+        private float breakEffectDuration = 0.5f;
+
+        /// <summary>
+        /// 銃弾が当たった時に呼ばれるコルーチン
+        /// </summary>
+        public IEnumerator BreakLockCoroutine()
         {
             // もし錠前が連携する棚を持っている場合
             if (targetShelf != null)
@@ -34,7 +49,11 @@ namespace PESDISASTER
                 Instantiate(breakEffectPrefab, transform.position, transform.rotation);// 錠前の位置と回転でエフェクトを生成する
             }
 
-            Destroy(gameObject);// 3. 錠前自体を消滅させる
+            Destroy(padlockObject);// 錠前自体を消滅させる
+
+            yield return new WaitForSeconds(breakEffectDuration);// 壊れる演出の時間を待つ
+
+            isBroken = true;
         }
     }
 }

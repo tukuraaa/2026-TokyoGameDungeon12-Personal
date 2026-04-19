@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6177874999076153504}
   - component: {fileID: 3344598424714373859}
   - component: {fileID: 1695858075677218757}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Upper_part_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 7547123719532478118}
   - component: {fileID: 2332821345811570646}
   - component: {fileID: 5270815645217170498}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Upper_part_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,69 +180,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &3503382476789360646
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 178240785413363937}
-  - component: {fileID: 5498186935728782087}
-  - component: {fileID: 2345562377205235398}
-  m_Layer: 0
-  m_Name: Upper_part_collider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &178240785413363937
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3503382476789360646}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1694997322206966447}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5498186935728782087
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3503382476789360646}
-  m_Mesh: {fileID: 809956448502780140, guid: e56bc73f9f5760b4abe680b2a89efd82, type: 3}
---- !u!64 &2345562377205235398
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3503382476789360646}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 809956448502780140, guid: e56bc73f9f5760b4abe680b2a89efd82, type: 3}
 --- !u!1 &4306503987809214854
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +192,7 @@ GameObject:
   - component: {fileID: 515606867105592473}
   - component: {fileID: 2360795498031628371}
   - component: {fileID: 53117492666455747}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Padlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,16 +207,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4306503987809214854}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1694997322206966447}
   - {fileID: 8557914562269888834}
   - {fileID: 5405035608154631755}
   - {fileID: 6765595558221920076}
-  - {fileID: 5744325275290584864}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &515606867105592473
@@ -385,7 +321,7 @@ GameObject:
   - component: {fileID: 1694997322206966447}
   - component: {fileID: 8745765242720053449}
   - component: {fileID: 6109620589204050946}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Upper_part_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -408,7 +344,6 @@ Transform:
   - {fileID: 7547123719532478118}
   - {fileID: 7984243275062038443}
   - {fileID: 6177874999076153504}
-  - {fileID: 178240785413363937}
   m_Father: {fileID: 3497069454454143804}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8745765242720053449
@@ -479,7 +414,7 @@ GameObject:
   - component: {fileID: 5405035608154631755}
   - component: {fileID: 8983925526379618798}
   - component: {fileID: 6577973324997661988}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Padlock_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -558,69 +493,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &4970885247312731546
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5744325275290584864}
-  - component: {fileID: 8653713904841607301}
-  - component: {fileID: 3809591135704020535}
-  m_Layer: 0
-  m_Name: Padlock_collider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5744325275290584864
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4970885247312731546}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3497069454454143804}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8653713904841607301
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4970885247312731546}
-  m_Mesh: {fileID: 7838714385733349630, guid: e56bc73f9f5760b4abe680b2a89efd82, type: 3}
---- !u!64 &3809591135704020535
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4970885247312731546}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 7838714385733349630, guid: e56bc73f9f5760b4abe680b2a89efd82, type: 3}
 --- !u!1 &6116691730095617937
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,7 +504,7 @@ GameObject:
   - component: {fileID: 7984243275062038443}
   - component: {fileID: 1182088121479910545}
   - component: {fileID: 5383880324153134742}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Upper_part_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -722,7 +594,7 @@ GameObject:
   - component: {fileID: 6765595558221920076}
   - component: {fileID: 7659464930294773993}
   - component: {fileID: 5597716553586494499}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Padlock_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -812,7 +684,7 @@ GameObject:
   - component: {fileID: 8557914562269888834}
   - component: {fileID: 4714154345706442471}
   - component: {fileID: 7388433568921467437}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Padlock_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

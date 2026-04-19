@@ -110,13 +110,13 @@ namespace PESDISASTER
         /// </summary>
         private bool isReloading = false;
         /// <summary>
-        /// 銃を装備しているかを参照する変数
-        /// </summary>
-        private bool isEquipped = false;
-        /// <summary>
         /// エイム中かどうかを参照する変数
         /// </summary>
         private bool isAiming = false;
+        /// <summary>
+        /// 銃を装備しているかを参照する変数
+        /// </summary>
+        public bool isEquipped = false;
 
         /// <summary>
         /// リロードミニゲームのUIを管理するクラスのオブジェクト名を参照する変数
@@ -240,6 +240,14 @@ namespace PESDISASTER
                 if (enemy != null)
                 {
                     enemy.TakeDamage(damage);
+                }
+
+                ShootableLock targetLock = hit.collider.GetComponent<ShootableLock>();// 当たったオブジェクトが錠前を持っているか確認
+
+                // もし錠前を持っている場合
+                if (targetLock != null)
+                {
+                    targetLock.StartCoroutine(targetLock.BreakLockCoroutine());// 錠前だったら破壊処理を実行
                 }
 
                 // もし着弾エフェクトのプレハブが設定されている場合

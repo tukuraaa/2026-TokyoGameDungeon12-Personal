@@ -16,7 +16,7 @@ namespace PESDISASTER
         /// <summary>
         /// ‰‰o‚Ì‘±ŠÔ‚ğQÆ‚·‚é•Ï”
         /// </summary>
-        private float introEventDuration = 16f;
+        public float introEventDuration = 16f;
 
         /// <summary>
         /// ‰Šúİ’è‚ğs‚¤ŠÖ”
