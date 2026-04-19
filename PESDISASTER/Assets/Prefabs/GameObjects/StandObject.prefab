@@ -1,0 +1,226 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3523827606955010812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2703346162172830676}
+  - component: {fileID: 8998333428680935102}
+  m_Layer: 7
+  m_Name: StandObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2703346162172830676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3523827606955010812}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6129984974914501155}
+  - {fileID: 8583101359310025097}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8998333428680935102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3523827606955010812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e391e37e7c58a846bf4b168915025f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.LockedShelf
+  doorTransform: {fileID: 7425809980987768458}
+  shootableLock: {fileID: 0}
+--- !u!1 &8939205961811751184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8583101359310025097}
+  m_Layer: 7
+  m_Name: Drawer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8583101359310025097
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8939205961811751184}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7425809980987768458}
+  m_Father: {fileID: 2703346162172830676}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &3134654180209734534
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8583101359310025097}
+    m_Modifications:
+    - target: {fileID: 5171980820750735286, guid: ae8caff6c887543b6aaa26165bf5ecbe, type: 3}
+      propertyPath: m_Name
+      value: wood_props_night_stand_drawer
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516137187869674764, guid: ae8caff6c887543b6aaa26165bf5ecbe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.956
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516137187869674764, guid: ae8caff6c887543b6aaa26165bf5ecbe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.471
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516137187869674764, guid: ae8caff6c887543b6aaa26165bf5ecbe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.505
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516137187869674764, guid: ae8caff6c887543b6aaa26165bf5ecbe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516137187869674764, guid: ae8caff6c887543b6aaa26165bf5ecbe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516137187869674764, guid: ae8caff6c887543b6aaa26165bf5ecbe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516137187869674764, guid: ae8caff6c887543b6aaa26165bf5ecbe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516137187869674764, guid: ae8caff6c887543b6aaa26165bf5ecbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516137187869674764, guid: ae8caff6c887543b6aaa26165bf5ecbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516137187869674764, guid: ae8caff6c887543b6aaa26165bf5ecbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ae8caff6c887543b6aaa26165bf5ecbe, type: 3}
+--- !u!4 &7425809980987768458 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5516137187869674764, guid: ae8caff6c887543b6aaa26165bf5ecbe, type: 3}
+  m_PrefabInstance: {fileID: 3134654180209734534}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7254255994562188526
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2703346162172830676}
+    m_Modifications:
+    - target: {fileID: 3584407628415119053, guid: b597a1284cf3d4565ad073cfd611bd09, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.7599995
+      objectReference: {fileID: 0}
+    - target: {fileID: 3584407628415119053, guid: b597a1284cf3d4565ad073cfd611bd09, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 3584407628415119053, guid: b597a1284cf3d4565ad073cfd611bd09, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.7599995
+      objectReference: {fileID: 0}
+    - target: {fileID: 3584407628415119053, guid: b597a1284cf3d4565ad073cfd611bd09, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.019
+      objectReference: {fileID: 0}
+    - target: {fileID: 3584407628415119053, guid: b597a1284cf3d4565ad073cfd611bd09, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 3584407628415119053, guid: b597a1284cf3d4565ad073cfd611bd09, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.497
+      objectReference: {fileID: 0}
+    - target: {fileID: 3584407628415119053, guid: b597a1284cf3d4565ad073cfd611bd09, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3584407628415119053, guid: b597a1284cf3d4565ad073cfd611bd09, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3584407628415119053, guid: b597a1284cf3d4565ad073cfd611bd09, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3584407628415119053, guid: b597a1284cf3d4565ad073cfd611bd09, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3584407628415119053, guid: b597a1284cf3d4565ad073cfd611bd09, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3584407628415119053, guid: b597a1284cf3d4565ad073cfd611bd09, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3584407628415119053, guid: b597a1284cf3d4565ad073cfd611bd09, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3584407628415119053, guid: b597a1284cf3d4565ad073cfd611bd09, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248459138068280439, guid: b597a1284cf3d4565ad073cfd611bd09, type: 3}
+      propertyPath: m_Name
+      value: wood_props_night_stand
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248459138068280439, guid: b597a1284cf3d4565ad073cfd611bd09, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b597a1284cf3d4565ad073cfd611bd09, type: 3}
+--- !u!4 &6129984974914501155 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3584407628415119053, guid: b597a1284cf3d4565ad073cfd611bd09, type: 3}
+  m_PrefabInstance: {fileID: 7254255994562188526}
+  m_PrefabAsset: {fileID: 0}
