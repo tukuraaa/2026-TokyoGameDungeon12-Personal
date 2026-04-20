@@ -12,6 +12,10 @@ namespace PESDISASTER
         /// 棚のドアのTransformを参照する変数
         /// </summary>
         public Transform doorTransform;
+        /// <summary>
+        /// 鍵のTransformを参照する変数
+        /// </summary>
+        public Transform keyTransform;
 
         /// <summary>
         /// 錠前のスクリプトを参照する変数
@@ -28,13 +32,17 @@ namespace PESDISASTER
         private bool isOpen = false;
 
         /// <summary>
-        /// ドアを開けるときの移動量を参照する変数
+        /// 棚を開けるときのZ軸移動量を参照する変数
         /// </summary>
-        private float transformPositionX_Value = -0.8f;
+        private float transformDoorPositionX_Value = -0.501f;
         /// <summary>
         /// 棚を開けるアニメーションの時間を参照する変数
         /// </summary>
         private float openDuration = 1f;
+        /// <summary>
+        /// 棚を開けるときのX軸移動量を参照する変数
+        /// </summary>
+        private float transformKeyPositionX_Value = -0.501f;
 
         /// <summary>
         /// 錠前が破壊された時に呼ばれる関数
@@ -65,7 +73,7 @@ namespace PESDISASTER
             {
                 isOpen = true;
 
-                StartCoroutine(OpenShelfCoroutine(doorTransform.position + new Vector3(transformPositionX_Value, 0, 0), openDuration));// ドアを開けるアニメーションを開始
+                StartCoroutine(OpenShelfCoroutine(doorTransform.position + new Vector3(transformDoorPositionX_Value, 0, 0), keyTransform.position + new Vector3(transformKeyPositionX_Value, 0, 0), openDuration));// ドアを開けるアニメーションを開始
             }
         }
 
@@ -73,9 +81,10 @@ namespace PESDISASTER
         /// 棚を開けるアニメーションを行うコルーチン
         /// </summary>
         /// <returns></returns>
-        private IEnumerator OpenShelfCoroutine(Vector3 targetPosition, float duration)
+        private IEnumerator OpenShelfCoroutine(Vector3 targetDoorPosition, Vector3 targetKeyPosition, float duration)
         {
-            Vector3 startPosition = doorTransform.position; // 開始位置
+            Vector3 startDoorPosition = doorTransform.position; // 開始位置
+            Vector3 startKeyPosition = keyTransform.position; // 開始位置
             float elapsed = 0f; // 経過時間
 
             // durationの間、毎フレーム位置を更新していく
@@ -83,14 +92,16 @@ namespace PESDISASTER
             {
                 float t = elapsed / duration;// 経過時間をもとにLerpの割合（0～1）を計算
 
-                doorTransform.position = Vector3.Lerp(startPosition, targetPosition, t);// Lerpで位置を補間
+                doorTransform.position = Vector3.Lerp(startDoorPosition, targetDoorPosition, t);// Lerpで位置を補間
+                keyTransform.position = Vector3.Lerp(startKeyPosition, targetKeyPosition, t);// Lerpで位置を補間
 
                 elapsed += Time.deltaTime;// 経過時間を更新
 
                 yield return null;
             }
 
-            doorTransform.position = targetPosition;// 最後に確実に目的地に配置
+            doorTransform.position = targetDoorPosition;// 最後に確実に目的地に配置
+            keyTransform.position = targetKeyPosition;// 最後に確実に目的地に配置
         }
     }
 }

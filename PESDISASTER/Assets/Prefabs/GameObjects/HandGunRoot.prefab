@@ -130,9 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.PickupItem
   itemName: "\u30CF\u30F3\u30C9\u30AC\u30F3"
-  cameraName: MainCamera
-  holdName: HoldPosition
-  layerName: Hold_Item
+  holdName: RightHoldPosition
   moveDuration: 0.4
 --- !u!114 &4883363815817356659
 MonoBehaviour:
@@ -148,6 +146,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.HandgunController
   fpsCamera: {fileID: 0}
   muzzleLocation: {fileID: 7767437618808433387}
+  aimTransform: {fileID: 0}
+  hipTransform: {fileID: 0}
   impactEffectPrefab: {fileID: 0}
   gunAnimator: {fileID: 3329401945029180246}
   aimPosition: {x: 0, y: -1.07, z: 1.2}
@@ -161,6 +161,7 @@ MonoBehaviour:
   aimSpeed: 10
   normalFOV: 60
   aimFOV: 40
+  isEquipped: 0
 --- !u!1001 &917152872588751658
 PrefabInstance:
   m_ObjectHideFlags: 0

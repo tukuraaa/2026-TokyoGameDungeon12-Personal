@@ -52,15 +52,15 @@ namespace PESDISASTER
         /// <summary>
         /// カメラの名前を参照する変数
         /// </summary>
-        public string cameraName = "MainCamera";
+        private string cameraName = "MainCamera";
         /// <summary>
         /// 右手元の名前を参照する変数
         /// </summary>
-        public string holdName = "HoldPosition";
+        public string holdName = "RightHoldPosition";
         /// <summary>
         /// 特定のレイヤーの名前を参照する変数
         /// </summary>
-        public string layerName = "Hold_Item";
+        private string layerName = "Hold_Item";
 
         /// <summary>
         /// アイテムを拾ったか否かのフラグを参照する変数

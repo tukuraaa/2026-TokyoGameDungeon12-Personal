@@ -47,6 +47,10 @@ namespace PESDISASTER
         /// </summary>
         private HandgunController handgunController;
         /// <summary>
+        /// 鍵付きドアの状態を管理するクラスを参照する変数
+        /// </summary>
+        private LockedDoor lockedDoor;
+        /// <summary>
         /// プレイヤーコントローラーのインスタンスを参照する変数
         /// </summary>
         public static PlayerController instance { get; private set; }
@@ -181,6 +185,10 @@ namespace PESDISASTER
         /// ハンドガンのオブジェクトの名前を参照する変数
         /// </summary>
         private string handgunName = "HandgunRoot";
+        /// <summary>
+        /// ロックされたドアのオブジェクトの名前を参照する変数
+        /// </summary>
+        private string lockedDoorName = "Door03_pr";
 
         // モーション状態定義の列挙型
         private enum MotionState
@@ -201,6 +209,7 @@ namespace PESDISASTER
             characterController = GetComponent<CharacterController>();
             lockedShelf = GameObject.Find(shelfName).GetComponent<LockedShelf>();// 棚の状態を管理するクラスを検索して登録
             handgunController = GameObject.Find(handgunName).GetComponent<HandgunController>();// ハンドガンの操作を管理するクラスを検索して登録
+            lockedDoor = GameObject.Find(lockedDoorName).GetComponent<LockedDoor>();// 鍵付きドアの状態を管理するクラスを検索して登録
 
             // カーソル設定
             Cursor.lockState = CursorLockMode.Locked;
@@ -294,6 +303,13 @@ namespace PESDISASTER
                 if (lockedShelf != null)
                 {
                     lockedShelf.OpenShelf();// 棚を開ける処理
+                    return;
+                }
+
+                // もしクラスがハンドガンの操作を管理するクラスを正しく参照している場合
+                if (lockedDoor != null)
+                {
+                    lockedDoor.Interact();// ドアを開ける処理
                     return;
                 }
             }

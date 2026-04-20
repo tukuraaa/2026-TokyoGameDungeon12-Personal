@@ -37,7 +37,7 @@ namespace PESDISASTER
         /// <summary>
         /// ミニゲームで使用するキーの候補を参照する変数の配列
         /// </summary>
-        private Key[] possibleKeys = { Key.E, Key.F, Key.Q, Key.T };
+        private Key[] possibleKeys = { Key.F, Key.G, Key.Q, Key.T };
 
         /// <summary>
         /// 初期設定を行う関数
