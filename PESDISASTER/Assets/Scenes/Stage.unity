@@ -904,7 +904,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b4d3283ad7f40e438eb457e1ee459c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageManager
-  introEventDuration: 1.6
+  transitionUI_Manager: {fileID: 1565021249651991167}
+  introEventDuration: 17
 --- !u!95 &233239381
 Animator:
   serializedVersion: 7
@@ -4235,6 +4236,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1463dd84e3140e64cb3cab75bdb49bf2, type: 3}
+--- !u!114 &1565021249651991167 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6392766211056797803, guid: 1463dd84e3140e64cb3cab75bdb49bf2, type: 3}
+  m_PrefabInstance: {fileID: 1565021249651991166}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c639a9dd12186ba41b9c5167bd3c352b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.TransitionUI_Manager
 --- !u!114 &1825014597981464630 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4570648027273041831, guid: 2e811739b1a92fb4ebe42b1832fc4179, type: 3}

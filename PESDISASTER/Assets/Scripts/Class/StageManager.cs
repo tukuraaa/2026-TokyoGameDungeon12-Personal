@@ -14,6 +14,11 @@ namespace PESDISASTER
         private Animator introAnimator;
 
         /// <summary>
+        /// 遷移演出用UIを管理するクラスを参照する変数
+        /// </summary>
+        public TransitionUI_Manager transitionUI_Manager;
+
+        /// <summary>
         /// 演出の持続時間を参照する変数
         /// </summary>
         public float introEventDuration = 16f;
@@ -24,7 +29,7 @@ namespace PESDISASTER
         private void Start()
         {
             introAnimator = GetComponent<Animator>();
-            TransitionUI_Manager.instance.Show();
+            transitionUI_Manager.Show();
             PlayerController.instance.isSleeping = true;
             StartCoroutine(IntroEventCoroutine());// イントロ演出を開始
         }
@@ -44,7 +49,7 @@ namespace PESDISASTER
         private IEnumerator IntroEventCoroutine()
         {
             yield return new WaitForSeconds(introEventDuration);// 演出の持続時間を待つ
-            TransitionUI_Manager.instance.Hide();
+            transitionUI_Manager.Hide();
             PlayerController.instance.isSleeping = false;
             OnIntroEnd();// イントロ演出の終了処理を呼び出す
         }
