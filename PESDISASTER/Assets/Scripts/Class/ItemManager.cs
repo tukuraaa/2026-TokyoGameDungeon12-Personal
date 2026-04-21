@@ -26,6 +26,10 @@ namespace PESDISASTER
         /// プレイヤー右手元の位置を参照する変数
         /// </summary>
         private Transform holdPosition;
+        /// <summary>
+        /// 左手元の位置を参照する変数
+        /// </summary>
+        public Transform leftHoldPosition;
 
         /// <summary>
         /// ハンドガンの機能を制御するクラスを参照する変数
@@ -41,6 +45,10 @@ namespace PESDISASTER
         /// アイテムの名前を定数で保持
         /// </summary>
         private string handgunName = "ハンドガン";
+        /// <summary>
+        /// アイテムの名前を定数で保持
+        /// </summary>
+        private string bedKeyName = "寝室の鍵";
         /// <summary>
         /// ハンドガンの管理オブジェクトの名前を参照する変数
         /// </summary>
@@ -156,6 +164,12 @@ namespace PESDISASTER
                 follower.StartFollowing(cameraTransform);// WeaponFollowerの関数を呼び出して、カメラの動きに追従させる
             }
 
+            // もし拾ったアイテムが寝室の鍵の場合
+            if (itemName == bedKeyName)
+            {
+                holdPosition = leftHoldPosition;// 手元の目標位置を左手元の位置にする
+            }
+
             StartCoroutine(MoveToHoldPosition(cameraTransform, holdPosition));// 手元の位置へ滑らかに移動させるコルーチンを開始
 
             // もし拾ったアイテムがハンドガンの場合
@@ -212,10 +226,12 @@ namespace PESDISASTER
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
+            
+            transform.SetParent(targetHoldPosition.parent);// LeftHoldPosition等と同じ親の子にする
 
             // 最後に目標の親のローカル座標にリセット
             transform.localPosition = targetHoldPosition.localPosition;// 目標の親のローカル位置にリセット
             transform.localRotation = targetHoldPosition.localRotation;// 目標の親のローカル回転にリセット
         }
     }
-}
+    }

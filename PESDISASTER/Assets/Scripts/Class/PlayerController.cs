@@ -80,11 +80,6 @@ namespace PESDISASTER
         private Ray ray;
 
         /// <summary>
-        /// 壁の当たり判定を行うための位置を参照する変数の配列
-        /// </summary>
-        public Vector3[] wallCheckerPos;
-
-        /// <summary>
         /// ターゲットとなるインタラクト可能なオブジェクトを保持するための変数
         /// </summary>
         private I_Interactable currentTarget;
@@ -97,11 +92,6 @@ namespace PESDISASTER
         /// レイヤーマスクを使用して、インタラクト可能なオブジェクトを特定するための変数
         /// </summary>
         public LayerMask interactableLayer = default;
-
-        /// <summary>
-        /// 地面判定に使用するレイヤーを参照する変数
-        /// </summary>
-        public LayerMask groundLayer;
 
         /// <summary>
         /// 首の前後移動の入力を保持するための変数
@@ -180,7 +170,7 @@ namespace PESDISASTER
         /// <summary>
         /// 棚のオブジェクトの名前を参照する変数
         /// </summary>
-        private string shelfName = "StandObject";
+        private string shelfName = "StandObjectBedroom";
         /// <summary>
         /// ハンドガンのオブジェクトの名前を参照する変数
         /// </summary>
