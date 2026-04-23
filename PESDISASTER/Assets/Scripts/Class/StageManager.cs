@@ -17,6 +17,10 @@ namespace PESDISASTER
         /// 遷移演出用UIを管理するクラスを参照する変数
         /// </summary>
         public TransitionUI_Manager transitionUI_Manager;
+        /// <summary>
+        /// プレイヤーの操作UIを管理するクラスを参照する変数
+        /// </summary>
+        public PlayerControllerUI_Manager playerControllerUI_Manager;
 
         /// <summary>
         /// 演出の持続時間を参照する変数
@@ -59,11 +63,11 @@ namespace PESDISASTER
         /// </summary>
         private void OnIntroEnd()
         {
-            // イントロ用のアニメーターを止める
-            introAnimator.enabled = false;
+            introAnimator.enabled = false;// イントロ用のアニメーターを止める
+         
+            PlayerController.instance.enabled = true;// プレイヤーの移動スクリプトを有効にする
 
-            // プレイヤーの移動スクリプトを有効にする
-            PlayerController.instance.enabled = true;
+            playerControllerUI_Manager.StartTutorial();// 操作チュートリアルを開始する
         }
     }
 }

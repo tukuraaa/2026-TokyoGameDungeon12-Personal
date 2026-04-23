@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: InputPromptData
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.InputPromptData
   keyboardPrompts:
-  - promptSprite: {fileID: -1185322336, guid: 1f3b5d5677d343f4182ba2f8f9b3a6bf, type: 3}
-    key: 19
   - promptSprite: {fileID: -950195061, guid: c7c9d882e5cdf9d43b9964063b56febc, type: 3}
     key: 20
+  - promptSprite: {fileID: -1877771925, guid: 7092ef0adc7caf94d8ef2b246ef0468e, type: 3}
+    key: 21
   - promptSprite: {fileID: 1545936167, guid: 915fad5f161b28543beee5de319c9e63, type: 3}
     key: 31
   - promptSprite: {fileID: -2118484822, guid: 036891bacff8536499117720c00aed21, type: 3}

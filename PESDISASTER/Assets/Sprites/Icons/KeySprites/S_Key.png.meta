@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 117cc803cc93fc5408c8586e1c77c939
+guid: 3e3b0ba25d4867343948d195a2baff4e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,30 +93,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gemini_Generated_Image_rh4s58rh4s58rh4s (1)_0
+      name: S_Key_0
       rect:
         serializedVersion: 2
-        x: 629
-        y: 321
-        width: 117
-        height: 118
+        x: 60
+        y: 149
+        width: 450
+        height: 463
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 161ddded0abd0924799d3035c71d0c5d
-      internalID: 1037549082
+      spriteID: 9b4547e0be8527347b474afe812b9eaa
+      internalID: -1478694251
       vertices: []
       indices: 
       edges: []
@@ -135,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ff48e6050460e9f4580379d7ac4e38b8
+    spriteID: 75db4da221f599442a85bb4170d0df4e
     internalID: 0
     vertices: []
     indices: 
@@ -147,7 +134,7 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Gemini_Generated_Image_rh4s58rh4s58rh4s (1)_0: 1037549082
+      S_Key_0: -1478694251
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
