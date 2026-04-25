@@ -6,7 +6,7 @@ namespace PESDISASTER
     /// <summary>
     /// ドアのロックを管理するクラス
     /// </summary>
-    public class LockedDoor : MonoBehaviour
+    public class LockedDoor : MonoBehaviour, D_Interactable
     {
         /// <summary>
         /// プレイヤーの左手位置を参照する変数
