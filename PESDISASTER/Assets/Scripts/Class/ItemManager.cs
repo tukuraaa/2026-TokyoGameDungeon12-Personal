@@ -226,7 +226,7 @@ namespace PESDISASTER
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
-            
+
             transform.SetParent(targetHoldPosition.parent);// LeftHoldPosition等と同じ親の子にする
 
             // 最後に目標の親のローカル座標にリセット
@@ -234,4 +234,4 @@ namespace PESDISASTER
             transform.localRotation = targetHoldPosition.localRotation;// 目標の親のローカル回転にリセット
         }
     }
-    }
+}

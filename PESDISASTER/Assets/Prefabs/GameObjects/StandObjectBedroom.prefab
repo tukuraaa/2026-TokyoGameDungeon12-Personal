@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5825869932662564548}
   - component: {fileID: 8231880188886838329}
   - component: {fileID: 4703470499715470997}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: StandObjectBedroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e391e37e7c58a846bf4b168915025f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.LockedShelf
-  doorTransform: {fileID: 3214225851596059100}
+  doorTransform: {fileID: 9029120889720430822}
   keyTransform: {fileID: 6306479558012433365}
   shootableLock: {fileID: 0}
 --- !u!65 &4703470499715470997
@@ -69,8 +69,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3192677, y: 1.4709859, z: 1.16681}
-  m_Center: {x: -0.019077003, y: 0.72857, z: -0.040843964}
+  m_Size: {x: 1.3192677, y: 1.4835892, z: 1.16681}
+  m_Center: {x: -0.019077003, y: 0.7348716, z: -0.040843964}
 --- !u!1 &8229079594366336186
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,8 +124,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 0.42136407, z: 0.9910737}
-  m_Center: {x: -7.735211e-18, y: 0.20833838, z: 0.03179431}
+  m_Size: {x: 1, y: 0.43026924, z: 1.0062574}
+  m_Center: {x: -1.156218e-16, y: 0.21279097, z: 0.039386153}
 --- !u!1001 &6923854423798709456
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -286,7 +286,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2876435746906649486, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.697
+      value: 0.0734
       objectReference: {fileID: 0}
     - target: {fileID: 2876435746906649486, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -323,6 +323,14 @@ PrefabInstance:
     - target: {fileID: 4030386335865182169, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
       propertyPath: m_Name
       value: BedroomKeyRoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4030386335865182169, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4310132950992365701, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -80,18 +80,34 @@ namespace PESDISASTER
         private Ray ray;
 
         /// <summary>
-        /// ターゲットとなるインタラクト可能なオブジェクトを保持するための変数
+        /// ターゲットとなるインタラクト可能なオブジェクト（アイテム）を参照するための変数
         /// </summary>
-        private I_Interactable currentTarget;
+        private I_Interactable iCurrentTarget;
         /// <summary>
-        /// Rayが当たったオブジェクトを参照する変数
+        /// Rayが当たったオブジェクト（アイテム）を参照する変数
         /// </summary>
-        private I_Interactable interactable;
+        private I_Interactable i_Interactable;
+        /// <summary>
+        /// ターゲットとなるインタラクト可能なオブジェクト（棚）を参照するための変数
+        /// </summary>
+        private S_Interactable sCurrentTarget;
+        /// <summary>
+        /// Rayが当たったオブジェクト（棚）を参照する変数
+        /// </summary>
+        private S_Interactable s_Interactable;
+        /// <summary>
+        /// ターゲットとなるインタラクト可能なオブジェクト（ドア）を参照するための変数
+        /// </summary>
+        private D_Interactable dCurrentTarget;
+        /// <summary>
+        /// Rayが当たったオブジェクト（ドア）を参照する変数
+        /// </summary>
+        private D_Interactable d_Interactable;
 
         /// <summary>
         /// レイヤーマスクを使用して、インタラクト可能なオブジェクトを特定するための変数
         /// </summary>
-        public LayerMask interactableLayer = default;
+        public LayerMask interactableLayer;
 
         /// <summary>
         /// 首の前後移動の入力を保持するための変数
@@ -179,6 +195,18 @@ namespace PESDISASTER
         /// ロックされたドアのオブジェクトの名前を参照する変数
         /// </summary>
         private string lockedDoorName = "Door03_pr";
+        /// <summary>
+        /// ターゲットとなるインタラクト可能オブジェクト種（棚）の名前を参照する変数
+        /// </summary>
+        private string targetShelfName = "Shelf";
+        /// <summary>
+        /// ターゲットとなるインタラクト可能オブジェクト種（アイテム）の名前を参照する変数
+        /// </summary>
+        private string target_ItemName = "Item";
+        /// <summary>
+        /// ターゲットとなるインタラクト可能オブジェクト種（ドア）の名前を参照する変数
+        /// </summary>
+        private string targetDoorName = "Door";
 
         // モーション状態定義の列挙型
         private enum MotionState
@@ -253,7 +281,10 @@ namespace PESDISASTER
 
             neck.localPosition = new Vector3(neck.localPosition.x, neckTranslationY, neck.localPosition.z);// 首の高さを一定に保つ
 
-            CheckForInteractable();// インタラクト可能なオブジェクトを検出する関数を呼び出す
+            // インタラクト可能なオブジェクトを検出する
+            CheckForI_Interactable(target_ItemName);// インタラクト可能なオブジェクト（アイテム）を検出する関数を呼び出す
+            CheckForI_Interactable(targetShelfName);// インタラクト可能なオブジェクト（棚）を検出する関数を呼び出す
+            CheckForI_Interactable(targetDoorName);// インタラクト可能なオブジェクト（ドア）を検出する関数を呼び出す
 
             UpdateMotionState(); // 状態を更新
             ApplyMovement();     // 移動を実行
@@ -282,24 +313,22 @@ namespace PESDISASTER
             // もしインタラクトの入力が開始された場合
             if (context.performed && !isSleeping)
             {
-                // もしターゲットが存在する場合
-                if (currentTarget != null)
+                // もしターゲット（アイテム）が存在する場合
+                if (iCurrentTarget != null)
                 {
                     PerformPickupInteraction();// アイテムを拾う準備を行い、拾う
                     return;
                 }
-
-                // もしクラスが棚の状態を管理するクラスを正しく参照している場合
-                if (lockedShelf != null)
+                // もしターゲット（棚）が存在する場合
+                else if (sCurrentTarget != null)
                 {
-                    lockedShelf.OpenShelf();// 棚を開ける処理
+                    sCurrentTarget.OpenShelf();// 棚を開ける処理
                     return;
                 }
-
-                // もしクラスがハンドガンの操作を管理するクラスを正しく参照している場合
-                if (lockedDoor != null)
+                // もしターゲット（ドア）が存在する場合
+                else if (dCurrentTarget != null)
                 {
-                    lockedDoor.Interact();// ドアを開ける処理
+                    dCurrentTarget.Interact();// ドアを開ける処理
                     return;
                 }
             }
@@ -317,22 +346,51 @@ namespace PESDISASTER
         /// <summary>
         /// インタラクト可能なオブジェクトを検出する関数
         /// </summary>
-        private void CheckForInteractable()
+        private void CheckForI_Interactable(string targetName)
         {
             // もしRayがインタラクト可能なオブジェクトに当たった場合
             if (Physics.Raycast(ray, out hit, interactRange, interactableLayer))
             {
-                interactable = hit.collider.GetComponent<I_Interactable>();// Rayが当たったオブジェクトにI_Interactableコンポーネントがあるか確認するため登録
+                // もしターゲットの名前がアイテムと一致する場合
+                if (targetName == target_ItemName)
+                {
+                    i_Interactable = hit.collider.GetComponent<I_Interactable>();// Rayが当たったオブジェクトにI_Interactableコンポーネントがあるか確認するため登録
+                }
+                // もしターゲットの名前が棚と一致する場合
+                else if (targetName == targetShelfName)
+                {
+                    s_Interactable = hit.collider.GetComponentInParent<S_Interactable>();// Rayが当たったオブジェクトの親オブジェクトにS_Interactableコンポーネントがあるか確認するため登録
+                }
+                // もしターゲットの名前がドアと一致する場合
+                else if (targetName == targetDoorName)
+                {
+                    d_Interactable = hit.collider.GetComponentInParent<D_Interactable>();// Rayが当たったオブジェクトの親オブジェクトにD_Interactableコンポーネントがあるか確認するため登録
+                }
 
                 // もしIInteractableコンポーネントがある場合
-                if (interactable != null)
+                if (i_Interactable != null)
                 {
-                    currentTarget = interactable;// ターゲットを更新
+                    iCurrentTarget = i_Interactable;// ターゲットを更新
+                    return;
+                }
+                // もしSInteractableコンポーネントがある場合
+                else if (s_Interactable != null)
+                {
+                    sCurrentTarget = s_Interactable;// ターゲットを更新
+                    return;
+                }
+                // もしDInteractableコンポーネントがある場合
+                else if (d_Interactable != null)
+                {
+                    dCurrentTarget = d_Interactable;// ターゲットを更新
                     return;
                 }
             }
 
-            currentTarget = null;
+            // ターゲットをリセット
+            iCurrentTarget = null;
+            sCurrentTarget = null;
+            dCurrentTarget = null;
         }
 
         /// <summary>

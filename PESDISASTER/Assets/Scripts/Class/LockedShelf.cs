@@ -6,7 +6,7 @@ namespace PESDISASTER
     /// <summary>
     /// 棚の状態を管理するクラス
     /// </summary>
-    public class LockedShelf : MonoBehaviour
+    public class LockedShelf : MonoBehaviour,S_Interactable
     {
         /// <summary>
         /// 棚のドアのTransformを参照する変数
@@ -32,7 +32,7 @@ namespace PESDISASTER
         private bool isOpen = false;
 
         /// <summary>
-        /// 棚を開けるときのZ軸移動量を参照する変数
+        /// 棚を開けるときのX軸移動量を参照する変数
         /// </summary>
         private float transformDoorPositionX_Value = -0.501f;
         /// <summary>
