@@ -1329,7 +1329,7 @@ MonoBehaviour:
   pauseUI_Manager: {fileID: 880709873}
   resumeButton: {fileID: 380277869}
   titleButton: {fileID: 1573756978}
-  introEventDuration: 1.7
+  introEventDuration: 17
 --- !u!95 &233239381
 Animator:
   serializedVersion: 7
