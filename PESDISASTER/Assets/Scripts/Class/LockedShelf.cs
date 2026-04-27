@@ -73,6 +73,8 @@ namespace PESDISASTER
             {
                 isOpen = true;
 
+                this.gameObject.GetComponent<Collider>().enabled = false;// オブジェクトのコライダーを無効する（インタラクトできないようにする）
+
                 StartCoroutine(OpenShelfCoroutine(doorTransform.position + new Vector3(transformDoorPositionX_Value, 0, 0), keyTransform.position + new Vector3(transformKeyPositionX_Value, 0, 0), openDuration));// ドアを開けるアニメーションを開始
             }
         }

@@ -82,6 +82,9 @@ namespace PESDISASTER
         public void OpenDoor()
         {
             isOpen = true;
+
+            this.gameObject.GetComponent<Collider>().enabled = false;// オブジェクトのコライダーを無効する（インタラクトできないようにする）
+
             StartCoroutine(OpenDoorCoroutine(Quaternion.Euler(0, transformDoorRotationY_Value, 0), openDuration));// ドアを開けるアニメーションを開始
         }
 

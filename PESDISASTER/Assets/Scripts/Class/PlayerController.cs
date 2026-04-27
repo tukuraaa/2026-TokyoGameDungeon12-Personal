@@ -33,6 +33,10 @@ namespace PESDISASTER
         /// アイテム表示カメラのTransformコンポーネントを参照する変数
         /// </summary>
         public Transform weaponCameraTransform;
+        /// <summary>
+        /// インタラクト操作のUIアイコンを参照する変数
+        /// </summary>
+        public Transform interactControl_Icon;
 
         /// <summary>
         /// アイテムに関するクラスを参照する変数
@@ -50,6 +54,10 @@ namespace PESDISASTER
         /// 鍵付きドアの状態を管理するクラスを参照する変数
         /// </summary>
         private LockedDoor lockedDoor;
+        /// <summary>
+        /// プレイヤー操作のUIを管理するクラスを参照する変数
+        /// </summary>
+        public PlayerControllerUI_Manager playerControllerUI_Manager;
         /// <summary>
         /// プレイヤーコントローラーのインスタンスを参照する変数
         /// </summary>
@@ -317,18 +325,21 @@ namespace PESDISASTER
                 if (iCurrentTarget != null)
                 {
                     PerformPickupInteraction();// アイテムを拾う準備を行い、拾う
+                    playerControllerUI_Manager.TargetHide(interactControl_Icon);// インタラクトUIを非表示にする
                     return;
                 }
                 // もしターゲット（棚）が存在する場合
                 else if (sCurrentTarget != null)
                 {
                     sCurrentTarget.OpenShelf();// 棚を開ける処理
+                    playerControllerUI_Manager.TargetHide(interactControl_Icon);// インタラクトUIを非表示にする
                     return;
                 }
                 // もしターゲット（ドア）が存在する場合
                 else if (dCurrentTarget != null)
                 {
                     dCurrentTarget.Interact();// ドアを開ける処理
+                    playerControllerUI_Manager.TargetHide(interactControl_Icon);// インタラクトUIを非表示にする
                     return;
                 }
             }
@@ -371,18 +382,21 @@ namespace PESDISASTER
                 if (i_Interactable != null)
                 {
                     iCurrentTarget = i_Interactable;// ターゲットを更新
+                    playerControllerUI_Manager.TargetShow(interactControl_Icon);// インタラクトUIを表示
                     return;
                 }
                 // もしSInteractableコンポーネントがある場合
                 else if (s_Interactable != null)
                 {
                     sCurrentTarget = s_Interactable;// ターゲットを更新
+                    playerControllerUI_Manager.TargetShow(interactControl_Icon);// インタラクトUIを表示
                     return;
                 }
                 // もしDInteractableコンポーネントがある場合
                 else if (d_Interactable != null)
                 {
                     dCurrentTarget = d_Interactable;// ターゲットを更新
+                    playerControllerUI_Manager.TargetShow(interactControl_Icon);// インタラクトUIを表示
                     return;
                 }
             }
@@ -391,6 +405,8 @@ namespace PESDISASTER
             iCurrentTarget = null;
             sCurrentTarget = null;
             dCurrentTarget = null;
+
+            playerControllerUI_Manager.TargetHide(interactControl_Icon);// インタラクトUIを非表示にする
         }
 
         /// <summary>
