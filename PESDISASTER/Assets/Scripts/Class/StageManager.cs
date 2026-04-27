@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace PESDISASTER
 {
@@ -21,6 +22,19 @@ namespace PESDISASTER
         /// プレイヤーの操作UIを管理するクラスを参照する変数
         /// </summary>
         public PlayerControllerUI_Manager playerControllerUI_Manager;
+        /// <summary>
+        /// プレイヤー操作のUIを管理するクラスを参照する変数
+        /// </summary>
+        public PauseUI_Manager pauseUI_Manager;
+
+        /// <summary>
+        /// 続行ボタンを参照する変数
+        /// </summary>
+        public Button resumeButton;
+        /// <summary>
+        /// タイトルボタンを参照する変数
+        /// </summary>
+        public Button titleButton;
 
         /// <summary>
         /// 演出の持続時間を参照する変数
@@ -28,22 +42,43 @@ namespace PESDISASTER
         public float introEventDuration = 16f;
 
         /// <summary>
+        /// ポーズ解除後に時間を動かすための値を参照する変数
+        /// </summary>
+        private int timeCanMoveValue = 1;
+
+        /// <summary>
+        /// ポーズ中かどうかを示すフラグを参照する変数
+        /// </summary>
+        private bool isPausing = false;
+
+        /// <summary>
+        /// タイトルシーン名を参照する変数
+        /// </summary>
+        private string titleSceneName = "Title";
+
+        /// <summary>
         /// 初期設定を行う関数
         /// </summary>
         private void Start()
         {
             introAnimator = GetComponent<Animator>();
+
+            // クリックイベントにリスナーを追加
+            resumeButton.onClick.AddListener(Pause);// 続行ボタンがクリックされたとき、Pause関数を呼び出すように設定
+            titleButton.onClick.AddListener(() => MoveScene(titleSceneName));// タイトルボタンがクリックされたとき、MoveScene関数を呼び出すように設定
+
             transitionUI_Manager.Show();
             PlayerController.instance.isSleeping = true;
             StartCoroutine(IntroEventCoroutine());// イントロ演出を開始
         }
 
         /// <summary>
-        /// ゲームクリアシーンへの遷移を行う関数
+        /// 各シーンへの遷移を行う関数
         /// </summary>
-        private void MoveClear()
+        private void MoveScene(string name)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Clear");
+            Time.timeScale = timeCanMoveValue;
+            UnityEngine.SceneManagement.SceneManager.LoadScene(name);
         }
 
         /// <summary>
@@ -68,6 +103,28 @@ namespace PESDISASTER
             PlayerController.instance.enabled = true;// プレイヤーの移動スクリプトを有効にする
 
             playerControllerUI_Manager.StartTutorial();// 操作チュートリアルを開始する
+        }
+
+        /// <summary>
+        /// ポーズの処理を行う関数
+        /// </summary>
+       public void Pause()
+        {
+            // もしポーズ中でない場合
+            if (!isPausing)
+            {
+                resumeButton.Select();// 続行ボタンを選択状態にする
+
+                Time.timeScale = 0f;
+                pauseUI_Manager.Show();
+                isPausing = true;
+            }
+            else
+            {
+                Time.timeScale = timeCanMoveValue;
+                pauseUI_Manager.Hide();
+                isPausing = false;
+            }
         }
     }
 }

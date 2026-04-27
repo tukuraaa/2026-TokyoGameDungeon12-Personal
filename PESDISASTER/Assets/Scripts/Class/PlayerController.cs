@@ -59,6 +59,11 @@ namespace PESDISASTER
         /// </summary>
         public PlayerControllerUI_Manager playerControllerUI_Manager;
         /// <summary>
+        /// プレイヤー操作のUIを管理するクラスを参照する変数
+        /// </summary>
+        public StageManager stageManager;
+
+        /// <summary>
         /// プレイヤーコントローラーのインスタンスを参照する変数
         /// </summary>
         public static PlayerController instance { get; private set; }
@@ -216,7 +221,9 @@ namespace PESDISASTER
         /// </summary>
         private string targetDoorName = "Door";
 
-        // モーション状態定義の列挙型
+        /// <summary>
+        /// モーション状態定義の列挙型
+        /// </summary>
         private enum MotionState
         {
             Stopping,
@@ -351,6 +358,19 @@ namespace PESDISASTER
             if (!isSleeping)
             {
                 moveInput = context.ReadValue<Vector2>();
+            }
+        }
+
+        /// <summary>
+        /// ポーズの入力を処理する関数
+        /// </summary>
+        /// <param name="context"></param>
+        public void OnPause(InputAction.CallbackContext context)
+        {
+            // もしポーズの入力が開始された場合
+            if (context.performed && !isSleeping)
+            {
+                stageManager.Pause();
             }
         }
 
