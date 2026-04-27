@@ -12,6 +12,10 @@ public class PlayerControllerUI_Manager : MonoBehaviour
     /// 移動コントロールUIのターゲットを参照する変数
     /// </summary>
     public Transform moveControl_UI_Target;
+    /// <summary>
+    /// 視点コントロールUIのターゲットを参照する変数
+    /// </summary>
+    public Transform lookControl_UI_Target;
 
     /// <summary>
     /// アニメーターの操作チュートリアルトリガーを参照する変数
@@ -69,9 +73,11 @@ public class PlayerControllerUI_Manager : MonoBehaviour
     private IEnumerator TutorialCoroutine()
     {
         TargetShow(moveControl_UI_Target);
+        TargetShow(lookControl_UI_Target);
         animator.SetTrigger(control_TutorialTrigger1);// アニメーターの操作チュートリアルトリガーを発動
         yield return new WaitForSeconds(tutorialDuration);
         TargetHide(moveControl_UI_Target);
+        TargetHide(lookControl_UI_Target);
     }
 
     /// <summary>
