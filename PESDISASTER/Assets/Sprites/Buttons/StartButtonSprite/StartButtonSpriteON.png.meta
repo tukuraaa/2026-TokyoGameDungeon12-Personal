@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: StartButtonSpriteON_0
+      name: StartButtonSpriteON_9
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1407
-        height: 768
+        x: 209
+        y: 311
+        width: 1026
+        height: 157
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4b7a714a39a883449bf8493d2386854
-      internalID: -1200935924
+      spriteID: 6143b97927dc895498fb86d9245583c0
+      internalID: 311109043
       vertices: []
       indices: 
       edges: []
@@ -132,9 +132,20 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1407.0,"y":768.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       StartButtonSpriteON_0: -1200935924
+      StartButtonSpriteON_1: 236573165
+      StartButtonSpriteON_10: 1922105600
+      StartButtonSpriteON_11: -1789417314
+      StartButtonSpriteON_2: -266501604
+      StartButtonSpriteON_3: -887049875
+      StartButtonSpriteON_4: 1240534368
+      StartButtonSpriteON_5: -1172244368
+      StartButtonSpriteON_6: -2114521752
+      StartButtonSpriteON_7: -656235455
+      StartButtonSpriteON_8: 1249503855
+      StartButtonSpriteON_9: 311109043
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

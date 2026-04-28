@@ -244,10 +244,6 @@ namespace PESDISASTER
             handgunController = GameObject.Find(handgunName).GetComponent<HandgunController>();// ハンドガンの操作を管理するクラスを検索して登録
             lockedDoor = GameObject.Find(lockedDoorName).GetComponent<LockedDoor>();// 鍵付きドアの状態を管理するクラスを検索して登録
 
-            // カーソル設定
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;// カーソルを非表示にする
-
             // もしプレイヤー視点カメラが正しく設定されている場合
             if (mainCamera != null && mainCameraTransform != null)
             {

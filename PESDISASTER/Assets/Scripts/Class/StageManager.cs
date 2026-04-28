@@ -67,6 +67,10 @@ namespace PESDISASTER
             resumeButton.onClick.AddListener(Pause);// 続行ボタンがクリックされたとき、Pause関数を呼び出すように設定
             titleButton.onClick.AddListener(() => MoveScene(titleSceneName));// タイトルボタンがクリックされたとき、MoveScene関数を呼び出すように設定
 
+            // カーソル設定
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;// カーソルを非表示にする
+
             transitionUI_Manager.Show();
             PlayerController.instance.isSleeping = true;
             StartCoroutine(IntroEventCoroutine());// イントロ演出を開始
@@ -113,17 +117,23 @@ namespace PESDISASTER
             // もしポーズ中でない場合
             if (!isPausing)
             {
-                resumeButton.Select();// 続行ボタンを選択状態にする
-
                 Time.timeScale = 0f;
                 pauseUI_Manager.Show();
                 isPausing = true;
+
+                // カーソル設定
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;// カーソルを表示にする
             }
             else
             {
                 Time.timeScale = timeCanMoveValue;
                 pauseUI_Manager.Hide();
                 isPausing = false;
+
+                // カーソル設定
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;// カーソルを非表示にする
             }
         }
     }

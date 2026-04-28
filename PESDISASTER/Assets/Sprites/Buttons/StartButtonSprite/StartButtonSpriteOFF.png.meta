@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: StartButtonSprite_0
+      name: StartButtonSpriteOFF_9
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1407
-        height: 768
+        x: 210
+        y: 310
+        width: 1025
+        height: 156
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b621a22823d3db943a3ad6371779debb
-      internalID: -1004136413
+      spriteID: 23d12ed160491304a98aa7e5aab9be6f
+      internalID: -1046289052
       vertices: []
       indices: 
       edges: []
@@ -132,9 +132,21 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1407.0,"y":768.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      StartButtonSprite_0: -1004136413
+      StartButtonSpriteOFF_0: -1036945204
+      StartButtonSpriteOFF_1: -1880458779
+      StartButtonSpriteOFF_10: 1902560757
+      StartButtonSpriteOFF_11: -801749911
+      StartButtonSpriteOFF_12: -797841142
+      StartButtonSpriteOFF_2: -277885337
+      StartButtonSpriteOFF_3: 2046445486
+      StartButtonSpriteOFF_4: 1051336138
+      StartButtonSpriteOFF_5: 1040792703
+      StartButtonSpriteOFF_6: 255417409
+      StartButtonSpriteOFF_7: 106239969
+      StartButtonSpriteOFF_8: 1272476987
+      StartButtonSpriteOFF_9: -1046289052
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

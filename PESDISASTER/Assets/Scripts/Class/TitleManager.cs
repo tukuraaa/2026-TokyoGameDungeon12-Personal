@@ -59,10 +59,6 @@ namespace PESDISASTER
             startButton.onClick.AddListener(MoveStage);// スタートボタンがクリックされたとき、GoScene関数を呼び出すように設定
             exitButton.onClick.AddListener(Exit);// ゲーム終了ボタンがクリックされたとき、Exit関数を呼び出すように設定
 
-            // カーソル設定
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;// カーソルを非表示にする
-
             StartCoroutine(GameStartCoroutine());// ゲーム開始のコルーチンを開始
         }
 
