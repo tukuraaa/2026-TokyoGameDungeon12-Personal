@@ -25,11 +25,19 @@ namespace PESDISASTER
         /// ポーズコントロールUIのターゲットを参照する変数
         /// </summary>
         public Transform pauseControl_UI_Target;
+        /// <summary>
+        /// 銃の操作UIのターゲットを参照する変数
+        /// </summary>
+        public Transform handgunControl_UI_Target;
 
         /// <summary>
-        /// アニメーターの操作チュートリアルトリガーを参照する変数
+        /// アニメーターの操作チュートリアルトリガー1を参照する変数
         /// </summary>
         public static readonly int control_TutorialTrigger1 = Animator.StringToHash("OnTutorial1");
+        /// <summary>
+        /// アニメーターの操作チュートリアルトリガー2を参照する変数
+        /// </summary>
+        public static readonly int control_TutorialTrigger2 = Animator.StringToHash("OnTutorial2");
 
         /// <summary>
         /// チュートリアル演出時間を参照する変数
@@ -96,6 +104,15 @@ namespace PESDISASTER
         public void StartTutorial()
         {
             StartCoroutine(TutorialCoroutine());
+        }
+
+        /// <summary>
+        /// 銃操作チュートリアルを開始する関数
+        /// </summary>
+        public void StartGunTutorial()
+        { 
+            TargetShow(handgunControl_UI_Target);
+            animator.SetTrigger(control_TutorialTrigger2);// アニメーターの操作チュートリアルトリガー2を発動
         }
     }
 }

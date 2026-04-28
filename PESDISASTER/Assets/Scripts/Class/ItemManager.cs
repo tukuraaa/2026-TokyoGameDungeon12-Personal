@@ -35,6 +35,10 @@ namespace PESDISASTER
         /// ハンドガンの機能を制御するクラスを参照する変数
         /// </summary>
         private HandgunController handgunController;
+        /// <summary>
+        /// プレイヤー操作のUIを管理するクラスを参照する変数
+        /// </summary>
+        public PlayerControllerUI_Manager playerControllerUI_Manager;
 
         /// <summary>
         /// カメラを参照する変数
@@ -175,6 +179,7 @@ namespace PESDISASTER
             // もし拾ったアイテムがハンドガンの場合
             if (itemName == handgunName)
             {
+                playerControllerUI_Manager.StartGunTutorial();// ハンドガンのチュートリアルを開始する
                 handgunController.EquipGun(mainCamera);// ハンドガンを装備する
             }
         }
