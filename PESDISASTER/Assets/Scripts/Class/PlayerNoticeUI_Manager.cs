@@ -29,6 +29,14 @@ namespace PESDISASTER
         /// リロード失敗UIのターゲットを参照する変数
         /// </summary>
         public Transform reloadFailedUI_Target;
+        /// <summary>
+        /// ロック中UIのターゲットを参照する変数
+        /// </summary>
+        public Transform lockedUI_Target;
+        /// <summary>
+        /// 棚の開け方UIのターゲットを参照する変数
+        /// </summary>
+        public Transform openShelfTutorial_UI_Target;
 
         /// <summary>
         /// アニメーターのゲーム目的トリガーを参照する変数
@@ -46,11 +54,23 @@ namespace PESDISASTER
         /// アニメーターのリロード失敗トリガーを参照する変数
         /// </summary>
         public static readonly int failedTrigger = Animator.StringToHash("OnFailed");
+        /// <summary>
+        /// アニメーターのロック中トリガーを参照する変数
+        /// </summary>
+        public static readonly int lockedTrigger = Animator.StringToHash("OnLocked");
+        /// <summary>
+        /// アニメーターの棚の開け方トリガーを参照する変数
+        /// </summary>
+        public static readonly int openTutorialTrigger = Animator.StringToHash("OnOpenTutorial");
 
         /// <summary>
-        /// アニメーションの時間を参照する変数
+        /// 通知アニメーションの時間を参照する変数
         /// </summary>
-        private float animTime = 2.0f;
+        private float noticeAnimTime = 2f;
+        /// <summary>
+        /// 棚の開け方アニメーションの時間を参照する変数
+        /// </summary>
+        private float openTutorialAnimTime = 3f;
 
         /// <summary>
         /// 初期設定を行う関数
@@ -105,7 +125,7 @@ namespace PESDISASTER
         /// </summary>
         public void StartEmpty()
         {
-            StartCoroutine(NoticeAnimCoroutine(magazineEmptyUI_Target, emptyTrigger));// 通知のアニメーションを行う
+            StartCoroutine(NoticeAnimCoroutine(magazineEmptyUI_Target, emptyTrigger,noticeAnimTime));// 通知のアニメーションを行う
         }
 
         /// <summary>
@@ -113,7 +133,7 @@ namespace PESDISASTER
         /// </summary>
         public void StartReload()
         {
-            StartCoroutine(NoticeAnimCoroutine(reloadCompleteUI_Target, reloadTrigger));// 通知のアニメーションを行う
+            StartCoroutine(NoticeAnimCoroutine(reloadCompleteUI_Target, reloadTrigger,noticeAnimTime));// 通知のアニメーションを行う
         }
 
         /// <summary>
@@ -121,7 +141,7 @@ namespace PESDISASTER
         /// </summary>
         public void StartFailed()
         {
-            StartCoroutine(NoticeAnimCoroutine(reloadFailedUI_Target, failedTrigger));// 通知のアニメーションを行う
+            StartCoroutine(NoticeAnimCoroutine(reloadFailedUI_Target, failedTrigger,noticeAnimTime));// 通知のアニメーションを行う
         }
 
         /// <summary>
@@ -130,12 +150,28 @@ namespace PESDISASTER
         /// <param name="target"></param>
         /// <param name="triggerNumber"></param>
         /// <returns></returns>
-        private IEnumerator NoticeAnimCoroutine(Transform target, int triggerNumber)
+        private IEnumerator NoticeAnimCoroutine(Transform target, int triggerNumber, float time)
         {
             TargetShow(target);
             animator.SetTrigger(triggerNumber);
-            yield return new WaitForSeconds(animTime);
+            yield return new WaitForSeconds(time);
             TargetHide(target);
+        }
+
+        /// <summary>
+        /// ロック中表示を開始する関数
+        /// </summary>
+        public void StartLocked()
+        {
+            StartCoroutine(NoticeAnimCoroutine(lockedUI_Target, lockedTrigger,noticeAnimTime));// 通知のアニメーションを行う
+        }
+
+        /// <summary>
+        /// 棚の開け方表示を開始する関数
+        /// </summary>
+        public void StartOpenTutorial()
+        {
+            StartCoroutine(NoticeAnimCoroutine(openShelfTutorial_UI_Target, openTutorialTrigger, openTutorialAnimTime));// 通知のアニメーションを行う
         }
     }
 }

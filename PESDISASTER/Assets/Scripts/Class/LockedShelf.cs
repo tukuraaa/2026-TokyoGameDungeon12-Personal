@@ -6,7 +6,7 @@ namespace PESDISASTER
     /// <summary>
     /// 棚の状態を管理するクラス
     /// </summary>
-    public class LockedShelf : MonoBehaviour,S_Interactable
+    public class LockedShelf : MonoBehaviour, S_Interactable
     {
         /// <summary>
         /// 棚のドアのTransformを参照する変数
@@ -21,15 +21,27 @@ namespace PESDISASTER
         /// 錠前のスクリプトを参照する変数
         /// </summary>
         public ShootableLock shootableLock;
+        /// <summary>
+        /// プレイヤー通知UIを管理するクラスを参照する変数
+        /// </summary>
+        public PlayerNoticeUI_Manager playerNoticeUI_Manager;
+        /// <summary>
+        /// プレイヤー操作を管理するクラスを参照する変数
+        /// </summary>
+        public PlayerController playerController;
 
         /// <summary>
-        /// 鍵がかかっているかどうかを管理する変数
+        /// 鍵がかかっているかどうかを参照する変数
         /// </summary>
         private bool isLocked = true;
         /// <summary>
-        /// 開けたかどうかを管理する変数
+        /// 開けたかどうかを参照する変数
         /// </summary>
         private bool isOpen = false;
+        /// <summary>
+        /// 最初のインタラクトかどうかを参照する変数
+        /// </summary>
+        private bool isFirst = true;
 
         /// <summary>
         /// 棚を開けるときのX軸移動量を参照する変数
@@ -43,6 +55,14 @@ namespace PESDISASTER
         /// 棚を開けるときのX軸移動量を参照する変数
         /// </summary>
         private float transformKeyPositionX_Value = -0.501f;
+        /// <summary>
+        /// チュートリアルアニメーションの時間を参照する変数
+        /// </summary>
+        private float tutorialAnimTime = 3.1f;
+        /// <summary>
+        /// 通知アニメーションの時間を参照する変数
+        /// </summary>
+        private float noticeAnimTime = 2.1f;
 
         /// <summary>
         /// 錠前が破壊された時に呼ばれる関数
@@ -50,7 +70,6 @@ namespace PESDISASTER
         public void Unlock()
         {
             isLocked = false;
-            Debug.Log("棚の鍵が壊された！");
         }
 
         /// <summary>
@@ -61,9 +80,14 @@ namespace PESDISASTER
             // もし棚のドアが鍵がかかっている場合
             if (isLocked)
             {
-                Debug.Log("鍵がかかっている。銃で破壊できそうだ。");
+                playerNoticeUI_Manager.StartLocked();// ロック中なのを通知する
 
                 // ここで「ガチャガチャ」という音を鳴らすとリアルです
+
+                if (isFirst)
+                {
+                    StartCoroutine(OpenShelfTutorialCoroutine());// 棚の開け方チュートリアルを開始する
+                }
 
                 return;
             }
@@ -104,6 +128,20 @@ namespace PESDISASTER
 
             doorTransform.position = targetDoorPosition;// 最後に確実に目的地に配置
             keyTransform.position = targetKeyPosition;// 最後に確実に目的地に配置
+        }
+
+        /// <summary>
+        /// 棚を開ける方法を記すアニメーションを行うコルーチン
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator OpenShelfTutorialCoroutine()
+        {
+            playerController.enabled = false;// プレイヤーを操作させない
+            isFirst = false;
+            yield return new WaitForSeconds(noticeAnimTime);// 通知UIを表示する時間分待機
+            playerNoticeUI_Manager.StartOpenTutorial();// 棚の開け方チュートリアルを開始する
+            yield return new WaitForSeconds(tutorialAnimTime);
+            playerController.enabled = true;// プレイヤーを操作できるようにする
         }
     }
 }
