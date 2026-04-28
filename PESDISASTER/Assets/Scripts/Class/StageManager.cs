@@ -26,6 +26,10 @@ namespace PESDISASTER
         /// プレイヤー操作のUIを管理するクラスを参照する変数
         /// </summary>
         public PauseUI_Manager pauseUI_Manager;
+        /// <summary>
+        /// プレイヤー通知UIを管理するクラスを参照する変数
+        /// </summary>
+        public PlayerNoticeUI_Manager playerNoticeUI_Manager;
 
         /// <summary>
         /// 続行ボタンを参照する変数
@@ -36,6 +40,10 @@ namespace PESDISASTER
         /// </summary>
         public Button titleButton;
 
+        /// <summary>
+        /// チュートリアル演出の持続時間を参照する変数
+        /// </summary>
+        private float tutorialDuration = 5.5f;
         /// <summary>
         /// 演出の持続時間を参照する変数
         /// </summary>
@@ -93,7 +101,9 @@ namespace PESDISASTER
         {
             yield return new WaitForSeconds(introEventDuration);// 演出の持続時間を待つ
             transitionUI_Manager.Hide();
-            PlayerController.instance.isSleeping = false;
+            playerControllerUI_Manager.StartTutorial();// 操作チュートリアルを開始する
+            yield return new WaitForSeconds(tutorialDuration);// チュートリアル演出の持続時間を待つ
+            playerNoticeUI_Manager.StartRule();// ゲーム目的演出を開始する
             OnIntroEnd();// イントロ演出の終了処理を呼び出す
         }
 
@@ -102,11 +112,11 @@ namespace PESDISASTER
         /// </summary>
         private void OnIntroEnd()
         {
-            introAnimator.enabled = false;// イントロ用のアニメーターを止める
-         
-            PlayerController.instance.enabled = true;// プレイヤーの移動スクリプトを有効にする
+            PlayerController.instance.isSleeping = false;
 
-            playerControllerUI_Manager.StartTutorial();// 操作チュートリアルを開始する
+            introAnimator.enabled = false;// イントロ用のアニメーターを止める
+            
+            PlayerController.instance.enabled = true;// プレイヤーの移動スクリプトを有効にする
         }
 
         /// <summary>

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PESDISASTER
 {
@@ -11,7 +10,7 @@ namespace PESDISASTER
         /// <summary>
         /// 初期設定を行う関数
         /// </summary>
-        void Start()
+        private void Start()
         {
             Hide();
         }

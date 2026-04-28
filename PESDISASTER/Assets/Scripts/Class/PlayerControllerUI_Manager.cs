@@ -34,12 +34,12 @@ namespace PESDISASTER
         /// <summary>
         /// チュートリアル演出時間を参照する変数
         /// </summary>
-        private float tutorialDuration = 4.5f;
+        private float tutorialDuration = 5.5f;
 
         /// <summary>
         /// 初期設定を行う関数
         /// </summary>
-        void Start()
+        private void Start()
         {
             animator = GetComponent<Animator>();
             Hide();
