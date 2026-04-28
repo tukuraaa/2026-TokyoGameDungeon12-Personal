@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fc82eb3fb8671df41ba17ab33d661ca2
+guid: 5a295e98d8898c941b29b5aa32a9db4d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 120
+  spritePixelsToUnits: 22
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PausePanel_0
+      name: EmptyTextEMPTY_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 995
-        height: 1041
+        x: 139
+        y: 63
+        width: 759
+        height: 258
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57fba0c24dd23484d99258b5e543be8e
-      internalID: 1842077970
+      spriteID: e120433d74741cb4cb99dcbf31a05b66
+      internalID: 12225198
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ebe318c3fd8887d4ab8884f021eabab4
+    spriteID: 399a720b01926da49bb0df6dc3c28c8f
     internalID: 0
     vertices: []
     indices: 
@@ -134,7 +134,10 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      PausePanel_0: 1842077970
+      EmptyTextEMPTY_0: 625264870
+      EmptyTextEMPTY_1: -955694523
+      EmptyTextEMPTY_2: 38249208
+      EmptyTextEMPTY_3: 12225198
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

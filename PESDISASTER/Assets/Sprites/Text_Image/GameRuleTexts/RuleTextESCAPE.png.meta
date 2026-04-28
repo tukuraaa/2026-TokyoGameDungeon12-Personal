@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fc82eb3fb8671df41ba17ab33d661ca2
+guid: f185f5c9ca5d9064cb7c372baf3b21b1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 120
+  spritePixelsToUnits: 22
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PausePanel_0
+      name: RuleTextESCAPE_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 995
-        height: 1041
+        x: 103
+        y: 8
+        width: 815
+        height: 244
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57fba0c24dd23484d99258b5e543be8e
-      internalID: 1842077970
+      spriteID: 5d63c2e574295154eb95d65ff50ca006
+      internalID: 1125810559
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ebe318c3fd8887d4ab8884f021eabab4
+    spriteID: f63895e9173054a44b3863e4b858afe0
     internalID: 0
     vertices: []
     indices: 
@@ -134,7 +134,11 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      PausePanel_0: 1842077970
+      RuleTextESCAPE_0: -1114002913
+      RuleTextESCAPE_1: -134008852
+      RuleTextESCAPE_2: 1689326757
+      RuleTextESCAPE_3: -813820193
+      RuleTextESCAPE_4: 1125810559
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fc82eb3fb8671df41ba17ab33d661ca2
+guid: 4acf8f7e728a2474bbbb37c444d240bc
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 120
+  spritePixelsToUnits: 22
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PausePanel_0
+      name: Gemini_Generated_Image_xayvdhxayvdhxayv (1)_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 995
-        height: 1041
+        x: 112
+        y: 14
+        width: 823
+        height: 241
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57fba0c24dd23484d99258b5e543be8e
-      internalID: 1842077970
+      spriteID: 4c41215035632ae45864c03ed3a815ec
+      internalID: -454390181
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ebe318c3fd8887d4ab8884f021eabab4
+    spriteID: dc9cc43ad72942f428175d03148fbdad
     internalID: 0
     vertices: []
     indices: 
@@ -134,7 +134,11 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      PausePanel_0: 1842077970
+      Gemini_Generated_Image_xayvdhxayvdhxayv (1)_0: -152937150
+      Gemini_Generated_Image_xayvdhxayvdhxayv (1)_1: -1522538227
+      Gemini_Generated_Image_xayvdhxayvdhxayv (1)_2: -1058763332
+      Gemini_Generated_Image_xayvdhxayvdhxayv (1)_3: 2077644073
+      Gemini_Generated_Image_xayvdhxayvdhxayv (1)_4: -454390181
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

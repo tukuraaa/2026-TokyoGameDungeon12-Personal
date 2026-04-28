@@ -35,7 +35,11 @@ namespace PESDISASTER
         /// <summary>
         /// リロードミニゲームのUIを管理するクラスを参照する変数
         /// </summary>
-        private ReloadMinigameUI_Manager reloadMinigameUI;
+        public ReloadMinigameUI_Manager reloadMinigameUI;
+        /// <summary>
+        /// プレイヤーへの通知UIを管理するクラスを参照する変数
+        /// </summary>
+        public PlayerNoticeUI_Manager playerNoticeUI;
 
         /// <summary>
         /// 銃のアニメーターを参照する変数
@@ -66,7 +70,7 @@ namespace PESDISASTER
         /// <summary>
         /// 予備の持ち弾を参照する変数
         /// </summary>
-        public int reserveAmmo = 30;
+        public int reserveAmmo = 300000;
 
         /// <summary>
         /// 次に射撃できる時間を参照する変数
@@ -87,7 +91,7 @@ namespace PESDISASTER
         /// <summary>
         /// リロードにかかる時間を参照する変数
         /// </summary>
-        public float reloadTime = 1.5f;
+        public float reloadTime = 1f;
         /// <summary>
         /// 1発のダメージ量を参照する変数
         /// </summary>
@@ -119,17 +123,10 @@ namespace PESDISASTER
         public bool isEquipped = false;
 
         /// <summary>
-        /// リロードミニゲームのUIを管理するクラスのオブジェクト名を参照する変数
-        /// </summary>
-        private string reloadMinigameUI_Name = "ReloadMinigameUI";
-
-        /// <summary>
         /// 初期設定を行う関数
         /// </summary>
         private void Start()
         {
-            reloadMinigameUI = GameObject.Find(reloadMinigameUI_Name).GetComponent<ReloadMinigameUI_Manager>();// シーン内からReloadMinigameUIを探して取得
-
             hipPosition = transform.localPosition;// ゲーム開始時の銃の位置を「通常時の位置」として記憶しておく
 
             // もしカメラが設定されている場合
@@ -172,7 +169,7 @@ namespace PESDISASTER
                 {
                     // 弾切れの「カチッ」という音を鳴らす処理などをここに入れる
 
-                    Debug.Log("弾切れ！リロードしてください");
+                    playerNoticeUI.StartEmpty();// 弾切れ通知アニメーションをする
                 }
             }
         }
@@ -197,14 +194,13 @@ namespace PESDISASTER
                     // もしミニゲームが成功した場合
                     if (success)
                     {
-                        Debug.Log("リロード成功！");
                         StartCoroutine(ReloadRoutine());// 成功時のみ実際のリロードを開始
                     }
                     else
                     {
-                        Debug.Log("リロード失敗...");
-
                         // 失敗時のガシャン！という音などをここで鳴らす
+                        
+                        playerNoticeUI.StartFailed();// リロード失敗通知アニメーションを行う
                     }
                 });
             }
@@ -216,7 +212,6 @@ namespace PESDISASTER
         public void Shoot()
         {
             currentAmmo--;// マガジン内の弾数を1減らす
-            Debug.Log($"バン！ 残弾: {currentAmmo} / {reserveAmmo}");
 
             // もし銃のアニメーターが設定されている場合
             if (gunAnimator != null)
@@ -232,8 +227,6 @@ namespace PESDISASTER
             // もしRayが何かに当たった場合
             if (Physics.Raycast(ray, out hit, range))
             {
-                Debug.Log(hit.transform.name + " に命中！");
-               
                 EnemyHealth enemy = hit.transform.GetComponent<EnemyHealth>();// 当たった相手に EnemyHealth スクリプトがついているか確認
 
                 // もし EnemyHealth スクリプトがついている場合
@@ -266,7 +259,6 @@ namespace PESDISASTER
         private IEnumerator ReloadRoutine()
         {
             isReloading = true;
-            Debug.Log("リロード中...");
 
             // ここでリロードアニメーションや音を再生する
 
@@ -281,7 +273,8 @@ namespace PESDISASTER
             reserveAmmo -= ammoToReload;// 予備弾薬から補充した分を減らす
 
             isReloading = false;
-            Debug.Log($"リロード完了！ 残弾: {currentAmmo} / {reserveAmmo}");
+
+            playerNoticeUI.StartReload();// リロード完了通知アニメーションを行う
         }
 
         /// <summary>
