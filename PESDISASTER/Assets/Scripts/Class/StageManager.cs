@@ -30,6 +30,10 @@ namespace PESDISASTER
         /// プレイヤー通知UIを管理するクラスを参照する変数
         /// </summary>
         public PlayerNoticeUI_Manager playerNoticeUI_Manager;
+        /// <summary>
+        /// プレイヤーステータスUIを管理するクラスを参照する変数
+        /// </summary>
+        public PlayerStatusUI_Manager playerStatusUI_Manager;
 
         /// <summary>
         /// 続行ボタンを参照する変数
@@ -104,6 +108,7 @@ namespace PESDISASTER
             playerControllerUI_Manager.StartTutorial();// 操作チュートリアルを開始する
             yield return new WaitForSeconds(tutorialDuration);// チュートリアル演出の持続時間を待つ
             playerNoticeUI_Manager.StartRule();// ゲーム目的演出を開始する
+            playerStatusUI_Manager.StartShow();// プレイヤーステータスUIを表示する
             OnIntroEnd();// イントロ演出の終了処理を呼び出す
         }
 

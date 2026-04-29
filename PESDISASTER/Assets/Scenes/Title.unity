@@ -2981,6 +2981,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.LockedDoor
   leftHandPosition: {fileID: 0}
   doorTransform: {fileID: 1987714624}
+  playerNoticeUI_Manager: {fileID: 0}
   requiredKeyID: BedroomKey
 --- !u!1 &1987746610
 GameObject:
