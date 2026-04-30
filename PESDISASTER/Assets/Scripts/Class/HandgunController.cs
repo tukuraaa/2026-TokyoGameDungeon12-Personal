@@ -227,9 +227,9 @@ namespace PESDISASTER
             // もしRayが何かに当たった場合
             if (Physics.Raycast(ray, out hit, range))
             {
-                EnemyHealth enemy = hit.transform.GetComponent<EnemyHealth>();// 当たった相手に EnemyHealth スクリプトがついているか確認
+                HealthManager enemy = hit.transform.GetComponent<HealthManager>();// 当たった相手にHealthManagerスクリプトがついているか確認
 
-                // もし EnemyHealth スクリプトがついている場合
+                // もしHealthManagerスクリプトがついている場合
                 if (enemy != null)
                 {
                     enemy.TakeDamage(damage);

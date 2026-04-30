@@ -1,5 +1,71 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3029010446949363490
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7785476012497130637}
+  - component: {fileID: 5186548442973356470}
+  - component: {fileID: 4736667528365695857}
+  m_Layer: 0
+  m_Name: AttackCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7785476012497130637
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3029010446949363490}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.49, z: 1.03}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4610594201229677817}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &5186548442973356470
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3029010446949363490}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.951751
+  m_Center: {x: 0.15230657, y: 0.60405767, z: -3.723697e-10}
+--- !u!114 &4736667528365695857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3029010446949363490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87bd9641eaa9a4c4aa75a542c8857bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.EnemyAttackManager
 --- !u!1 &3823136240335717123
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,7 +78,7 @@ GameObject:
   - component: {fileID: 4511479400716097623}
   - component: {fileID: 7816035824001073345}
   - component: {fileID: 6395575922421539653}
-  - component: {fileID: 2357116167316356533}
+  - component: {fileID: 1756813434740032671}
   m_Layer: 8
   m_Name: EnemyRoot
   m_TagString: Enemy
@@ -34,6 +100,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3052131097670337111}
+  - {fileID: 7785476012497130637}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -200.3, z: 0}
 --- !u!195 &4511479400716097623
@@ -45,7 +112,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3823136240335717123}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.04
+  m_Radius: 0.62
   m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
@@ -72,6 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.EnemyAI
   playerTransform: {fileID: 0}
   animator: {fileID: 1317582306123831674}
+  attackCollider: {fileID: 5186548442973356470}
   obstacleMask:
     serializedVersion: 2
     m_Bits: 128
@@ -90,9 +158,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b834db9280ed54d498764bcaee4d7ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.EnemyHealth
+  playerHP_Bar: {fileID: 0}
   maxHealth: 100
---- !u!136 &2357116167316356533
-CapsuleCollider:
+--- !u!143 &1756813434740032671
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -106,14 +175,16 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.08
-  m_Height: 2.52
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.21, z: 0}
+  serializedVersion: 3
+  m_Height: 2.55
+  m_Radius: 0.75
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1.26, z: 0}
 --- !u!1001 &3301666784254174652
 PrefabInstance:
   m_ObjectHideFlags: 0

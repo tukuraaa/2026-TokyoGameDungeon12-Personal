@@ -37,6 +37,10 @@ namespace PESDISASTER
         /// 棚の開け方UIのターゲットを参照する変数
         /// </summary>
         public Transform openShelfTutorial_UI_Target;
+        /// <summary>
+        /// 棚の開け方UIのターゲットを参照する変数
+        /// </summary>
+        public Transform damageNoticeUI_Target;
 
         /// <summary>
         /// アニメーターのゲーム目的トリガーを参照する変数
@@ -62,6 +66,10 @@ namespace PESDISASTER
         /// アニメーターの棚の開け方トリガーを参照する変数
         /// </summary>
         public static readonly int openTutorialTrigger = Animator.StringToHash("OnOpenTutorial");
+        /// <summary>
+        /// アニメーターのダメージ時トリガーを参照する変数
+        /// </summary>
+        public static readonly int damageTrigger = Animator.StringToHash("OnDamage");
 
         /// <summary>
         /// 通知アニメーションの時間を参照する変数
@@ -71,6 +79,10 @@ namespace PESDISASTER
         /// 棚の開け方アニメーションの時間を参照する変数
         /// </summary>
         private float openTutorialAnimTime = 3f;
+        /// <summary>
+        /// ダメージ時アニメーションの時間を参照する変数
+        /// </summary>
+        private float damageAnimTime = 1f;
 
         /// <summary>
         /// 初期設定を行う関数
@@ -172,6 +184,14 @@ namespace PESDISASTER
         public void StartOpenTutorial()
         {
             StartCoroutine(NoticeAnimCoroutine(openShelfTutorial_UI_Target, openTutorialTrigger, openTutorialAnimTime));// 通知のアニメーションを行う
+        }
+
+        /// <summary>
+        /// ダメージ表示を開始する関数
+        /// </summary>
+        public void StartDamageNotice()
+        {
+            StartCoroutine(NoticeAnimCoroutine(damageNoticeUI_Target, damageTrigger, damageAnimTime));// ダメージ通知のアニメーションを行う
         }
     }
 }

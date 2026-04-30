@@ -1,6 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using System.Collections;
+using UnityEngine.Events;
 
 namespace PESDISASTER
 {
@@ -25,6 +26,11 @@ namespace PESDISASTER
         public Animator animator;
 
         /// <summary>
+        /// 攻撃のあたり判定を参照する変数
+        /// </summary>
+        public Collider attackCollider;
+
+        /// <summary>
         /// 壁などのレイヤーを参照する変数
         /// </summary>
         public LayerMask obstacleMask;
@@ -36,7 +42,15 @@ namespace PESDISASTER
         /// <summary>
         /// 攻撃の連打を防ぐためのタイマーを参照する変数
         /// </summary>
-        private float attackCooldown = 5f;
+        private float attackCooldown = 2f;
+        /// <summary>
+        /// 攻撃判定出現前演出タイマーを参照する変数
+        /// </summary>
+        private float attackBeforeTime = 1f;
+        /// <summary>
+        /// 攻撃判定出現タイマーを参照する変数
+        /// </summary>
+        private float attackTime = 2f;
         /// <summary>
         /// 気づいて追いかけ始める距離を参照する変数
         /// </summary>
@@ -77,7 +91,9 @@ namespace PESDISASTER
         /// </summary>
         private bool isAttacking = false;
 
-        // 敵の状態定義の列挙型
+        /// <summary>
+        /// 敵の状態定義の列挙型
+        /// </summary>
         public enum EnemyState
         {
             Idle,
@@ -163,17 +179,17 @@ namespace PESDISASTER
                     break;
 
                 case EnemyState.Chasing:
-                        agent.isStopped = false;// 移動再開
-                        agent.SetDestination(playerTransform.position);// 目的地をプレイヤーに設定
-                        animator.SetFloat(walk_ID, canWalkValue);
-                        break;
+                    agent.isStopped = false;// 移動再開
+                    agent.SetDestination(playerTransform.position);// 目的地をプレイヤーに設定
+                    animator.SetFloat(walk_ID, canWalkValue);
+                    break;
 
                 case EnemyState.Attacking:
 
                     // もし攻撃中ではない場合
                     if (!isAttacking)
                     {
-                        StartCoroutine(PerformAttack());// 攻撃の一連の流れを管理するコルーチンを開始
+                        StartCoroutine(PerformAttackCoroutine());// 攻撃の一連の流れを管理するコルーチンを開始
                     }
 
                     break;
@@ -216,7 +232,7 @@ namespace PESDISASTER
         /// 攻撃の一連の流れを管理するコルーチン
         /// </summary>
         /// <returns></returns>
-        private IEnumerator PerformAttack()
+        private IEnumerator PerformAttackCoroutine()
         {
             isAttacking = true;
 
@@ -228,7 +244,10 @@ namespace PESDISASTER
             transform.LookAt(lookPos);// プレイヤーの方を向く
 
             animator.SetTrigger(attack_ID);
-
+            yield return new WaitForSeconds(attackBeforeTime);// 攻撃判定出現をアニメーションのタイミングと合うように調整
+            attackCollider.enabled = true;// 攻撃コライダーを出現
+            yield return new WaitForSeconds(attackTime);// 当たり判定を指定時間まで出現
+            attackCollider.enabled = false;// 攻撃コライダーを消去
             yield return new WaitForSeconds(attackCooldown);// 攻撃のクールダウンを待つ
 
             isAttacking = false;
