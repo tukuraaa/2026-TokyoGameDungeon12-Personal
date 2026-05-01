@@ -167,7 +167,7 @@ namespace PESDISASTER
                 }
                 else
                 {
-                    // 弾切れの「カチッ」という音を鳴らす処理などをここに入れる
+                    AudioManager.instance.PlaySE(SE_Type.EmptyMagazine);
 
                     playerNoticeUI.StartEmpty();// 弾切れ通知アニメーションをする
                 }
@@ -260,7 +260,7 @@ namespace PESDISASTER
         {
             isReloading = true;
 
-            // ここでリロードアニメーションや音を再生する
+            AudioManager.instance.PlaySE(SE_Type.Reload);
 
             yield return new WaitForSeconds(reloadTime);
 

@@ -82,8 +82,7 @@ namespace PESDISASTER
             {
                 playerNoticeUI_Manager.StartLocked();// ロック中なのを通知する
 
-                // ここで「ガチャガチャ」という音を鳴らすとリアルです
-
+                // もし初めて調べた場合
                 if (isFirst)
                 {
                     StartCoroutine(OpenShelfTutorialCoroutine());// 棚の開け方チュートリアルを開始する

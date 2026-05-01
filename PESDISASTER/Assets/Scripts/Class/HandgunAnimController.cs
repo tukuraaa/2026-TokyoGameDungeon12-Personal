@@ -32,9 +32,7 @@ namespace PESDISASTER
                 muzzleFlashChild.Play();
             }
 
-            // ここに発砲音やレイキャストの処理を書く
-
-            Debug.Log("Bang!");
+            AudioManager.instance.PlaySE(SE_Type.Shoot);
         }
 
         /// <summary>
@@ -42,7 +40,7 @@ namespace PESDISASTER
         /// </summary>
         public void CasingRelease()
         {
-            // 排莢（薬莢が飛び出す）エフェクトなどがあればここに書く
+            // 受け皿なので空でよい
         }
     }
 }

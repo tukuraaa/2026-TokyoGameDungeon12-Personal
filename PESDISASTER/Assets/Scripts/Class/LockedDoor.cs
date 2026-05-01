@@ -64,8 +64,6 @@ namespace PESDISASTER
             else
             {
                 playerNoticeUI_Manager.StartLocked();// ロック中なのを通知する
-
-                // ガチャガチャというSEを鳴らすと良いです
             }
         }
 

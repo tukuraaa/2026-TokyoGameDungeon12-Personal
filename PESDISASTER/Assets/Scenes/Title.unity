@@ -3548,6 +3548,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: seDataArray.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: seDataArray.Array.data[4].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: c7f7fa3f9627fcb4782eba934aa3689d, type: 3}
+    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: seDataArray.Array.data[5].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: c7f7fa3f9627fcb4782eba934aa3689d, type: 3}
+    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: seDataArray.Array.data[6].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: c7f7fa3f9627fcb4782eba934aa3689d, type: 3}
+    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: seDataArray.Array.data[4].seType
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: seDataArray.Array.data[4].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: seDataArray.Array.data[5].seType
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: seDataArray.Array.data[5].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: seDataArray.Array.data[6].seType
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: seDataArray.Array.data[6].volume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6112636365582442148, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
       propertyPath: m_Name
       value: AudioManager

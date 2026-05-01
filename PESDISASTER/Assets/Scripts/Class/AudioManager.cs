@@ -20,12 +20,12 @@ namespace PESDISASTER
     {
         Cursor,
         Click,
-        Attack,
-        Damage,
-        Interact,
+        EmptyMagazine,
+        Reload,
+        Shoot,
         Notice,
         Pause,
-        Environment
+        Scream
     }
 
     /// <summary>
