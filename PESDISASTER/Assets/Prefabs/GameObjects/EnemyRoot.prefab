@@ -66,6 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87bd9641eaa9a4c4aa75a542c8857bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.EnemyAttackManager
+  playerNoticeUI_Manager: {fileID: 0}
 --- !u!1 &3823136240335717123
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,6 +160,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.EnemyHealth
   playerHP_Bar: {fileID: 0}
+  enemyAI: {fileID: 7816035824001073345}
+  stageManager: {fileID: 0}
   maxHealth: 100
 --- !u!143 &1756813434740032671
 CharacterController:

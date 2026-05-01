@@ -17,6 +17,10 @@ namespace PESDISASTER
         /// 敵の行動を管理するクラスを参照する変数
         /// </summary>
         public EnemyAI enemyAI;
+        /// <summary>
+        /// メインステージの機能を管理するクラスを参照する変数
+        /// </summary>
+        public StageManager stageManager;
 
         /// <summary>
         /// 体力を参照する変数
@@ -76,9 +80,8 @@ namespace PESDISASTER
                 // もしこのクラスがアタッチされているオブジェクトにプレイヤータグがついている場合
                 if (this.CompareTag(playerTag))
                 {
-                    // すでにかかっている曲を止めたうえでゲームオーバー用の曲を再生
-                    AudioManager.instance.StopBGM();
-                    AudioManager.instance.PlayBGM(BGM_Type.GameOver);
+                    stageManager.GameOver();// ゲームオーバー処理開始
+                    this.enabled = false;// 機能を停止
                 }
                 else
                 {
