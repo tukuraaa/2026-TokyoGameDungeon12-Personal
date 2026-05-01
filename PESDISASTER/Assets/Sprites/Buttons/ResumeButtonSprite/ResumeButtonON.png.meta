@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f3cbf27d6689d6448b1f2cede4850fa5
+guid: 336e7a1c82205b34ca94c0be5d56a48d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: StartButtonSpriteON_9
+      name: ResumeButtonON_5
       rect:
         serializedVersion: 2
-        x: 209
-        y: 311
-        width: 1026
-        height: 157
+        x: 113
+        y: 34
+        width: 1764
+        height: 467
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6143b97927dc895498fb86d9245583c0
-      internalID: 311109043
+      spriteID: 4574dc3aae5783348abff6eeb61426e7
+      internalID: -859940851
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 91575a7e7e6e29f43acccaeeb761cafa
+    spriteID: a669ccf1b740c4847b5b81857be71f38
     internalID: 0
     vertices: []
     indices: 
@@ -134,18 +134,12 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      StartButtonSpriteON_0: -1200935924
-      StartButtonSpriteON_1: 236573165
-      StartButtonSpriteON_10: 1922105600
-      StartButtonSpriteON_11: -1789417314
-      StartButtonSpriteON_2: -266501604
-      StartButtonSpriteON_3: -887049875
-      StartButtonSpriteON_4: 1240534368
-      StartButtonSpriteON_5: -1172244368
-      StartButtonSpriteON_6: -2114521752
-      StartButtonSpriteON_7: -656235455
-      StartButtonSpriteON_8: 1249503855
-      StartButtonSpriteON_9: 311109043
+      ResumeButtonON_0: 1990320035
+      ResumeButtonON_1: -1599337469
+      ResumeButtonON_2: -1023619944
+      ResumeButtonON_3: 1250067906
+      ResumeButtonON_4: -658312066
+      ResumeButtonON_5: -859940851
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
