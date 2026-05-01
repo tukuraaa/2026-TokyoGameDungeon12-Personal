@@ -39,7 +39,7 @@ namespace PESDISASTER
         /// <summary>
         /// ドアを開けるときのY軸回転量を参照する変数
         /// </summary>
-        private float transformDoorRotationY_Value = 9.3f;
+        public float transformDoorRotationY_Value = 9.3f;
 
         /// <summary>
         /// プレイヤーがドアにアクセスした時に呼ばれる関数

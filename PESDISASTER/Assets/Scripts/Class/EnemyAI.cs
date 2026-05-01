@@ -240,6 +240,7 @@ namespace PESDISASTER
                 return false;// 壁があるので見えない
             }
 
+            AudioManager.instance.PlaySE(SE_Type.Scream);
             return true;// すべての条件を満たしているので見える
         }
 
@@ -258,6 +259,7 @@ namespace PESDISASTER
             lookPos.y = transform.position.y;// Y軸を固定してプレイヤーの方を向く
             transform.LookAt(lookPos);// プレイヤーの方を向く
 
+            AudioManager.instance.PlaySE(SE_Type.Scream);
             animator.SetTrigger(attack_ID);
             yield return new WaitForSeconds(attackBeforeTime);// 攻撃判定出現をアニメーションのタイミングと合うように調整
             attackCollider.enabled = true;// 攻撃コライダーを出現
@@ -294,6 +296,7 @@ namespace PESDISASTER
         {
             isDefeating = true;// 撃退演出を開始
             StopMovement();
+            AudioManager.instance.PlaySE(SE_Type.Scream);
             animator.SetTrigger(defeat_ID);// 敵の撃退アニメーション再生
             yield return new WaitForSeconds(defeatTime);// 演出中待機
             isDefeating = false;// 撃退演出を終了
@@ -316,6 +319,7 @@ namespace PESDISASTER
         {
             isDamaging = true;// ダメージ演出を開始
             StopMovement();
+            AudioManager.instance.PlaySE(SE_Type.Scream);
             animator.SetTrigger(damage_ID);// 敵の被ダメージアニメーション再生
             yield return new WaitForSeconds(damageTime);// 演出中待機
             isDamaging = false;// ダメージ演出を終了

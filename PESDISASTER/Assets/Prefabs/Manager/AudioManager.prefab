@@ -70,4 +70,16 @@ MonoBehaviour:
   - clip: {fileID: 8300000, guid: c7f7fa3f9627fcb4782eba934aa3689d, type: 3}
     seType: 6
     volume: 1
-  maxSEChannels: 20
+  - clip: {fileID: 8300000, guid: 086485ab0cdefb843b45f4e7615e2cdd, type: 3}
+    seType: 4
+    volume: 1
+  - clip: {fileID: 8300000, guid: 950bc4952a0bcbf45af938f40508de96, type: 3}
+    seType: 3
+    volume: 1
+  - clip: {fileID: 8300000, guid: 9e11fe77b4904d448a826a13696c08d4, type: 3}
+    seType: 2
+    volume: 1
+  - clip: {fileID: 8300000, guid: 80190c4da296e164e95809679a1cae63, type: 3}
+    seType: 7
+    volume: 1
+  maxSEChannels: 50
