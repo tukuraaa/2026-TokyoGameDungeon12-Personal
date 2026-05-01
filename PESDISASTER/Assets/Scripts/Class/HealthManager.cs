@@ -14,6 +14,11 @@ namespace PESDISASTER
         public Image playerHP_Bar;
 
         /// <summary>
+        /// 敵の行動を管理するクラスを参照する変数
+        /// </summary>
+        public EnemyAI enemyAI;
+
+        /// <summary>
         /// 体力を参照する変数
         /// </summary>
         private float currentHealth;
@@ -50,7 +55,19 @@ namespace PESDISASTER
             // もしこのクラスがアタッチされているオブジェクトにプレイヤータグがついている場合
             if (this.CompareTag(playerTag))
             {
-                playerHP_Bar.fillAmount -= decreaseAmount;
+                // もし体力が0より多い場合
+                if (currentHealth > 0)
+                {
+                    playerHP_Bar.fillAmount -= decreaseAmount;
+                }
+            }
+            else
+            {
+                // もし体力が0より多い場合
+                if (currentHealth > 0)
+                {
+                    enemyAI.Damage();// 敵の被ダメージの演出を実行
+                }
             }
 
             // もし体力が0以下になった場合
@@ -65,17 +82,10 @@ namespace PESDISASTER
                 }
                 else
                 {
-                    Die();
+                    enemyAI.Die();// 敵の撃退演出を行う
+                    this.enabled = false;// 機能を停止
                 }
             }
-        }
-
-        /// <summary>
-        /// オブジェクトが死亡するための関数
-        /// </summary>
-        private void Die()
-        {
-            Destroy(gameObject);
         }
     }
 }

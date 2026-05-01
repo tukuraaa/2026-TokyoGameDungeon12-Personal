@@ -1246,6 +1246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.HealthManager
   playerHP_Bar: {fileID: 486677513}
+  enemyAI: {fileID: 1335564325}
   maxHealth: 100
 --- !u!1 &230252866
 GameObject:
@@ -1398,7 +1399,7 @@ MonoBehaviour:
   playerStatusUI_Manager: {fileID: 342438212}
   resumeButton: {fileID: 380277869}
   titleButton: {fileID: 1573756978}
-  introEventDuration: 17
+  introEventDuration: 1.7
 --- !u!95 &233239381
 Animator:
   serializedVersion: 7
@@ -4530,6 +4531,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -405.6}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &1091357883 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1317582306123831674, guid: 5bfb9dac2c0c72e4cb50e3a80478f17c, type: 3}
+  m_PrefabInstance: {fileID: 8064155459258109021}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1128308992
 GameObject:
   m_ObjectHideFlags: 0
@@ -5095,6 +5101,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1321024642}
   m_CullTransparentMesh: 1
+--- !u!114 &1335564325 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7816035824001073345, guid: 5bfb9dac2c0c72e4cb50e3a80478f17c, type: 3}
+  m_PrefabInstance: {fileID: 8064155459258109021}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df1377f10c70c5c44b1b41aada8e83a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.EnemyAI
 --- !u!1 &1339207458
 GameObject:
   m_ObjectHideFlags: 0
@@ -8637,6 +8654,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 233239379}
     m_Modifications:
+    - target: {fileID: 1317582306123831674, guid: 5bfb9dac2c0c72e4cb50e3a80478f17c, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
+        'mixamorig:LeftHandThumb2'\n\tTransform 'mixamorig:LeftHandIndex1'\n\tTransform
+        'mixamorig:LeftHandPinky2'\n\tTransform 'mixamorig:RightHandRing2'\n\tTransform
+        'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform 'mixamorig:LeftHandThumb3'\n\tTransform
+        'mixamorig:RightArm'\n\tand more ...\n\tFrom animation clip 'mixamo.com'\n\tFrom
+        animation clip 'mixamo.com'"
+      objectReference: {fileID: 0}
     - target: {fileID: 3823136240335717123, guid: 5bfb9dac2c0c72e4cb50e3a80478f17c, type: 3}
       propertyPath: m_Name
       value: EnemyRoot
@@ -8686,9 +8714,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 230252869}
     - target: {fileID: 6395575922421539653, guid: 5bfb9dac2c0c72e4cb50e3a80478f17c, type: 3}
+      propertyPath: enemyAI
+      value: 
+      objectReference: {fileID: 1335564325}
+    - target: {fileID: 6395575922421539653, guid: 5bfb9dac2c0c72e4cb50e3a80478f17c, type: 3}
       propertyPath: playerHP_Bar
       value: 
       objectReference: {fileID: 486677513}
+    - target: {fileID: 6395575922421539653, guid: 5bfb9dac2c0c72e4cb50e3a80478f17c, type: 3}
+      propertyPath: enemyAnimator
+      value: 
+      objectReference: {fileID: 1091357883}
     - target: {fileID: 7816035824001073345, guid: 5bfb9dac2c0c72e4cb50e3a80478f17c, type: 3}
       propertyPath: playerTransform
       value: 

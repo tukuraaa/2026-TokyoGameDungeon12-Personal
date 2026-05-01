@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
 
 namespace PESDISASTER
 {
@@ -52,6 +51,14 @@ namespace PESDISASTER
         /// </summary>
         private float attackTime = 2f;
         /// <summary>
+        /// ダメージアニメーションタイマーを参照する変数
+        /// </summary>
+        private float damageTime = 1.2f;
+        /// <summary>
+        /// 撃退アニメーションタイマーを参照する変数
+        /// </summary>
+        private float defeatTime = 4f;
+        /// <summary>
         /// 気づいて追いかけ始める距離を参照する変数
         /// </summary>
         public float chaseRange = 15f;
@@ -78,18 +85,26 @@ namespace PESDISASTER
         /// </summary>
         private static readonly int attack_ID = Animator.StringToHash("Attack");
         /// <summary>
-        /// ダメージアニメーションのパラメーターIDを参照する変数
-        /// </summary>
-        private static readonly int damage_ID = Animator.StringToHash("Damage");
-        /// <summary>
         /// 敗北アニメーションのパラメーターIDを参照する変数
         /// </summary>
         private static readonly int defeat_ID = Animator.StringToHash("Defeat");
+        /// <summary>
+        /// ダメージアニメーションのパラメーターIDを参照する変数
+        /// </summary>
+        private static readonly int damage_ID = Animator.StringToHash("Damage");
 
         /// <summary>
         /// 攻撃中かどうかを管理するフラグを参照する変数
         /// </summary>
         private bool isAttacking = false;
+        /// <summary>
+        /// 撃退演出中かどうかを管理するフラグを参照する変数
+        /// </summary>
+        private bool isDefeating = false;
+        /// <summary>
+        /// 被ダメージ演出中かどうかを管理するフラグを参照する変数
+        /// </summary>
+        private bool isDamaging = false;
 
         /// <summary>
         /// 敵の状態定義の列挙型
@@ -128,7 +143,7 @@ namespace PESDISASTER
         private void Update()
         {
             // もしプレイヤーが見つからない場合
-            if (playerTransform == null || isAttacking)
+            if (playerTransform == null || isAttacking || isDefeating || isDamaging)
             {
                 return;
             }
@@ -256,11 +271,54 @@ namespace PESDISASTER
         /// <summary>
         /// 動きを止めるための関数
         /// </summary>
-        private void StopMovement()
+        public void StopMovement()
         {
             agent.isStopped = true;
             agent.velocity = Vector3.zero;// 物理的な勢いも消す
             animator.SetFloat(walk_ID, 0f);
+        }
+
+        /// <summary>
+        /// 自身が死亡するための関数
+        /// </summary>
+        public void Die()
+        {
+            StartCoroutine(DieCoroutine());// 撃退演出を実行する
+        }
+
+        /// <summary>
+        /// 撃退処理を行うコルーチン
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator DieCoroutine()
+        {
+            isDefeating = true;// 撃退演出を開始
+            StopMovement();
+            animator.SetTrigger(defeat_ID);// 敵の撃退アニメーション再生
+            yield return new WaitForSeconds(defeatTime);// 演出中待機
+            isDefeating = false;// 撃退演出を終了
+            Destroy(this.gameObject);// 敵を消去
+        }
+
+        /// <summary>
+        /// 被ダメージ演出の処理を行う関数
+        /// </summary>
+        public void Damage()
+        {
+            StartCoroutine(DamageCoroutine());// ダメージ処理を実行
+        }
+
+        /// <summary>
+        /// ダメージ処理を行うコルーチン
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator DamageCoroutine()
+        {
+            isDamaging = true;// ダメージ演出を開始
+            StopMovement();
+            animator.SetTrigger(damage_ID);// 敵の被ダメージアニメーション再生
+            yield return new WaitForSeconds(damageTime);// 演出中待機
+            isDamaging = false;// ダメージ演出を終了
         }
     }
 }
