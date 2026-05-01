@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e03b842f83eb7b44baf63f7a066989c4
+guid: 53d1543d768128841abf24620c2bf23a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 92
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GameOverNameSprite_0
+      name: TitleButtonNoticeTextSprite_8
       rect:
         serializedVersion: 2
-        x: 90
-        y: 108
-        width: 839
-        height: 766
+        x: 14
+        y: 58
+        width: 677
+        height: 97
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c1ced14a076323647b1de344119e341b
-      internalID: -794840690
+      spriteID: 10e6060022a887a4ebf47c55add337ed
+      internalID: -439268253
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d67911160402884478091a7bf54fe63f
+    spriteID: 9df4a9852a85e134e85e2151779f89d0
     internalID: 0
     vertices: []
     indices: 
@@ -134,7 +134,18 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      GameOverNameSprite_0: -794840690
+      TitleButtonNoticeTextSprite_0: 1995286422
+      TitleButtonNoticeTextSprite_1: 1069847347
+      TitleButtonNoticeTextSprite_10: 1708481773
+      TitleButtonNoticeTextSprite_11: 1399911277
+      TitleButtonNoticeTextSprite_2: 1592195215
+      TitleButtonNoticeTextSprite_3: -1420326684
+      TitleButtonNoticeTextSprite_4: -825769528
+      TitleButtonNoticeTextSprite_5: 303534138
+      TitleButtonNoticeTextSprite_6: -198985100
+      TitleButtonNoticeTextSprite_7: -253712315
+      TitleButtonNoticeTextSprite_8: -439268253
+      TitleButtonNoticeTextSprite_9: -2079155242
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

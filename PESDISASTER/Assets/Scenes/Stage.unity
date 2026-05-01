@@ -7555,7 +7555,7 @@ RectTransform:
   m_GameObject: {fileID: 1450566086}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.91, y: 0.91, z: 0.91}
+  m_LocalScale: {x: 0.91999996, y: 0.91999996, z: 0.91999996}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 199902189}
@@ -8833,7 +8833,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: -2.3, y: 4.07, z: 1}
+  m_Size: {x: 2.3, y: 4.07, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1704672876
 MonoBehaviour:
@@ -11256,7 +11256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4684126322688692555, guid: 1463dd84e3140e64cb3cab75bdb49bf2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9156938221775324482, guid: 1463dd84e3140e64cb3cab75bdb49bf2, type: 3}
       propertyPath: m_Pivot.x
