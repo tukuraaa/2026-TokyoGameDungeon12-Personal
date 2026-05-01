@@ -9,16 +9,20 @@ namespace PESDISASTER
     public class ClearManager : MonoBehaviour
     {
         /// <summary>
-        /// タイトルボタンの参照用変数
+        /// タイトルボタンの参照する変数
         /// </summary>
-        private Button titleButton = null;
+        public Button titleButton;
+
+        /// <summary>
+        /// タイトルシーン名を参照する変数
+        /// </summary>
+        private string titleSceneName = "Title";
 
         /// <summary>
         /// 初期設定を行う関数
         /// </summary>
         private void Start()
         {
-            titleButton = GameObject.Find("TitleButton").GetComponent<Button>();// シーン内からTitleButtonを探して取得
             titleButton.onClick.AddListener(MoveTitle);// タイトルボタンがクリックされたとき、GoScene関数を呼び出すように設定
 
             AudioManager.instance.PlayBGM(BGM_Type.Clear);
@@ -27,9 +31,9 @@ namespace PESDISASTER
         /// <summary>
         /// タイトルシーンの遷移を行う関数
         /// </summary>
-        void MoveTitle()
+        private void MoveTitle()
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
+            UnityEngine.SceneManagement.SceneManager.LoadScene(titleSceneName);
         }
     }
 }
