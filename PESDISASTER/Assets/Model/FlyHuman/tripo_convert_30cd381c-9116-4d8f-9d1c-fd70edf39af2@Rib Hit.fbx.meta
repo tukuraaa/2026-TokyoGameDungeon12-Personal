@@ -1,19 +1,9 @@
 fileFormatVersion: 2
-guid: f0e1eb1b48b3c9b4ca33bcfbe6dfb2b0
+guid: 8856f0f3e8f11fd49bc5e497adddbb6c
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: tripo_mat_51cecce4
-    second: {fileID: 2100000, guid: 053233f3816b9f148842d37900e5691e, type: 2}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: HumanSkeletonModel_basecolor
-    second: {fileID: 2800000, guid: be8d9519769e61c44b6e7998c6e99146, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -43,7 +33,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 2
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -101,7 +91,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.02
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
