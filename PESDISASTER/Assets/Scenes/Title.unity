@@ -1215,6 +1215,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.TitleManager
   startButton: {fileID: 1052554704}
   exitButton: {fileID: 2147078902}
+  startEventTrigger: {fileID: 1052554707}
+  exitEventTrigger: {fileID: 2147078905}
   transitionUI_Manager: {fileID: 1128449269}
 --- !u!95 &707135536
 Animator:
@@ -3658,34 +3660,6 @@ PrefabInstance:
     - target: {fileID: 3666451252958239135, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[0].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: de8f1c8f524d5cf4ebbc8070917cd3d6, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[1].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: c3a5379154734fe48af1f55edad21b41, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[0].seType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[0].volume
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[1].seType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[1].volume
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6112636365582442148, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
       propertyPath: m_Name

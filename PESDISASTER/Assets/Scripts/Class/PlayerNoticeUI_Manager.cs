@@ -164,6 +164,11 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator NoticeAnimCoroutine(Transform target, int triggerNumber, float time)
         {
+            if (!target == damageNoticeUI_Target)
+            {
+                AudioManager.instance.PlaySE(SE_Type.Notice);
+            }
+
             TargetShow(target);
             animator.SetTrigger(triggerNumber);
             yield return new WaitForSeconds(time);

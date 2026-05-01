@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 namespace PESDISASTER
 {
@@ -18,6 +19,15 @@ namespace PESDISASTER
         /// ゲーム終了ボタンを参照する変数
         /// </summary>
         public Button exitButton;
+
+        /// <summary>
+        /// スタートボタンイベントを参照する変数
+        /// </summary>
+        public EventTrigger startEventTrigger;
+        /// <summary>
+        /// ゲーム終了ボタンイベントを参照する変数
+        /// </summary>
+        public EventTrigger exitEventTrigger;
 
         /// <summary>
         /// 遷移演出用UIを管理するクラスを参照する変数
@@ -78,17 +88,21 @@ namespace PESDISASTER
         {
             AudioManager.instance.PlayBGM(BGM_Type.Title);
 
-            // ボタンのアクセスを無効にする
+            // ボタン・ボタンイベントのアクセスを無効にする
             startButton.enabled = false;// スタートボタンを最初は無効にする
+            startEventTrigger.enabled = false;// スタートボタンイベントを最初は無効にする
             exitButton.enabled = false;// ゲーム終了ボタンを最初は無効にする
+            exitEventTrigger.enabled = false;// ゲーム終了ボタンイベントを最初は無効にする
 
             transitionUI_Manager.Show();
             yield return new WaitForSeconds(introAnimDuration);// イントロアニメーションの時間だけ待機
             transitionUI_Manager.Hide();
 
-            // ボタンのアクセスを有効にする
+            // ボタン。ボタンイベントのアクセスを有効にする
             startButton.enabled = true;// スタートボタンを有効にする
+            startEventTrigger.enabled = true;// スタートボタンイベントを有効にする
             exitButton.enabled = true;// ゲーム終了ボタンを有効にする
+            exitEventTrigger.enabled = true;// ゲーム終了ボタンイベントを有効にする
         }
 
         /// <summary>
@@ -121,9 +135,11 @@ namespace PESDISASTER
             AudioManager.instance.PlaySE(SE_Type.Click);
             AudioManager.instance.StopBGM();
 
-            // ボタンのアクセスを無効にする
+            // ボタン・ボタンイベントのアクセスを無効にする
             startButton.enabled = false;// スタートボタンを最初は無効にする
+            startEventTrigger.enabled = false;// スタートボタンイベントを最初は無効にする
             exitButton.enabled = false;// ゲーム終了ボタンを最初は無効にする
+            exitEventTrigger.enabled = false;// ゲーム終了ボタンイベントを最初は無効にする
 
             transitionUI_Manager.Show();
             animator.SetTrigger(titleOutroTrigger);// タイトルアウトロトリガーを発動

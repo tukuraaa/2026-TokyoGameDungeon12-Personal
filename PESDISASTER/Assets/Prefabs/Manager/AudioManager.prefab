@@ -48,8 +48,26 @@ MonoBehaviour:
   - clip: {fileID: 8300000, guid: 2de8808fa6700e943b711cc15f07d1ff, type: 3}
     bgmType: 0
     volume: 1
-  seDataArray:
-  - clip: {fileID: 8300000, guid: c3a5379154734fe48af1f55edad21b41, type: 3}
-    seType: 0
+  - clip: {fileID: 8300000, guid: 8f479ea8b70544e4f95ec047fb5647ea, type: 3}
+    bgmType: 1
     volume: 1
-  maxSEChannels: 10
+  - clip: {fileID: 8300000, guid: 9d3930562ba06e14e8b1f0a0ee9ed5a9, type: 3}
+    bgmType: 2
+    volume: 1
+  - clip: {fileID: 8300000, guid: 8cd42d84cebfdb24d824c47308d9700c, type: 3}
+    bgmType: 3
+    volume: 1
+  seDataArray:
+  - clip: {fileID: 8300000, guid: de8f1c8f524d5cf4ebbc8070917cd3d6, type: 3}
+    seType: 0
+    volume: 0.5
+  - clip: {fileID: 8300000, guid: c3a5379154734fe48af1f55edad21b41, type: 3}
+    seType: 1
+    volume: 1
+  - clip: {fileID: 8300000, guid: 80190c4da296e164e95809679a1cae63, type: 3}
+    seType: 5
+    volume: 1
+  - clip: {fileID: 8300000, guid: c7f7fa3f9627fcb4782eba934aa3689d, type: 3}
+    seType: 6
+    volume: 1
+  maxSEChannels: 20

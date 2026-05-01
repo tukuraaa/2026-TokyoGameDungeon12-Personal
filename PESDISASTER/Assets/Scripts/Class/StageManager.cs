@@ -91,8 +91,9 @@ namespace PESDISASTER
         /// <summary>
         /// 各シーンへの遷移を行う関数
         /// </summary>
-        private void MoveScene(string name)
+        public void MoveScene(string name)
         {
+            AudioManager.instance.StopBGM();
             Time.timeScale = timeCanMoveValue;
             UnityEngine.SceneManagement.SceneManager.LoadScene(name);
         }
@@ -103,6 +104,7 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator IntroEventCoroutine()
         {
+            AudioManager.instance.PlayBGM(BGM_Type.MainStage);
             yield return new WaitForSeconds(introEventDuration);// 演出の持続時間を待つ
             transitionUI_Manager.Hide();
             playerControllerUI_Manager.StartTutorial();// 操作チュートリアルを開始する
@@ -129,6 +131,8 @@ namespace PESDISASTER
         /// </summary>
        public void Pause()
         {
+            AudioManager.instance.PlaySE(SE_Type.Pause);
+
             // もしポーズ中でない場合
             if (!isPausing)
             {

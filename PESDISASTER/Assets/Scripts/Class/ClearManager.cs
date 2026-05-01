@@ -20,6 +20,8 @@ namespace PESDISASTER
         {
             titleButton = GameObject.Find("TitleButton").GetComponent<Button>();// シーン内からTitleButtonを探して取得
             titleButton.onClick.AddListener(MoveTitle);// タイトルボタンがクリックされたとき、GoScene関数を呼び出すように設定
+
+            AudioManager.instance.PlayBGM(BGM_Type.Clear);
         }
 
         /// <summary>

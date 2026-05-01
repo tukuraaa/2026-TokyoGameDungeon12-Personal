@@ -56,7 +56,17 @@ namespace PESDISASTER
             // もし体力が0以下になった場合
             if (currentHealth <= 0)
             {
-                Die();
+                // もしこのクラスがアタッチされているオブジェクトにプレイヤータグがついている場合
+                if (this.CompareTag(playerTag))
+                {
+                    // すでにかかっている曲を止めたうえでゲームオーバー用の曲を再生
+                    AudioManager.instance.StopBGM();
+                    AudioManager.instance.PlayBGM(BGM_Type.GameOver);
+                }
+                else
+                {
+                    Die();
+                }
             }
         }
 

@@ -10,6 +10,7 @@ namespace PESDISASTER
     {
         Title,
         MainStage,
+        GameOver,
         Clear
     }
     /// <summary>
@@ -23,6 +24,7 @@ namespace PESDISASTER
         Damage,
         Interact,
         Notice,
+        Pause,
         Environment
     }
 
