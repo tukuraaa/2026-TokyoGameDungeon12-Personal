@@ -76,6 +76,8 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator GameStartCoroutine()
         {
+            AudioManager.instance.PlayBGM(BGM_Type.Title);
+
             // ボタンのアクセスを無効にする
             startButton.enabled = false;// スタートボタンを最初は無効にする
             exitButton.enabled = false;// ゲーム終了ボタンを最初は無効にする
@@ -95,6 +97,10 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator StageTransitionCoroutine()
         {
+            // クリック音再生とともにBGMを停止
+            AudioManager.instance.PlaySE(SE_Type.Click);
+            AudioManager.instance.StopBGM();
+
             // ボタンのアクセスを無効にする
             startButton.enabled = false;// スタートボタンを最初は無効にする
             exitButton.enabled = false;// ゲーム終了ボタンを最初は無効にする
@@ -111,6 +117,10 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator GameExitCoroutine()
         {
+            // クリック音再生とともにBGMを停止
+            AudioManager.instance.PlaySE(SE_Type.Click);
+            AudioManager.instance.StopBGM();
+
             // ボタンのアクセスを無効にする
             startButton.enabled = false;// スタートボタンを最初は無効にする
             exitButton.enabled = false;// ゲーム終了ボタンを最初は無効にする
