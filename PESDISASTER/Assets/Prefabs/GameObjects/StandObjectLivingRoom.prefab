@@ -107,6 +107,7 @@ MonoBehaviour:
   shootableLock: {fileID: 0}
   playerNoticeUI_Manager: {fileID: 0}
   playerController: {fileID: 0}
+  isFirst: 0
 --- !u!65 &6072508723723996053
 BoxCollider:
   m_ObjectHideFlags: 0

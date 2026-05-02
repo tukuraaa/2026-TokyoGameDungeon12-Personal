@@ -41,7 +41,7 @@ namespace PESDISASTER
         /// <summary>
         /// 最初のインタラクトかどうかを参照する変数
         /// </summary>
-        private static bool isFirst = true;
+        public bool isFirst = true;
 
         /// <summary>
         /// 棚を開けるときのX軸移動量を参照する変数

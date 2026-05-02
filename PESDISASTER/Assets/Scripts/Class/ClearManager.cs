@@ -50,6 +50,11 @@ namespace PESDISASTER
         {
             animator = GetComponent<Animator>();
             titleButton.onClick.AddListener(MoveTitle);// タイトルボタンがクリックされたとき、GoScene関数を呼び出すように設定
+
+            // カーソル設定
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;// カーソルを表示にする
+
             titleButton.enabled = false;// 最初はボタンの機能をオフ
             AudioManager.instance.PlayBGM(BGM_Type.Clear);
             StartCoroutine(Endroll_Coroutine());// エンドロール処理を開始
