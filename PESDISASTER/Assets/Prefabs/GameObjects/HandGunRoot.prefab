@@ -101,6 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2bf9c2f50b5d747b8ab1ab6b619047, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.PickupItem
+  leftHoldPosition: {fileID: 0}
+  playerControllerUI_Manager: {fileID: 0}
   itemName: "\u30CF\u30F3\u30C9\u30AC\u30F3"
   holdName: RightHoldPosition
   moveDuration: 0.4
@@ -121,11 +123,13 @@ MonoBehaviour:
   aimTransform: {fileID: 0}
   hipTransform: {fileID: 0}
   impactEffectPrefab: {fileID: 0}
+  reloadMinigameUI: {fileID: 0}
+  playerNoticeUI: {fileID: 0}
   gunAnimator: {fileID: 3329401945029180246}
   aimPosition: {x: 0, y: -1.07, z: 1.2}
   maxClipAmmo: 10
   currentAmmo: 10
-  reserveAmmo: 30
+  reserveAmmo: 300000
   range: 50
   fireRate: 0.3
   reloadTime: 1.5
