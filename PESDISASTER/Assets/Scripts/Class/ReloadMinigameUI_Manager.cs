@@ -13,31 +13,63 @@ namespace PESDISASTER
         /// <summary>
         /// キーを表示する画像を参照する変数
         /// </summary>
-        public Image promptImage;
+        public Image PromptImage;
+
+        /// <summary>
+        /// マウス右クリックUIを参照する変数
+        /// </summary>
+        public Sprite RightClickSprite;
+        /// <summary>
+        /// TキーUIを参照する変数
+        /// </summary>
+        public Sprite T_KeySprite;
+        /// <summary>
+        /// RキーUIを参照する変数
+        /// </summary>
+        public Sprite R_KeySprite;
+        /// <summary>
+        /// マウスドラッグUIを参照する変数
+        /// </summary>
+        public Sprite DragDownSprite;
 
         /// <summary>
         /// 成否を伝えるためのコールバックを参照する変数
         /// </summary>
-        private Action<bool> onComplete;
+        private Action<bool> _onComplete;
 
         /// <summary>
-        /// 入力プロンプトのデータベースを参照する変数
+        /// マウスドラッグの開始位置を参照する変数
         /// </summary>
-        public InputPromptData promptData;
+        private Vector2 _dragStartPosition;
 
         /// <summary>
-        /// アクションが有効かどうかを示すフラグ
+        /// アクションが有効かどうかを示すフラグを参照する変数
         /// </summary>
-        private bool isActive = false;
+        private bool _isActive = false;
+        /// <summary>
+        /// マウスドラッグ中かどうかを示すフラグを参照する変数
+        /// </summary>
+        private bool _isDragging = false;
 
         /// <summary>
-        /// ターゲットのキーを参照する変数
+        /// マウスドラッグ距離のしきい値を参照する変数
         /// </summary>
-        private Key targetKey;
+        public float DragDistanceThreshold = 100f;
+
         /// <summary>
-        /// ミニゲームで使用するキーの候補を参照する変数の配列
+        /// リロードのステップを管理する列挙型
         /// </summary>
-        private Key[] possibleKeys = { Key.F, Key.G, Key.Q, Key.T };
+        private enum ReloadStep
+        {
+            RightClick,
+            PressT,
+            PressR,
+            DragDown
+        }
+        /// <summary>
+        /// 現在のステップ状態を参照する変数
+        /// </summary>
+        private ReloadStep _currentStep;
 
         /// <summary>
         /// 初期設定を行う関数
@@ -65,31 +97,14 @@ namespace PESDISASTER
         public void StartMinigame(Action<bool> callback)
         {
             // もしすでにミニゲームがアクティブの場合
-            if (isActive)
+            if (_isActive)
             {
                 return;
             }
 
-            onComplete = callback;// コールバックを保存
-            isActive = true;
+            _onComplete = callback;// コールバックを保存
+            _isActive = true;
             Show();
-
-            targetKey = possibleKeys[UnityEngine.Random.Range(0, possibleKeys.Length)];// ランダムにキーを選ぶ
-
-            Sprite selectedSprite = promptData.GetSprite(targetKey);// データベースから画像を取得
-
-            // もし画像が見つかった場合
-            if (selectedSprite != null)
-            {
-                promptImage.sprite = selectedSprite;// 画像をUIにセットして表示
-                Show();
-            }
-            else
-            {
-                // エラー時は非表示にする処理
-                Hide(); // UIは非表示にする
-                onComplete?.Invoke(false);// 失敗扱いにする
-            }
         }
 
         /// <summary>
@@ -98,27 +113,9 @@ namespace PESDISASTER
         private void Update()
         {
             // もしミニゲームがアクティブでない場合
-            if (!isActive)
+            if (!_isActive)
             {
                 return;
-            }
-
-            // もし正解のキーが押された場合
-            if (Keyboard.current[targetKey].wasPressedThisFrame)
-            {
-                Finish(true);// 正解のキーが押された場合は成功
-                return;
-            }
-
-            // 特定のキー候補をすべてチェックする
-            foreach (var key in possibleKeys)
-            {
-                // もし不正解のキーが押された場合
-                if (key != targetKey && Keyboard.current[key].wasPressedThisFrame)
-                {
-                    Finish(false);// 不正解のキーが押された場合は失敗
-                    return;
-                }
             }
         }
 
@@ -128,9 +125,9 @@ namespace PESDISASTER
         /// <param name="success"></param>
         private void Finish(bool success)
         {
-            isActive = false;
+            _isActive = false;
             Hide();
-            onComplete?.Invoke(success);// ハンドガン側に成否を伝える
+            _onComplete?.Invoke(success);// ハンドガン側に成否を伝える
         }
 
         /// <summary>
