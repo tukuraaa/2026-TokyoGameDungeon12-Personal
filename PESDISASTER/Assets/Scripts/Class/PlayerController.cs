@@ -364,7 +364,7 @@ namespace PESDISASTER
         public void OnPause(InputAction.CallbackContext context)
         {
             // もしポーズの入力が開始された場合
-            if (context.performed && !isSleeping)
+            if (context.performed)
             {
                 stageManager.Pause();
             }

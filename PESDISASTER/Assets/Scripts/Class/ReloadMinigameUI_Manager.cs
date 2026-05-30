@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace PESDISASTER
@@ -13,132 +11,99 @@ namespace PESDISASTER
         /// <summary>
         /// キーを表示する画像を参照する変数
         /// </summary>
-        public Image PromptImage;
+        [SerializeField]
+        private Image _prompt_Image;
 
         /// <summary>
         /// マウス右クリックUIを参照する変数
         /// </summary>
-        public Sprite RightClickSprite;
+        [SerializeField]
+        private Sprite _rightClickSprite;
         /// <summary>
         /// TキーUIを参照する変数
         /// </summary>
-        public Sprite T_KeySprite;
+        [SerializeField]
+        private Sprite _tKeySprite;
         /// <summary>
         /// RキーUIを参照する変数
         /// </summary>
-        public Sprite R_KeySprite;
+        [SerializeField]
+        private Sprite _rKeySprite;
         /// <summary>
         /// マウスドラッグUIを参照する変数
         /// </summary>
-        public Sprite DragDownSprite;
-
-        /// <summary>
-        /// 成否を伝えるためのコールバックを参照する変数
-        /// </summary>
-        private Action<bool> _onComplete;
-
-        /// <summary>
-        /// マウスドラッグの開始位置を参照する変数
-        /// </summary>
-        private Vector2 _dragStartPosition;
-
-        /// <summary>
-        /// アクションが有効かどうかを示すフラグを参照する変数
-        /// </summary>
-        private bool _isActive = false;
-        /// <summary>
-        /// マウスドラッグ中かどうかを示すフラグを参照する変数
-        /// </summary>
-        private bool _isDragging = false;
-
-        /// <summary>
-        /// マウスドラッグ距離のしきい値を参照する変数
-        /// </summary>
-        public float DragDistanceThreshold = 100f;
-
-        /// <summary>
-        /// リロードのステップを管理する列挙型
-        /// </summary>
-        private enum ReloadStep
-        {
-            RightClick,
-            PressT,
-            PressR,
-            DragDown
-        }
-        /// <summary>
-        /// 現在のステップ状態を参照する変数
-        /// </summary>
-        private ReloadStep _currentStep;
+        [SerializeField]
+        private Sprite _dragDownSprite;
 
         /// <summary>
         /// 初期設定を行う関数
         /// </summary>
-        void Start()
+        private void Start()
         {
+            // UIを隠す
             Hide();
         }
 
         /// <summary>
         /// UIを非表示にする関数
         /// </summary>
-        private void Hide()
+        public void Hide()
         {
-            foreach (Transform child in transform)
+            // 子オブジェクトを全てチェック
+            foreach (Transform _child in transform)
             {
-                child.gameObject.SetActive(false);
+                // 子オブジェクトを非表示
+                _child.gameObject.SetActive(false);
             }
-        }
-
-        /// <summary>
-        /// リロードミニゲームを開始する関数
-        /// </summary>
-        /// <param name="callback"></param>
-        public void StartMinigame(Action<bool> callback)
-        {
-            // もしすでにミニゲームがアクティブの場合
-            if (_isActive)
-            {
-                return;
-            }
-
-            _onComplete = callback;// コールバックを保存
-            _isActive = true;
-            Show();
-        }
-
-        /// <summary>
-        /// 毎フレーム処理を行う関数
-        /// </summary>
-        private void Update()
-        {
-            // もしミニゲームがアクティブでない場合
-            if (!_isActive)
-            {
-                return;
-            }
-        }
-
-        /// <summary>
-        /// 成功または失敗を処理してミニゲームを終了する関数
-        /// </summary>
-        /// <param name="success"></param>
-        private void Finish(bool success)
-        {
-            _isActive = false;
-            Hide();
-            _onComplete?.Invoke(success);// ハンドガン側に成否を伝える
         }
 
         /// <summary>
         /// UIを表示する関数
         /// </summary>
-        private void Show()
+        public void Show()
         {
-            foreach (Transform child in transform)
+            // 子オブジェクトを全てチェック
+            foreach (Transform _child in transform)
             {
-                child.gameObject.SetActive(true);
+                // 子オブジェクトを表示
+                _child.gameObject.SetActive(true);
             }
+        }
+
+        /// <summary>
+        /// 現在のステップに合わせてUI画像を更新する関数
+        /// </summary>
+        public void UpdateUI(string _control_Name)
+        {
+            // もし右クリックの操作だった場合
+            if (_control_Name == "RightClick")
+            {
+                // 対応する画像に変更
+                _prompt_Image.sprite = _rightClickSprite;
+            }
+
+            // もしTキークリックの操作だった場合
+            if (_control_Name == "PressT")
+            {
+                // 対応する画像に変更
+                _prompt_Image.sprite = _tKeySprite;
+            }
+
+            // もしRキークリックの操作だった場合
+            if (_control_Name == "PressR")
+            {
+                // 対応する画像に変更
+                _prompt_Image.sprite = _rKeySprite;
+            }
+
+            // もしマウス下ドラッグの操作だった場合
+            if (_control_Name == "DragDown")
+            {
+                // 対応する画像に変更
+                _prompt_Image.sprite = _dragDownSprite;
+            }
+
+            return;
         }
     }
 }

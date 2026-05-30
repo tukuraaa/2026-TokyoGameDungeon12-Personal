@@ -1046,14 +1046,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 676933678}
     m_Modifications:
-    - target: {fileID: 237563545110636125, guid: 0b26cd811d173394ea7ee69051b77c63, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 237563545110636125, guid: 0b26cd811d173394ea7ee69051b77c63, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.134
-      objectReference: {fileID: 0}
     - target: {fileID: 1202660255152162497, guid: 0b26cd811d173394ea7ee69051b77c63, type: 3}
       propertyPath: leftHandPosition
       value: 
@@ -1728,6 +1720,7 @@ Transform:
   - {fileID: 5038797062021601663}
   - {fileID: 852222621}
   - {fileID: 1704672874}
+  - {fileID: 1672983391}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &233239380
@@ -1754,7 +1747,7 @@ MonoBehaviour:
   overTitleButton: {fileID: 1370786287}
   retryEvent: {fileID: 1525987885}
   overTitleEvent: {fileID: 1370786286}
-  introEventDuration: 17
+  introEventDuration: 1.7
 --- !u!95 &233239381
 Animator:
   serializedVersion: 7
@@ -6359,8 +6352,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c71d359564b0a4abdd1202c476166b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.ReloadMinigameUI_Manager
-  promptImage: {fileID: 1160058495}
-  promptData: {fileID: 11400000, guid: fc975328f202f4842a531405957fbbed, type: 2}
+  _prompt_Image: {fileID: 1160058495}
+  _rightClickSprite: {fileID: 147692268, guid: db28add32a8c8804fb3a2c8fea0d83ec, type: 3}
+  _tKeySprite: {fileID: -2118484822, guid: 036891bacff8536499117720c00aed21, type: 3}
+  _rKeySprite: {fileID: -372961873, guid: 0324f9710fff98845adbdc72cbd701cd, type: 3}
+  _dragDownSprite: {fileID: -362825707, guid: f6ea604307d90e4449a7443cdfbf56cc, type: 3}
 --- !u!1 &1276935410
 GameObject:
   m_ObjectHideFlags: 0
@@ -8520,6 +8516,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6300668635541799317, guid: 583b4cee55e724121aa237d6f0282663, type: 3}
   m_PrefabInstance: {fileID: 1668160561}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1672983390
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1672983391}
+  - component: {fileID: 1672983392}
+  m_Layer: 0
+  m_Name: ReloadMinigameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1672983391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1672983390}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 233239379}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1672983392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1672983390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43cc71617c215ed40891f9fd5fcb9775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.ReloadMinigameManager
+  _reloadMinigameUIManager: {fileID: 1213762711}
+  _dragDistanceThreshold: 1
 --- !u!1001 &1681534812
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11527,9 +11569,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 230252869}
     - target: {fileID: 4883363815817356659, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
+      propertyPath: _playerNoticeUI
+      value: 
+      objectReference: {fileID: 230252869}
+    - target: {fileID: 4883363815817356659, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
       propertyPath: reloadMinigameUI
       value: 
       objectReference: {fileID: 1213762711}
+    - target: {fileID: 4883363815817356659, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
+      propertyPath: _reloadMinigameManager
+      value: 
+      objectReference: {fileID: 1672983392}
     - target: {fileID: 5544385202272270933, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.7

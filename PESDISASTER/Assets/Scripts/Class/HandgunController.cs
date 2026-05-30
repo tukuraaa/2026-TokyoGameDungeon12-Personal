@@ -10,6 +10,17 @@ namespace PESDISASTER
     public class HandgunController : MonoBehaviour
     {
         /// <summary>
+        /// リロードミニゲームのUIを管理するクラスを参照する変数
+        /// </summary>
+        [SerializeField]
+        private ReloadMinigameManager _reloadMinigameManager;
+        /// <summary>
+        /// プレイヤーへの通知UIを管理するクラスを参照する変数
+        /// </summary>
+        [SerializeField]
+        private PlayerNoticeUI_Manager _playerNoticeUI;
+
+        /// <summary>
         /// プレイヤーのメインカメラを参照する変数
         /// </summary>
         public Camera fpsCamera;
@@ -31,15 +42,6 @@ namespace PESDISASTER
         /// 着弾時の火花や弾痕のプレハブを参照する変数
         /// </summary>
         public GameObject impactEffectPrefab;
-
-        /// <summary>
-        /// リロードミニゲームのUIを管理するクラスを参照する変数
-        /// </summary>
-        public ReloadMinigameUI_Manager reloadMinigameUI;
-        /// <summary>
-        /// プレイヤーへの通知UIを管理するクラスを参照する変数
-        /// </summary>
-        public PlayerNoticeUI_Manager playerNoticeUI;
 
         /// <summary>
         /// 銃のアニメーターを参照する変数
@@ -150,8 +152,8 @@ namespace PESDISASTER
         /// </summary>
         public void OnFire(InputAction.CallbackContext context)
         {
-            // もし銃が装備されていない、もしくはリロード中の場合
-            if (!isEquipped || isReloading)
+            // もし銃が装備されていない、もしくはリロード中の場合、もしくはプレイヤーが動けない場合
+            if (!isEquipped || isReloading || PlayerController.instance.isSleeping)
             {
                 return;
             }
@@ -169,7 +171,7 @@ namespace PESDISASTER
                 {
                     AudioManager.instance.PlaySE(SE_Type.EmptyMagazine);
 
-                    playerNoticeUI.StartEmpty();// 弾切れ通知アニメーションをする
+                    _playerNoticeUI.StartEmpty();// 弾切れ通知アニメーションをする
                 }
             }
         }
@@ -179,8 +181,8 @@ namespace PESDISASTER
         /// </summary>
         public void OnReload(InputAction.CallbackContext context)
         {
-            // もし銃が装備されていない、もしくはリロード中の場合
-            if (!isEquipped || isReloading)
+            // もし銃が装備されていない、もしくはリロード中の場合、もしくはプレイヤーが動けない場合
+            if (!isEquipped || isReloading || PlayerController.instance.isSleeping)
             {
                 return;
             }
@@ -189,7 +191,8 @@ namespace PESDISASTER
             if (context.performed && currentAmmo < maxClipAmmo && reserveAmmo > 0)
             {
                 // ミニゲーム開始し、引数に「終わった後に実行する処理」を渡す
-                reloadMinigameUI.StartMinigame((bool success) => {
+                _reloadMinigameManager.StartMinigame((bool success) =>
+                {
 
                     // もしミニゲームが成功した場合
                     if (success)
@@ -199,8 +202,8 @@ namespace PESDISASTER
                     else
                     {
                         // 失敗時のガシャン！という音などをここで鳴らす
-                        
-                        playerNoticeUI.StartFailed();// リロード失敗通知アニメーションを行う
+
+                        _playerNoticeUI.StartFailed();// リロード失敗通知アニメーションを行う
                     }
                 });
             }
@@ -274,7 +277,7 @@ namespace PESDISASTER
 
             isReloading = false;
 
-            playerNoticeUI.StartReload();// リロード完了通知アニメーションを行う
+            _playerNoticeUI.StartReload();// リロード完了通知アニメーションを行う
         }
 
         /// <summary>
@@ -290,7 +293,7 @@ namespace PESDISASTER
 
             float step = Time.deltaTime * aimSpeed;// エイムのスムーズさを調整するためのステップ値を計算
 
-            Transform target = isAiming ? aimTransform : hipTransform ;// ターゲットを「aimTransform」か「hipTransform」で切り替える
+            Transform target = isAiming ? aimTransform : hipTransform;// ターゲットを「aimTransform」か「hipTransform」で切り替える
 
             // もしターゲットが設定されている場合
             if (target != null)
@@ -314,6 +317,12 @@ namespace PESDISASTER
         /// <param name="context"></param>
         public void OnAim(InputAction.CallbackContext context)
         {
+            // もしプレイヤーが動けない場合
+            if (PlayerController.instance.isSleeping)
+            {
+                return;
+            }
+
             // もし銃装備中にボタンが押された場合
             if (context.performed && isEquipped)
             {
