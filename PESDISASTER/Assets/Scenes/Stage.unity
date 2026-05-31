@@ -8561,7 +8561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.ReloadMinigameManager
   _reloadMinigameUIManager: {fileID: 1213762711}
-  _dragDistanceThreshold: 1
+  _dragDistanceThreshold: 50
 --- !u!1001 &1681534812
 PrefabInstance:
   m_ObjectHideFlags: 0

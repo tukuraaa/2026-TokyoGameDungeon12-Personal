@@ -28,11 +28,6 @@ namespace PESDISASTER
         private Action<bool> _onComplete;
 
         /// <summary>
-        /// マウスドラッグの開始位置を参照する変数
-        /// </summary>
-        private Vector2 _dragStartPosition;
-
-        /// <summary>
         /// アクションが有効かどうかを示すフラグを参照する変数
         /// </summary>
         private bool _isActive = false;
@@ -52,6 +47,11 @@ namespace PESDISASTER
         /// リロードコマンド指定がマウスドラッグ下の時かを判別するフラグを参照する変数
         /// </summary>
         private bool _isCheckDragDown = false;
+
+        /// <summary>
+        /// マウスドラッグの下方向への累積移動距離を参照する変数
+        /// </summary>
+        private float _accumulatedDragDistance = 0f;
 
         /// <summary>
         /// リロードのステップを管理する列挙型
@@ -143,6 +143,7 @@ namespace PESDISASTER
                     CheckKeyInput(Keyboard.current.tKey, ReloadStep.PressR, "PressR");
 
                     break;
+
                 case ReloadStep.PressR:
 
                     // 入力判定を開始
@@ -226,8 +227,15 @@ namespace PESDISASTER
                 // --- その瞬間に開始位置を記録 ---
                 // ドラッグのフラグをオン
                 _isDragging = true;
-                // ドラッグの最初の座標を現在の座標に代入
-                _dragStartPosition = Mouse.current.position.ReadValue();
+                // 累積移動距離をリセットする
+                _accumulatedDragDistance = 0f;
+            }
+
+            // もしドラッグ中の場合
+            if (_isDragging)
+            {
+                // 「下」への移動量をプラスの距離として測りたいので、マイナスを掛けて加算
+                _accumulatedDragDistance -= Mouse.current.delta.y.ReadValue();
             }
 
             // もし左クリックを離した場合
@@ -236,14 +244,9 @@ namespace PESDISASTER
                 // --- その瞬間に距離を計算 ---
                 // ドラッグのフラグをオフ
                 _isDragging = false;
-                // ドラッグを終了した場所を記録し参照する変数を定義
-                Vector2 _dragEndPosition = Mouse.current.position.ReadValue();
-
-                // 「下方向」への移動数を参照する変数を定義
-                float _dragDistance = _dragStartPosition.y - _dragEndPosition.y;
 
                 // もしマウスドラッグ距離のしきい値以上に下方向への移動数が多い場合
-                if (_dragDistance >= _dragDistanceThreshold)
+                if (_accumulatedDragDistance >= _dragDistanceThreshold)
                 {
                     // 全リロードステップ成功！
                     Finish(true);
