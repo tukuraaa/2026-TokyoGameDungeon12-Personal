@@ -153,7 +153,7 @@ namespace PESDISASTER
         public void OnFire(InputAction.CallbackContext context)
         {
             // もし銃が装備されていない、もしくはリロード中の場合、もしくはプレイヤーが動けない場合
-            if (!isEquipped || isReloading || PlayerController.instance.isSleeping)
+            if (!isEquipped || isReloading || PlayerController.Instance.IsSleeping)
             {
                 return;
             }
@@ -182,7 +182,7 @@ namespace PESDISASTER
         public void OnReload(InputAction.CallbackContext context)
         {
             // もし銃が装備されていない、もしくはリロード中の場合、もしくはプレイヤーが動けない場合
-            if (!isEquipped || isReloading || PlayerController.instance.isSleeping)
+            if (!isEquipped || isReloading || PlayerController.Instance.IsSleeping)
             {
                 return;
             }
@@ -318,7 +318,7 @@ namespace PESDISASTER
         public void OnAim(InputAction.CallbackContext context)
         {
             // もしプレイヤーが動けない場合
-            if (PlayerController.instance.isSleeping)
+            if (PlayerController.Instance.IsSleeping)
             {
                 return;
             }

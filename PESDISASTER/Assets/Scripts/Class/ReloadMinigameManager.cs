@@ -90,10 +90,14 @@ namespace PESDISASTER
             // 開始時フラグをオン
             _isFirstFrame = true;
             // プレイヤー自身は操作できないようにする
-            PlayerController.instance.isSleeping = true;
+            PlayerController.Instance.IsSleeping = true;
+            // プレイヤーの視点移動の入力をリセット
+            PlayerController.Instance.Look_Input = Vector2.zero;
+        // プレイヤーの移動入力ベクトルをリセット
+        PlayerController.Instance.Move_Input = Vector2.zero;
 
-            // 最初のステップを設定
-            _currentStep = ReloadStep.RightClick;
+        // 最初のステップを設定
+        _currentStep = ReloadStep.RightClick;
 
             // --- UIの表示物を指定して表示 ---
             _reloadMinigameUIManager.UpdateUI("RightClick");
@@ -319,7 +323,7 @@ namespace PESDISASTER
             // ドラッグフラグをオフ
             _isDragging = false;
             // プレイヤー自身を操作できるようにする
-            PlayerController.instance.isSleeping = false;
+            PlayerController.Instance.IsSleeping = false;
             // ミニゲームのUIを非表示
             _reloadMinigameUIManager.Hide();
             // ハンドガン側に成否を伝える

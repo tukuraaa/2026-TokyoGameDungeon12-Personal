@@ -11,215 +11,201 @@ namespace PESDISASTER
         /// <summary>
         /// プレイヤー視点カメラの参照用変数
         /// </summary>
-        public Camera mainCamera;
+        [SerializeField]
+        private Camera _mainCamera;
         /// <summary>
         /// アイテム表示カメラの参照用変数
         /// </summary>
-        public Camera weaponCamera;
+        [SerializeField]
+        private Camera _weaponCamera;
 
         /// <summary>
-        /// 首のTransformコンポーネントへの参照用変数
+        /// 首部分のTransformコンポーネントへの参照用変数
         /// </summary>
-        public Transform neck;
+        [SerializeField]
+        private Transform _neckTransform;
         /// <summary>
         /// カメラ右手元の位置を参照する変数
         /// </summary>
-        public Transform holdPosition;
+        [SerializeField]
+        private Transform _holdPosition;
         /// <summary>
         /// プレイヤー視点カメラのTransformコンポーネントを参照する変数
         /// </summary>
-        public Transform mainCameraTransform;
+        [SerializeField]
+        private Transform _mainCameraTransform;
         /// <summary>
         /// アイテム表示カメラのTransformコンポーネントを参照する変数
         /// </summary>
-        public Transform weaponCameraTransform;
+        [SerializeField]
+        private Transform _weaponCameraTransform;
         /// <summary>
         /// インタラクト操作のUIアイコンを参照する変数
         /// </summary>
-        public Transform interactControl_Icon;
+        [SerializeField]
+        private Transform _interactControl_Icon;
 
         /// <summary>
-        /// アイテムに関するクラスを参照する変数
+        /// プレイヤー操作のUIを管理するクラスを参照する変数
         /// </summary>
-        private ItemManager item;
-        /// <summary>
-        /// 棚の状態を管理するクラスを参照する変数
-        /// </summary>
-        private LockedShelf lockedShelf;
-        /// <summary>
-        /// ハンドガンの操作を管理するクラスを参照する変数
-        /// </summary>
-        private HandgunController handgunController;
-        /// <summary>
-        /// 鍵付きドアの状態を管理するクラスを参照する変数
-        /// </summary>
-        private LockedDoor lockedDoor;
+        [SerializeField]
+        private PlayerControllerUI_Manager _playerControllerUI_Manager;
         /// <summary>
         /// プレイヤー操作のUIを管理するクラスを参照する変数
         /// </summary>
-        public PlayerControllerUI_Manager playerControllerUI_Manager;
+        [SerializeField]
+        private StageManager _stageManager;
+
         /// <summary>
-        /// プレイヤー操作のUIを管理するクラスを参照する変数
+        /// マウス感度を調整するための変数
         /// </summary>
-        public StageManager stageManager;
+        [SerializeField]
+        private float _mouseSensitivity = 2.0f;
+        /// <summary>
+        /// インタラクト可能なオブジェクトを検出するための範囲を設定する変数
+        /// </summary>
+        [SerializeField]
+        private float _interactRange = 2.5f;
+        /// <summary>
+        /// 移動速度を参照する変数
+        /// </summary>
+        [SerializeField]
+        private float _moveSpeed = 5.0f;
 
         /// <summary>
         /// プレイヤーコントローラーのインスタンスを参照する変数
         /// </summary>
-        public static PlayerController instance { get; private set; }
+        public static PlayerController Instance { get; private set; }
 
         /// <summary>
         /// プレイヤーのキャラクターコントローラーを参照する変数
         /// </summary>
-        private CharacterController characterController;
+        private CharacterController _characterController;
+
+        /// <summary>
+        /// アイテムに関するクラスを参照する変数
+        /// </summary>
+        private ItemManager _itemManager;
 
         /// <summary>
         /// 視点移動の入力を参照する変数
         /// </summary>
-        private Vector2 lookInput = Vector2.zero;
+        public Vector2 Look_Input = Vector2.zero;
         /// <summary>
         /// 移動入力ベクトルを参照する変数
         /// </summary>
-        private Vector2 moveInput = Vector2.zero;
+        public Vector2 Move_Input = Vector2.zero;
 
         /// <summary>
         /// Rayが当たった情報を格納する変数
         /// </summary>
-        private RaycastHit hit;
+        private RaycastHit _hit;
 
         /// <summary>
         /// Rayを参照する変数
         /// </summary>
-        private Ray ray;
+        private Ray _ray;
 
         /// <summary>
         /// ターゲットとなるインタラクト可能なオブジェクト（アイテム）を参照するための変数
         /// </summary>
-        private I_Interactable iCurrentTarget;
+        private I_Interactable _iCurrentTarget;
         /// <summary>
         /// Rayが当たったオブジェクト（アイテム）を参照する変数
         /// </summary>
-        private I_Interactable i_Interactable;
+        private I_Interactable _i_Interactable;
         /// <summary>
         /// ターゲットとなるインタラクト可能なオブジェクト（棚）を参照するための変数
         /// </summary>
-        private S_Interactable sCurrentTarget;
+        private S_Interactable _sCurrentTarget;
         /// <summary>
         /// Rayが当たったオブジェクト（棚）を参照する変数
         /// </summary>
-        private S_Interactable s_Interactable;
+        private S_Interactable _s_Interactable;
         /// <summary>
         /// ターゲットとなるインタラクト可能なオブジェクト（ドア）を参照するための変数
         /// </summary>
-        private D_Interactable dCurrentTarget;
+        private D_Interactable _dCurrentTarget;
         /// <summary>
         /// Rayが当たったオブジェクト（ドア）を参照する変数
         /// </summary>
-        private D_Interactable d_Interactable;
+        private D_Interactable _d_Interactable;
 
         /// <summary>
         /// レイヤーマスクを使用して、インタラクト可能なオブジェクトを特定するための変数
         /// </summary>
-        public LayerMask interactableLayer;
+        public LayerMask InteractableLayer;
 
         /// <summary>
         /// 首の前後移動の入力を保持するための変数
         /// </summary>
-        private float translationZ = 0f;
+        private float _translationZ = 0f;
         /// <summary>
         /// 回転角度を保持するための変数
         /// </summary>
-        private float rotationX = 0f;
+        private float _rotationX = 0f;
         /// <summary>
         /// 移動の速度を保持する速度を参照する変数
         /// </summary>
-        private float currentSpeed;
+        private float _currentSpeed;
         /// <summary>
         /// カメラのレイのX方向を参照する変数
         /// </summary>
-        private float viewAngleX = 0.5f;
+        private float _viewAngleX = 0.5f;
         /// <summary>
         /// カメラのレイのY方向を参照する変数
         /// </summary>
-        private float viewAngleY = 0.5f;
+        private float _viewAngleY = 0.5f;
         /// <summary>
         /// 移動入力の閾値を参照する変数
         /// </summary>
-        private float moveInputThreshold = 0.01f;
+        private float _move_InputThreshold = 0.01f;
         /// <summary>
         /// 重力の値を参照する変数
         /// </summary>
-        private float gravityValue = -9.81f;
+        private float _gravityValue = -9.81f;
         /// <summary>
         /// 重力が地面にいるときに適用される値を参照する変数
         /// </summary>
-        private float gravityCorrentValue = -1;
-        /// <summary>
-        /// マウス感度を調整するための変数
-        /// </summary>
-        public float sensitivity = 2.0f;
+        private float _gravityCorrentValue = -1;
         /// <summary>
         /// 首の上下回転の制限角度を設定するための変数
         /// </summary>
-        public float minVertical = -90.0f;
+        private float _minVertical = -90.0f;
         /// <summary>
         /// 最大の首の上下回転角度を設定するための変数
         /// </summary>
-        public float maxVertical = 90.0f;
+        private float _maxVertical = 90.0f;
         /// <summary>
         /// 首の前後移動の最小値を設定するための変数
         /// </summary>
-        public float minNeckTranslationZ = -1.0f;
+        private float _minNeckTranslationZ = -1.0f;
         /// <summary>
         /// 首の前後移動の最大値を設定するための変数
         /// </summary>
-        public float maxNeckTranslationZ = 1.0f;
+        private float _maxNeckTranslationZ = 1.0f;
         /// <summary>
         /// 首の前後移動の感度を調整するための変数
         /// </summary>
-        public float adjustmentDivisor = 200.0f;
-        /// <summary>
-        /// インタラクト可能なオブジェクトを検出するための範囲を設定する変数
-        /// </summary>
-        public float interactRange = 2.5f;
-        /// <summary>
-        /// 壁の当たり判定を行うための距離を参照する変数
-        /// </summary>
-        public float wallCheckerDistance = 0;
-        /// <summary>
-        /// 移動速度を参照する変数
-        /// </summary>
-        public float moveSpeed = 5.0f;
+        private float _adjustmentDivisor = 200.0f;
 
         /// <summary>
         /// プレイヤーの操作を有効にするかどうかを示すフラグを参照する変数
         /// </summary>
-        public bool isSleeping = false;
+        public bool IsSleeping = false;
 
-        /// <summary>
-        /// 棚のオブジェクトの名前を参照する変数
-        /// </summary>
-        private string shelfName = "StandObjectBedroom";
-        /// <summary>
-        /// ハンドガンのオブジェクトの名前を参照する変数
-        /// </summary>
-        private string handgunName = "HandgunRoot";
-        /// <summary>
-        /// ロックされたドアのオブジェクトの名前を参照する変数
-        /// </summary>
-        private string lockedDoorName = "Door03_pr";
         /// <summary>
         /// ターゲットとなるインタラクト可能オブジェクト種（棚）の名前を参照する変数
         /// </summary>
-        private string targetShelfName = "Shelf";
+        private string _targetShelfName = "Shelf";
         /// <summary>
         /// ターゲットとなるインタラクト可能オブジェクト種（アイテム）の名前を参照する変数
         /// </summary>
-        private string target_ItemName = "Item";
+        private string _target_ItemName = "Item";
         /// <summary>
         /// ターゲットとなるインタラクト可能オブジェクト種（ドア）の名前を参照する変数
         /// </summary>
-        private string targetDoorName = "Door";
+        private string _targetDoorName = "Door";
 
         /// <summary>
         /// モーション状態定義の列挙型
@@ -229,37 +215,51 @@ namespace PESDISASTER
             Stopping,
             Walking
         }
-        MotionState motionState = MotionState.Stopping;// 現在のモーション状態
+        /// <summary>
+        /// 現在のモーション状態を参照する変数
+        /// </summary>
+        private MotionState _motionState = MotionState.Stopping;
 
         /// <summary>
         /// ゲーム開始時の初期設定を行う関数
         /// </summary>
         private void Awake()
         {
-            instance = this;
-
-            // コンポーネントの登録
-            characterController = GetComponent<CharacterController>();
-            lockedShelf = GameObject.Find(shelfName).GetComponent<LockedShelf>();// 棚の状態を管理するクラスを検索して登録
-            handgunController = GameObject.Find(handgunName).GetComponent<HandgunController>();// ハンドガンの操作を管理するクラスを検索して登録
-            lockedDoor = GameObject.Find(lockedDoorName).GetComponent<LockedDoor>();// 鍵付きドアの状態を管理するクラスを検索して登録
-
-            // もしプレイヤー視点カメラが正しく設定されている場合
-            if (mainCamera != null && mainCameraTransform != null)
+            // もしインスタンスが無い場合
+            if (Instance == null)
             {
-                // プレイヤー視点カメラをプレイヤー視点カメラ用ポジションの子にする
-                mainCamera.transform.SetParent(mainCameraTransform);// プレイヤー視点カメラをプレイヤー視点カメラ用ポジションの子にする
-                mainCamera.transform.localPosition = Vector3.zero;// プレイヤー視点カメラのローカル座標をゼロに設定
-                mainCamera.transform.localRotation = Quaternion.identity;// プレイヤー視点カメラのローカル回転をゼロに設定
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
             }
 
-            // もしアイテム表示カメラが正しく設定されている場合
-            if (weaponCamera != null && weaponCameraTransform != null)
+            // コライダーコンポーネントを登録
+            _characterController = GetComponent<CharacterController>();
+
+            // もしプレイヤー視点カメラとその座標が正しく設定されている場合
+            if (_mainCamera != null && _mainCameraTransform != null)
             {
-                // アイテムカメラをアイテムカメラ用ポジションの子にする
-                weaponCamera.transform.SetParent(weaponCameraTransform);// アイテム表示カメラをアイテム表示カメラ用ポジションの子にする
-                weaponCamera.transform.localPosition = Vector3.zero;// アイテム表示カメラのローカル座標をゼロに設定
-                weaponCamera.transform.localRotation = Quaternion.identity;// アイテム表示カメラのローカル回転をゼロに設定
+                // --- プレイヤー視点カメラをプレイヤーオブジェクト下に設定する ---
+                // プレイヤー視点カメラをプレイヤー視点カメラ用ポジションの子にする
+                _mainCamera.transform.SetParent(_mainCameraTransform);
+                // プレイヤー視点カメラのローカル座標をゼロに設定
+                _mainCamera.transform.localPosition = Vector3.zero;
+                // プレイヤー視点カメラのローカル回転をゼロに設定
+                _mainCamera.transform.localRotation = Quaternion.identity;
+            }
+
+            // もしアイテム表示カメラとその座標が正しく設定されている場合
+            if (_weaponCamera != null && _weaponCameraTransform != null)
+            {
+                // --- アイテムカメラをプレイヤーオブジェクト下に設定する ---
+                // アイテム表示カメラをアイテム表示カメラ用ポジションの子にする
+                _weaponCamera.transform.SetParent(_weaponCameraTransform);
+                // アイテム表示カメラのローカル座標をゼロに設定
+                _weaponCamera.transform.localPosition = Vector3.zero;
+                // アイテム表示カメラのローカル回転をゼロに設定
+                _weaponCamera.transform.localRotation = Quaternion.identity;
             }
         }
 
@@ -268,179 +268,229 @@ namespace PESDISASTER
         /// </summary>
         private void Update()
         {
-            ray = mainCamera.ViewportPointToRay(new Vector3(viewAngleX, viewAngleY, 0f));// 画面の中心から奥へ向かうRayを作成
+            // 画面の中心から奥へ向かうRayを作成
+            _ray = _mainCamera.ViewportPointToRay(new Vector3(_viewAngleX, _viewAngleY, 0f));
 
-            // マウスの入力を感度とフレーム時間で調整して、回転と移動の値を更新
-            float mouseRotationX = lookInput.x * sensitivity * Time.deltaTime;// マウスX方向の入力を感度とフレーム時間で調整
-            float mouseRotationY = lookInput.y * sensitivity * Time.deltaTime;// マウスY方向の入力を感度とフレーム時間で調整
+            // --- マウスの入力を感度とフレーム時間で調整して、回転と移動の値を更新 ---
+            // マウスX方向の入力を感度とフレーム時間で調整し参照する変数を定義
+            float _mouseRotationX = Look_Input.x * _mouseSensitivity * Time.deltaTime;
+            // マウスY方向の入力を感度とフレーム時間で調整し参照する変数を定義
+            float _mouseRotationY = Look_Input.y * _mouseSensitivity * Time.deltaTime;
 
-            float mouseTranslationY = lookInput.y * (sensitivity / adjustmentDivisor) * Time.deltaTime;// マウスY方向の入力を感度とフレーム時間で調整して、首の前後移動の値を更新
+            // マウスY方向の入力を感度とフレーム時間で調整して、首の前後移動の値を更新し参照する変数を定義
+            float _mouseTranslationY = Look_Input.y * (_mouseSensitivity / _adjustmentDivisor) * Time.deltaTime;
 
-            float neckTranslationY = neck.transform.localPosition.y;// 首の高さを保持するために現在の首のY位置を取得
+            // 首の高さを保持するために現在の首のY位置を取得し参照する変数を定義
+            float _neckTranslationY = _neckTransform.transform.localPosition.y;
 
-            transform.Rotate(0, mouseRotationX, 0);// プレイヤー（体）の左右の回転をマウスX方向の入力に合わせて行う
+            // プレイヤー（体）の左右の回転をマウスX方向の入力に合わせて行う
+            transform.Rotate(0, _mouseRotationX, 0);
 
-            // 首の回転と前後移動をマウスY方向の入力に合わせて更新
-            rotationX -= mouseRotationY;// マウスY方向の入力によって縦方向の回転を更新
-            translationZ = Mathf.Clamp(translationZ, minNeckTranslationZ, maxNeckTranslationZ);// 首の前後移動を指定された範囲に制限
-            neck.localRotation = Quaternion.Euler(rotationX, 0, 0);// 首の回転を設定。縦方向のみ回転させる
+            // --- 首の回転と前後移動をマウスY方向の入力に合わせて更新 ---
+            // マウスY方向の入力によって縦方向の回転を更新
+            _rotationX -= _mouseRotationY;
+            // 首の前後移動を指定された範囲に制限
+            _translationZ = Mathf.Clamp(_translationZ, _minNeckTranslationZ, _maxNeckTranslationZ);
+            // 首の回転を設定。縦方向のみ回転させる
+            _neckTransform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
 
-            // 首の前後移動をマウスY方向の入力に合わせて更新
-            translationZ -= mouseTranslationY;// マウスY方向の入力によって首の前後移動を更新
-            rotationX = Mathf.Clamp(rotationX, minVertical, maxVertical);// 回転角度を指定された範囲に制限
-            neck.localPosition = new Vector3(0, 0, translationZ);// 首の位置を設定。前後移動のみ行う
+            // --- 首の前後移動をマウスY方向の入力に合わせて更新 ---
+            // マウスY方向の入力によって首の前後移動を更新
+            _translationZ -= _mouseTranslationY;
+            // 回転角度を指定された範囲に制限
+            _rotationX = Mathf.Clamp(_rotationX, _minVertical, _maxVertical);
+            // 首の位置を設定。前後移動のみ行う
+            _neckTransform.localPosition = new Vector3(0, 0, _translationZ);
 
-            neck.localPosition = new Vector3(neck.localPosition.x, neckTranslationY, neck.localPosition.z);// 首の高さを一定に保つ
+            // 首の高さを一定に保つ
+            _neckTransform.localPosition = new Vector3(_neckTransform.localPosition.x, _neckTranslationY, _neckTransform.localPosition.z);
 
-            // インタラクト可能なオブジェクトを検出する
-            CheckForI_Interactable(target_ItemName);// インタラクト可能なオブジェクト（アイテム）を検出する関数を呼び出す
-            CheckForI_Interactable(targetShelfName);// インタラクト可能なオブジェクト（棚）を検出する関数を呼び出す
-            CheckForI_Interactable(targetDoorName);// インタラクト可能なオブジェクト（ドア）を検出する関数を呼び出す
+            // --- インタラクト可能なオブジェクトを検出する ---
+            // インタラクト可能なオブジェクト（アイテム）を検出する関数を呼び出す
+            CheckFor_I_Interactable(_target_ItemName);
+            // インタラクト可能なオブジェクト（棚）を検出する関数を呼び出す
+            CheckFor_I_Interactable(_targetShelfName);
+            // インタラクト可能なオブジェクト（ドア）を検出する関数を呼び出す
+            CheckFor_I_Interactable(_targetDoorName);
 
-            UpdateMotionState(); // 状態を更新
-            ApplyMovement();     // 移動を実行
-
-            DetermineCurrentState();// 入力状況から最新の MotionState を決定する
+            // --- 他の管理関数を呼び出す ---
+            // 状態を更新
+            UpdateMotionState(); 
+            // 移動実行を管理する関数を呼び出す
+            ApplyMovement();     
+            // 入力状況から最新のMotionStateを決定する
+            DetermineCurrentState();
         }
 
         /// <summary>
         /// 視点移動の入力を処理する関数
         /// </summary>
-        /// <param name="context"></param>
-        public void OnLook(InputAction.CallbackContext context)
+        /// <param name="_context"></param>
+        public void OnLook(InputAction.CallbackContext _context)
         {
-            if (!isSleeping)
+            // もしプレイヤーが動ける場合
+            if (!IsSleeping)
             {
-                lookInput = context.ReadValue<Vector2>();// 視点移動の入力を取得
+                // 視点移動の入力を取得
+                Look_Input = _context.ReadValue<Vector2>();
             }
         }
 
         /// <summary>
         /// アイテムを拾うための入力を処理する関数
         /// </summary>
-        /// <param name="context"></param>
-        public void OnInteract(InputAction.CallbackContext context)
+        /// <param name="_context"></param>
+        public void On_Interact(InputAction.CallbackContext _context)
         {
-            // もしインタラクトの入力が開始された場合
-            if (context.performed && !isSleeping)
+            // もしプレイヤーが動けるかつ、インタラクトの入力が開始された場合
+            if (_context.performed && !IsSleeping)
             {
                 // もしターゲット（アイテム）が存在する場合
-                if (iCurrentTarget != null)
+                if (_iCurrentTarget != null)
                 {
-                    PerformPickupInteraction();// アイテムを拾う準備を行い、拾う
-                    playerControllerUI_Manager.TargetHide(interactControl_Icon);// インタラクトUIを非表示にする
+                    // アイテムを拾う準備を行って拾う
+                    PerformPickup_Interaction();
+                    // インタラクトUIを非表示にする
+                    _playerControllerUI_Manager.TargetHide(_interactControl_Icon);
+
                     return;
                 }
                 // もしターゲット（棚）が存在する場合
-                else if (sCurrentTarget != null)
+                else if (_sCurrentTarget != null)
                 {
-                    sCurrentTarget.OpenShelf();// 棚を開ける処理
-                    playerControllerUI_Manager.TargetHide(interactControl_Icon);// インタラクトUIを非表示にする
+                    // 棚を開ける処理
+                    _sCurrentTarget.OpenShelf();
+                    // インタラクトUIを非表示にする
+                    _playerControllerUI_Manager.TargetHide(_interactControl_Icon);
+
                     return;
                 }
                 // もしターゲット（ドア）が存在する場合
-                else if (dCurrentTarget != null)
+                else if (_dCurrentTarget != null)
                 {
-                    dCurrentTarget.Interact();// ドアを開ける処理
-                    playerControllerUI_Manager.TargetHide(interactControl_Icon);// インタラクトUIを非表示にする
+                    // ドアを開ける処理
+                    _dCurrentTarget.Interact();
+                    // インタラクトUIを非表示にする
+                    _playerControllerUI_Manager.TargetHide(_interactControl_Icon);
+
                     return;
                 }
             }
         }
 
-        // Move アクションによって呼び出されるプログラムを移植（中山が編集）
-        public void OnMove(InputAction.CallbackContext context)
+        /// <summary>
+        /// 移動の入力を受け付ける関数
+        /// </summary>
+        /// <param name="_context"></param>
+        public void OnMove(InputAction.CallbackContext _context)
         {
-            if (!isSleeping)
+            // もしプレイヤーが動ける場合
+            if (!IsSleeping)
             {
-                moveInput = context.ReadValue<Vector2>();
+                Move_Input = _context.ReadValue<Vector2>();
             }
         }
 
         /// <summary>
         /// ポーズの入力を処理する関数
         /// </summary>
-        /// <param name="context"></param>
-        public void OnPause(InputAction.CallbackContext context)
+        /// <param name="_context"></param>
+        public void OnPause(InputAction.CallbackContext _context)
         {
             // もしポーズの入力が開始された場合
-            if (context.performed)
+            if (_context.performed)
             {
-                stageManager.Pause();
+                _stageManager.Pause();
             }
         }
 
         /// <summary>
         /// インタラクト可能なオブジェクトを検出する関数
         /// </summary>
-        private void CheckForI_Interactable(string targetName)
+        private void CheckFor_I_Interactable(string _targetName)
         {
             // もしRayがインタラクト可能なオブジェクトに当たった場合
-            if (Physics.Raycast(ray, out hit, interactRange, interactableLayer))
+            if (Physics.Raycast(_ray, out _hit, _interactRange, InteractableLayer))
             {
                 // もしターゲットの名前がアイテムと一致する場合
-                if (targetName == target_ItemName)
+                if (_targetName == _target_ItemName)
                 {
-                    i_Interactable = hit.collider.GetComponent<I_Interactable>();// Rayが当たったオブジェクトにI_Interactableコンポーネントがあるか確認するため登録
+                    // Rayが当たったオブジェクトにI_Interactableコンポーネントがあるか確認するため登録
+                    _i_Interactable = _hit.collider.GetComponent<I_Interactable>();
                 }
                 // もしターゲットの名前が棚と一致する場合
-                else if (targetName == targetShelfName)
+                else if (_targetName == _targetShelfName)
                 {
-                    s_Interactable = hit.collider.GetComponentInParent<S_Interactable>();// Rayが当たったオブジェクトの親オブジェクトにS_Interactableコンポーネントがあるか確認するため登録
+                    // Rayが当たったオブジェクトの親オブジェクトにS_Interactableコンポーネントがあるか確認するため登録
+                    _s_Interactable = _hit.collider.GetComponentInParent<S_Interactable>();
                 }
                 // もしターゲットの名前がドアと一致する場合
-                else if (targetName == targetDoorName)
+                else if (_targetName == _targetDoorName)
                 {
-                    d_Interactable = hit.collider.GetComponentInParent<D_Interactable>();// Rayが当たったオブジェクトの親オブジェクトにD_Interactableコンポーネントがあるか確認するため登録
+                    // Rayが当たったオブジェクトの親オブジェクトにD_Interactableコンポーネントがあるか確認するため登録
+                    _d_Interactable = _hit.collider.GetComponentInParent<D_Interactable>();
                 }
 
                 // もしIInteractableコンポーネントがある場合
-                if (i_Interactable != null)
+                if (_i_Interactable != null)
                 {
-                    iCurrentTarget = i_Interactable;// ターゲットを更新
-                    playerControllerUI_Manager.TargetShow(interactControl_Icon);// インタラクトUIを表示
+                    // ターゲットを更新
+                    _iCurrentTarget = _i_Interactable;
+                    // インタラクトUIを表示
+                    _playerControllerUI_Manager.TargetShow(_interactControl_Icon);
+
                     return;
                 }
                 // もしSInteractableコンポーネントがある場合
-                else if (s_Interactable != null)
+                else if (_s_Interactable != null)
                 {
-                    sCurrentTarget = s_Interactable;// ターゲットを更新
-                    playerControllerUI_Manager.TargetShow(interactControl_Icon);// インタラクトUIを表示
+                    // ターゲットを更新
+                    _sCurrentTarget = _s_Interactable;
+                    // インタラクトUIを表示
+                    _playerControllerUI_Manager.TargetShow(_interactControl_Icon);
+
                     return;
                 }
                 // もしDInteractableコンポーネントがある場合
-                else if (d_Interactable != null)
+                else if (_d_Interactable != null)
                 {
-                    dCurrentTarget = d_Interactable;// ターゲットを更新
-                    playerControllerUI_Manager.TargetShow(interactControl_Icon);// インタラクトUIを表示
+                    // ターゲットを更新
+                    _dCurrentTarget = _d_Interactable;
+                    // インタラクトUIを表示
+                    _playerControllerUI_Manager.TargetShow(_interactControl_Icon);
+
                     return;
                 }
             }
 
-            // ターゲットをリセット
-            iCurrentTarget = null;
-            sCurrentTarget = null;
-            dCurrentTarget = null;
+            // --- ターゲットをリセット ---
+            _iCurrentTarget = null;
+            _sCurrentTarget = null;
+            _dCurrentTarget = null;
 
-            playerControllerUI_Manager.TargetHide(interactControl_Icon);// インタラクトUIを非表示にする
+            // インタラクトUIを非表示にする
+            _playerControllerUI_Manager.TargetHide(_interactControl_Icon);
         }
 
         /// <summary>
         /// アイテムを拾う演出の準備を行う関数
         /// </summary>
-        private void PerformPickupInteraction()
+        private void PerformPickup_Interaction()
         {
-            ray = mainCamera.ViewportPointToRay(new Vector3(viewAngleX, viewAngleY, 0f));// 画面の中心から奥へ向かうRayを作成
+            // 画面の中心から奥へ向かうRayを作成
+            _ray = _mainCamera.ViewportPointToRay(new Vector3(_viewAngleX, _viewAngleY, 0f));
 
             // もしRayがオブジェクトに当たった場合
-            if (Physics.Raycast(ray, out hit, interactRange))
+            if (Physics.Raycast(_ray, out _hit, _interactRange))
             {
-                item = hit.collider.GetComponent<ItemManager>(); // ヒットしたオブジェクトにItemManagerがついているか確認するため登録
+                // ヒットしたオブジェクトにItemManagerがついているか確認するため登録
+                _itemManager = _hit.collider.GetComponent<ItemManager>();
 
                 // もしItemManagerコンポーネントがある場合
-                if (item != null)
+                if (_itemManager != null)
                 {
-                    item.Pickup(mainCamera.transform, holdPosition);// アイテム側のPickup関数を呼び出す
+                    // アイテム側のPickup関数を呼び出す
+                    _itemManager.Pickup(_mainCamera.transform, _holdPosition);
                 }
             }
         }
@@ -450,21 +500,30 @@ namespace PESDISASTER
         /// </summary>
         private void UpdateMotionState()
         {
-            switch (motionState)
+            // 動きの状態ごとに処理を分岐
+            switch (_motionState)
             {
                 case MotionState.Stopping:
-                    currentSpeed = 0f;
+
+                    // 現在の移動スピードを0にする
+                    _currentSpeed = 0f;
+
                     break;
 
                 case MotionState.Walking:
-                    currentSpeed = moveSpeed;
+
+                    // 現在の移動スピードに既定の移動スピードを代入
+                    _currentSpeed = _moveSpeed;
 
                     // ここに「歩き中のカメラの揺れ」などを追加できる
 
                     break;
 
                 default:
-                    currentSpeed = 0f;
+
+                    // 現在の移動スピードを0にする
+                    _currentSpeed = 0f;
+
                     break;
             }
         }
@@ -474,14 +533,19 @@ namespace PESDISASTER
         /// </summary>
         private void ApplyMovement()
         {
-            Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;// カメラの向きに基づいた移動方向の計算
+            // カメラの向きに基づいた移動方向の計算し参照する変数を定義
+            Vector3 _moveVector = transform.right * Move_Input.x + transform.forward * Move_Input.y;
 
-            //接地していない場合は下に引っ張る
-            float gravity = characterController.isGrounded ? gravityCorrentValue : gravityValue;// 重力を適用するための変数
-            Vector3 finalVelocity = move * currentSpeed;// 移動ベクトルを計算
-            finalVelocity.y = gravity;// 重力を移動ベクトルに追加
+            // --- 接地していない場合は下に引っ張る ---
+            // 重力を適用し参照する変数を定義
+            float _gravity = _characterController.isGrounded ? _gravityCorrentValue : _gravityValue;
+            // 移動ベクトルを計算し参照する変数を定義
+            Vector3 _finalVelocity = _moveVector * _currentSpeed;
+            // 重力を移動ベクトルに追加し参照する変数を定義
+            _finalVelocity.y = _gravity;
 
-            characterController.Move(finalVelocity * Time.deltaTime);// キャラクターコントローラーを使用して移動を実行
+            // キャラクターコントローラーを使用して移動を実行
+            _characterController.Move(_finalVelocity * Time.deltaTime);
         }
 
         /// <summary>
@@ -490,13 +554,13 @@ namespace PESDISASTER
         private void DetermineCurrentState()
         {
             // もし入力がない場合
-            if (moveInput.sqrMagnitude < moveInputThreshold)
+            if (Move_Input.sqrMagnitude < _move_InputThreshold)
             {
-                motionState = MotionState.Stopping;
+                _motionState = MotionState.Stopping;
             }
             else
             {
-                motionState = MotionState.Walking;
+                _motionState = MotionState.Walking;
             }
         }
     }

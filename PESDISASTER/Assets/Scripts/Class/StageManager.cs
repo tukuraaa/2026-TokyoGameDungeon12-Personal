@@ -128,7 +128,7 @@ namespace PESDISASTER
             Cursor.visible = false;// カーソルを非表示にする
 
             transitionUI_Manager.Show();
-            PlayerController.instance.isSleeping = true;
+            PlayerController.Instance.IsSleeping = true;
             StartCoroutine(IntroEventCoroutine());// イントロ演出を開始
         }
 
@@ -163,11 +163,11 @@ namespace PESDISASTER
         /// </summary>
         private void OnIntroEnd()
         {
-            PlayerController.instance.isSleeping = false;
+            PlayerController.Instance.IsSleeping = false;
 
             animator.enabled = false;// アニメーターを止める
 
-            PlayerController.instance.enabled = true;// プレイヤーの移動スクリプトを有効にする
+            PlayerController.Instance.enabled = true;// プレイヤーの移動スクリプトを有効にする
         }
 
         /// <summary>
@@ -244,8 +244,8 @@ namespace PESDISASTER
         private IEnumerator GameOverCoroutine()
         {
             animator.enabled = true;// アニメーターを起動
-            PlayerController.instance.isSleeping = true;
-            PlayerController.instance.enabled = false;// プレイヤーの移動スクリプトを無効にする
+            PlayerController.Instance.IsSleeping = true;
+            PlayerController.Instance.enabled = false;// プレイヤーの移動スクリプトを無効にする
             gameOverUI_Manager.Show();
 
             // すでにかかっている曲を止めたうえでゲームオーバー用の曲を再生

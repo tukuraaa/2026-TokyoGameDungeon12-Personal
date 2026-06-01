@@ -1403,7 +1403,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 221554940}
         m_TargetAssemblyTypeName: PESDISASTER.PlayerController, Assembly-CSharp
-        m_MethodName: OnInteract
+        m_MethodName: On_Interact
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1520,28 +1520,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6d913d44e0d804b97f237109599215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  mainCamera: {fileID: 330585545}
-  weaponCamera: {fileID: 2110629898}
-  neck: {fileID: 320973685}
-  holdPosition: {fileID: 1796272155}
-  mainCameraTransform: {fileID: 64925905}
-  weaponCameraTransform: {fileID: 363667069}
-  interactControl_Icon: {fileID: 1587900694}
-  playerControllerUI_Manager: {fileID: 1941732897}
-  stageManager: {fileID: 233239380}
-  interactableLayer:
+  _mainCamera: {fileID: 330585545}
+  _weaponCamera: {fileID: 2110629898}
+  _neckTransform: {fileID: 320973685}
+  _holdPosition: {fileID: 1796272155}
+  _mainCameraTransform: {fileID: 64925905}
+  _weaponCameraTransform: {fileID: 363667069}
+  _interactControl_Icon: {fileID: 1587900694}
+  _playerControllerUI_Manager: {fileID: 1941732897}
+  _stageManager: {fileID: 233239380}
+  _mouseSensitivity: 10
+  _interactRange: 2
+  _moveSpeed: 2.5
+  Look_Input: {x: 0, y: 0}
+  Move_Input: {x: 0, y: 0}
+  InteractableLayer:
     serializedVersion: 2
     m_Bits: 8
-  sensitivity: 8
-  minVertical: -90
-  maxVertical: 90
-  minNeckTranslationZ: -0.5
-  maxNeckTranslationZ: 0.5
-  adjustmentDivisor: 200
-  interactRange: 3
-  wallCheckerDistance: 0
-  moveSpeed: 3
-  isSleeping: 0
+  IsSleeping: 0
 --- !u!143 &221554941
 CharacterController:
   m_ObjectHideFlags: 0
