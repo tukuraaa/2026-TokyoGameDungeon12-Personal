@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,38 @@ namespace PESDISASTER
     /// </summary>
     public class ReloadMinigameUI_Manager : MonoBehaviour
     {
+        /// <summary>
+        /// 画像ごとの個別設定を保存するための構造体
+        /// </summary>
+        [Serializable]
+        public struct PromptUIData
+        {
+            /// <summary>
+            /// 表示する画像を参照する変数
+            /// </summary>
+            public Sprite Control_Sprite;
+
+            /// <summary>
+            /// 画像の個別スケールを参照する変数
+            /// </summary>
+            public Vector3 SpriteScale;
+
+            /// <summary>
+            /// このUIが対応する操作の名前を参照する変数
+            /// </summary>
+            public string Control_Name;
+
+            /// <summary>
+            /// UIのPixelsPerUnit倍率を参照する変数
+            /// </summary>
+            public float SpritePpuMultiplier;
+
+            /// <summary>
+            /// 画像を元のピクセルサイズに強制リセットするかどうかを参照する変数
+            /// </summary>
+            public bool IsUseNativeSize;
+        }
+
         /// <summary>
         /// キーを表示する画像を参照する変数
         /// </summary>
