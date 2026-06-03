@@ -4250,11 +4250,11 @@ RectTransform:
   m_Children:
   - {fileID: 342438211}
   - {fileID: 1941732896}
-  - {fileID: 230252867}
   - {fileID: 1213762710}
-  - {fileID: 880709872}
+  - {fileID: 230252867}
   - {fileID: 199902189}
   - {fileID: 1364479290}
+  - {fileID: 880709872}
   m_Father: {fileID: 233239379}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5173,6 +5173,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 788361332}
   m_CullTransparentMesh: 1
+--- !u!1001 &809455195
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3666451252958239135, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.01514
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666451252958239135, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.03644
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666451252958239135, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.45098
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666451252958239135, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666451252958239135, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666451252958239135, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666451252958239135, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666451252958239135, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666451252958239135, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666451252958239135, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6112636365582442148, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
 --- !u!1 &821663816
 GameObject:
   m_ObjectHideFlags: 0
@@ -6348,11 +6405,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c71d359564b0a4abdd1202c476166b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.ReloadMinigameUI_Manager
+  _uI_SettingsList:
+  - Control_Sprite: {fileID: 147692268, guid: db28add32a8c8804fb3a2c8fea0d83ec, type: 3}
+    ExtraScale: {x: 0.48, y: 0.48, z: 0.48}
+    Control_Name: RightClick
+    TargetWidth: 324
+  - Control_Sprite: {fileID: -2118484822, guid: 036891bacff8536499117720c00aed21, type: 3}
+    ExtraScale: {x: 1, y: 1, z: 1}
+    Control_Name: PressT
+    TargetWidth: 268
+  - Control_Sprite: {fileID: 163787440, guid: fe99648bfdbaf0c4ba34938c29d21aed, type: 3}
+    ExtraScale: {x: 1, y: 1, z: 1}
+    Control_Name: PressR
+    TargetWidth: 269
+  - Control_Sprite: {fileID: 1026368742, guid: 7f615009b51374d4f8948f8a864d05c9, type: 3}
+    ExtraScale: {x: 0.48, y: 0.48, z: 0.48}
+    Control_Name: DragDown
+    TargetWidth: 561
   _prompt_Image: {fileID: 1160058495}
-  _rightClickSprite: {fileID: 147692268, guid: db28add32a8c8804fb3a2c8fea0d83ec, type: 3}
-  _tKeySprite: {fileID: -2118484822, guid: 036891bacff8536499117720c00aed21, type: 3}
-  _rKeySprite: {fileID: -372961873, guid: 0324f9710fff98845adbdc72cbd701cd, type: 3}
-  _dragDownSprite: {fileID: -362825707, guid: f6ea604307d90e4449a7443cdfbf56cc, type: 3}
 --- !u!1 &1276935410
 GameObject:
   m_ObjectHideFlags: 0
@@ -11630,3 +11700,4 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 233239379}
+  - {fileID: 809455195}

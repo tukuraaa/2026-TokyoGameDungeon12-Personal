@@ -121,7 +121,7 @@ namespace PESDISASTER
             resumeButton.onClick.AddListener(Pause);// 続行ボタンがクリックされたとき、Pause関数を呼び出すように設定
             pauseTitleButton.onClick.AddListener(() => MoveScene(titleSceneName));// タイトルボタンがクリックされたとき、MoveScene関数を呼び出すように設定
             retryButton.onClick.AddListener(Retry);// リトライボタンがクリックされたとき、Retry関数を呼び出すように設定
-            overTitleButton.onClick.AddListener(OverTitle);// ゲームオーバーのタイトルボタンがクリックされたとき、OverTitle関数を呼び出すように設定
+            overTitleButton.onClick.AddListener(GoTitle);// ゲームオーバーのタイトルボタンがクリックされたとき、OverTitle関数を呼び出すように設定
 
             // カーソル設定
             Cursor.lockState = CursorLockMode.Locked;
@@ -243,33 +243,49 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator GameOverCoroutine()
         {
-            animator.enabled = true;// アニメーターを起動
+            // アニメーターを起動
+            animator.enabled = true;
+            // プレイヤーの操作を禁止する
             PlayerController.Instance.IsSleeping = true;
-            PlayerController.Instance.enabled = false;// プレイヤーの移動スクリプトを無効にする
+            // プレイヤーの移動スクリプトを無効にする
+            PlayerController.Instance.enabled = false;
+            // ゲームオーバーUIを表示する
             gameOverUI_Manager.Show();
 
-            // すでにかかっている曲を止めたうえでゲームオーバー用の曲を再生
+            // --- すでにかかっている曲を止めたうえでゲームオーバー用の曲を再生 ---
             AudioManager.instance.StopBGM();
             AudioManager.instance.PlayBGM(BGM_Type.GameOver);
 
-            // ボタン・ボタンイベントのアクセスを無効にする
-            retryButton.enabled = false;// リトライボタンを最初は無効にする
-            retryEvent.enabled = false;// リトライボタンイベントを最初は無効にする
-            overTitleButton.enabled = false;// ゲームオーバーのタイトルボタンを最初は無効にする
-            overTitleEvent.enabled = false;// ゲームオーバーのタイトルボタンイベントを最初は無効にする
+            // --- ボタン・ボタンイベントのアクセスを無効にする ---
+            // リトライボタンを最初は無効にする
+            retryButton.enabled = false;
+            // リトライボタンイベントを最初は無効にする
+            retryEvent.enabled = false;
+            // ゲームオーバーのタイトルボタンを最初は無効にする
+            overTitleButton.enabled = false;
+            // ゲームオーバーのタイトルボタンイベントを最初は無効にする
+            overTitleEvent.enabled = false;
 
-            animator.SetTrigger(over_Intro_ID);// イントロ再生
-            yield return new WaitForSeconds(over_IntroDuration);// 演出中は待機
+            // イントロ再生
+            animator.SetTrigger(over_Intro_ID);
+            // 演出中は待機
+            yield return new WaitForSeconds(over_IntroDuration);
 
-            // ボタン・ボタンイベントのアクセスを有効にする
-            retryButton.enabled = true;// リトライボタンを最初は有効にする
-            retryEvent.enabled = true;// リトライボタンイベントを最初は有効にする
-            overTitleButton.enabled = true;// ゲームオーバーのタイトルボタンを最初は有効にする
-            overTitleEvent.enabled = true;// ゲームオーバーのタイトルボタンイベントを最初は有効にする
+            // --- ボタン・ボタンイベントのアクセスを有効にする ---
+            // リトライボタンを最初は有効にする
+            retryButton.enabled = true;
+            // リトライボタンイベントを最初は有効にする
+            retryEvent.enabled = true;
+            // ゲームオーバーのタイトルボタンを最初は有効にする
+            overTitleButton.enabled = true;
+            // ゲームオーバーのタイトルボタンイベントを最初は有効にする
+            overTitleEvent.enabled = true;
 
-            // カーソル設定
+            // --- カーソル設定 ---
+            // カーソルのロックを解除する
             Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;// カーソルを表示にする
+            // カーソルを表示にする
+            Cursor.visible = true;
         }
 
         /// <summary>
@@ -277,15 +293,17 @@ namespace PESDISASTER
         /// </summary>
         public void GameOver()
         {
-            StartCoroutine(GameOverCoroutine());// ゲームオーバー処理を実行
+            // ゲームオーバー処理を実行
+            StartCoroutine(GameOverCoroutine());
         }
 
         /// <summary>
         /// ゲームオーバー時にタイトル遷移処理を呼び出す関数
         /// </summary>
-        private void OverTitle()
+        private void GoTitle()
         {
-            StartCoroutine(GameOverOutroCoroutine(overTitleButton));// ゲームオーバー時のタイトル遷移処理を実行
+            // ゲームオーバー時のタイトル遷移処理を実行
+            StartCoroutine(GameOverOutroCoroutine(overTitleButton));
         }
     }
 }
