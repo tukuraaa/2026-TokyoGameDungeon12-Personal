@@ -1,16 +1,26 @@
 using UnityEngine;
+using TMPro;
 
-public class LocalizedTextDisplay : MonoBehaviour
+namespace PESDISASTER
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class LocalizedTextDisplay : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private string textKey; // Inspectorでキーを入力（例: "Start_Button"）
+        [SerializeField] private LanguageTable table;
+        private TextMeshProUGUI textComponent;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        void Start()
+        {
+            textComponent = GetComponent<TextMeshProUGUI>();
+            UpdateText();
+        }
+
+        public void UpdateText()
+        {
+            // エラーが出るため一旦コメントアウト
+            // Managerから現在の言語設定を取得して反映（後述のManager作成後に修正）
+            // string currentLang = LocalizationManager.Instance.CurrentLanguage;
+            // textComponent.text = table.GetText(textKey, currentLang);
+        }
     }
 }

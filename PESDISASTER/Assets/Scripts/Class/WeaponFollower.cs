@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace PESDISASTER
 {
+    /// <summary>
+    /// •Ší‚ğƒJƒƒ‰‚É’Ç]‚³‚¹‚éƒNƒ‰ƒX
+    /// </summary>
     public class WeaponFollower : MonoBehaviour
     {
         /// <summary>
