@@ -2,18 +2,22 @@ using UnityEngine;
 
 namespace PESDISASTER
 {
-    public class NewMonoBehaviourScript : MonoBehaviour
+    /// <summary>
+    /// ローカライズされたテキスト表示を管理するクラス
+    /// </summary>
+    public class LocalizationManager : MonoBehaviour
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        public static LocalizationManager Instance;
+        public string CurrentLanguage = "jp"; // 初期言語
+
+        void Awake() { Instance = this; }
+
+        public void ChangeLanguage(string langCode)
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            CurrentLanguage = langCode;
+            // シーン内のすべてのLocalizedTextDisplayを更新する
+            var displays = FindObjectsByType<LocalizedTextDisplay>(FindObjectsSortMode.None);
+            foreach (var d in displays) d.UpdateText();
         }
     }
 }
