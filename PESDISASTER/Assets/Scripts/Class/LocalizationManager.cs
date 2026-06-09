@@ -7,17 +7,49 @@ namespace PESDISASTER
     /// </summary>
     public class LocalizationManager : MonoBehaviour
     {
-        public static LocalizationManager Instance;
-        public string CurrentLanguage = "jp"; // 初期言語
+        /// <summary>
+        /// プレイヤーコントローラーのインスタンスを参照する変数
+        /// </summary>
+        public static LocalizationManager Instance { get; private set; }
 
-        void Awake() { Instance = this; }
+        /// <summary>
+        /// 初期言語の名前を参照する変数
+        /// </summary>
+        public string CurrentLanguage = "English";
 
-        public void ChangeLanguage(string langCode)
+        /// <summary>
+        /// 初期設定を行う関数
+        /// </summary>
+        private void Awake() 
         {
-            CurrentLanguage = langCode;
-            // シーン内のすべてのLocalizedTextDisplayを更新する
-            var displays = FindObjectsByType<LocalizedTextDisplay>(FindObjectsSortMode.None);
-            foreach (var d in displays) d.UpdateText();
+            // もしインスタンスが無い場合
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        /// <summary>
+        /// 言語を変更する関数
+        /// </summary>
+        /// <param name="languageCode"></param>
+        public void ChangeLanguage(string languageCode)
+        {
+            // 初期の言語に指定の言語コードを代入する
+            CurrentLanguage = languageCode;
+            // シーン内のすべてのLocalizedTextDisplayを見つけ出し参照する変数を定義
+            var findDisplays = FindObjectsByType<LocalizedTextDisplay>(FindObjectsSortMode.None);
+
+            // シーン内のすべてのLocalizedTextDisplayをサーチ
+            foreach (var display in findDisplays)
+            {
+                // サーチしたLocalizedTextDisplayを更新する
+                display.UpdateText();
+            }
         }
     }
 }

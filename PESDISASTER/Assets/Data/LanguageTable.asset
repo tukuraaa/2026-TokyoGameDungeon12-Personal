@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0906974b80a8d594ab2c49213611a634, type: 3}
+  m_Name: LanguageTable
+  m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.LanguageTable
+  TextList:
+  - KeyCode: StartButton
+    English: Click to start
+    Japanese: "\u30AF\u30EA\u30C3\u30AF\u3067\u59CB\u3081\u308B"
+    Chinese: "\u70B9\u51FB\u5F00\u59CB"
+  - KeyCode: EnglishLanguageName
+    English: English
+    Japanese: "\u82F1\u8A9E"
+    Chinese: "\u82F1\u8BED"
+  - KeyCode: ChineseLanguageName
+    English: Chinese
+    Japanese: "\u4E2D\u56FD\u8A9E"
+    Chinese: "\u4E2D\u6587"
+  - KeyCode: JapaneseLanguageName
+    English: Japanese
+    Japanese: "\u65E5\u672C\u8A9E"
+    Chinese: "\u65E5\u8BED"
