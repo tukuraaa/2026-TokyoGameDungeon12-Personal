@@ -2649,7 +2649,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -330.28}
+  m_AnchoredPosition: {x: 0, y: -337.8}
   m_SizeDelta: {x: 1025, y: 156}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1052554704
@@ -4316,18 +4316,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: English
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 752504269}
-        m_TargetAssemblyTypeName: PESDISASTER.AudioManager, Assembly-CSharp
-        m_MethodName: PlayCursorSE
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 752504269}
@@ -6310,15 +6298,15 @@ RectTransform:
   m_GameObject: {fileID: 2147078900}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 612037350}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 719.84, y: -484.1}
-  m_SizeDelta: {x: 436, y: 72}
+  m_AnchoredPosition: {x: 716.5, y: -484.1}
+  m_SizeDelta: {x: 1177, y: 185}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2147078902
 MonoBehaviour:
@@ -6349,10 +6337,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: -507129376, guid: c74db4d127b98b54a9e6438066a46793, type: 3}
-    m_PressedSprite: {fileID: -1548217440, guid: 79fa658048c347e4aac5d6eb17f93f11, type: 3}
-    m_SelectedSprite: {fileID: -507129376, guid: c74db4d127b98b54a9e6438066a46793, type: 3}
-    m_DisabledSprite: {fileID: -1548217440, guid: 79fa658048c347e4aac5d6eb17f93f11, type: 3}
+    m_HighlightedSprite: {fileID: -1345366192, guid: 86b61a26c00b9a547aa60b5de6fe60ac, type: 3}
+    m_PressedSprite: {fileID: -1321115093, guid: 9e81077067a04c84ea4708551577559d, type: 3}
+    m_SelectedSprite: {fileID: -1345366192, guid: 86b61a26c00b9a547aa60b5de6fe60ac, type: 3}
+    m_DisabledSprite: {fileID: -1321115093, guid: 9e81077067a04c84ea4708551577559d, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -6384,7 +6372,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1548217440, guid: 79fa658048c347e4aac5d6eb17f93f11, type: 3}
+  m_Sprite: {fileID: -1321115093, guid: 9e81077067a04c84ea4708551577559d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

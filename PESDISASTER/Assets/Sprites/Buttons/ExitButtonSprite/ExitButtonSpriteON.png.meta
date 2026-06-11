@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c74db4d127b98b54a9e6438066a46793
+guid: 86b61a26c00b9a547aa60b5de6fe60ac
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ExitButtonSpriteON_2
+      name: ExitButtonSpriteON_7
       rect:
         serializedVersion: 2
-        x: 488
-        y: 344
-        width: 435
-        height: 81
+        x: 105
+        y: 289
+        width: 1179
+        height: 185
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5db3b2fb6dbe795489514dd6785e2217
-      internalID: -507129376
+      spriteID: fc09cb11078fcb743b852a7a4c367ffc
+      internalID: -1345366192
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f8b7f307a3bcc2e43afb75b03057289e
+    spriteID: a4508b84d8413ea49a6ff8085e8f5d51
     internalID: 0
     vertices: []
     indices: 
@@ -134,9 +134,17 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      ExitButtonSpriteON_0: 1627852995
-      ExitButtonSpriteON_1: 1312717616
-      ExitButtonSpriteON_2: -507129376
+      ExitButtonSpriteON_0: -1744567698
+      ExitButtonSpriteON_1: 481700130
+      ExitButtonSpriteON_10: 1395063896
+      ExitButtonSpriteON_2: 968293843
+      ExitButtonSpriteON_3: 1342651632
+      ExitButtonSpriteON_4: -908504793
+      ExitButtonSpriteON_5: -1929804216
+      ExitButtonSpriteON_6: 1905835571
+      ExitButtonSpriteON_7: -1345366192
+      ExitButtonSpriteON_8: -1843090738
+      ExitButtonSpriteON_9: -796469100
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

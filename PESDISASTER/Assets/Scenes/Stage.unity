@@ -1743,7 +1743,7 @@ MonoBehaviour:
   overTitleButton: {fileID: 1370786287}
   retryEvent: {fileID: 1525987885}
   overTitleEvent: {fileID: 1370786286}
-  introEventDuration: 1.7
+  introEventDuration: 17
 --- !u!95 &233239381
 Animator:
   serializedVersion: 7
