@@ -39,6 +39,9 @@ namespace PESDISASTER
         /// <param name="languageCode"></param>
         public void ChangeLanguage(string languageCode)
         {
+            // 言語変更ボタンを押した音を再生
+            AudioManager.instance.PlaySE(SE_Type.Click);
+
             // 初期の言語に指定の言語コードを代入する
             CurrentLanguage = languageCode;
             // シーン内のすべてのLocalizedTextDisplayを見つけ出し参照する変数を定義
