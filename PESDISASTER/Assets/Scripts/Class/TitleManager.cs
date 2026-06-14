@@ -145,7 +145,6 @@ namespace PESDISASTER
             animator.SetTrigger(titleOutroTrigger);// タイトルアウトロトリガーを発動
             yield return new WaitForSeconds(outroAnimDuration);// アウトロアニメーションの時間だけ待機
             Application.Quit();
-            Debug.Log("ゲームを終了します。");
         }
 
         /// <summary>
