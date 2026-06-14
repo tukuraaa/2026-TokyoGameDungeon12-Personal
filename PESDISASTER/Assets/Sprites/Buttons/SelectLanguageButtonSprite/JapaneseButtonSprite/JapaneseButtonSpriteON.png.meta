@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d1a5333a0a4736449973e4b2339cfb09
+guid: 339246dcbfa15de4c98b539e937d874c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -100,10 +100,10 @@ TextureImporter:
       name: EnglishButtonSpriteON_0
       rect:
         serializedVersion: 2
-        x: 217
-        y: 232
-        width: 952
-        height: 309
+        x: 201
+        y: 240
+        width: 975
+        height: 283
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 706fecf0a3911de479ccb52d4d48956e
-      internalID: 1951279846
+      spriteID: 5d7544e35d074ba4ab583e0135f04fd5
+      internalID: 1013691109
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1677f2de249f4a54ab7e2bc5a638bcd3
+    spriteID: d2678dc394f2ff24eabdec0c50444224
     internalID: 0
     vertices: []
     indices: 
@@ -134,14 +134,13 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      EnglishButtonSpriteON_0: 1951279846
-      EnglishButtonSpriteON_1: 2098933676
-      EnglishButtonSpriteON_2: -1519536979
-      EnglishButtonSpriteON_3: 1526569895
-      EnglishButtonSpriteON_4: 1373705431
-      EnglishButtonSpriteON_5: -344742827
-      EnglishButtonSpriteON_6: -1025242998
-      EnglishButtonSpriteON_7: 1341060715
+      EnglishButtonSpriteON_0: 1013691109
+      EnglishButtonSpriteON_1: -720476023
+      EnglishButtonSpriteON_2: 586137294
+      EnglishButtonSpriteON_3: -946222295
+      EnglishButtonSpriteON_4: -753176001
+      EnglishButtonSpriteON_5: -736867920
+      EnglishButtonSpriteON_6: -2096242023
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

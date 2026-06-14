@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d1a5333a0a4736449973e4b2339cfb09
+guid: 4e58c0068fe370e4cb16229311d9372a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EnglishButtonSpriteON_0
+      name: ChineseButtonSpriteON_0
       rect:
         serializedVersion: 2
-        x: 217
-        y: 232
-        width: 952
-        height: 309
+        x: 211
+        y: 299
+        width: 965
+        height: 242
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 706fecf0a3911de479ccb52d4d48956e
-      internalID: 1951279846
+      spriteID: bb653e3d46e09794e83d30b66b79d401
+      internalID: -679756373
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1677f2de249f4a54ab7e2bc5a638bcd3
+    spriteID: e1b068e36b8c0574d924b6ec876f53be
     internalID: 0
     vertices: []
     indices: 
@@ -134,14 +134,12 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      EnglishButtonSpriteON_0: 1951279846
-      EnglishButtonSpriteON_1: 2098933676
-      EnglishButtonSpriteON_2: -1519536979
-      EnglishButtonSpriteON_3: 1526569895
-      EnglishButtonSpriteON_4: 1373705431
-      EnglishButtonSpriteON_5: -344742827
-      EnglishButtonSpriteON_6: -1025242998
-      EnglishButtonSpriteON_7: 1341060715
+      ChineseButtonSpriteON_0: -679756373
+      ChineseButtonSpriteON_1: 353174521
+      ChineseButtonSpriteON_2: -1333056271
+      ChineseButtonSpriteON_3: -2003672592
+      ChineseButtonSpriteON_4: 1689621100
+      ChineseButtonSpriteON_5: 492130613
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
