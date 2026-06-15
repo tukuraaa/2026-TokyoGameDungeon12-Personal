@@ -67,10 +67,6 @@ namespace PESDISASTER
         public EventTrigger overTitleEvent;
 
         /// <summary>
-        /// チュートリアル演出の時間を参照する変数
-        /// </summary>
-        private float tutorialDuration = 5.5f;
-        /// <summary>
         /// ゲームオーバーアウトロ演出の時間を参照する変数
         /// </summary>
         private float overOutroDuration = 1.5f;
@@ -151,8 +147,7 @@ namespace PESDISASTER
             AudioManager.instance.PlayBGM(BGM_Type.MainStage);
             yield return new WaitForSeconds(introEventDuration);// 演出の持続時間を待つ
             transitionUI_Manager.Hide();
-            playerControllerUI_Manager.StartTutorial();// 操作チュートリアルを開始する
-            yield return new WaitForSeconds(tutorialDuration);// チュートリアル演出の持続時間を待つ
+            playerControllerUI_Manager.StartTutorial_LookMove();// 操作チュートリアルを開始する
             playerNoticeUI_Manager.StartRule();// ゲーム目的演出を開始する
             playerStatusUI_Manager.StartShow();// プレイヤーステータスUIを表示する
             OnIntroEnd();// イントロ演出の終了処理を呼び出す

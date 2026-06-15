@@ -22,10 +22,11 @@ namespace PESDISASTER
         /// </summary>
         private void Awake() 
         {
-            // もしインスタンスが無い場合
+            // もしシングルトンではない場合
             if (Instance == null)
             {
                 Instance = this;
+                DontDestroyOnLoad(gameObject);
             }
             else
             {

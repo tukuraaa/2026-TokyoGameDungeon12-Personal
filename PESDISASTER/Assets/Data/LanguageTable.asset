@@ -17,3 +17,11 @@ MonoBehaviour:
     English: Please select a language.
     Japanese: "\u8A00\u8A9E\u3092\u9078\u629E\u3057\u3066\u304F\u3060\u3055\u3044\u3002"
     Chinese: "\u8BF7\u9009\u62E9\u8BED\u8A00\u3002"
+  - KeyCode: CameraMovement
+    English: Use the mouse wheel to look around.
+    Japanese: "\u30DE\u30A6\u30B9\u30DB\u30A4\u30FC\u30EB\u3067\u5468\u308A\u3092\u898B\u6E21\u3059\u3002"
+    Chinese: "\u7528\u9F20\u6807\u6EDA\u8F6E\u73AF\u987E\u56DB\u5468\u3002"
+  - KeyCode: PlayerMovement
+    English: Use WASD to move.
+    Japanese: "WASD\u3067\u79FB\u52D5\u3059\u308B\u3002"
+    Chinese: "\u4F7F\u7528WASD\u952E\u79FB\u52A8\u3002"
