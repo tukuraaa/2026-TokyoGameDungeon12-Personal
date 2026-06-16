@@ -25,3 +25,7 @@ MonoBehaviour:
     English: Use WASD to move.
     Japanese: "WASD\u3067\u79FB\u52D5\u3059\u308B\u3002"
     Chinese: "\u4F7F\u7528WASD\u952E\u79FB\u52A8\u3002"
+  - KeyCode: EscapeHouse
+    English: Escape from the house.
+    Japanese: "\u6C11\u5BB6\u304B\u3089\u8131\u51FA\u3059\u308B\u3002"
+    Chinese: "\u4ECE\u6C11\u5B85\u4E2D\u9003\u8131\u3002"

@@ -1413,7 +1413,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: -679756373, guid: 4e58c0068fe370e4cb16229311d9372a, type: 3}
     m_PressedSprite: {fileID: -1501925874, guid: 6db531b4a412e634aa5f8eabffeddf01, type: 3}
-    m_SelectedSprite: {fileID: -679756373, guid: 4e58c0068fe370e4cb16229311d9372a, type: 3}
+    m_SelectedSprite: {fileID: -1501925874, guid: 6db531b4a412e634aa5f8eabffeddf01, type: 3}
     m_DisabledSprite: {fileID: -1501925874, guid: 6db531b4a412e634aa5f8eabffeddf01, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -2483,7 +2483,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 311109043, guid: f3cbf27d6689d6448b1f2cede4850fa5, type: 3}
     m_PressedSprite: {fileID: -1046289052, guid: dd426ddd431f24649beda1ac6e1417cd, type: 3}
-    m_SelectedSprite: {fileID: 311109043, guid: f3cbf27d6689d6448b1f2cede4850fa5, type: 3}
+    m_SelectedSprite: {fileID: -1046289052, guid: dd426ddd431f24649beda1ac6e1417cd, type: 3}
     m_DisabledSprite: {fileID: -1046289052, guid: dd426ddd431f24649beda1ac6e1417cd, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -2633,7 +2633,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 1013691109, guid: 339246dcbfa15de4c98b539e937d874c, type: 3}
     m_PressedSprite: {fileID: -106187220, guid: d8dfd4c300669d549b6025ca9107a0e5, type: 3}
-    m_SelectedSprite: {fileID: 1013691109, guid: 339246dcbfa15de4c98b539e937d874c, type: 3}
+    m_SelectedSprite: {fileID: -106187220, guid: d8dfd4c300669d549b6025ca9107a0e5, type: 3}
     m_DisabledSprite: {fileID: -106187220, guid: d8dfd4c300669d549b6025ca9107a0e5, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -3034,7 +3034,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -687.17, y: -424.61}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1193999443
@@ -3963,7 +3963,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 1951279846, guid: d1a5333a0a4736449973e4b2339cfb09, type: 3}
     m_PressedSprite: {fileID: -141674722, guid: 401eaf21dec9bbc4893e4fffaed75e4b, type: 3}
-    m_SelectedSprite: {fileID: 1951279846, guid: d1a5333a0a4736449973e4b2339cfb09, type: 3}
+    m_SelectedSprite: {fileID: -141674722, guid: 401eaf21dec9bbc4893e4fffaed75e4b, type: 3}
     m_DisabledSprite: {fileID: -141674722, guid: 401eaf21dec9bbc4893e4fffaed75e4b, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -5698,7 +5698,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: -1345366192, guid: 86b61a26c00b9a547aa60b5de6fe60ac, type: 3}
     m_PressedSprite: {fileID: -1321115093, guid: 9e81077067a04c84ea4708551577559d, type: 3}
-    m_SelectedSprite: {fileID: -1345366192, guid: 86b61a26c00b9a547aa60b5de6fe60ac, type: 3}
+    m_SelectedSprite: {fileID: -1321115093, guid: 9e81077067a04c84ea4708551577559d, type: 3}
     m_DisabledSprite: {fileID: -1321115093, guid: 9e81077067a04c84ea4708551577559d, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -5843,6 +5843,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1186796552}
     m_Modifications:
+    - target: {fileID: 4145606603204048621, guid: 683ef90aa7f822445a4d2c9aa878ab2a, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 4776810250316103913, guid: 683ef90aa7f822445a4d2c9aa878ab2a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5905,11 +5909,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4776810250316103913, guid: 683ef90aa7f822445a4d2c9aa878ab2a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -688
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4776810250316103913, guid: 683ef90aa7f822445a4d2c9aa878ab2a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -424
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4776810250316103913, guid: 683ef90aa7f822445a4d2c9aa878ab2a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

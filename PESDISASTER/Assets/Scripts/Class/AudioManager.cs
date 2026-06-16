@@ -9,7 +9,8 @@ namespace PESDISASTER
     public enum BGM_Type
     {
         Title,
-        MainStage,
+        Intro,
+        Stage1,
         GameOver,
         Clear
     }

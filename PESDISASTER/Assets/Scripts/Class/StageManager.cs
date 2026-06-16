@@ -144,13 +144,16 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator IntroEventCoroutine()
         {
-            AudioManager.instance.PlayBGM(BGM_Type.MainStage);
-            yield return new WaitForSeconds(introEventDuration);// 演出の持続時間を待つ
+            // イントロBGMを再生
+            AudioManager.instance.PlayBGM(BGM_Type.Intro);
+            // 演出の持続時間を待つ
+            yield return new WaitForSeconds(introEventDuration);
+            // 遷移演出用UIを非表示
             transitionUI_Manager.Hide();
-            playerControllerUI_Manager.StartTutorial_LookMove();// 操作チュートリアルを開始する
-            playerNoticeUI_Manager.StartRule();// ゲーム目的演出を開始する
-            playerStatusUI_Manager.StartShow();// プレイヤーステータスUIを表示する
-            OnIntroEnd();// イントロ演出の終了処理を呼び出す
+            // 操作チュートリアルを開始する
+            playerControllerUI_Manager.StartTutorial_LookMove();
+            // イントロ演出の終了処理を呼び出す
+            OnIntroEnd();
         }
 
         /// <summary>
@@ -158,11 +161,12 @@ namespace PESDISASTER
         /// </summary>
         private void OnIntroEnd()
         {
+            // プレイヤー操作停止フラグをオフ
             PlayerController.Instance.IsSleeping = false;
-
-            animator.enabled = false;// アニメーターを止める
-
-            PlayerController.Instance.enabled = true;// プレイヤーの移動スクリプトを有効にする
+            // アニメーターを止める
+            animator.enabled = false;
+            // プレイヤーの操作スクリプトを有効にする
+            PlayerController.Instance.enabled = true;
         }
 
         /// <summary>
