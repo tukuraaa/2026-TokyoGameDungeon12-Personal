@@ -1004,7 +1004,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &199902189
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1525,14 +1525,19 @@ MonoBehaviour:
   _weaponCamera: {fileID: 2110629898}
   _neckTransform: {fileID: 320973685}
   _holdPosition: {fileID: 1796272155}
-  _mainCameraTransform: {fileID: 64925905}
-  _weaponCameraTransform: {fileID: 363667069}
+  _mainCameraPlayerTransform: {fileID: 64925905}
+  _weaponCameraPlayerTransform: {fileID: 363667069}
   _interactControl_Icon: {fileID: 1587900694}
   _playerControllerUI_Manager: {fileID: 1941732897}
   _stageManager: {fileID: 233239380}
   _mouseSensitivity: 10
   _interactRange: 2
   _moveSpeed: 2.5
+  _idleBobSpeed: 1
+  _idleBobAmount: 0.06
+  _walkBobSpeed: 8
+  _walkBobAmount: 0.09
+  _transitionSpeed: 5
   Look_Input: {x: 0, y: 0}
   Move_Input: {x: 0, y: 0}
   InteractableLayer:
@@ -1597,7 +1602,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &230252867
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2446,7 +2451,7 @@ GameObject:
   - component: {fileID: 342438213}
   - component: {fileID: 342438212}
   m_Layer: 5
-  m_Name: PlayerStatus_IconUI
+  m_Name: PlayerStatusIconUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5576,7 +5581,7 @@ GameObject:
   - component: {fileID: 832575519}
   - component: {fileID: 832575518}
   m_Layer: 0
-  m_Name: Global_Volume
+  m_Name: GlobalVolume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5752,7 +5757,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &880709872
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6504,7 +6509,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1213762710
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10051,7 +10056,7 @@ GameObject:
   - component: {fileID: 1941732897}
   - component: {fileID: 1941732898}
   m_Layer: 5
-  m_Name: PlayerController_IconUI
+  m_Name: PlayerControllerIconUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11391,7 +11396,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4684126322688692555, guid: 1463dd84e3140e64cb3cab75bdb49bf2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9156938221775324482, guid: 1463dd84e3140e64cb3cab75bdb49bf2, type: 3}
       propertyPath: m_Pivot.x
