@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2faf938acd1ac8a4296f15927f3699ae
+guid: 628344363d44c2f4a914f99681959eab
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 84
+  spritePixelsToUnits: 36
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PauseNameSprite_0
+      name: PauseNameSprite_4
       rect:
         serializedVersion: 2
-        x: 0
+        x: 52
         y: 0
-        width: 1408
-        height: 768
+        width: 1294
+        height: 715
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8c31662c94fafe3458cb9601ba6a40eb
-      internalID: 1440720227
+      spriteID: d4c2a0a33143b95408b5a2e152543220
+      internalID: 280411695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseNameSprite_5
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 150
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0538c4838ecd33c4b93772f25ee342a1
+      internalID: -1775420862
       vertices: []
       indices: 
       edges: []
@@ -122,7 +144,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1be99728a5af49544b665f11c0bc8667
+    spriteID: 7f0a6a51f8093d24885684ecef927557
     internalID: 0
     vertices: []
     indices: 
@@ -132,9 +154,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1408.0,"y":768.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      PauseNameSprite_0: 1440720227
+      PauseNameSprite_0: 341609274
+      PauseNameSprite_1: 220625551
+      PauseNameSprite_2: 1350550576
+      PauseNameSprite_3: 401805496
+      PauseNameSprite_4: 280411695
+      PauseNameSprite_5: -1775420862
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

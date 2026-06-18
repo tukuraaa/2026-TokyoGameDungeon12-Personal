@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 947a828c3bb0a584f9ab059d542d0001
+guid: 68ec37fff26682a468faadc5dd31c283
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 20
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ResumeButtonOFF_5
+      name: ResumeButtonOFF_0
       rect:
         serializedVersion: 2
-        x: 100
-        y: 26
-        width: 1760
-        height: 462
+        x: 48
+        y: 235
+        width: 1280
+        height: 297
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2331ddab2c6e3ae47a837aaa4ffa71a6
-      internalID: -55518281
+      spriteID: a8b2d7002acb24e4c8fe5d6e8eba16a1
+      internalID: -130629804
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 310d8f0de12cfd44a9261d73f547009b
+    spriteID: 6d10481c2447b7846bfd102e42b8a715
     internalID: 0
     vertices: []
     indices: 
@@ -134,12 +134,13 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      ResumeButtonOFF_0: -417492733
-      ResumeButtonOFF_1: -853216306
-      ResumeButtonOFF_2: 2045229485
-      ResumeButtonOFF_3: -1307692584
-      ResumeButtonOFF_4: -1619598057
-      ResumeButtonOFF_5: -55518281
+      ResumeButtonOFF_0: -130629804
+      ResumeButtonOFF_1: -503048502
+      ResumeButtonOFF_2: -1448903445
+      ResumeButtonOFF_3: -1349980443
+      ResumeButtonOFF_4: -1694236074
+      ResumeButtonOFF_5: -2003863106
+      ResumeButtonOFF_6: 647027754
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -29,3 +29,7 @@ MonoBehaviour:
     English: Escape from the house.
     Japanese: "\u6C11\u5BB6\u304B\u3089\u8131\u51FA\u3059\u308B\u3002"
     Chinese: "\u4ECE\u6C11\u5B85\u4E2D\u9003\u8131\u3002"
+  - KeyCode: ExitGame
+    English: Exit the game.
+    Japanese: "\u30B2\u30FC\u30E0\u3092\u7D42\u4E86\u3059\u308B\u3002"
+    Chinese: "\u9000\u51FA\u6E38\u620F\u3002"

@@ -41,14 +41,6 @@ namespace PESDISASTER
         public GameOverUI_Manager gameOverUI_Manager;
 
         /// <summary>
-        /// 続行ボタンを参照する変数
-        /// </summary>
-        public Button resumeButton;
-        /// <summary>
-        /// ポーズのタイトルボタンを参照する変数
-        /// </summary>
-        public Button pauseTitleButton;
-        /// <summary>
         /// リトライボタンを参照する変数
         /// </summary>
         public Button retryButton;
@@ -65,6 +57,11 @@ namespace PESDISASTER
         /// ゲームオーバーのタイトルボタンイベントを参照する変数
         /// </summary>
         public EventTrigger overTitleEvent;
+
+        /// <summary>
+        /// ステージマネージャーのインスタンスを参照する変数
+        /// </summary>
+        public static StageManager Instance { get; private set; }
 
         /// <summary>
         /// ゲームオーバーアウトロ演出の時間を参照する変数
@@ -109,15 +106,25 @@ namespace PESDISASTER
         /// <summary>
         /// 初期設定を行う関数
         /// </summary>
-        private void Start()
+        private void Awake()
         {
+            // もしインスタンスが無い場合
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
             animator = GetComponent<Animator>();
 
-            // クリックイベントにリスナーを追加
-            resumeButton.onClick.AddListener(Pause);// 続行ボタンがクリックされたとき、Pause関数を呼び出すように設定
-            pauseTitleButton.onClick.AddListener(() => MoveScene(titleSceneName));// タイトルボタンがクリックされたとき、MoveScene関数を呼び出すように設定
-            retryButton.onClick.AddListener(Retry);// リトライボタンがクリックされたとき、Retry関数を呼び出すように設定
-            overTitleButton.onClick.AddListener(GoTitle);// ゲームオーバーのタイトルボタンがクリックされたとき、OverTitle関数を呼び出すように設定
+            // --- クリックイベントにリスナーを追加 ---
+            // リトライボタンがクリックされたとき、Retry関数を呼び出すように設定
+            retryButton.onClick.AddListener(Retry);
+            // ゲームオーバーのタイトルボタンがクリックされたとき、OverTitle関数を呼び出すように設定
+            overTitleButton.onClick.AddListener(GoTitle);
 
             // カーソル設定
             Cursor.lockState = CursorLockMode.Locked;
@@ -227,12 +234,14 @@ namespace PESDISASTER
             // もし押したボタンがリトライボタンの場合
             if (button == retryButton)
             {
-                MoveScene(stageSceneName);// メインステージに遷移
+                // ゲームをやり直す
+                RestartGame();
             }
             // もし押したボタンがゲームオーバーのタイトルボタンの場合
             else if (button == overTitleButton)
             {
-                MoveScene(titleSceneName);// タイトルに遷移
+                // タイトルに遷移
+                MoveScene(titleSceneName);
             }
         }
 
@@ -303,6 +312,15 @@ namespace PESDISASTER
         {
             // ゲームオーバー時のタイトル遷移処理を実行
             StartCoroutine(GameOverOutroCoroutine(overTitleButton));
+        }
+
+        /// <summary>
+        /// ゲームをやり直す処理を行う関数
+        /// </summary>
+        public void RestartGame()
+        {
+            // メインステージに遷移
+            MoveScene(stageSceneName);
         }
     }
 }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 742f79dd840a96e46a3bae8bf3700654
+guid: 7bdfd3ad828cce54581b1d43e2a819ee
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 60
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OverTitleButtonON_4
+      name: TitleButtonOFF_0
       rect:
         serializedVersion: 2
-        x: 113
-        y: 558
-        width: 786
-        height: 313
+        x: 330
+        y: 230
+        width: 812
+        height: 326
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea386a11716b3b34782ceb5468b419bf
-      internalID: 126377924
+      spriteID: aa915a99575a82745aefc77c728c1c57
+      internalID: -1829788847
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5949cd855f8e12445ba859defa6f4489
+    spriteID: 03b498de3c0edf8449a46bfe48363a31
     internalID: 0
     vertices: []
     indices: 
@@ -134,11 +134,12 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      OverTitleButtonON_0: 860609196
-      OverTitleButtonON_1: -230662498
-      OverTitleButtonON_2: -1156324065
-      OverTitleButtonON_3: -560595205
-      OverTitleButtonON_4: 126377924
+      TitleButtonOFF_0: -1829788847
+      TitleButtonOFF_1: -2068230085
+      TitleButtonOFF_2: -1631948141
+      TitleButtonOFF_3: 370291172
+      TitleButtonOFF_4: -2059557232
+      TitleButtonOFF_5: 1310617667
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

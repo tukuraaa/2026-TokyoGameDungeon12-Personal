@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e0b270ec3a3d9164aab56ced7596fa01
+guid: 8f1412280c4f12b418eed6a5cb2d86e3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 60
+  spritePixelsToUnits: 30
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,12 +97,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OverTitleButtonOFF_4
+      name: RestartButtonSpriteON_0
       rect:
         serializedVersion: 2
-        x: 109
-        y: 576
-        width: 805
+        x: 136
+        y: 232
+        width: 1144
         height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6110ef36db65aee4dbe03654b16d1cb8
-      internalID: -863144407
+      spriteID: cbf0e279913345d47bddb930d7850426
+      internalID: 1147599379
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ad7a2c3141e6f5d42b5086e25000d136
+    spriteID: 1cbf1687b771a6a4987a1438b49d59ef
     internalID: 0
     vertices: []
     indices: 
@@ -134,11 +134,10 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      OverTitleButtonOFF_0: 1713967648
-      OverTitleButtonOFF_1: 1877733218
-      OverTitleButtonOFF_2: -1939753738
-      OverTitleButtonOFF_3: 289304601
-      OverTitleButtonOFF_4: -863144407
+      RestartButtonSpriteON_0: 1147599379
+      RestartButtonSpriteON_1: 703882874
+      RestartButtonSpriteON_2: 1657943925
+      RestartButtonSpriteON_3: 83402706
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
