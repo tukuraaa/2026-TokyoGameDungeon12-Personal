@@ -129,10 +129,21 @@ namespace PESDISASTER
             // カーソル設定
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;// カーソルを非表示にする
+        }
 
+        /// <summary>
+        /// 起動時の初期処理を行う関数
+        /// </summary>
+        private void Start()
+        {
+            // --- イントロ演出準備 ---
+            // 演出用UIを表示
             transitionUI_Manager.Show();
+            // プレイヤーの操作を禁止
             PlayerController.Instance.IsSleeping = true;
-            StartCoroutine(IntroEventCoroutine());// イントロ演出を開始
+
+            // イントロ演出を開始
+            StartCoroutine(IntroEventCoroutine());
         }
 
         /// <summary>
