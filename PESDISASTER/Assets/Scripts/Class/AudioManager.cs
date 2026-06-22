@@ -26,7 +26,8 @@ namespace PESDISASTER
         Shoot,
         Notice,
         Pause,
-        Scream
+        Scream,
+        Paper
     }
 
     /// <summary>

@@ -1938,6 +1938,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 254253803}
+  - component: {fileID: 254253805}
+  - component: {fileID: 254253804}
   m_Layer: 7
   m_Name: PaperObjectRoot
   m_TagString: Untagged
@@ -1959,8 +1961,46 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 112091588}
-  m_Father: {fileID: 1392775619}
+  m_Father: {fileID: 1999075381}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 121.7}
+--- !u!65 &254253804
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254253802}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.13, y: 0.21, z: 0.02}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &254253805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254253802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c2bf9c2f50b5d747b8ab1ab6b619047, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.ItemManager
+  leftHoldPosition: {fileID: 1572323256}
+  playerControllerUI_Manager: {fileID: 1941732897}
+  itemName: "\u30EA\u30D3\u30F3\u30B0\u306E\u9375"
+  holdName: LeftHoldPosition
+  moveDuration: 0.5
 --- !u!1 &256105351
 GameObject:
   m_ObjectHideFlags: 0
@@ -5642,50 +5682,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.data[1].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: dac87fa1c5cc71a42acebb9779e1492a, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.data[4].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 8f479ea8b70544e4f95ec047fb5647ea, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.data[5].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 8cd42d84cebfdb24d824c47308d9700c, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.data[4].volume
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.data[5].volume
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.data[1].bgmType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.data[2].bgmType
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.data[3].bgmType
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.data[4].bgmType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.data[5].bgmType
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 6112636365582442148, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
       propertyPath: m_Name
       value: AudioManager
@@ -7761,7 +7757,7 @@ Transform:
   - {fileID: 787059545}
   - {fileID: 109443049}
   - {fileID: 852222621}
-  - {fileID: 254253803}
+  - {fileID: 1999075381}
   m_Father: {fileID: 233239379}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1396782587
@@ -10892,6 +10888,38 @@ Transform:
   - {fileID: 1820655908}
   - {fileID: 1340687597}
   m_Father: {fileID: 764596056}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1999075380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1999075381}
+  m_Layer: 7
+  m_Name: PaperObjects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1999075381
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999075380}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 254253803}
+  m_Father: {fileID: 1392775619}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2023644553
 PrefabInstance:
