@@ -20,7 +20,7 @@ namespace PESDISASTER
         /// <summary>
         /// 初期設定を行う関数
         /// </summary>
-        private void Awake() 
+        private void Awake()
         {
             // もしシングルトンではない場合
             if (Instance == null)
@@ -45,6 +45,7 @@ namespace PESDISASTER
 
             // 初期の言語に指定の言語コードを代入する
             CurrentLanguage = languageCode;
+
             // シーン内のすべてのLocalizedTextDisplayを見つけ出し参照する変数を定義
             var findDisplays = FindObjectsByType<LocalizedTextDisplay>(FindObjectsSortMode.None);
 

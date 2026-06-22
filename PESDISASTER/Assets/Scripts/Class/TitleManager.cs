@@ -1,8 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using UnityEngine.EventSystems;
 
 namespace PESDISASTER
 {
@@ -12,64 +10,57 @@ namespace PESDISASTER
     public class TitleManager : MonoBehaviour
     {
         /// <summary>
-        /// スタートボタンを参照する変数
+        /// 遷移演出用UIを管理するクラスを参照する変数
         /// </summary>
-        public Button startButton;
-        /// <summary>
-        /// ゲーム終了ボタンを参照する変数
-        /// </summary>
-        public Button exitButton;
-
-        /// <summary>
-        /// スタートボタンイベントを参照する変数
-        /// </summary>
-        public EventTrigger startEventTrigger;
-        /// <summary>
-        /// ゲーム終了ボタンイベントを参照する変数
-        /// </summary>
-        public EventTrigger exitEventTrigger;
-
+        [SerializeField]
+        private TransitionUI_Manager _transitionUI_Manager;
         /// <summary>
         /// 遷移演出用UIを管理するクラスを参照する変数
         /// </summary>
-        public TransitionUI_Manager transitionUI_Manager;
+        [SerializeField]
+        private TitleUI_Manager _titleUI_Manager;
 
         /// <summary>
         /// アニメーターを参照する変数
         /// </summary>
-        private Animator animator;
+        private Animator _animator;
 
         /// <summary>
         /// アニメーターのタイトルアウトロトリガーを参照する変数
         /// </summary>
-        private static readonly int titleOutroTrigger = Animator.StringToHash("OnStart");
+        private static readonly int _titleOutroTriggerID = Animator.StringToHash("OnStart");
 
         /// <summary>
         /// イントロアニメーションの時間を参照する変数
         /// </summary>
-        private float introAnimDuration = 2f;
+        private float _introAnimDuration = 2f;
         /// <summary>
         /// アウトロアニメーションの時間を参照する変数
         /// </summary>
-        private float outroAnimDuration = 1.5f;
-
-        /// <summary>
-        /// ステージシーン名を参照する変数
-        /// </summary>
-        private string stageName = "Stage";
+        private float _outroAnimDuration = 1.5f;
 
         /// <summary>
         /// 初期設定を行う関数
         /// </summary>
         private void Start()
         {
-            animator = GetComponent<Animator>();
+            // コンポーネント登録
+            _animator = GetComponent<Animator>();
 
-            // クリックイベントにリスナーを追加
-            startButton.onClick.AddListener(MoveStage);// スタートボタンがクリックされたとき、GoScene関数を呼び出すように設定
-            exitButton.onClick.AddListener(Exit);// ゲーム終了ボタンがクリックされたとき、Exit関数を呼び出すように設定
+            // --- クリックイベントにリスナーを追加 ---
+            // スタートボタンがクリックされたとき、MoveStage関数を呼び出すように設定
+            _titleUI_Manager.StartButton.onClick.AddListener(MoveStage);
+            // ゲーム終了ボタンがクリックされたとき、Exit関数を呼び出すように設定
+            _titleUI_Manager.ExitButton.onClick.AddListener(Exit);
+            // 言語変更ボタンがクリックされたとき、指定の言語変更関数を呼び出すように設定
+            _titleUI_Manager.ChangeLanguageButton[0].onClick.AddListener(() => LocalizationManager.Instance.ChangeLanguage("English"));
+            // 言語変更ボタンがクリックされたとき、指定の言語変更関数を呼び出すように設定
+            _titleUI_Manager.ChangeLanguageButton[1].onClick.AddListener(() => LocalizationManager.Instance.ChangeLanguage("Chinese"));
+            // 言語変更ボタンがクリックされたとき、指定の言語変更関数を呼び出すように設定
+            _titleUI_Manager.ChangeLanguageButton[2].onClick.AddListener(() => LocalizationManager.Instance.ChangeLanguage("Japanese"));
 
-            StartCoroutine(GameStartCoroutine());// ゲーム開始のコルーチンを開始
+            // ゲーム開始のコルーチンを開始
+            StartCoroutine(GameStartCoroutine());
         }
 
         /// <summary>
@@ -77,7 +68,8 @@ namespace PESDISASTER
         /// </summary>
         public void MoveStage()
         {
-            StartCoroutine(StageTransitionCoroutine());// ステージ遷移のコルーチンを開始
+            // ステージ遷移のコルーチンを開始
+            StartCoroutine(StageTransitionCoroutine());
         }
 
         /// <summary>
@@ -86,64 +78,63 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator GameStartCoroutine()
         {
+            // 指定のBGMを再生
             AudioManager.instance.PlayBGM(BGM_Type.Title);
-
-            // ボタン・ボタンイベントのアクセスを無効にする
-            startButton.enabled = false;// スタートボタンを最初は無効にする
-            startEventTrigger.enabled = false;// スタートボタンイベントを最初は無効にする
-            exitButton.enabled = false;// ゲーム終了ボタンを最初は無効にする
-            exitEventTrigger.enabled = false;// ゲーム終了ボタンイベントを最初は無効にする
-
-            transitionUI_Manager.Show();
-            yield return new WaitForSeconds(introAnimDuration);// イントロアニメーションの時間だけ待機
-            transitionUI_Manager.Hide();
-
-            // ボタン。ボタンイベントのアクセスを有効にする
-            startButton.enabled = true;// スタートボタンを有効にする
-            startEventTrigger.enabled = true;// スタートボタンイベントを有効にする
-            exitButton.enabled = true;// ゲーム終了ボタンを有効にする
-            exitEventTrigger.enabled = true;// ゲーム終了ボタンイベントを有効にする
+            // タイトルUIのボタン・イベントトリガーのアクセスをオフにする
+            _titleUI_Manager.ChangeEnabled(false);
+            // 演出用UIを表示
+            _transitionUI_Manager.Show();
+            // イントロアニメーションの時間だけ待機
+            yield return new WaitForSeconds(_introAnimDuration);
+            // 演出用UIを非表示
+            _transitionUI_Manager.Hide();
+            // タイトルUIのボタン・イベントトリガーのアクセスをオンにする
+            _titleUI_Manager.ChangeEnabled(true);
         }
 
         /// <summary>
-        /// ステージ遷移時の演出を行うコルーチン関数
+        /// ステージ遷移時の演出を行うコルーチン
         /// </summary>
         /// <returns></returns>
         private IEnumerator StageTransitionCoroutine()
         {
-            // クリック音再生とともにBGMを停止
+            // --- クリック音再生とともにBGMを停止 ---
             AudioManager.instance.PlaySE(SE_Type.Click);
             AudioManager.instance.StopBGM();
 
-            // ボタンのアクセスを無効にする
-            startButton.enabled = false;// スタートボタンを最初は無効にする
-            exitButton.enabled = false;// ゲーム終了ボタンを最初は無効にする
-            
-            transitionUI_Manager.Show();
-            animator.SetTrigger(titleOutroTrigger);// タイトルアウトロトリガーを発動
-            yield return new WaitForSeconds(outroAnimDuration);// アウトロアニメーションの時間だけ待機
-            SceneManager.LoadScene(stageName);
+            // --- メインステージへの遷移演出を行う ---
+            // 最初はタイトルUIのボタン・イベントトリガーのアクセスをオフにする
+            _titleUI_Manager.ChangeEnabled(false);
+            // 演出用UIを表示
+            _transitionUI_Manager.Show();
+            // タイトルアウトロトリガーを発動
+            _animator.SetTrigger(_titleOutroTriggerID);
+            // アウトロアニメーションの時間だけ待機
+            yield return new WaitForSeconds(_outroAnimDuration);
+            // ステージシーンに遷移
+            SceneManager.LoadScene("Stage");
         }
 
         /// <summary>
-        /// ゲーム終了時の演出を行うコルーチン関数
+        /// ゲーム終了時の演出を行うコルーチン
         /// </summary>
         /// <returns></returns>
         private IEnumerator GameExitCoroutine()
         {
-            // クリック音再生とともにBGMを停止
+            // --- クリック音再生とともにBGMを停止 ---
             AudioManager.instance.PlaySE(SE_Type.Click);
             AudioManager.instance.StopBGM();
 
-            // ボタン・ボタンイベントのアクセスを無効にする
-            startButton.enabled = false;// スタートボタンを最初は無効にする
-            startEventTrigger.enabled = false;// スタートボタンイベントを最初は無効にする
-            exitButton.enabled = false;// ゲーム終了ボタンを最初は無効にする
-            exitEventTrigger.enabled = false;// ゲーム終了ボタンイベントを最初は無効にする
-
-            transitionUI_Manager.Show();
-            animator.SetTrigger(titleOutroTrigger);// タイトルアウトロトリガーを発動
-            yield return new WaitForSeconds(outroAnimDuration);// アウトロアニメーションの時間だけ待機
+            // --- ゲーム終了の演出を行う ---
+            // タイトルUIのボタン・イベントトリガーのアクセスをオフにする
+            _titleUI_Manager.ChangeEnabled(false);
+            // 演出用UIを表示
+            _transitionUI_Manager.Show();
+            // タイトルアウトロトリガーを発動
+            _animator.SetTrigger(_titleOutroTriggerID);
+            // アウトロアニメーションの時間だけ待機
+            yield return new WaitForSeconds(_outroAnimDuration);
+            // アプリ終了
             Application.Quit();
         }
 
@@ -152,7 +143,8 @@ namespace PESDISASTER
         /// </summary>
         private void Exit()
         {
-            StartCoroutine(GameExitCoroutine());// ゲーム終了のコルーチンを開始
+            // ゲーム終了のコルーチンを開始
+            StartCoroutine(GameExitCoroutine());
         }
     }
 }

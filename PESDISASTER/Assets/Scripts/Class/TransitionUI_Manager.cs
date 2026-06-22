@@ -20,8 +20,10 @@ namespace PESDISASTER
         /// </summary>
         public void Hide()
         {
+            // 子オブジェクトを全てチェック
             foreach (Transform child in transform)
             {
+                // 子オブジェクトを非表示
                 child.gameObject.SetActive(false);
             }
         }
@@ -31,8 +33,10 @@ namespace PESDISASTER
         /// </summary>
         public void Show()
         {
+            // 子オブジェクトを全てチェック
             foreach (Transform child in transform)
             {
+                // 子オブジェクトを表示
                 child.gameObject.SetActive(true);
             }
         }

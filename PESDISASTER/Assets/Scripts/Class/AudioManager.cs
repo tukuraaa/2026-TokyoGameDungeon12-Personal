@@ -27,6 +27,7 @@ namespace PESDISASTER
         Notice,
         Pause,
         Scream,
+        Message,
         Paper
     }
 
@@ -34,45 +35,45 @@ namespace PESDISASTER
     /// インスペクターでBGMを設定・管理するためのデータクラス
     /// </summary>
     [System.Serializable]
-    public class BGMData
+    public class BGM_Data
     {
         /// <summary>
         /// BGM素材そのものを参照する変数
         /// </summary>
-        public AudioClip clip;
+        public AudioClip Clip;
 
         /// <summary>
         /// BGM種類を参照する変数
         /// </summary>
-        public BGM_Type bgmType;
+        public BGM_Type BGM_Type;
 
         /// <summary>
         /// BGM音量を参照する変数
         /// </summary>
         [Range(0f, 1f)]
-        public float volume = 1.0f;
+        public float Volume = 1.0f;
     }
     /// <summary>
     /// インスペクターでSEを設定・管理するためのデータクラス
     /// </summary>
     [System.Serializable]
-    public class SEData
+    public class SE_Data
     {
         /// <summary>
         /// SE素材そのものを参照する変数
         /// </summary>
-        public AudioClip clip;
+        public AudioClip Clip;
 
         /// <summary>
         /// SE種類を参照する変数
         /// </summary>
-        public SE_Type seType;
+        public SE_Type SE_Type;
 
         /// <summary>
         /// SE音量を参照する変数
         /// </summary>
         [Range(0f, 1f)]
-        public float volume = 1.0f;
+        public float Volume = 1.0f;
     }
 
     /// <summary>
@@ -83,11 +84,11 @@ namespace PESDISASTER
         /// <summary>
         /// BGMデータを参照する変数の配列
         /// </summary>
-        public BGMData[] bgmDataArray;
+        public BGM_Data[] bgmDataArray;
         /// <summary>
         /// SEデータを参照する変数の配列
         /// </summary>
-        public SEData[] seDataArray;
+        public SE_Data[] seDataArray;
         /// <summary>
         /// どこからでもアクセスできるシングルトンインスタンス
         /// </summary>
@@ -96,11 +97,11 @@ namespace PESDISASTER
         /// <summary>
         /// BGMの種類・データをまとめて参照するディクショナリ変数
         /// </summary>
-        private Dictionary<BGM_Type, BGMData> bgmDict = new Dictionary<BGM_Type, BGMData>();
+        private Dictionary<BGM_Type, BGM_Data> bgmDict = new Dictionary<BGM_Type, BGM_Data>();
         /// <summary>
         /// SEの種類・データをまとめて参照するディクショナリ変数
         /// </summary>
-        private Dictionary<SE_Type, SEData> seDict = new Dictionary<SE_Type, SEData>();
+        private Dictionary<SE_Type, SE_Data> seDict = new Dictionary<SE_Type, SE_Data>();
 
         /// <summary>
         /// BGMのソースを参照する変数
@@ -149,9 +150,9 @@ namespace PESDISASTER
             foreach (var bgm in bgmDataArray)
             {
                 // もしディクショナリ変数が空の場合
-                if (!bgmDict.ContainsKey(bgm.bgmType))
+                if (!bgmDict.ContainsKey(bgm.BGM_Type))
                 {
-                    bgmDict.Add(bgm.bgmType, bgm);// ディクショナリ変数にデータを追加
+                    bgmDict.Add(bgm.BGM_Type, bgm);// ディクショナリ変数にデータを追加
                 }
             }
 
@@ -168,9 +169,9 @@ namespace PESDISASTER
             foreach (var se in seDataArray)
             {
                 // もしディクショナリ変数が空の場合
-                if (!seDict.ContainsKey(se.seType))
+                if (!seDict.ContainsKey(se.SE_Type))
                 {
-                    seDict.Add(se.seType, se);// ディクショナリ変数にデータを追加
+                    seDict.Add(se.SE_Type, se);// ディクショナリ変数にデータを追加
                 }
             }
         }
@@ -181,17 +182,17 @@ namespace PESDISASTER
         public void PlayBGM(BGM_Type type)
         {
             // もしディクショナリ変数に中身がある場合
-            if (bgmDict.TryGetValue(type, out BGMData data))
+            if (bgmDict.TryGetValue(type, out BGM_Data data))
             {
                 // もし同じBGMが既に鳴っている場合
-                if (bgmSource.clip == data.clip && bgmSource.isPlaying)
+                if (bgmSource.clip == data.Clip && bgmSource.isPlaying)
                 {
                     return;
                 }
 
                 // BGMソースを指定の設定にして再生
-                bgmSource.clip = data.clip;
-                bgmSource.volume = data.volume;
+                bgmSource.clip = data.Clip;
+                bgmSource.volume = data.Volume;
                 bgmSource.Play();
             }
         }
@@ -207,7 +208,7 @@ namespace PESDISASTER
         public void PlaySE(SE_Type type)
         {
             // もしディクショナリ変数に中身がある場合
-            if (seDict.TryGetValue(type, out SEData data))
+            if (seDict.TryGetValue(type, out SE_Data data))
             {
                 // 空いているAudioSource（再生中でないもの）を探して鳴らす
                 foreach (var source in seSourceList)
@@ -216,8 +217,8 @@ namespace PESDISASTER
                     if (!source.isPlaying)
                     {
                         // SEソースを指定の設定にして再生
-                        source.clip = data.clip;
-                        source.volume = data.volume;
+                        source.clip = data.Clip;
+                        source.volume = data.Volume;
                         source.Play();
                         return;
                     }
