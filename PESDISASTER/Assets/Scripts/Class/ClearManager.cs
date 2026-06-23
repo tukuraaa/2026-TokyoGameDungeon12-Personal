@@ -56,7 +56,7 @@ namespace PESDISASTER
             Cursor.visible = true;// カーソルを表示にする
 
             titleButton.enabled = false;// 最初はボタンの機能をオフ
-            AudioManager.instance.PlayBGM(BGM_Type.Clear);
+            AudioManager.Instance.PlayBGM(BGM_Type.Clear);
             StartCoroutine(Endroll_Coroutine());// エンドロール処理を開始
         }
 
@@ -85,7 +85,7 @@ namespace PESDISASTER
         private IEnumerator ClearOutroCoroutine()
         {
             titleButton.enabled = false;// 最初はボタンの機能をオフ
-            AudioManager.instance.StopBGM();
+            AudioManager.Instance.StopBGM();
             transitionUI_Manager.Show();
             animator.SetTrigger(clearOutro_ID);// アウトロ演出再生
             yield return new WaitForSeconds(outroEventDuration);

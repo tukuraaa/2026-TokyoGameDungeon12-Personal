@@ -27,7 +27,6 @@ namespace PESDISASTER
         Notice,
         Pause,
         Scream,
-        Message,
         Paper
     }
 
@@ -84,39 +83,43 @@ namespace PESDISASTER
         /// <summary>
         /// BGMデータを参照する変数の配列
         /// </summary>
-        public BGM_Data[] bgmDataArray;
+        [SerializeField]
+        private BGM_Data[] _bGM_DataArray;
         /// <summary>
         /// SEデータを参照する変数の配列
         /// </summary>
-        public SE_Data[] seDataArray;
-        /// <summary>
-        /// どこからでもアクセスできるシングルトンインスタンス
-        /// </summary>
-        public static AudioManager instance { get; private set; }
-
-        /// <summary>
-        /// BGMの種類・データをまとめて参照するディクショナリ変数
-        /// </summary>
-        private Dictionary<BGM_Type, BGM_Data> bgmDict = new Dictionary<BGM_Type, BGM_Data>();
-        /// <summary>
-        /// SEの種類・データをまとめて参照するディクショナリ変数
-        /// </summary>
-        private Dictionary<SE_Type, SE_Data> seDict = new Dictionary<SE_Type, SE_Data>();
-
-        /// <summary>
-        /// BGMのソースを参照する変数
-        /// </summary>
-        private AudioSource bgmSource;
-
-        /// <summary>
-        /// SE同時再生のためのAudioSourceプールを参照するリスト変数
-        /// </summary>
-        private List<AudioSource> seSourceList = new List<AudioSource>();
+        [SerializeField]
+        private SE_Data[] _sE_DataArray;
 
         /// <summary>
         /// 同時に鳴らせるSEの最大数
         /// </summary>
-        public int maxSEChannels = 10;
+        [SerializeField]
+        private int _maxSE_Channels = 10;
+
+        /// <summary>
+        /// どこからでもアクセスできるシングルトンインスタンスの変数
+        /// </summary>
+        public static AudioManager Instance { get; private set; }
+
+        /// <summary>
+        /// BGMの種類・データをまとめて参照するディクショナリ変数
+        /// </summary>
+        private Dictionary<BGM_Type, BGM_Data> _bGM_Dictionary = new Dictionary<BGM_Type, BGM_Data>();
+        /// <summary>
+        /// SEの種類・データをまとめて参照するディクショナリ変数
+        /// </summary>
+        private Dictionary<SE_Type, SE_Data> _sE_Dictionary = new Dictionary<SE_Type, SE_Data>();
+
+        /// <summary>
+        /// BGMのソースを参照する変数
+        /// </summary>
+        private AudioSource _bGM_Source;
+
+        /// <summary>
+        /// SE同時再生のためのAudioSourceプールを参照するリスト変数
+        /// </summary>
+        private List<AudioSource> _sE_SourceList = new List<AudioSource>();
 
         /// <summary>
         /// 初期設定を行う関数
@@ -124,11 +127,13 @@ namespace PESDISASTER
         private void Awake()
         {
             // もしシングルトンではない場合
-            if (instance == null)
+            if (Instance == null)
             {
-                instance = this;
+                Instance = this;
                 DontDestroyOnLoad(gameObject);
-                Initialize();// 音響設定の初期化
+
+                // 音響設定の初期化
+                Initialize();
             }
             else
             {
@@ -141,37 +146,41 @@ namespace PESDISASTER
         /// </summary>
         private void Initialize()
         {
-            // BGMの初期化
-            bgmSource = gameObject.AddComponent<AudioSource>();
-            bgmSource.loop = true;
-            bgmSource.playOnAwake = false;
+            // --- BGMの初期化 ---
+            _bGM_Source = gameObject.AddComponent<AudioSource>();
+            _bGM_Source.loop = true;
+            _bGM_Source.playOnAwake = false;
 
             // BGMデータをスキャン
-            foreach (var bgm in bgmDataArray)
+            foreach (var bGM in _bGM_DataArray)
             {
                 // もしディクショナリ変数が空の場合
-                if (!bgmDict.ContainsKey(bgm.BGM_Type))
+                if (!_bGM_Dictionary.ContainsKey(bGM.BGM_Type))
                 {
-                    bgmDict.Add(bgm.BGM_Type, bgm);// ディクショナリ変数にデータを追加
+                    // ディクショナリ変数にデータを追加
+                    _bGM_Dictionary.Add(bGM.BGM_Type, bGM);
                 }
             }
 
             // 存在しているSEのチャンネル分ループ
-            for (int i = 0; i < maxSEChannels; i++)
+            for (int i = 0; i < _maxSE_Channels; i++)
             {
-                // SEの初期化（チャンネルの確保）
+                // --- SEの初期化（チャンネルの確保） ---
                 AudioSource seSource = gameObject.AddComponent<AudioSource>();
                 seSource.playOnAwake = false;
-                seSourceList.Add(seSource);// リストにSEソースを追加
+
+                // リストにSEソースを追加
+                _sE_SourceList.Add(seSource);
             }
 
             // SEのデータをスキャン
-            foreach (var se in seDataArray)
+            foreach (var sE in _sE_DataArray)
             {
                 // もしディクショナリ変数が空の場合
-                if (!seDict.ContainsKey(se.SE_Type))
+                if (!_sE_Dictionary.ContainsKey(sE.SE_Type))
                 {
-                    seDict.Add(se.SE_Type, se);// ディクショナリ変数にデータを追加
+                    // ディクショナリ変数にデータを追加
+                    _sE_Dictionary.Add(sE.SE_Type, sE);
                 }
             }
         }
@@ -182,25 +191,25 @@ namespace PESDISASTER
         public void PlayBGM(BGM_Type type)
         {
             // もしディクショナリ変数に中身がある場合
-            if (bgmDict.TryGetValue(type, out BGM_Data data))
+            if (_bGM_Dictionary.TryGetValue(type, out BGM_Data data))
             {
                 // もし同じBGMが既に鳴っている場合
-                if (bgmSource.clip == data.Clip && bgmSource.isPlaying)
+                if (_bGM_Source.clip == data.Clip && _bGM_Source.isPlaying)
                 {
                     return;
                 }
 
-                // BGMソースを指定の設定にして再生
-                bgmSource.clip = data.Clip;
-                bgmSource.volume = data.Volume;
-                bgmSource.Play();
+                // --- BGMソースを指定の設定にして再生 ---
+                _bGM_Source.clip = data.Clip;
+                _bGM_Source.volume = data.Volume;
+                _bGM_Source.Play();
             }
         }
 
         /// <summary>
         /// BGMを停止する関数
         /// </summary>
-        public void StopBGM() => bgmSource.Stop();
+        public void StopBGM() => _bGM_Source.Stop();
 
         /// <summary>
         /// SEを再生する関数
@@ -208,18 +217,19 @@ namespace PESDISASTER
         public void PlaySE(SE_Type type)
         {
             // もしディクショナリ変数に中身がある場合
-            if (seDict.TryGetValue(type, out SE_Data data))
+            if (_sE_Dictionary.TryGetValue(type, out SE_Data data))
             {
                 // 空いているAudioSource（再生中でないもの）を探して鳴らす
-                foreach (var source in seSourceList)
+                foreach (var source in _sE_SourceList)
                 {
                     // もしプレイ中のソースが無い場合
                     if (!source.isPlaying)
                     {
-                        // SEソースを指定の設定にして再生
+                        // --- SEソースを指定の設定にして再生 ---
                         source.clip = data.Clip;
                         source.volume = data.Volume;
                         source.Play();
+
                         return;
                     }
                 }
@@ -231,7 +241,17 @@ namespace PESDISASTER
         /// </summary>
         public void PlayCursorSE()
         {
-            PlaySE(SE_Type.Cursor);// 指定の音を再生
+            // 指定の音を再生
+            PlaySE(SE_Type.Cursor);
+        }
+
+        /// <summary>
+        /// ボタンを押した時の音を再生する際に使用する関数
+        /// </summary>
+        public void PlayClickSE()
+        {
+            // 指定の音を再生
+            PlaySE(SE_Type.Click);
         }
     }
 }

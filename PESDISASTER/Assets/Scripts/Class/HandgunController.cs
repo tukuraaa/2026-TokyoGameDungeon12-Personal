@@ -169,7 +169,7 @@ namespace PESDISASTER
                 }
                 else
                 {
-                    AudioManager.instance.PlaySE(SE_Type.EmptyMagazine);
+                    AudioManager.Instance.PlaySE(SE_Type.EmptyMagazine);
 
                     _playerNoticeUI.StartEmpty();// 弾切れ通知アニメーションをする
                 }
@@ -263,7 +263,7 @@ namespace PESDISASTER
         {
             isReloading = true;
 
-            AudioManager.instance.PlaySE(SE_Type.Reload);
+            AudioManager.Instance.PlaySE(SE_Type.Reload);
 
             yield return new WaitForSeconds(reloadTime);
 

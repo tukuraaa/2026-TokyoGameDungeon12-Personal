@@ -1200,6 +1200,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 752504269}
+          m_TargetAssemblyTypeName: PESDISASTER.AudioManager, Assembly-CSharp
+          m_MethodName: PlayClickSE
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &612037349
 GameObject:
   m_ObjectHideFlags: 0
@@ -2203,6 +2219,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 752504269}
+          m_TargetAssemblyTypeName: PESDISASTER.AudioManager, Assembly-CSharp
+          m_MethodName: PlayClickSE
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1053377021
 GameObject:
   m_ObjectHideFlags: 0
@@ -2344,6 +2376,22 @@ MonoBehaviour:
         - m_Target: {fileID: 752504269}
           m_TargetAssemblyTypeName: PESDISASTER.AudioManager, Assembly-CSharp
           m_MethodName: PlayCursorSE
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 752504269}
+          m_TargetAssemblyTypeName: PESDISASTER.AudioManager, Assembly-CSharp
+          m_MethodName: PlayClickSE
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -3626,6 +3674,22 @@ MonoBehaviour:
         - m_Target: {fileID: 752504269}
           m_TargetAssemblyTypeName: PESDISASTER.AudioManager, Assembly-CSharp
           m_MethodName: PlayCursorSE
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 752504269}
+          m_TargetAssemblyTypeName: PESDISASTER.AudioManager, Assembly-CSharp
+          m_MethodName: PlayClickSE
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -5230,6 +5294,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 752504269}
+          m_TargetAssemblyTypeName: PESDISASTER.AudioManager, Assembly-CSharp
+          m_MethodName: PlayClickSE
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &713460030611107089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5437,125 +5517,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.size
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[0].Clip
+      propertyPath: _sE_DataArray.Array.data[0].Clip
       value: 
-      objectReference: {fileID: 8300000, guid: de8f1c8f524d5cf4ebbc8070917cd3d6, type: 3}
+      objectReference: {fileID: 8300000, guid: a50989a24f5410040baef23b43be01c1, type: 3}
     - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[1].Clip
+      propertyPath: _sE_DataArray.Array.data[1].Clip
       value: 
-      objectReference: {fileID: 8300000, guid: c3a5379154734fe48af1f55edad21b41, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[2].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 9e11fe77b4904d448a826a13696c08d4, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[3].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 950bc4952a0bcbf45af938f40508de96, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[4].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 086485ab0cdefb843b45f4e7615e2cdd, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[5].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 9e11fe77b4904d448a826a13696c08d4, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[6].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: c7f7fa3f9627fcb4782eba934aa3689d, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[7].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 3301b318bdb099f41a8259072b8c86c7, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[8].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 80190c4da296e164e95809679a1cae63, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[9].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 4803ca2335d76164dae4b97f739ac598, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.data[0].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 2de8808fa6700e943b711cc15f07d1ff, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.data[1].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 8f479ea8b70544e4f95ec047fb5647ea, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.data[2].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: dac87fa1c5cc71a42acebb9779e1492a, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.data[3].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 9d3930562ba06e14e8b1f0a0ee9ed5a9, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.data[4].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 8cd42d84cebfdb24d824c47308d9700c, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[9].Volume
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[1].SE_Type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[2].SE_Type
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[3].SE_Type
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[4].SE_Type
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[5].SE_Type
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[6].SE_Type
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[7].SE_Type
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[8].SE_Type
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: seDataArray.Array.data[9].SE_Type
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.data[1].BGM_Type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.data[2].BGM_Type
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.data[3].BGM_Type
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: bgmDataArray.Array.data[4].BGM_Type
-      value: 4
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: 06fe2574b7b79cb43931867eac20f215, type: 3}
     - target: {fileID: 6112636365582442148, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
       propertyPath: m_Name
       value: AudioManager

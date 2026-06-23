@@ -44,48 +44,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc3a47db7b527c4cba4a0cfbec3fc7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.AudioManager
-  bgmDataArray:
-  - clip: {fileID: 8300000, guid: 2de8808fa6700e943b711cc15f07d1ff, type: 3}
-    bgmType: 0
-    volume: 1
-  - clip: {fileID: 8300000, guid: dac87fa1c5cc71a42acebb9779e1492a, type: 3}
-    bgmType: 2
-    volume: 1
-  - clip: {fileID: 8300000, guid: 9d3930562ba06e14e8b1f0a0ee9ed5a9, type: 3}
-    bgmType: 3
-    volume: 1
-  - clip: {fileID: 8300000, guid: 8cd42d84cebfdb24d824c47308d9700c, type: 3}
-    bgmType: 4
-    volume: 1
-  - clip: {fileID: 8300000, guid: 8f479ea8b70544e4f95ec047fb5647ea, type: 3}
-    bgmType: 1
-    volume: 1
-  seDataArray:
-  - clip: {fileID: 8300000, guid: de8f1c8f524d5cf4ebbc8070917cd3d6, type: 3}
-    seType: 0
-    volume: 0.5
-  - clip: {fileID: 8300000, guid: c3a5379154734fe48af1f55edad21b41, type: 3}
-    seType: 1
-    volume: 1
-  - clip: {fileID: 8300000, guid: 80190c4da296e164e95809679a1cae63, type: 3}
-    seType: 5
-    volume: 1
-  - clip: {fileID: 8300000, guid: c7f7fa3f9627fcb4782eba934aa3689d, type: 3}
-    seType: 6
-    volume: 1
-  - clip: {fileID: 8300000, guid: 086485ab0cdefb843b45f4e7615e2cdd, type: 3}
-    seType: 4
-    volume: 1
-  - clip: {fileID: 8300000, guid: 950bc4952a0bcbf45af938f40508de96, type: 3}
-    seType: 3
-    volume: 1
-  - clip: {fileID: 8300000, guid: 9e11fe77b4904d448a826a13696c08d4, type: 3}
-    seType: 2
-    volume: 1
-  - clip: {fileID: 8300000, guid: 80190c4da296e164e95809679a1cae63, type: 3}
-    seType: 7
-    volume: 1
-  - clip: {fileID: 8300000, guid: 4803ca2335d76164dae4b97f739ac598, type: 3}
-    seType: 8
-    volume: 1
-  maxSEChannels: 50
+  _bGM_DataArray:
+  - Clip: {fileID: 8300000, guid: 2de8808fa6700e943b711cc15f07d1ff, type: 3}
+    BGM_Type: 0
+    Volume: 1
+  - Clip: {fileID: 8300000, guid: 8f479ea8b70544e4f95ec047fb5647ea, type: 3}
+    BGM_Type: 1
+    Volume: 1
+  - Clip: {fileID: 8300000, guid: dac87fa1c5cc71a42acebb9779e1492a, type: 3}
+    BGM_Type: 2
+    Volume: 1
+  - Clip: {fileID: 8300000, guid: 9d3930562ba06e14e8b1f0a0ee9ed5a9, type: 3}
+    BGM_Type: 3
+    Volume: 1
+  - Clip: {fileID: 8300000, guid: 8cd42d84cebfdb24d824c47308d9700c, type: 3}
+    BGM_Type: 4
+    Volume: 1
+  _sE_DataArray:
+  - Clip: {fileID: 8300000, guid: c1a5d52538d6d444c9df04fd1bb61818, type: 3}
+    SE_Type: 0
+    Volume: 1
+  - Clip: {fileID: 8300000, guid: 8280ff22e0740dc4db1b7f500309a425, type: 3}
+    SE_Type: 1
+    Volume: 1
+  - Clip: {fileID: 8300000, guid: 9e11fe77b4904d448a826a13696c08d4, type: 3}
+    SE_Type: 2
+    Volume: 1
+  - Clip: {fileID: 8300000, guid: 950bc4952a0bcbf45af938f40508de96, type: 3}
+    SE_Type: 3
+    Volume: 1
+  - Clip: {fileID: 8300000, guid: 086485ab0cdefb843b45f4e7615e2cdd, type: 3}
+    SE_Type: 4
+    Volume: 1
+  - Clip: {fileID: 8300000, guid: 80190c4da296e164e95809679a1cae63, type: 3}
+    SE_Type: 5
+    Volume: 1
+  - Clip: {fileID: 8300000, guid: c7f7fa3f9627fcb4782eba934aa3689d, type: 3}
+    SE_Type: 6
+    Volume: 1
+  - Clip: {fileID: 8300000, guid: 3301b318bdb099f41a8259072b8c86c7, type: 3}
+    SE_Type: 7
+    Volume: 1
+  - Clip: {fileID: 8300000, guid: 4803ca2335d76164dae4b97f739ac598, type: 3}
+    SE_Type: 8
+    Volume: 1
+  _maxSE_Channels: 30

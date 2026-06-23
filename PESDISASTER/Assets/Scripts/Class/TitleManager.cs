@@ -79,7 +79,7 @@ namespace PESDISASTER
         private IEnumerator GameStartCoroutine()
         {
             // 指定のBGMを再生
-            AudioManager.instance.PlayBGM(BGM_Type.Title);
+            AudioManager.Instance.PlayBGM(BGM_Type.Title);
             // タイトルUIのボタン・イベントトリガーのアクセスをオフにする
             _titleUI_Manager.ChangeEnabled(false);
             // 演出用UIを表示
@@ -98,11 +98,9 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator StageTransitionCoroutine()
         {
-            // --- クリック音再生とともにBGMを停止 ---
-            AudioManager.instance.PlaySE(SE_Type.Click);
-            AudioManager.instance.StopBGM();
-
             // --- メインステージへの遷移演出を行う ---
+            // BGMを停止
+            AudioManager.Instance.StopBGM();
             // 最初はタイトルUIのボタン・イベントトリガーのアクセスをオフにする
             _titleUI_Manager.ChangeEnabled(false);
             // 演出用UIを表示
@@ -121,11 +119,9 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator GameExitCoroutine()
         {
-            // --- クリック音再生とともにBGMを停止 ---
-            AudioManager.instance.PlaySE(SE_Type.Click);
-            AudioManager.instance.StopBGM();
-
             // --- ゲーム終了の演出を行う ---
+            // BGMを停止
+            AudioManager.Instance.StopBGM();
             // タイトルUIのボタン・イベントトリガーのアクセスをオフにする
             _titleUI_Manager.ChangeEnabled(false);
             // 演出用UIを表示
