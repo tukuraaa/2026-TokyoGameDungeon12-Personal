@@ -11,6 +11,12 @@ namespace PESDISASTER
     public class StageManager : MonoBehaviour
     {
         /// <summary>
+        /// プレイヤーステータスUIを管理するクラスを参照する変数
+        /// </summary>
+        [SerializeField]
+        private PlayerStatusUI_Manager _playerStatusUI_Manager;
+
+        /// <summary>
         /// イントロ演出用のアニメーターを参照する変数
         /// </summary>
         private Animator animator;
@@ -31,10 +37,6 @@ namespace PESDISASTER
         /// プレイヤー通知UIを管理するクラスを参照する変数
         /// </summary>
         public PlayerNoticeUI_Manager playerNoticeUI_Manager;
-        /// <summary>
-        /// プレイヤーステータスUIを管理するクラスを参照する変数
-        /// </summary>
-        public PlayerStatusUI_Manager playerStatusUI_Manager;
         /// <summary>
         /// プレイヤーステータスUIを管理するクラスを参照する変数
         /// </summary>
@@ -118,6 +120,7 @@ namespace PESDISASTER
                 Destroy(gameObject);
             }
 
+            // コンポーネントの登録
             animator = GetComponent<Animator>();
 
             // --- クリックイベントにリスナーを追加 ---
@@ -126,9 +129,11 @@ namespace PESDISASTER
             // ゲームオーバーのタイトルボタンがクリックされたとき、OverTitle関数を呼び出すように設定
             overTitleButton.onClick.AddListener(GoTitle);
 
-            // カーソル設定
+            // --- カーソル設定 ---
+                // カーソルをロックする
             Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;// カーソルを非表示にする
+            // カーソルを非表示にする
+            Cursor.visible = false;
         }
 
         /// <summary>
@@ -137,8 +142,6 @@ namespace PESDISASTER
         private void Start()
         {
             // --- イントロ演出準備 ---
-            // 演出用UIを表示
-            transitionUI_Manager.Show();
             // プレイヤーの操作を禁止
             PlayerController.Instance.IsSleeping = true;
 
@@ -162,12 +165,16 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator IntroEventCoroutine()
         {
+            // 演出用UIを表示
+            transitionUI_Manager.Show();
             // イントロBGMを再生
             AudioManager.Instance.PlayBGM(BGM_Type.Intro);
             // 演出の持続時間を待つ
             yield return new WaitForSeconds(introEventDuration);
             // 遷移演出用UIを非表示
             transitionUI_Manager.Hide();
+            // エイムUIを表示
+            _playerStatusUI_Manager.StartAimUI_Show();
             // 操作チュートリアルを開始する
             playerControllerUI_Manager.StartTutorial_LookMove();
             // イントロ演出の終了処理を呼び出す

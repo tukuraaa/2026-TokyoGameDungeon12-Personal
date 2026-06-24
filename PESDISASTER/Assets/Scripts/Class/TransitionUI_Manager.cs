@@ -12,6 +12,7 @@ namespace PESDISASTER
         /// </summary>
         private void Awake()
         {
+            // Å‰‚ÍUI‚ğ”ñ•\¦
             Hide();
         }
 
