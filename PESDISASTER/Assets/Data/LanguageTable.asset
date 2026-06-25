@@ -33,3 +33,7 @@ MonoBehaviour:
     English: Exit the game.
     Japanese: "\u30B2\u30FC\u30E0\u3092\u7D42\u4E86\u3059\u308B\u3002"
     Chinese: "\u9000\u51FA\u6E38\u620F\u3002"
+  - KeyCode: LookNote
+    English: Let's check the note on the bed.
+    Japanese: "\u30D9\u30C3\u30C9\u306B\u3042\u308B\u30E1\u30E2\u3092\u8ABF\u3079\u3088\u3046\u3002"
+    Chinese: "\u68C0\u67E5\u4E00\u4E0B\u5E8A\u4E0A\u7684\u4FBF\u6761\u3002"

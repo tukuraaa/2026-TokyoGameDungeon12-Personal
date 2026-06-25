@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7750913351778342077}
   - component: {fileID: 3268446841206994681}
+  - component: {fileID: 836743407036788058}
+  - component: {fileID: 7451460804962571061}
   m_Layer: 0
   m_Name: Barrier
   m_TagString: Untagged
@@ -51,5 +53,38 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 6.894717, z: 1}
+  m_Size: {x: 1, y: 6.894717, z: 8.81}
+  m_Center: {x: 0, y: 2.9473581, z: 0}
+--- !u!114 &836743407036788058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146032449392569523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 018f11a0345798b4983ca0adc6170288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.BarrierManager
+--- !u!65 &7451460804962571061
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146032449392569523}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.32, y: 6.894717, z: 9.19}
   m_Center: {x: 0, y: 2.9473581, z: 0}

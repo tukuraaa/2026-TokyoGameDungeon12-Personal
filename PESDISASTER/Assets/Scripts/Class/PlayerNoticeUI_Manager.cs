@@ -9,6 +9,12 @@ namespace PESDISASTER
     public class PlayerNoticeUI_Manager : MonoBehaviour
     {
         /// <summary>
+        /// 攻略ナビUIのターゲットを参照する変数
+        /// </summary>
+        [SerializeField]
+        private Transform _navigateNoticeUI_Target;
+
+        /// <summary>
         /// アニメーターを参照する変数
         /// </summary>
         private Animator animator;
@@ -43,6 +49,11 @@ namespace PESDISASTER
         public Transform damageNoticeUI_Target;
 
         /// <summary>
+        /// クラス自身のインスタンスを参照する変数
+        /// </summary>
+        public static PlayerNoticeUI_Manager Instance { get; private set; }
+
+        /// <summary>
         /// アニメーターのゲーム目的トリガーを参照する変数
         /// </summary>
         public static readonly int ruleTrigger = Animator.StringToHash("OnRule");
@@ -70,6 +81,10 @@ namespace PESDISASTER
         /// アニメーターのダメージ時トリガーを参照する変数
         /// </summary>
         public static readonly int damageTrigger = Animator.StringToHash("OnDamage");
+        /// <summary>
+        /// アニメーターの攻略ナビ時トリガーを参照する変数
+        /// </summary>
+        private static readonly int _navigateTrigger = Animator.StringToHash("OnNavigate");
 
         /// <summary>
         /// 通知アニメーションの時間を参照する変数
@@ -89,7 +104,18 @@ namespace PESDISASTER
         /// </summary>
         private void Start()
         {
+            // もしインスタンスが無い場合
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+            // コンポーネントの登録
             animator = GetComponent<Animator>();
+            // 最初はUIを非表示
             Hide();
         }
 
@@ -197,6 +223,15 @@ namespace PESDISASTER
         public void StartDamageNotice()
         {
             StartCoroutine(NoticeAnimCoroutine(damageNoticeUI_Target, damageTrigger, damageAnimTime));// ダメージ通知のアニメーションを行う
+        }
+
+        /// <summary>
+        /// 攻略ナビを開始する関数
+        /// </summary>
+        public void StartNavigateNotice()
+        {
+            // 攻略ナビ通知のアニメーションを行う
+            StartCoroutine(NoticeAnimCoroutine(_navigateNoticeUI_Target, _navigateTrigger, noticeAnimTime));
         }
     }
 }
