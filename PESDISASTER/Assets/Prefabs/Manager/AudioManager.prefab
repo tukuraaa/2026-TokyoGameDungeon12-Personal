@@ -46,46 +46,67 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.AudioManager
   _bGM_DataArray:
   - Clip: {fileID: 8300000, guid: 2de8808fa6700e943b711cc15f07d1ff, type: 3}
-    BGM_Type: 0
-    Volume: 1
+    BGM_Type: Title
+    Volume: 0.8
   - Clip: {fileID: 8300000, guid: 8f479ea8b70544e4f95ec047fb5647ea, type: 3}
-    BGM_Type: 1
+    BGM_Type: Intro
     Volume: 1
   - Clip: {fileID: 8300000, guid: dac87fa1c5cc71a42acebb9779e1492a, type: 3}
-    BGM_Type: 2
+    BGM_Type: Stage1
     Volume: 1
   - Clip: {fileID: 8300000, guid: 9d3930562ba06e14e8b1f0a0ee9ed5a9, type: 3}
-    BGM_Type: 3
+    BGM_Type: GameOver
     Volume: 1
   - Clip: {fileID: 8300000, guid: 8cd42d84cebfdb24d824c47308d9700c, type: 3}
-    BGM_Type: 4
+    BGM_Type: Clear
     Volume: 1
   _sE_DataArray:
-  - Clip: {fileID: 8300000, guid: c1a5d52538d6d444c9df04fd1bb61818, type: 3}
-    SE_Type: 0
+  - Clip: {fileID: 8300000, guid: 06fe2574b7b79cb43931867eac20f215, type: 3}
+    SE_Type: Click
     Volume: 1
-  - Clip: {fileID: 8300000, guid: 8280ff22e0740dc4db1b7f500309a425, type: 3}
-    SE_Type: 1
+    IsLooping: 0
+  - Clip: {fileID: 8300000, guid: a50989a24f5410040baef23b43be01c1, type: 3}
+    SE_Type: Cursor
     Volume: 1
+    IsLooping: 0
   - Clip: {fileID: 8300000, guid: 9e11fe77b4904d448a826a13696c08d4, type: 3}
-    SE_Type: 2
+    SE_Type: NonMagazine
     Volume: 1
+    IsLooping: 0
   - Clip: {fileID: 8300000, guid: 950bc4952a0bcbf45af938f40508de96, type: 3}
-    SE_Type: 3
+    SE_Type: Reload
     Volume: 1
+    IsLooping: 0
   - Clip: {fileID: 8300000, guid: 086485ab0cdefb843b45f4e7615e2cdd, type: 3}
-    SE_Type: 4
+    SE_Type: Shoot
     Volume: 1
+    IsLooping: 0
   - Clip: {fileID: 8300000, guid: 80190c4da296e164e95809679a1cae63, type: 3}
-    SE_Type: 5
+    SE_Type: Notice
     Volume: 1
+    IsLooping: 0
   - Clip: {fileID: 8300000, guid: c7f7fa3f9627fcb4782eba934aa3689d, type: 3}
-    SE_Type: 6
+    SE_Type: Pause
     Volume: 1
+    IsLooping: 0
   - Clip: {fileID: 8300000, guid: 3301b318bdb099f41a8259072b8c86c7, type: 3}
-    SE_Type: 7
+    SE_Type: Scream
     Volume: 1
+    IsLooping: 0
   - Clip: {fileID: 8300000, guid: 4803ca2335d76164dae4b97f739ac598, type: 3}
-    SE_Type: 8
+    SE_Type: Paper
     Volume: 1
+    IsLooping: 0
+  - Clip: {fileID: 8300000, guid: 640664774116da141be7969d801496e7, type: 3}
+    SE_Type: HouseBGS
+    Volume: 0.1
+    IsLooping: 1
+  - Clip: {fileID: 8300000, guid: 94fd8b03eed020b46b72a08d05abd806, type: 3}
+    SE_Type: GetUp
+    Volume: 1
+    IsLooping: 0
+  - Clip: {fileID: 8300000, guid: 61feb5ca0880811469a5769fc1dcdf64, type: 3}
+    SE_Type: Walk
+    Volume: 1
+    IsLooping: 1
   _maxSE_Channels: 30

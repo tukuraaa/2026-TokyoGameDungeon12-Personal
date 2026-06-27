@@ -1190,14 +1190,14 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 752504269}
           m_TargetAssemblyTypeName: PESDISASTER.AudioManager, Assembly-CSharp
-          m_MethodName: PlayCursorSE
-          m_Mode: 1
+          m_MethodName: PlaySE
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: Cursor
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 2
@@ -1206,14 +1206,14 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 752504269}
           m_TargetAssemblyTypeName: PESDISASTER.AudioManager, Assembly-CSharp
-          m_MethodName: PlayClickSE
-          m_Mode: 1
+          m_MethodName: PlaySE
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: Click
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!1 &612037349
@@ -2209,14 +2209,14 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 752504269}
           m_TargetAssemblyTypeName: PESDISASTER.AudioManager, Assembly-CSharp
-          m_MethodName: PlayCursorSE
-          m_Mode: 1
+          m_MethodName: PlaySE
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: Cursor
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 2
@@ -2225,14 +2225,14 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 752504269}
           m_TargetAssemblyTypeName: PESDISASTER.AudioManager, Assembly-CSharp
-          m_MethodName: PlayClickSE
-          m_Mode: 1
+          m_MethodName: PlaySE
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: Click
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!1 &1053377021
@@ -2375,14 +2375,14 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 752504269}
           m_TargetAssemblyTypeName: PESDISASTER.AudioManager, Assembly-CSharp
-          m_MethodName: PlayCursorSE
-          m_Mode: 1
+          m_MethodName: PlaySE
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: Cursor
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 2
@@ -2391,14 +2391,14 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 752504269}
           m_TargetAssemblyTypeName: PESDISASTER.AudioManager, Assembly-CSharp
-          m_MethodName: PlayClickSE
-          m_Mode: 1
+          m_MethodName: PlaySE
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: Click
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!1001 &1128449267
@@ -3673,14 +3673,14 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 752504269}
           m_TargetAssemblyTypeName: PESDISASTER.AudioManager, Assembly-CSharp
-          m_MethodName: PlayCursorSE
-          m_Mode: 1
+          m_MethodName: PlaySE
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: Cursor
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 2
@@ -3689,14 +3689,14 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 752504269}
           m_TargetAssemblyTypeName: PESDISASTER.AudioManager, Assembly-CSharp
-          m_MethodName: PlayClickSE
-          m_Mode: 1
+          m_MethodName: PlaySE
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: Click
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!1 &1371198607
@@ -5284,14 +5284,14 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 752504269}
           m_TargetAssemblyTypeName: PESDISASTER.AudioManager, Assembly-CSharp
-          m_MethodName: PlayCursorSE
-          m_Mode: 1
+          m_MethodName: PlaySE
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: Cursor
             m_BoolArgument: 0
           m_CallState: 2
   - eventID: 2
@@ -5300,14 +5300,14 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 752504269}
           m_TargetAssemblyTypeName: PESDISASTER.AudioManager, Assembly-CSharp
-          m_MethodName: PlayClickSE
-          m_Mode: 1
+          m_MethodName: PlaySE
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: Click
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!1001 &713460030611107089
@@ -5516,14 +5516,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: _sE_DataArray.Array.data[0].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: a50989a24f5410040baef23b43be01c1, type: 3}
-    - target: {fileID: 5903287057722629354, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
-      propertyPath: _sE_DataArray.Array.data[1].Clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 06fe2574b7b79cb43931867eac20f215, type: 3}
     - target: {fileID: 6112636365582442148, guid: b20f868d710a5294cb43e72002abdc54, type: 3}
       propertyPath: m_Name
       value: AudioManager

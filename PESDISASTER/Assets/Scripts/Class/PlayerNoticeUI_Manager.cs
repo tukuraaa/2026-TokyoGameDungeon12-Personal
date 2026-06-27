@@ -192,7 +192,7 @@ namespace PESDISASTER
         {
             if (!target == damageNoticeUI_Target)
             {
-                AudioManager.Instance.PlaySE(SE_Type.Notice);
+                AudioManager.Instance.PlaySE("Notice");
             }
 
             TargetShow(target);

@@ -168,7 +168,7 @@ namespace PESDISASTER
             // 演出用UIを表示
             transitionUI_Manager.Show();
             // イントロBGMを再生
-            AudioManager.Instance.PlayBGM(BGM_Type.Intro);
+            AudioManager.Instance.PlayBGM("Intro");
             // 演出の持続時間を待つ
             yield return new WaitForSeconds(introEventDuration);
             // 遷移演出用UIを非表示
@@ -199,7 +199,7 @@ namespace PESDISASTER
         /// </summary>
         public void Pause()
         {
-            AudioManager.Instance.PlaySE(SE_Type.Pause);
+            AudioManager.Instance.PlaySE("Pause");
 
             // もしポーズ中でない場合
             if (!isPausing)
@@ -280,7 +280,7 @@ namespace PESDISASTER
 
             // --- すでにかかっている曲を止めたうえでゲームオーバー用の曲を再生 ---
             AudioManager.Instance.StopBGM();
-            AudioManager.Instance.PlayBGM(BGM_Type.GameOver);
+            AudioManager.Instance.PlayBGM("GameOver");
 
             // --- ボタン・ボタンイベントのアクセスを無効にする ---
             // リトライボタンを最初は無効にする

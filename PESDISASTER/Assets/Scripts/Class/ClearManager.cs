@@ -56,7 +56,7 @@ namespace PESDISASTER
             Cursor.visible = true;// カーソルを表示にする
 
             titleButton.enabled = false;// 最初はボタンの機能をオフ
-            AudioManager.Instance.PlayBGM(BGM_Type.Clear);
+            AudioManager.Instance.PlayBGM("Clear");
             StartCoroutine(Endroll_Coroutine());// エンドロール処理を開始
         }
 

@@ -3,32 +3,6 @@ using UnityEngine;
 
 namespace PESDISASTER
 {
-    /// <summary>
-    /// BGMサウンド種類の列挙型
-    /// </summary>
-    public enum BGM_Type
-    {
-        Title,
-        Intro,
-        Stage1,
-        GameOver,
-        Clear
-    }
-    /// <summary>
-    /// SEサウンド種類の列挙型
-    /// </summary>
-    public enum SE_Type
-    {
-        Cursor,
-        Click,
-        EmptyMagazine,
-        Reload,
-        Shoot,
-        Notice,
-        Pause,
-        Scream,
-        Paper
-    }
 
     /// <summary>
     /// インスペクターでBGMを設定・管理するためのデータクラス
@@ -44,7 +18,7 @@ namespace PESDISASTER
         /// <summary>
         /// BGM種類を参照する変数
         /// </summary>
-        public BGM_Type BGM_Type;
+        public string BGM_Type;
 
         /// <summary>
         /// BGM音量を参照する変数
@@ -66,13 +40,18 @@ namespace PESDISASTER
         /// <summary>
         /// SE種類を参照する変数
         /// </summary>
-        public SE_Type SE_Type;
+        public string SE_Type;
 
         /// <summary>
         /// SE音量を参照する変数
         /// </summary>
         [Range(0f, 1f)]
         public float Volume = 1.0f;
+
+        /// <summary>
+        /// ループするかを判別するフラグを参照する変数
+        /// </summary>
+        public bool IsLooping = false;
     }
 
     /// <summary>
@@ -105,11 +84,11 @@ namespace PESDISASTER
         /// <summary>
         /// BGMの種類・データをまとめて参照するディクショナリ変数
         /// </summary>
-        private Dictionary<BGM_Type, BGM_Data> _bGM_Dictionary = new Dictionary<BGM_Type, BGM_Data>();
+        private Dictionary<string, BGM_Data> _bGM_Dictionary = new Dictionary<string, BGM_Data>();
         /// <summary>
         /// SEの種類・データをまとめて参照するディクショナリ変数
         /// </summary>
-        private Dictionary<SE_Type, SE_Data> _sE_Dictionary = new Dictionary<SE_Type, SE_Data>();
+        private Dictionary<string, SE_Data> _sE_Dictionary = new Dictionary<string, SE_Data>();
 
         /// <summary>
         /// BGMのソースを参照する変数
@@ -188,7 +167,7 @@ namespace PESDISASTER
         /// <summary>
         /// BGMを再生する関数
         /// </summary>
-        public void PlayBGM(BGM_Type type)
+        public void PlayBGM(string type)
         {
             // もしディクショナリ変数に中身がある場合
             if (_bGM_Dictionary.TryGetValue(type, out BGM_Data data))
@@ -212,24 +191,21 @@ namespace PESDISASTER
         public void StopBGM() => _bGM_Source.Stop();
 
         /// <summary>
-        /// SEを再生する関数
+        /// BGSを停止する関数
         /// </summary>
-        public void PlaySE(SE_Type type)
+        public void StopBGS(string type)
         {
             // もしディクショナリ変数に中身がある場合
-            if (_sE_Dictionary.TryGetValue(type, out SE_Data data))
+            if (_sE_Dictionary.TryGetValue(type, out SE_Data _data))
             {
                 // 空いているAudioSource（再生中でないもの）を探して鳴らす
-                foreach (var source in _sE_SourceList)
+                foreach (var _source in _sE_SourceList)
                 {
-                    // もしプレイ中のソースが無い場合
-                    if (!source.isPlaying)
+                    // もしプレイ中の場合
+                    if (_source.isPlaying)
                     {
-                        // --- SEソースを指定の設定にして再生 ---
-                        source.clip = data.Clip;
-                        source.volume = data.Volume;
-                        source.Play();
-
+                        // --- BGSを停止する ---
+                        _source.Stop();
                         return;
                     }
                 }
@@ -237,21 +213,41 @@ namespace PESDISASTER
         }
 
         /// <summary>
-        /// ボタンに触れた時の音を再生する際に使用する関数
+        /// SEを再生する関数
         /// </summary>
-        public void PlayCursorSE()
+        public void PlaySE(string type)
         {
-            // 指定の音を再生
-            PlaySE(SE_Type.Cursor);
-        }
+            // もしディクショナリ変数に中身がある場合
+            if (_sE_Dictionary.TryGetValue(type, out SE_Data _data))
+            {
+                // 空いているAudioSource（再生中でないもの）を探して鳴らす
+                foreach (var _source in _sE_SourceList)
+                {
+                    // もしプレイ中のソースが無い場合
+                    if (!_source.isPlaying)
+                    {
+                        // --- SEソースを指定の設定にして再生 ---
+                        _source.clip = _data.Clip;
+                        _source.volume = _data.Volume;
 
-        /// <summary>
-        /// ボタンを押した時の音を再生する際に使用する関数
-        /// </summary>
-        public void PlayClickSE()
-        {
-            // 指定の音を再生
-            PlaySE(SE_Type.Click);
+                        // もしループ再生したい場合
+                        if (_data.IsLooping)
+                        {
+                            // ループ再生する
+                            _source.loop = true;
+                        }
+                        else
+                        {
+                            // 一度だけ再生
+                            _source.loop = false;
+                        }
+
+                        // --- SEを再生する ---
+                        _source.Play();
+                        return;
+                    }
+                }
+            }
         }
     }
 }

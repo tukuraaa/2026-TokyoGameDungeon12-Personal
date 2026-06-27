@@ -32,7 +32,7 @@ namespace PESDISASTER
                 muzzleFlashChild.Play();
             }
 
-            AudioManager.Instance.PlaySE(SE_Type.Shoot);
+            AudioManager.Instance.PlaySE("Shoot");
         }
 
         /// <summary>

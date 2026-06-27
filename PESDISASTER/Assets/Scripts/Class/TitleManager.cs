@@ -78,8 +78,10 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator GameStartCoroutine()
         {
-            // 指定のBGMを再生
-            AudioManager.Instance.PlayBGM(BGM_Type.Title);
+            // --- 指定のBGM・BGSを再生 ---
+            AudioManager.Instance.PlayBGM("Title");
+            AudioManager.Instance.PlaySE("HouseBGS");
+
             // タイトルUIのボタン・イベントトリガーのアクセスをオフにする
             _titleUI_Manager.ChangeEnabled(false);
             // 演出用UIを表示
