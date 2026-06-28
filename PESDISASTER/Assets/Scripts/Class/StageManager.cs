@@ -17,6 +17,12 @@ namespace PESDISASTER
         private PlayerStatusUI_Manager _playerStatusUI_Manager;
 
         /// <summary>
+        /// ゲームイントロ演出時間の倍率を参照する変数
+        /// </summary>
+        [SerializeField]
+        private float _introTimeMultiplier = 1f;
+
+        /// <summary>
         /// イントロ演出用のアニメーターを参照する変数
         /// </summary>
         private Animator animator;
@@ -74,9 +80,17 @@ namespace PESDISASTER
         /// </summary>
         private float over_IntroDuration = 1f;
         /// <summary>
-        /// 演出の持続時間を参照する変数
+        /// ゲームイントロ目覚める演出の持続時間を参照する変数
         /// </summary>
-        public float introEventDuration = 16f;
+        private float _introWakeUpDuration = 11.5f;
+        /// <summary>
+        /// ゲームイントロ起きる演出の持続時間を参照する変数
+        /// </summary>
+        private float _introGetUpDuration = 3.5f;
+        /// <summary>
+        /// ゲームイントロ足着く演出の持続時間を参照する変数
+        /// </summary>
+        private float _introLandDuration = 2f;
 
         /// <summary>
         /// ポーズ解除後に時間を動かすための値を参照する変数
@@ -90,6 +104,14 @@ namespace PESDISASTER
         /// ゲームオーバー時アウトロアニメーションのパラメーターIDを参照する変数
         /// </summary>
         private static readonly int overOutro_ID = Animator.StringToHash("OnOverOutro");
+        /// <summary>
+        /// イントロ時の起きるアニメーションのパラメーターIDを参照する変数
+        /// </summary>
+        private static readonly int _introGetUp_ID = Animator.StringToHash("On_IntroGetUp");
+        /// <summary>
+        /// イントロ時の足着くアニメーションのパラメーターIDを参照する変数
+        /// </summary>
+        private static readonly int _introLand_ID = Animator.StringToHash("On_IntroLand");
 
         /// <summary>
         /// ポーズ中かどうかを示すフラグを参照する変数
@@ -130,7 +152,7 @@ namespace PESDISASTER
             overTitleButton.onClick.AddListener(GoTitle);
 
             // --- カーソル設定 ---
-                // カーソルをロックする
+            // カーソルをロックする
             Cursor.lockState = CursorLockMode.Locked;
             // カーソルを非表示にする
             Cursor.visible = false;
@@ -165,14 +187,37 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator IntroEventCoroutine()
         {
+            // --- イントロイベント初期処理 ---
             // 演出用UIを表示
             transitionUI_Manager.Show();
-            // イントロBGMを再生
-            AudioManager.Instance.PlayBGM("Intro");
-            // 演出の持続時間を待つ
-            yield return new WaitForSeconds(introEventDuration);
+            // 廃屋BGSを再生
+            AudioManager.Instance.PlaySE("HouseBGS");
+
+            // --- 目覚める演出 ---
+            // 目覚める演出の持続時間を待つ
+            yield return new WaitForSeconds(_introWakeUpDuration * _introTimeMultiplier);
             // 遷移演出用UIを非表示
             transitionUI_Manager.Hide();
+
+            // --- 起きる演出 ---
+            // 起きるときのSEを再生
+            AudioManager.Instance.PlaySE("GetUp");
+            // 起きる演出開始
+            animator.SetTrigger(_introGetUp_ID);
+            // 起きる演出の持続時間を待つ
+            yield return new WaitForSeconds(_introGetUpDuration * _introTimeMultiplier);
+            // 起きるときのSEを停止
+            AudioManager.Instance.StopLoopSE("GetUp");
+
+            // --- 足着く演出 ---
+            // 足着くときのSEを再生
+            AudioManager.Instance.PlaySE("Land");
+            // 足着く演出開始
+            animator.SetTrigger(_introLand_ID);
+            // 足着く演出の持続時間を待つ
+            yield return new WaitForSeconds(_introLandDuration * _introTimeMultiplier);
+
+            // --- 操作チュートリアル演出 ---
             // エイムUIを表示
             _playerStatusUI_Manager.StartAimUI_Show();
             // 操作チュートリアルを開始する
@@ -245,7 +290,7 @@ namespace PESDISASTER
             overTitleButton.enabled = false;// ゲームオーバーのタイトルボタンを最初は無効にする
             overTitleEvent.enabled = false;// ゲームオーバーのタイトルボタンイベントを最初は無効にする
 
-           transitionUI_Manager.Show();
+            transitionUI_Manager.Show();
             animator.SetTrigger(overOutro_ID);// アウトロ再生
             yield return new WaitForSeconds(overOutroDuration);// 演出中は待機
 

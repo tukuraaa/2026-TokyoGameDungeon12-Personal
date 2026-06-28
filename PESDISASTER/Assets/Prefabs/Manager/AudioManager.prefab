@@ -49,17 +49,17 @@ MonoBehaviour:
     BGM_Type: Title
     Volume: 0.8
   - Clip: {fileID: 8300000, guid: 8f479ea8b70544e4f95ec047fb5647ea, type: 3}
-    BGM_Type: Intro
-    Volume: 1
+    BGM_Type: Test
+    Volume: 0.8
   - Clip: {fileID: 8300000, guid: dac87fa1c5cc71a42acebb9779e1492a, type: 3}
     BGM_Type: Stage1
-    Volume: 1
+    Volume: 0.8
   - Clip: {fileID: 8300000, guid: 9d3930562ba06e14e8b1f0a0ee9ed5a9, type: 3}
     BGM_Type: GameOver
-    Volume: 1
+    Volume: 0.8
   - Clip: {fileID: 8300000, guid: 8cd42d84cebfdb24d824c47308d9700c, type: 3}
     BGM_Type: Clear
-    Volume: 1
+    Volume: 0.8
   _sE_DataArray:
   - Clip: {fileID: 8300000, guid: 06fe2574b7b79cb43931867eac20f215, type: 3}
     SE_Type: Click
@@ -104,9 +104,13 @@ MonoBehaviour:
   - Clip: {fileID: 8300000, guid: 94fd8b03eed020b46b72a08d05abd806, type: 3}
     SE_Type: GetUp
     Volume: 1
-    IsLooping: 0
+    IsLooping: 1
   - Clip: {fileID: 8300000, guid: 61feb5ca0880811469a5769fc1dcdf64, type: 3}
     SE_Type: Walk
     Volume: 1
     IsLooping: 1
+  - Clip: {fileID: 8300000, guid: e4b7f905df9b46748956b59fe4cbabc2, type: 3}
+    SE_Type: Land
+    Volume: 0.2
+    IsLooping: 0
   _maxSE_Channels: 30

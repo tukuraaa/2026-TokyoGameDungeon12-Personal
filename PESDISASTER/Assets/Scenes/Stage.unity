@@ -1824,6 +1824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageManager
   _playerStatusUI_Manager: {fileID: 342438212}
+  _introTimeMultiplier: 1
   transitionUI_Manager: {fileID: 1565021249651991167}
   playerControllerUI_Manager: {fileID: 1941732897}
   pauseUI_Manager: {fileID: 880709873}
@@ -1833,7 +1834,6 @@ MonoBehaviour:
   overTitleButton: {fileID: 1370786287}
   retryEvent: {fileID: 1525987885}
   overTitleEvent: {fileID: 1370786286}
-  introEventDuration: 17
 --- !u!95 &233239381
 Animator:
   serializedVersion: 7
@@ -12276,10 +12276,6 @@ PrefabInstance:
     - target: {fileID: 4684126322688692555, guid: 1463dd84e3140e64cb3cab75bdb49bf2, type: 3}
       propertyPath: m_Name
       value: TransitionUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 4684126322688692555, guid: 1463dd84e3140e64cb3cab75bdb49bf2, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9156938221775324482, guid: 1463dd84e3140e64cb3cab75bdb49bf2, type: 3}
       propertyPath: m_Pivot.x

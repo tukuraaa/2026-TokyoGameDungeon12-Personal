@@ -191,20 +191,20 @@ namespace PESDISASTER
         public void StopBGM() => _bGM_Source.Stop();
 
         /// <summary>
-        /// BGSを停止する関数
+        /// ループSEを停止する関数
         /// </summary>
-        public void StopBGS(string type)
+        public void StopLoopSE(string type)
         {
             // もしディクショナリ変数に中身がある場合
             if (_sE_Dictionary.TryGetValue(type, out SE_Data _data))
             {
-                // 空いているAudioSource（再生中でないもの）を探して鳴らす
+                // 再生中のAudioSourceを探す
                 foreach (var _source in _sE_SourceList)
                 {
-                    // もしプレイ中の場合
-                    if (_source.isPlaying)
+                    // もしプレイ中であり、かつ再生中のクリップが対象のSEデータと一致する場合
+                    if (_source.isPlaying && _source.clip == _data.Clip)
                     {
-                        // --- BGSを停止する ---
+                        // --- ループSEを停止する ---
                         _source.Stop();
                         return;
                     }
