@@ -9,11 +9,6 @@ namespace PESDISASTER
     public class PlayerController : MonoBehaviour
     {
         /// <summary>
-        /// プレイヤー視点カメラの参照用変数
-        /// </summary>
-        [SerializeField]
-        private Camera _mainCamera;
-        /// <summary>
         /// アイテム表示カメラの参照用変数
         /// </summary>
         [SerializeField]
@@ -24,11 +19,6 @@ namespace PESDISASTER
         /// </summary>
         [SerializeField]
         private Transform _neckTransform;
-        /// <summary>
-        /// カメラ右手元の位置を参照する変数
-        /// </summary>
-        [SerializeField]
-        private Transform _holdPosition;
         /// <summary>
         /// プレイヤー視点カメラのPlayer内Transformコンポーネントを参照する変数
         /// </summary>
@@ -49,58 +39,30 @@ namespace PESDISASTER
         /// プレイヤー操作のUIを管理するクラスを参照する変数
         /// </summary>
         [SerializeField]
-        private PlayerControllerUI_Manager _playerControllerUI_Manager;
-        /// <summary>
-        /// プレイヤー操作のUIを管理するクラスを参照する変数
-        /// </summary>
-        [SerializeField]
         private StageManager _stageManager;
 
-        /// <summary>
-        /// マウス感度を調整するための変数
-        /// </summary>
-        [SerializeField]
-        private float _mouseSensitivity = 2.0f;
         /// <summary>
         /// インタラクト可能なオブジェクトを検出するための範囲を設定する変数
         /// </summary>
         [SerializeField]
         private float _interactRange = 2.5f;
-        /// <summary>
-        /// 移動速度を参照する変数
-        /// </summary>
-        [SerializeField]
-        private float _moveSpeed = 5.0f;
-        /// <summary>
-        /// 待機時のカメラが揺れる速さを参照する変数
-        /// </summary>
-        [SerializeField]
-        private float _idleBobSpeed = 1.0f;
-        /// <summary>
-        /// 待機時のカメラが揺れる揺れ幅（高さ）を参照する変数
-        /// </summary>
-        [SerializeField]
-        private float _idleBobAmount = 0.02f;
-        /// <summary>
-        /// 歩行時のカメラが揺れる速さを参照する変数
-        /// </summary>
-        [SerializeField]
-        private float _walkBobSpeed = 3.0f;
-        /// <summary>
-        /// 歩行時のカメラが揺れる揺れ幅（高さ）を参照する変数
-        /// </summary>
-        [SerializeField]
-        private float _walkBobAmount = 0.08f;
-        /// <summary>
-        /// 状態が切り替わるときの滑らかさを参照する変数
-        /// </summary>
-        [SerializeField]
-        private float _transitionSpeed = 5.0f;
 
+        /// <summary>
+        /// プレイヤー操作のUIを管理するクラスを参照する変数
+        /// </summary>
+        public PlayerControllerUI_Manager PlayerControllerUI_ManagerClass;
+        /// <summary>
+        /// ハンドガン操作を管理するクラスを参照する変数
+        /// </summary>
+        public HandgunController HandgunControllerClass;
         /// <summary>
         /// プレイヤーコントローラーのインスタンスを参照する変数
         /// </summary>
         public static PlayerController Instance { get; private set; }
+        /// <summary>
+        /// アイテムに関するクラスを参照する変数
+        /// </summary>
+        private ItemManager _itemManager;
 
         /// <summary>
         /// プレイヤーのキャラクターコントローラーを参照する変数
@@ -108,9 +70,18 @@ namespace PESDISASTER
         private CharacterController _characterController;
 
         /// <summary>
-        /// アイテムに関するクラスを参照する変数
+        /// プレイヤー視点カメラの参照用変数
         /// </summary>
-        private ItemManager _itemManager;
+        public Camera MainCamera;
+
+        /// <summary>
+        /// カメラ右手元の位置を参照する変数
+        /// </summary>
+        public Transform RightHoldPosition;
+        /// <summary>
+        /// カメラ左手元の位置を参照する変数
+        /// </summary>
+        public Transform LeftHoldPosition;
 
         /// <summary>
         /// 視点移動の入力を参照する変数
@@ -134,27 +105,27 @@ namespace PESDISASTER
         /// <summary>
         /// ターゲットとなるインタラクト可能なオブジェクト（アイテム）を参照するための変数
         /// </summary>
-        private I_Interactable _iCurrentTarget;
+        private Item_Interactable _itemCurrentTarget;
         /// <summary>
         /// Rayが当たったオブジェクト（アイテム）を参照する変数
         /// </summary>
-        private I_Interactable _iInteractable;
+        private Item_Interactable _item_Interactable;
         /// <summary>
         /// ターゲットとなるインタラクト可能なオブジェクト（棚）を参照するための変数
         /// </summary>
-        private S_Interactable _sCurrentTarget;
+        private Shelf_Interactable _shelf_CurrentTarget;
         /// <summary>
         /// Rayが当たったオブジェクト（棚）を参照する変数
         /// </summary>
-        private S_Interactable _sInteractable;
+        private Shelf_Interactable _shelf_Interactable;
         /// <summary>
         /// ターゲットとなるインタラクト可能なオブジェクト（ドア）を参照するための変数
         /// </summary>
-        private D_Interactable _dCurrentTarget;
+        private Door_Interactable _door_CurrentTarget;
         /// <summary>
         /// Rayが当たったオブジェクト（ドア）を参照する変数
         /// </summary>
-        private D_Interactable _dInteractable;
+        private Door_Interactable _door_Interactable;
 
         /// <summary>
         /// レイヤーマスクを使用して、インタラクト可能なオブジェクトを特定するための変数
@@ -184,7 +155,7 @@ namespace PESDISASTER
         /// <summary>
         /// 移動入力の閾値を参照する変数
         /// </summary>
-        private float _moveInputThreshold = 0.01f;
+        private float _move_InputThreshold = 0.01f;
         /// <summary>
         /// 重力の値を参照する変数
         /// </summary>
@@ -229,6 +200,34 @@ namespace PESDISASTER
         /// 現在のカメラが揺れる揺れ幅を参照する変数
         /// </summary>
         private float _currentBobAmount;
+        /// <summary>
+        /// マウス感度を調整するための変数
+        /// </summary>
+        private float _mouseSensitivity = 6.0f;
+        /// <summary>
+        /// 移動速度を参照する変数
+        /// </summary>
+        private float _moveSpeed = 2.0f;
+        /// <summary>
+        /// 待機時のカメラが揺れる速さを参照する変数
+        /// </summary>
+        private float _idleBobSpeed = 1.0f;
+        /// <summary>
+        /// 待機時のカメラが揺れる揺れ幅（高さ）を参照する変数
+        /// </summary>
+        private float _idleBobAmount = 0.02f;
+        /// <summary>
+        /// 歩行時のカメラが揺れる速さを参照する変数
+        /// </summary>
+        private float _walkBobSpeed = 9.0f;
+        /// <summary>
+        /// 歩行時のカメラが揺れる揺れ幅（高さ）を参照する変数
+        /// </summary>
+        private float _walkBobAmount = 0.06f;
+        /// <summary>
+        /// 状態が切り替わるときの滑らかさを参照する変数
+        /// </summary>
+        private float _transitionSpeed = 5.0f;
 
         /// <summary>
         /// プレイヤーの操作を有効にするかどうかを示すフラグを参照する変数
@@ -246,7 +245,7 @@ namespace PESDISASTER
         /// <summary>
         /// ターゲットとなるインタラクト可能オブジェクト種（アイテム）の名前を参照する変数
         /// </summary>
-        private string _targetItemName = "Item";
+        private string _target_ItemName = "Item";
         /// <summary>
         /// ターゲットとなるインタラクト可能オブジェクト種（ドア）の名前を参照する変数
         /// </summary>
@@ -284,15 +283,15 @@ namespace PESDISASTER
             _characterController = GetComponent<CharacterController>();
 
             // もしプレイヤー視点カメラとその座標が正しく設定されている場合
-            if (_mainCamera != null && _mainCameraPlayerTransform != null)
+            if (MainCamera != null && _mainCameraPlayerTransform != null)
             {
                 // --- プレイヤー視点カメラをプレイヤーオブジェクト下に設定する ---
                 // プレイヤー視点カメラをプレイヤー視点カメラ用ポジションの子にする
-                _mainCamera.transform.SetParent(_mainCameraPlayerTransform);
+                MainCamera.transform.SetParent(_mainCameraPlayerTransform);
                 // プレイヤー視点カメラのローカル座標をゼロに設定
-                _mainCamera.transform.localPosition = Vector3.zero;
+                MainCamera.transform.localPosition = Vector3.zero;
                 // プレイヤー視点カメラのローカル回転をゼロに設定
-                _mainCamera.transform.localRotation = Quaternion.identity;
+                MainCamera.transform.localRotation = Quaternion.identity;
             }
 
             // もしアイテム表示カメラとその座標が正しく設定されている場合
@@ -308,7 +307,7 @@ namespace PESDISASTER
             }
 
             // 開始時のカメラのY座標を基準値として保存
-            _defaultY = _mainCamera.transform.localPosition.y;
+            _defaultY = MainCamera.transform.localPosition.y;
 
             // --- 初期状態は待機時の値にする ---
             _currentBobSpeed = _idleBobSpeed;
@@ -320,14 +319,17 @@ namespace PESDISASTER
         /// </summary>
         private void Update()
         {
+            // 画面の中心から奥へ向かうRayを作成
+            _ray = MainCamera.ViewportPointToRay(new Vector3(_viewAngleX, _viewAngleY, 0f));
+
             // --- カメラ関係の管理関数を呼び出し ---
             // カメラ操作の管理を毎フレーム行う
-            CameraControlManager();
+            CameraControl_Manager();
             // カメラの揺れを毎フレーム行う（リアル演出用）
             CameraBobManager();
 
             // インタラクト可能なオブジェクトをチェック
-            CheckInteractableManager();
+            Check_InteractableManager();
 
             // 移動実行を管理する関数を呼び出す
             ApplyMovement();
@@ -342,53 +344,53 @@ namespace PESDISASTER
         /// <summary>
         /// 視点移動の入力を処理する関数
         /// </summary>
-        /// <param name="_context"></param>
-        public void OnLook(InputAction.CallbackContext _context)
+        /// <param name="context"></param>
+        public void OnLook(InputAction.CallbackContext context)
         {
             // もしプレイヤーが動ける場合
             if (!IsSleeping)
             {
                 // 視点移動の入力を取得
-                Look_Input = _context.ReadValue<Vector2>();
+                Look_Input = context.ReadValue<Vector2>();
             }
         }
 
         /// <summary>
         /// アイテムを拾うための入力を処理する関数
         /// </summary>
-        /// <param name="_context"></param>
-        public void OnInteract(InputAction.CallbackContext _context)
+        /// <param name="context"></param>
+        public void On_Interact(InputAction.CallbackContext context)
         {
             // もしプレイヤーが動けるかつ、インタラクトの入力が開始された場合
-            if (_context.performed && !IsSleeping)
+            if (context.performed && !IsSleeping)
             {
                 // もしターゲット（アイテム）が存在する場合
-                if (_iCurrentTarget != null)
+                if (_itemCurrentTarget != null)
                 {
                     // アイテムを拾う準備を行って拾う
-                    PerformPickupInteraction();
+                    PerformPickup_Interaction();
                     // インタラクトUIを非表示にする
-                    _playerControllerUI_Manager.TargetHide(_interactControl_Icon);
+                    PlayerControllerUI_ManagerClass.TargetHide(_interactControl_Icon);
 
                     return;
                 }
                 // もしターゲット（棚）が存在する場合
-                else if (_sCurrentTarget != null)
+                else if (_shelf_CurrentTarget != null)
                 {
                     // 棚を開ける処理
-                    _sCurrentTarget.OpenShelf();
+                    _shelf_CurrentTarget.OpenShelf();
                     // インタラクトUIを非表示にする
-                    _playerControllerUI_Manager.TargetHide(_interactControl_Icon);
-
+                    PlayerControllerUI_ManagerClass.TargetHide(_interactControl_Icon);
+                    
                     return;
                 }
                 // もしターゲット（ドア）が存在する場合
-                else if (_dCurrentTarget != null)
+                else if (_door_CurrentTarget != null)
                 {
                     // ドアを開ける処理
-                    _dCurrentTarget.Interact();
+                    _door_CurrentTarget.Interact();
                     // インタラクトUIを非表示にする
-                    _playerControllerUI_Manager.TargetHide(_interactControl_Icon);
+                    PlayerControllerUI_ManagerClass.TargetHide(_interactControl_Icon);
 
                     return;
                 }
@@ -398,26 +400,27 @@ namespace PESDISASTER
         /// <summary>
         /// 移動の入力を受け付ける関数
         /// </summary>
-        /// <param name="_context"></param>
-        public void OnMove(InputAction.CallbackContext _context)
+        /// <param name="context"></param>
+        public void OnMove(InputAction.CallbackContext context)
         {
             // もしプレイヤーが動ける場合
             if (!IsSleeping)
             {
-
-                Move_Input = _context.ReadValue<Vector2>();
+                // 移動の入力を取得
+                Move_Input = context.ReadValue<Vector2>();
             }
         }
 
         /// <summary>
         /// ポーズの入力を処理する関数
         /// </summary>
-        /// <param name="_context"></param>
-        public void OnPause(InputAction.CallbackContext _context)
+        /// <param name="context"></param>
+        public void OnPause(InputAction.CallbackContext context)
         {
             // もしポーズの入力が開始された場合
-            if (_context.performed)
+            if (context.performed)
             {
+                // ポーズ処理を呼び出す
                 _stageManager.Pause();
             }
         }
@@ -425,79 +428,76 @@ namespace PESDISASTER
         /// <summary>
         /// インタラクト可能なオブジェクトを検出する関数
         /// </summary>
-        private void CheckForI_Interactable(string _targetName)
+        private void CheckForI_Interactable(string targetName)
         {
             // もしRayがインタラクト可能なオブジェクトに当たった場合
             if (Physics.Raycast(_ray, out _hit, _interactRange, InteractableLayer))
             {
                 // もしターゲットの名前がアイテムと一致する場合
-                if (_targetName == _targetItemName)
+                if (targetName == _target_ItemName)
                 {
                     // Rayが当たったオブジェクトにI_Interactableコンポーネントがあるか確認するため登録
-                    _iInteractable = _hit.collider.GetComponent<I_Interactable>();
+                    _item_Interactable = _hit.collider.GetComponent<Item_Interactable>();
                 }
                 // もしターゲットの名前が棚と一致する場合
-                else if (_targetName == _targetShelfName)
+                else if (targetName == _targetShelfName)
                 {
                     // Rayが当たったオブジェクトの親オブジェクトにS_Interactableコンポーネントがあるか確認するため登録
-                    _sInteractable = _hit.collider.GetComponentInParent<S_Interactable>();
+                    _shelf_Interactable = _hit.collider.GetComponentInParent<Shelf_Interactable>();
                 }
                 // もしターゲットの名前がドアと一致する場合
-                else if (_targetName == _targetDoorName)
+                else if (targetName == _targetDoorName)
                 {
                     // Rayが当たったオブジェクトの親オブジェクトにD_Interactableコンポーネントがあるか確認するため登録
-                    _dInteractable = _hit.collider.GetComponentInParent<D_Interactable>();
+                    _door_Interactable = _hit.collider.GetComponentInParent<Door_Interactable>();
                 }
 
                 // もしIInteractableコンポーネントがある場合
-                if (_iInteractable != null)
+                if (_item_Interactable != null)
                 {
                     // ターゲットを更新
-                    _iCurrentTarget = _iInteractable;
+                    _itemCurrentTarget = _item_Interactable;
                     // インタラクトUIを表示
-                    _playerControllerUI_Manager.TargetShow(_interactControl_Icon);
+                    PlayerControllerUI_ManagerClass.TargetShow(_interactControl_Icon);
 
                     return;
                 }
                 // もしSInteractableコンポーネントがある場合
-                else if (_sInteractable != null)
+                else if (_shelf_Interactable != null)
                 {
                     // ターゲットを更新
-                    _sCurrentTarget = _sInteractable;
+                    _shelf_CurrentTarget = _shelf_Interactable;
                     // インタラクトUIを表示
-                    _playerControllerUI_Manager.TargetShow(_interactControl_Icon);
+                    PlayerControllerUI_ManagerClass.TargetShow(_interactControl_Icon);
 
                     return;
                 }
                 // もしDInteractableコンポーネントがある場合
-                else if (_dInteractable != null)
+                else if (_door_Interactable != null)
                 {
                     // ターゲットを更新
-                    _dCurrentTarget = _dInteractable;
+                    _door_CurrentTarget = _door_Interactable;
                     // インタラクトUIを表示
-                    _playerControllerUI_Manager.TargetShow(_interactControl_Icon);
+                    PlayerControllerUI_ManagerClass.TargetShow(_interactControl_Icon);
 
                     return;
                 }
             }
 
             // --- ターゲットをリセット ---
-            _iCurrentTarget = null;
-            _sCurrentTarget = null;
-            _dCurrentTarget = null;
+            _itemCurrentTarget = null;
+            _shelf_CurrentTarget = null;
+            _door_CurrentTarget = null;
 
             // インタラクトUIを非表示にする
-            _playerControllerUI_Manager.TargetHide(_interactControl_Icon);
+            PlayerControllerUI_ManagerClass.TargetHide(_interactControl_Icon);
         }
 
         /// <summary>
         /// アイテムを拾う演出の準備を行う関数
         /// </summary>
-        private void PerformPickupInteraction()
+        private void PerformPickup_Interaction()
         {
-            // 画面の中心から奥へ向かうRayを作成
-            _ray = _mainCamera.ViewportPointToRay(new Vector3(_viewAngleX, _viewAngleY, 0f));
-
             // もしRayがオブジェクトに当たった場合
             if (Physics.Raycast(_ray, out _hit, _interactRange))
             {
@@ -508,7 +508,7 @@ namespace PESDISASTER
                 if (_itemManager != null)
                 {
                     // アイテム側のPickup関数を呼び出す
-                    _itemManager.Pickup(_mainCamera.transform, _holdPosition);
+                    _itemManager.Pickup(_itemManager.ItemName);
                 }
             }
         }
@@ -556,18 +556,18 @@ namespace PESDISASTER
         private void ApplyMovement()
         {
             // カメラの向きに基づいた移動方向の計算し参照する変数を定義
-            Vector3 _moveVector = transform.right * Move_Input.x + transform.forward * Move_Input.y;
+            Vector3 moveVector = transform.right * Move_Input.x + transform.forward * Move_Input.y;
 
             // --- 接地していない場合は下に引っ張る ---
             // 重力を適用し参照する変数を定義
-            float _gravity = _characterController.isGrounded ? _gravityCorrentValue : _gravityValue;
+            float gravity = _characterController.isGrounded ? _gravityCorrentValue : _gravityValue;
             // 移動ベクトルを計算し参照する変数を定義
-            Vector3 _finalVelocity = _moveVector * _currentSpeed;
+            Vector3 finalVelocity = moveVector * _currentSpeed;
             // 重力を移動ベクトルに追加し参照する変数を定義
-            _finalVelocity.y = _gravity;
+            finalVelocity.y = gravity;
 
             // キャラクターコントローラーを使用して移動を実行
-            _characterController.Move(_finalVelocity * Time.deltaTime);
+            _characterController.Move(finalVelocity * Time.deltaTime);
         }
 
         /// <summary>
@@ -576,7 +576,7 @@ namespace PESDISASTER
         private void DetermineCurrentState()
         {
             // もし入力がない場合
-            if (Move_Input.sqrMagnitude < _moveInputThreshold)
+            if (Move_Input.sqrMagnitude < _move_InputThreshold)
             {
                 _motionState = MotionState.Stopping;
             }
@@ -589,26 +589,26 @@ namespace PESDISASTER
         /// <summary>
         /// カメラ操作を管理する関数
         /// </summary>
-        private void CameraControlManager()
+        private void CameraControl_Manager()
         {
             // --- マウスの入力を感度とフレーム時間で調整して、回転と移動の値を更新 ---
             // マウスX方向の入力を感度とフレーム時間で調整し参照する変数を定義
-            float _mouseRotationX = Look_Input.x * _mouseSensitivity * Time.deltaTime;
+            float mouseRotationX = Look_Input.x * _mouseSensitivity * Time.deltaTime;
             // マウスY方向の入力を感度とフレーム時間で調整し参照する変数を定義
-            float _mouseRotationY = Look_Input.y * _mouseSensitivity * Time.deltaTime;
+            float mouseRotationY = Look_Input.y * _mouseSensitivity * Time.deltaTime;
 
             // マウスY方向の入力を感度とフレーム時間で調整して、首の前後移動の値を更新し参照する変数を定義
-            float _mouseTranslationY = Look_Input.y * (_mouseSensitivity / _adjustmentDivisor) * Time.deltaTime;
+            float mouseTranslationY = Look_Input.y * (_mouseSensitivity / _adjustmentDivisor) * Time.deltaTime;
 
             // 首の高さを保持するために現在の首のY位置を取得し参照する変数を定義
-            float _neckTranslationY = _neckTransform.transform.localPosition.y;
+            float neckTranslationY = _neckTransform.transform.localPosition.y;
 
             // プレイヤー（体）の左右の回転をマウスX方向の入力に合わせて行う
-            transform.Rotate(0, _mouseRotationX, 0);
+            transform.Rotate(0, mouseRotationX, 0);
 
             // --- 首の回転と前後移動をマウスY方向の入力に合わせて更新 ---
             // マウスY方向の入力によって縦方向の回転を更新
-            _rotationX -= _mouseRotationY;
+            _rotationX -= mouseRotationY;
             // 首の前後移動を指定された範囲に制限
             _translationZ = Mathf.Clamp(_translationZ, _minNeckTranslationZ, _maxNeckTranslationZ);
             // 首の回転を設定。縦方向のみ回転させる
@@ -616,14 +616,14 @@ namespace PESDISASTER
 
             // --- 首の前後移動をマウスY方向の入力に合わせて更新 ---
             // マウスY方向の入力によって首の前後移動を更新
-            _translationZ -= _mouseTranslationY;
+            _translationZ -= mouseTranslationY;
             // 回転角度を指定された範囲に制限
             _rotationX = Mathf.Clamp(_rotationX, _minVertical, _maxVertical);
             // 首の位置を設定。前後移動のみ行う
             _neckTransform.localPosition = new Vector3(0, 0, _translationZ);
 
             // 首の高さを一定に保つ
-            _neckTransform.localPosition = new Vector3(_neckTransform.localPosition.x, _neckTranslationY, _neckTransform.localPosition.z);
+            _neckTransform.localPosition = new Vector3(_neckTransform.localPosition.x, neckTranslationY, _neckTransform.localPosition.z);
         }
 
         /// <summary>
@@ -645,20 +645,17 @@ namespace PESDISASTER
             // サイン波（-1 ～ 1 の間を行き来する値）に揺れ幅を掛け、基準の高さに足し参照する変数を定義
             float newY = _defaultY + Mathf.Sin(_timer) * _currentBobAmount;
             // カメラのローカル座標に適用
-            _mainCamera.transform.localPosition = new Vector3(_mainCamera.transform.localPosition.x, newY, _mainCamera.transform.localPosition.z);
+            MainCamera.transform.localPosition = new Vector3(MainCamera.transform.localPosition.x, newY, MainCamera.transform.localPosition.z);
         }
 
         /// <summary>
         /// インタラクト可能なものを管理する関数
         /// </summary>
-        private void CheckInteractableManager()
+        private void Check_InteractableManager()
         {
-            // 画面の中心から奥へ向かうRayを作成
-            _ray = _mainCamera.ViewportPointToRay(new Vector3(_viewAngleX, _viewAngleY, 0f));
-
             // --- インタラクト可能なオブジェクトを検出する ---
             // インタラクト可能なオブジェクト（アイテム）を検出する関数を呼び出す
-            CheckForI_Interactable(_targetItemName);
+            CheckForI_Interactable(_target_ItemName);
             // インタラクト可能なオブジェクト（棚）を検出する関数を呼び出す
             CheckForI_Interactable(_targetShelfName);
             // インタラクト可能なオブジェクト（ドア）を検出する関数を呼び出す

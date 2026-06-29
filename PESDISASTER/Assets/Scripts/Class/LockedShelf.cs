@@ -6,7 +6,7 @@ namespace PESDISASTER
     /// <summary>
     /// 棚の状態を管理するクラス
     /// </summary>
-    public class LockedShelf : MonoBehaviour, S_Interactable
+    public class LockedShelf : MonoBehaviour, Shelf_Interactable
     {
         /// <summary>
         /// 棚のドアのTransformを参照する変数

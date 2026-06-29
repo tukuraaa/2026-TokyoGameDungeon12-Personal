@@ -6,127 +6,81 @@ namespace PESDISASTER
     /// <summary>
     /// アイテムを拾うためのクラス
     /// </summary>
-    public class ItemManager : MonoBehaviour, I_Interactable
+    public class ItemManager : MonoBehaviour, Item_Interactable
     {
         /// <summary>
         /// アイテムの物理演算を参照する変数
         /// </summary>
-        private Rigidbody itemRigidbody;
+        private Rigidbody _itemRigidbody;
 
         /// <summary>
         /// アイテムのコライダーを参照する変数
         /// </summary>
-        private Collider itemCollider;
+        private Collider _itemCollider;
 
         /// <summary>
-        /// カメラの位置を参照する変数
+        /// アイテムを持つ目標位置を参照する変数
         /// </summary>
-        private Transform cameraTransform;
-        /// <summary>
-        /// プレイヤー右手元の位置を参照する変数
-        /// </summary>
-        private Transform holdPosition;
-        /// <summary>
-        /// 左手元の位置を参照する変数
-        /// </summary>
-        public Transform leftHoldPosition;
+        private Transform _targetHoldPosition;
 
-        /// <summary>
-        /// ハンドガンの機能を制御するクラスを参照する変数
-        /// </summary>
-        private HandgunController handgunController;
-        /// <summary>
-        /// プレイヤー操作のUIを管理するクラスを参照する変数
-        /// </summary>
-        public PlayerControllerUI_Manager playerControllerUI_Manager;
-
-        /// <summary>
-        /// カメラを参照する変数
-        /// </summary>
-        private Camera mainCamera;
-
-        /// <summary>
-        /// アイテムの名前を定数で保持
-        /// </summary>
-        private string handgunName = "ハンドガン";
-        /// <summary>
-        /// アイテムの名前を定数で保持
-        /// </summary>
-        private string bedKeyName = "寝室の鍵";
-        /// <summary>
-        /// ハンドガンの管理オブジェクトの名前を参照する変数
-        /// </summary>
-        private string handgunRootName = "HandgunRoot";
         /// <summary>
         /// アイテムの名前を参照する変数
         /// </summary>
-        public string itemName = "ハンドガン";
+        public string ItemName = "ハンドガン";
         /// <summary>
-        /// カメラの名前を参照する変数
+        /// アイテムの名前を定数で保持
         /// </summary>
-        private string cameraName = "MainCamera";
+        private string _handgunName = "ハンドガン";
         /// <summary>
-        /// 右手元の名前を参照する変数
+        /// アイテムの名前を定数で保持
         /// </summary>
-        public string holdName = "RightHoldPosition";
+        private string _bedKeyName = "寝室の鍵";
         /// <summary>
         /// 特定のレイヤーの名前を参照する変数
         /// </summary>
-        private string layerName = "Hold_Item";
+        private string _layerName = "Hold_Item";
 
         /// <summary>
         /// アイテムを拾ったか否かのフラグを参照する変数
         /// </summary>
-        private bool isPickedUp = false;
+        private bool _isPickedUp = false;
 
         /// <summary>
         /// イージング時に調整するための値を参照する変数
         /// </summary>
-        private float easingNumber = 1f;
+        private float _easingNumber = 1f;
         /// <summary>
         /// アイテムが手元に移動するまでの時間を参照する変数
         /// </summary>
-        public float moveDuration = 0.5f;
+        private float _moveDuration = 0.5f;
 
         /// <summary>
         /// レイヤー名をIDに変換して保持するためにIDを参照する変数
         /// </summary>
-        private int holdItemLayer = -1;
+        private int _hold_ItemLayer = -1;
         /// <summary>
         /// レイヤーが存在しない場合のIDを参照する変数
         /// </summary>
-        private int null_LayerNumber = -1;
+        private int _null_LayerNumber = -1;
 
         /// <summary>
         /// 初期設定を行う関数
         /// </summary>
         private void Start()
         {
-            // コンポーネントの登録
-            itemRigidbody = GetComponent<Rigidbody>();
-            itemCollider = GetComponent<Collider>();
-            cameraTransform = GameObject.Find(cameraName).GetComponent<Transform>();
-            holdPosition = GameObject.Find(holdName).GetComponent<Transform>();
-            handgunController = GameObject.Find(handgunRootName).GetComponent<HandgunController>();
-            mainCamera = GameObject.Find(cameraName).GetComponent<Camera>();
+            // --- コンポーネントの登録 ---
+            _itemRigidbody = GetComponent<Rigidbody>();
+            _itemCollider = GetComponent<Collider>();
 
-
-            holdItemLayer = LayerMask.NameToLayer(layerName);// 毎回文字列でレイヤーを探すと重いため、最初にID（int）に変換して保持
+            // 毎回文字列でレイヤーを探すと重いため、最初にID（int）に変換して保持
+            _hold_ItemLayer = LayerMask.NameToLayer(_layerName);
 
             // もしレイヤーが存在しなければ
-            if (holdItemLayer == null_LayerNumber)
+            if (_hold_ItemLayer == _null_LayerNumber)
             {
-                this.enabled = false;// 自分を無効にする
+                // 自分を無効にする
+                this.enabled = false;
             }
-        }
-
-        /// <summary>
-        /// 拾ったアイテムの名前を表示する関数
-        /// </summary>
-        /// <returns></returns>
-        public string GetInteractText()
-        {
-            return $"{itemName} を拾う";// 拾ったアイテムの名前を表示する
         }
 
         /// <summary>
@@ -134,67 +88,85 @@ namespace PESDISASTER
         /// </summary>
         /// <param name="cameraTransform">メインカメラのTransform</param>
         /// <param name="holdPosition">手元の目標位置のTransform</param>
-        public void Pickup(Transform cameraTransform, Transform holdPosition)
+        public void Pickup(string itemName)
         {
             // もしすでに拾っている・無効な場合
-            if (isPickedUp || holdPosition == null || cameraTransform == null)
+            if (_isPickedUp  || PlayerController.Instance.MainCamera.transform == null)
             {
                 return;
             }
 
-            isPickedUp = true;// 拾ったフラグをオン
+            // 拾ったフラグをオン
+            _isPickedUp = true;
 
             // RigidBodyがついている場合
-            if (itemRigidbody != null)
+            if (_itemRigidbody != null)
             {
-                // 物理演算を無効化する
-                itemRigidbody.isKinematic = true;
-                itemRigidbody.useGravity = false;
+                // --- 物理演算を無効化する ---
+                _itemRigidbody.isKinematic = true;
+                _itemRigidbody.useGravity = false;
             }
 
             // コライダーがついている場合
-            if (itemCollider != null)
+            if (_itemCollider != null)
             {
-                itemCollider.enabled = false;// コライダーを無効化する
+                // コライダーを無効化する
+                _itemCollider.enabled = false;
             }
 
-            SetLayerRecursively(gameObject, holdItemLayer);// オブジェクトのレイヤーを変更
+            // オブジェクトのレイヤーを変更
+            SetLayerRecursively(gameObject, _hold_ItemLayer);
 
-            WeaponFollower follower = GetComponentInParent<WeaponFollower>();// このItemManagerが付いているオブジェクトの親（HandgunContainer）を取得
-
-            // もしWeaponFollowerがついている場合
-            if (follower != null)
+            // もし拾ったアイテムがハンドガンの場合
+            if (ItemName == _handgunName)
             {
-                follower.StartFollowing(cameraTransform);// WeaponFollowerの関数を呼び出して、カメラの動きに追従させる
+                // 手元の目標位置を右手元の位置にする
+                _targetHoldPosition = PlayerController.Instance.RightHoldPosition;
+
+                // このItemManagerが付いているオブジェクトの親（HandgunContainer）を取得
+                WeaponFollower follower = GetComponentInParent<WeaponFollower>();
+
+                // もしWeaponFollowerがついている場合
+                if (follower != null)
+                {
+                    // WeaponFollowerの関数を呼び出して、カメラの動きに追従させる
+                    follower.StartFollowing(PlayerController.Instance.MainCamera.transform);
+                }
             }
 
             // もし拾ったアイテムが寝室の鍵の場合
-            if (itemName == bedKeyName)
+            if (ItemName == _bedKeyName)
             {
-                holdPosition = leftHoldPosition;// 手元の目標位置を左手元の位置にする
+                // 手元の目標位置を左手元の位置にする
+                _targetHoldPosition = PlayerController.Instance.LeftHoldPosition;
             }
 
-            StartCoroutine(MoveToHoldPosition(cameraTransform, holdPosition));// 手元の位置へ滑らかに移動させるコルーチンを開始
+            // 手元の位置へ滑らかに移動させるコルーチンを開始
+            StartCoroutine(MoveToHoldPosition(PlayerController.Instance.MainCamera.transform, _targetHoldPosition));
 
             // もし拾ったアイテムがハンドガンの場合
-            if (itemName == handgunName)
+            if (ItemName == _handgunName)
             {
-                playerControllerUI_Manager.StartGunTutorial();// ハンドガンのチュートリアルを開始する
-                handgunController.EquipGun(mainCamera);// ハンドガンを装備する
+                // ハンドガンのチュートリアルを開始する
+                PlayerController.Instance.PlayerControllerUI_ManagerClass.StartGunTutorial();
+                // ハンドガンを装備する
+                HandgunController.Instance.EquipGun(PlayerController.Instance.MainCamera);
             }
         }
 
         /// <summary>
         /// 子オブジェクトを含めて再帰的にレイヤーを変更する関数
         /// </summary>
-        private void SetLayerRecursively(GameObject obj, int newLayer)
+        private void SetLayerRecursively(GameObject targetObject, int newLayer)
         {
-            obj.layer = newLayer;
+            // 指定オブジェクトのレイヤーに新しくレイヤーを生成
+            targetObject.layer = newLayer;
 
             // 全ての子オブジェクトを参照
-            foreach (Transform child in obj.transform)
+            foreach (Transform child in targetObject.transform)
             {
-                SetLayerRecursively(child.gameObject, newLayer);// レイヤーを変更
+                // レイヤーを変更
+                SetLayerRecursively(child.gameObject, newLayer);
             }
         }
 
@@ -205,38 +177,53 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator MoveToHoldPosition(Transform cameraTransform, Transform targetHoldPosition)
         {
-            float elapsedTime = 0f;// アイテムを拾う経過時間を参照する変数
+            // アイテムを拾う経過時間を参照する変数
+            float elapsedTime = 0f;
 
-            // 移動開始時の、カメラから見た相対的な位置と回転を記録
-            Vector3 startRelativePos = cameraTransform.InverseTransformPoint(transform.position);// カメラの座標系での位置を計算
-            Quaternion startRelativeRot = Quaternion.Inverse(cameraTransform.rotation) * transform.rotation;// カメラの座標系での回転を計算
+            // --- 移動開始時の、カメラから見た相対的な位置と回転を記録 ---
+            // カメラの座標系での位置を計算
+            Vector3 startRelativePos = cameraTransform.InverseTransformPoint(transform.position);
+            // カメラの座標系での回転を計算
+            Quaternion startRelativeRot = Quaternion.Inverse(cameraTransform.rotation) * transform.rotation;
 
-            // 目標とする相対位置
-            Vector3 targetRelativePos = cameraTransform.InverseTransformPoint(targetHoldPosition.position);// カメラの座標系での位置を計算
-            Quaternion targetRelativeRot = Quaternion.Inverse(cameraTransform.rotation) * targetHoldPosition.rotation;// カメラの座標系での回転を計算
+            // --- 目標とする相対位置 ---
+            // カメラの座標系での位置を計算
+            Vector3 targetRelativePos = cameraTransform.InverseTransformPoint(targetHoldPosition.position);
+            // カメラの座標系での回転を計算
+            Quaternion targetRelativeRot = Quaternion.Inverse(cameraTransform.rotation) * targetHoldPosition.rotation;
 
             // アイテムが手元に移動するまでの時間がアイテムを拾う経過時間より長い間はループ
-            while (elapsedTime < moveDuration)
+            while (elapsedTime < _moveDuration)
             {
-                float time = Mathf.SmoothStep(0f, easingNumber, elapsedTime / moveDuration);// 経過時間を0から1の範囲に正規化して、イージングする
+                // 経過時間を0から1の範囲に正規化して、イージングする
+                float time = Mathf.SmoothStep(0f, _easingNumber, elapsedTime / _moveDuration);
 
-                // カメラの現在の位置・回転をベースに、補間した相対位置をワールド座標に変換して適用
-                Vector3 currentRelativePos = Vector3.Lerp(startRelativePos, targetRelativePos, time);// Lerpで滑らかに補間
-                Quaternion currentRelativeRot = Quaternion.Lerp(startRelativeRot, targetRelativeRot, time);// Lerpで滑らかに補間
+                // --- カメラの現在の位置・回転をベースに、補間した相対位置をワールド座標に変換して適用 ---
+                // Lerpで滑らかに補間
+                Vector3 currentRelativePos = Vector3.Lerp(startRelativePos, targetRelativePos, time);
+                // Lerpで滑らかに補間
+                Quaternion currentRelativeRot = Quaternion.Lerp(startRelativeRot, targetRelativeRot, time);
 
-                // カメラの座標系での位置と回転をワールド座標に変換して適用
-                transform.position = cameraTransform.TransformPoint(currentRelativePos);// カメラの座標系での位置をワールド座標に変換して適用
-                transform.rotation = cameraTransform.rotation * currentRelativeRot;// カメラの回転に相対回転を掛けてワールド座標に変換して適用
+                // --- カメラの座標系での位置と回転をワールド座標に変換して適用 ---
+                // カメラの座標系での位置をワールド座標に変換して適用
+                transform.position = cameraTransform.TransformPoint(currentRelativePos);
+                // カメラの回転に相対回転を掛けてワールド座標に変換して適用
+                transform.rotation = cameraTransform.rotation * currentRelativeRot;
 
+                // 経過時間を加算
                 elapsedTime += Time.deltaTime;
+                // 1フレーム待つ
                 yield return null;
             }
 
-            transform.SetParent(targetHoldPosition.parent);// LeftHoldPosition等と同じ親の子にする
+            // LeftHoldPosition等と同じ親の子にする
+            transform.SetParent(targetHoldPosition.parent);
 
-            // 最後に目標の親のローカル座標にリセット
-            transform.localPosition = targetHoldPosition.localPosition;// 目標の親のローカル位置にリセット
-            transform.localRotation = targetHoldPosition.localRotation;// 目標の親のローカル回転にリセット
+            // --- 最後に目標の親のローカル座標にリセット ---
+            // 目標の親のローカル位置にリセット
+            transform.localPosition = targetHoldPosition.localPosition;
+            // 目標の親のローカル回転にリセット
+            transform.localRotation = targetHoldPosition.localRotation;
         }
     }
 }

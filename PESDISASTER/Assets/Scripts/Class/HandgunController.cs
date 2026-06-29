@@ -21,6 +21,11 @@ namespace PESDISASTER
         private PlayerNoticeUI_Manager _playerNoticeUI;
 
         /// <summary>
+        /// ハンドガンコントローラーのインスタンスを参照する変数
+        /// </summary>
+        public static HandgunController Instance { get; private set; }
+
+        /// <summary>
         /// プレイヤーのメインカメラを参照する変数
         /// </summary>
         public Camera fpsCamera;
@@ -127,8 +132,18 @@ namespace PESDISASTER
         /// <summary>
         /// 初期設定を行う関数
         /// </summary>
-        private void Start()
+        private void Awake()
         {
+            // もしインスタンスが無い場合
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
             hipPosition = transform.localPosition;// ゲーム開始時の銃の位置を「通常時の位置」として記憶しておく
 
             // もしカメラが設定されている場合

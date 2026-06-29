@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace PESDISASTER
 {
-
     /// <summary>
     /// インスペクターでBGMを設定・管理するためのデータクラス
     /// </summary>

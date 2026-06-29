@@ -6,7 +6,7 @@ namespace PESDISASTER
     /// <summary>
     /// ドアのロックを管理するクラス
     /// </summary>
-    public class LockedDoor : MonoBehaviour, D_Interactable
+    public class LockedDoor : MonoBehaviour, Door_Interactable
     {
         /// <summary>
         /// プレイヤーの左手位置を参照する変数
@@ -55,7 +55,7 @@ namespace PESDISASTER
             Key_Item heldKey = leftHandPosition.parent.GetComponentInChildren<Key_Item>();// プレイヤーの左手位置の親オブジェクトからKey_Itemコンポーネントを持つ子オブジェクトを探す
 
             // もし鍵を持っていて、かつその鍵のIDが必要な鍵のIDと一致している場合
-            if (heldKey != null && heldKey.keyID == requiredKeyID)
+            if (heldKey != null && heldKey.KeyID == requiredKeyID)
             {
                 OpenDoor();
 

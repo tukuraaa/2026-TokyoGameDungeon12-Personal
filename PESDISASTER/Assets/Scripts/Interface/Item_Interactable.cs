@@ -5,11 +5,11 @@ namespace PESDISASTER
     /// <summary>
     /// インタラクト可能なオブジェクトが実装するインターフェース
     /// </summary>
-    public interface D_Interactable
+    public interface Item_Interactable
     {
         /// <summary>
-        /// プレイヤーがドアにアクセスした時に呼ばれる関数
+        /// インタラクトしたときの処理を行う関数
         /// </summary>
-        public void Interact();
+        public void Pickup(string itemName);
     }
 }

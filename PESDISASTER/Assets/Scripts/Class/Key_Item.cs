@@ -10,6 +10,6 @@ namespace PESDISASTER
         /// <summary>
         /// ‚±‚ÌŒ®‚ÌID‚ğQÆ‚·‚é•Ï”
         /// </summary>
-        public string keyID = "BedroomKey";
+        public string KeyID = "BedroomKey";
     }
 }

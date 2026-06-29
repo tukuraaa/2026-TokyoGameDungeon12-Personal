@@ -10,12 +10,12 @@ namespace PESDISASTER
         /// <summary>
         /// 追従する対象を参照する変数
         /// </summary>
-        private Transform targetCamera;
+        private Transform _targetCamera;
 
         /// <summary>
         /// 追従を開始するかどうかのフラグ
         /// </summary>
-        private bool isFollowing = false;
+        private bool _isFollowing = false;
 
         /// <summary>
         /// ItemManagerからこれを呼んで追従を開始させる関数
@@ -23,8 +23,10 @@ namespace PESDISASTER
         /// <param name="cameraTransform"></param>
         public void StartFollowing(Transform cameraTransform)
         {
-            targetCamera = cameraTransform;// 追従する対象を設定
-            isFollowing = true;// 追従を開始するフラグをオン
+            // 追従する対象を設定
+            _targetCamera = cameraTransform;
+            // 追従を開始するフラグをオン
+            _isFollowing = true;
         }
 
         /// <summary>
@@ -33,9 +35,10 @@ namespace PESDISASTER
         private void Update()
         {
             // もし追従が有効で、対象のカメラが存在する場合
-            if (isFollowing && targetCamera != null)
+            if (_isFollowing && _targetCamera != null)
             {
-                transform.SetPositionAndRotation(targetCamera.position, targetCamera.rotation);// カメラと全く同じ位置・回転にする
+                // カメラと全く同じ位置・回転にする
+                transform.SetPositionAndRotation(_targetCamera.position, _targetCamera.rotation);
             }
         }
     }
