@@ -1481,7 +1481,7 @@ MonoBehaviour:
     m_ActionName: 'Player/Look[/Mouse/delta]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3678019125913440571}
         m_TargetAssemblyTypeName: PESDISASTER.HandgunController, Assembly-CSharp
         m_MethodName: OnFire
         m_Mode: 0
@@ -1553,7 +1553,7 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3678019125913440571}
         m_TargetAssemblyTypeName: PESDISASTER.HandgunController, Assembly-CSharp
         m_MethodName: OnReload
         m_Mode: 0
@@ -1569,7 +1569,7 @@ MonoBehaviour:
     m_ActionName: 'Player/Reload[/Keyboard/r]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3678019125913440571}
         m_TargetAssemblyTypeName: PESDISASTER.HandgunController, Assembly-CSharp
         m_MethodName: OnAim
         m_Mode: 0
