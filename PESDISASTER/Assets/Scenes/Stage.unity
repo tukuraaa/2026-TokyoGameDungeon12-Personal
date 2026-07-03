@@ -4466,7 +4466,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.66, y: -0.18, z: 1.37}
-  m_LocalScale: {x: 1.23, y: 1.23, z: 1.23}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1942099252527379678}
@@ -4484,6 +4484,7 @@ GameObject:
   m_Component:
   - component: {fileID: 581026058}
   - component: {fileID: 581026059}
+  - component: {fileID: 581026060}
   m_Layer: 10
   m_Name: ReloadGunModel_Root
   m_TagString: Untagged
@@ -4520,6 +4521,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.ReloadGunModel_Manager
   Handgun: {fileID: 565761278}
+--- !u!95 &581026060
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581026057}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 05e313d9a82005b4d98b967510595077, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &583940115
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12384,6 +12407,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 565761278}
     m_Modifications:
     - target: {fileID: 1205618345236497670, guid: 781d696c932e0f547a0553ab69990177, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205618345236497670, guid: 781d696c932e0f547a0553ab69990177, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205618345236497670, guid: 781d696c932e0f547a0553ab69990177, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205618345236497670, guid: 781d696c932e0f547a0553ab69990177, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -12695,6 +12730,18 @@ PrefabInstance:
     - target: {fileID: 5153630607300857966, guid: 92c9ce71b754a964fa52a774b4e3d734, type: 3}
       propertyPath: m_Name
       value: ReloadMinigameHandgunModel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362281269497224194, guid: 92c9ce71b754a964fa52a774b4e3d734, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.9926001
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362281269497224194, guid: 92c9ce71b754a964fa52a774b4e3d734, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.9926001
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362281269497224194, guid: 92c9ce71b754a964fa52a774b4e3d734, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.9926001
       objectReference: {fileID: 0}
     - target: {fileID: 8362281269497224194, guid: 92c9ce71b754a964fa52a774b4e3d734, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13025,6 +13072,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 565761278}
     m_Modifications:
+    - target: {fileID: 2975569215074382959, guid: 69463ae06a79ada45904250a10db4d0b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 2975569215074382959, guid: 69463ae06a79ada45904250a10db4d0b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 2975569215074382959, guid: 69463ae06a79ada45904250a10db4d0b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4.92
+      objectReference: {fileID: 0}
     - target: {fileID: 2975569215074382959, guid: 69463ae06a79ada45904250a10db4d0b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
