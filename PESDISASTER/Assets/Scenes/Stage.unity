@@ -4521,6 +4521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.ReloadGunModel_Manager
   Handgun: {fileID: 565761278}
+  ReloadModel_Amimator: {fileID: 581026060}
 --- !u!95 &581026060
 Animator:
   serializedVersion: 7
@@ -7272,7 +7273,7 @@ MonoBehaviour:
     Control_Name: DragDown
     TargetWidth: 561
   _prompt_Image: {fileID: 1160058495}
-  _reloadGunModel_Manager: {fileID: 581026059}
+  ReloadGunModel_Manager: {fileID: 581026059}
 --- !u!1 &1276935410
 GameObject:
   m_ObjectHideFlags: 0
@@ -9609,7 +9610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43cc71617c215ed40891f9fd5fcb9775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.ReloadMinigameManager
-  _reloadMinigameUIManager: {fileID: 1213762711}
+  _reloadMinigameUI_Manager: {fileID: 1213762711}
   _dragDistanceThreshold: 50
 --- !u!1001 &1681534812
 PrefabInstance:

@@ -13,6 +13,16 @@ namespace PESDISASTER
         public Transform Handgun;
 
         /// <summary>
+        /// アニメーターを参照する変数
+        /// </summary>
+        public Animator ReloadModel_Amimator;
+
+        /// <summary>
+        /// ハンドガンのステージ1トリガーIDを参照する変数
+        /// </summary>
+        public static readonly int HandgunStage1_TriggerID = Animator.StringToHash("OnHandgunStage1");
+
+        /// <summary>
         /// 初期設定を行う関数
         /// </summary>
         private void Awake()

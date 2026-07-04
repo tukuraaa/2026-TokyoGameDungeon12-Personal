@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,7 +14,7 @@ namespace PESDISASTER
         /// リロードミニゲームのUIを管理するクラスを参照する変数
         /// </summary>
         [SerializeField]
-        private ReloadMinigameUI_Manager _reloadMinigameUIManager;
+        private ReloadMinigameUI_Manager _reloadMinigameUI_Manager;
 
         /// <summary>
         /// マウスドラッグ距離のしきい値を参照する変数
@@ -51,6 +52,10 @@ namespace PESDISASTER
         /// マウスドラッグの下方向への累積移動距離を参照する変数
         /// </summary>
         private float _accumulatedDragDistance = 0f;
+        /// <summary>
+        /// 銃のリロードアニメーション時間を参照する変数
+        /// </summary>
+        private float _reloadGunAnimTime = 1f;
 
         /// <summary>
         /// リロードのステップを管理する列挙型
@@ -99,8 +104,8 @@ namespace PESDISASTER
         _currentStep = ReloadStep.RightClick;
 
             // --- UIの表示物を指定して表示 ---
-            _reloadMinigameUIManager.UpdateUI("RightClick");
-            _reloadMinigameUIManager.Show();
+            _reloadMinigameUI_Manager.UpdateUI("RightClick");
+            _reloadMinigameUI_Manager.Show();
         }
 
         /// <summary>
@@ -174,6 +179,8 @@ namespace PESDISASTER
             // もしマウスの右クリックを行った場合
             if (Mouse.current.rightButton.wasPressedThisFrame)
             {
+                // 銃のリロード演出のコルーチンを呼び出し
+                StartCoroutine(ReloadGunAnimCoroutine(ReloadGunModel_Manager.HandgunStage1_TriggerID));
                 // 次の状態へ
                 ProceedToNextStep(ReloadStep.PressT, "PressT");
             }
@@ -273,7 +280,7 @@ namespace PESDISASTER
             // 次の状態へステートを変更
             _currentStep = _nextStep;
             // UIの画像を切り替える
-            _reloadMinigameUIManager.UpdateUI(_control_Name);
+            _reloadMinigameUI_Manager.UpdateUI(_control_Name);
         }
 
         /// <summary>
@@ -324,9 +331,22 @@ namespace PESDISASTER
             // プレイヤー自身を操作できるようにする
             PlayerController.Instance.IsSleeping = false;
             // ミニゲームのUIを非表示
-            _reloadMinigameUIManager.Hide();
+            _reloadMinigameUI_Manager.Hide();
             // ハンドガン側に成否を伝える
             _onComplete?.Invoke(_success);
+        }
+
+        /// <summary>
+        /// リロードの銃のアニメーションを再生するコルーチン
+        /// </summary>
+        /// <param name="_anim_ID"></param>
+        /// <returns></returns>
+        private IEnumerator ReloadGunAnimCoroutine(int _anim_ID)
+        {
+            // ハンドガンをアニメーションする
+            _reloadMinigameUI_Manager.ReloadGunModel_Manager.ReloadModel_Amimator.SetTrigger(_anim_ID);
+            // アニメーション時間だけ待機
+            yield return new WaitForSeconds(_reloadGunAnimTime);
         }
     }
 }

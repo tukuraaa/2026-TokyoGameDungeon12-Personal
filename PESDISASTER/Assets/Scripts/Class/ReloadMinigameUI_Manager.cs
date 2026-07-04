@@ -52,8 +52,7 @@ namespace PESDISASTER
         /// <summary>
         /// リロードガンモデルの管理クラスを参照する変数
         /// </summary>
-        [SerializeField]
-        private ReloadGunModel_Manager _reloadGunModel_Manager;
+      public ReloadGunModel_Manager ReloadGunModel_Manager;
 
         /// <summary>
         /// 初期設定を行う関数
@@ -77,7 +76,7 @@ namespace PESDISASTER
             }
 
             // リロードガンモデルのUIも非表示にする
-            _reloadGunModel_Manager.Hide();
+            ReloadGunModel_Manager.Hide();
         }
 
         /// <summary>
@@ -93,7 +92,7 @@ namespace PESDISASTER
             }
 
             // リロードガンモデルのUIも表示する
-            _reloadGunModel_Manager.TargetShow(_reloadGunModel_Manager.Handgun);
+            ReloadGunModel_Manager.TargetShow(ReloadGunModel_Manager.Handgun);
         }
 
         /// <summary>
