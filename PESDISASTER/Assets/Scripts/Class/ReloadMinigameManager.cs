@@ -97,11 +97,11 @@ namespace PESDISASTER
             PlayerController.Instance.IsSleeping = true;
             // プレイヤーの視点移動の入力をリセット
             PlayerController.Instance.Look_Input = Vector2.zero;
-        // プレイヤーの移動入力ベクトルをリセット
-        PlayerController.Instance.Move_Input = Vector2.zero;
+            // プレイヤーの移動入力ベクトルをリセット
+            PlayerController.Instance.Move_Input = Vector2.zero;
 
-        // 最初のステップを設定
-        _currentStep = ReloadStep.RightClick;
+            // 最初のステップを設定
+            _currentStep = ReloadStep.RightClick;
 
             // --- UIの表示物を指定して表示 ---
             _reloadMinigameUI_Manager.UpdateUI("RightClick");
@@ -180,9 +180,7 @@ namespace PESDISASTER
             if (Mouse.current.rightButton.wasPressedThisFrame)
             {
                 // 銃のリロード演出のコルーチンを呼び出し
-                StartCoroutine(ReloadGunAnimCoroutine(ReloadGunModel_Manager.HandgunStage1_TriggerID));
-                // 次の状態へ
-                ProceedToNextStep(ReloadStep.PressT, "PressT");
+                StartCoroutine(ReloadGunAnimCoroutine(ReloadGunModel_Manager.HandgunStage1_TriggerID, ReloadStep.PressT, "PressT"));
             }
             // 他の入力をした場合
             else if (IsAnyWrongInputPressed())
@@ -203,8 +201,12 @@ namespace PESDISASTER
             // もし指定のキーを入力した場合
             if (_targetKey.wasPressedThisFrame)
             {
-                // 次の状態へ
-                ProceedToNextStep(_nextStep, _control_Name);
+                // もしTキーが押された場合
+                if (_targetKey == Keyboard.current.tKey)
+                {
+                    // 銃のリロード演出のコルーチンを呼び出し
+                    StartCoroutine(ReloadGunAnimCoroutine(ReloadGunModel_Manager.HandgunStage2_TriggerID,_nextStep, _control_Name));
+                }
             }
             // 他の入力をした場合
             else if (IsAnyWrongInputPressed())
@@ -330,6 +332,8 @@ namespace PESDISASTER
             _isDragging = false;
             // プレイヤー自身を操作できるようにする
             PlayerController.Instance.IsSleeping = false;
+            // 銃のリロード演出状態をリセットするトリガー呼び出し
+            _reloadMinigameUI_Manager.ReloadGunModel_Manager.ReloadModel_Amimator.SetTrigger(ReloadGunModel_Manager.MinigameEndTriggerID);
             // ミニゲームのUIを非表示
             _reloadMinigameUI_Manager.Hide();
             // ハンドガン側に成否を伝える
@@ -339,14 +343,18 @@ namespace PESDISASTER
         /// <summary>
         /// リロードの銃のアニメーションを再生するコルーチン
         /// </summary>
-        /// <param name="_anim_ID"></param>
+        /// <param name="anim_ID"></param>
+        /// <param name="nextStep"></param>
+        /// <param name="control_Name"></param>
         /// <returns></returns>
-        private IEnumerator ReloadGunAnimCoroutine(int _anim_ID)
+        private IEnumerator ReloadGunAnimCoroutine(int anim_ID,ReloadStep nextStep,string control_Name)
         {
             // ハンドガンをアニメーションする
-            _reloadMinigameUI_Manager.ReloadGunModel_Manager.ReloadModel_Amimator.SetTrigger(_anim_ID);
+            _reloadMinigameUI_Manager.ReloadGunModel_Manager.ReloadModel_Amimator.SetTrigger(anim_ID);
             // アニメーション時間だけ待機
             yield return new WaitForSeconds(_reloadGunAnimTime);
+            // 次の状態へ
+            ProceedToNextStep(nextStep, control_Name);
         }
     }
 }

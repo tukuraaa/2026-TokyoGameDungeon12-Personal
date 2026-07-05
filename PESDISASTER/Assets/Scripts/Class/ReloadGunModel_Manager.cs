@@ -21,6 +21,14 @@ namespace PESDISASTER
         /// ハンドガンのステージ1トリガーIDを参照する変数
         /// </summary>
         public static readonly int HandgunStage1_TriggerID = Animator.StringToHash("OnHandgunStage1");
+        /// <summary>
+        /// リロードミニゲーム終了トリガーIDを参照する変数
+        /// </summary>
+        public static readonly int MinigameEndTriggerID = Animator.StringToHash("OnMinigameEnd");
+        /// <summary>
+        /// ハンドガンのステージ2トリガーIDを参照する変数
+        /// </summary>
+        public static readonly int HandgunStage2_TriggerID = Animator.StringToHash("OnHandgunStage2");
 
         /// <summary>
         /// 初期設定を行う関数
