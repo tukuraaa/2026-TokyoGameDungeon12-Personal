@@ -21,6 +21,17 @@ namespace PESDISASTER
         private PlayerNoticeUI_Manager _playerNoticeUI;
 
         /// <summary>
+        /// マズルフラッシュの親パーティクルシステムを参照する変数
+        /// </summary>
+        [SerializeField]
+        private ParticleSystem _muzzleFlashParent;
+        /// <summary>
+        /// マズルフラッシュの子パーティクルシステムを参照する変数
+        /// </summary>
+        [SerializeField]
+        private ParticleSystem _muzzleFlashChild;
+
+        /// <summary>
         /// ハンドガンコントローラーのインスタンスを参照する変数
         /// </summary>
         public static HandgunController Instance { get; private set; }
@@ -54,13 +65,13 @@ namespace PESDISASTER
         public Animator gunAnimator;
 
         /// <summary>
-        /// 通常時の銃の位置
-        /// </summary>
-        private Vector3 hipPosition;
-        /// <summary>
         /// エイム時の銃の位置を参照する変数
         /// </summary>
-        public Vector3 aimPosition;
+        public Vector3 AimPosition;
+        /// <summary>
+        /// 通常時の銃の位置を参照する変数
+        /// </summary>
+        private Vector3 _hipPosition;
 
         /// <summary>
         /// 射撃アニメーションのトリガー名を参照する変数
@@ -77,7 +88,7 @@ namespace PESDISASTER
         /// <summary>
         /// 予備の持ち弾を参照する変数
         /// </summary>
-        public int reserveAmmo = 300000;
+        public int reserveAmmo = 5;
 
         /// <summary>
         /// 次に射撃できる時間を参照する変数
@@ -144,7 +155,7 @@ namespace PESDISASTER
                 Destroy(gameObject);
             }
 
-            hipPosition = transform.localPosition;// ゲーム開始時の銃の位置を「通常時の位置」として記憶しておく
+            _hipPosition = transform.localPosition;// ゲーム開始時の銃の位置を「通常時の位置」として記憶しておく
 
             // もしカメラが設定されている場合
             if (fpsCamera != null)
@@ -165,7 +176,7 @@ namespace PESDISASTER
         /// <summary>
         /// 射撃入力を処理する関数
         /// </summary>
-        public void OnFire(InputAction.CallbackContext context)
+        public void OnShoot(InputAction.CallbackContext context)
         {
             // もし銃が装備されていない、もしくはリロード中の場合、もしくはプレイヤーが動けない場合
             if (!isEquipped || isReloading || PlayerController.Instance.IsSleeping)
@@ -179,14 +190,17 @@ namespace PESDISASTER
                 // もしマガジン内に弾が残っている場合
                 if (currentAmmo > 0)
                 {
-                    nextTimeToFire = Time.time + fireRate;// 次に射撃できる時間を更新
+                    // 次に射撃できる時間を更新
+                    nextTimeToFire = Time.time + fireRate;
+                    // 射撃処理の関数を呼び出す
                     Shoot();
                 }
                 else
                 {
-                    AudioManager.Instance.PlaySE("EmptyMagazine");
-
-                    _playerNoticeUI.StartEmpty();// 弾切れ通知アニメーションをする
+                    // 空マガジン用SEを再生
+                    AudioManager.Instance.PlaySE("NonMagazine");
+                    // 弾切れ通知アニメーションをする
+                    _playerNoticeUI.StartEmpty();
                 }
             }
         }
@@ -229,18 +243,34 @@ namespace PESDISASTER
         /// </summary>
         public void Shoot()
         {
-            currentAmmo--;// マガジン内の弾数を1減らす
+            // 射撃SEを再生
+            AudioManager.Instance.PlaySE("Shoot");
+            // マガジン内の弾数を1減らす
+            currentAmmo--;
 
             // もし銃のアニメーターが設定されている場合
             if (gunAnimator != null)
             {
+                // 射撃アニメーションを再生する
                 gunAnimator.SetTrigger(gunAnimatorTrigger);
             }
 
-            // 画面中央からRayを飛ばして当たり判定を行う
-            Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));// 画面中央からRayを飛ばす
+            // もしエフェクトがついている場合
+            if (_muzzleFlashChild != null && _muzzleFlashParent != null)
+            {
+                // マズルフラッシュの親エフェクトが光る
+                _muzzleFlashParent.Stop();
+                _muzzleFlashParent.Play();
 
-            RaycastHit hit;// Rayが何かに当たった情報を格納する変数
+                // マズルフラッシュの子エフェクトが光る
+                _muzzleFlashChild.Stop();
+                _muzzleFlashChild.Play();
+            }
+
+            // 画面中央からRayを飛ばして当たり判定を行い参照する変数を定義
+            Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            // Rayが何かに当たった情報を格納する変数を定義
+            RaycastHit hit;
 
             // もしRayが何かに当たった場合
             if (Physics.Raycast(ray, out hit, range))
@@ -269,6 +299,9 @@ namespace PESDISASTER
                     Destroy(impactGO, impactEffectDestroyLimit);// 指定秒後に消去
                 }
             }
+
+            // プレイヤーのリコイル画面揺れを起こす
+            PlayerController.Instance.AddCameraRecoil(8.0f, 2.0f);
         }
 
         /// <summary>
@@ -306,23 +339,29 @@ namespace PESDISASTER
                 return;
             }
 
-            float step = Time.deltaTime * aimSpeed;// エイムのスムーズさを調整するためのステップ値を計算
+            // エイムのスムーズさを調整するためのステップ値を計算
+            float step = Time.deltaTime * aimSpeed;
 
-            Transform target = isAiming ? aimTransform : hipTransform;// ターゲットを「aimTransform」か「hipTransform」で切り替える
+            // ターゲットをaimTransformかhipTransformで切り替える
+            Transform target = isAiming ? aimTransform : hipTransform;
 
             // もしターゲットが設定されている場合
             if (target != null)
             {
-                // 銃本体(transform)を、ターゲットの位置・回転へ滑らかに移動させる
-                transform.localPosition = Vector3.Lerp(transform.localPosition, target.localPosition, step);// 位置をスムーズに補間
-                transform.localRotation = Quaternion.Slerp(transform.localRotation, target.localRotation, step);// 回転をスムーズに補間
+                // --- 銃本体(transform)を、ターゲットの位置・回転へ滑らかに移動させる ---
+                // 位置をスムーズに補間
+                transform.localPosition = Vector3.Lerp(transform.localPosition, target.localPosition, step);
+                // 回転をスムーズに補間
+                transform.localRotation = Quaternion.Slerp(transform.localRotation, target.localRotation, step);
             }
 
             // もしカメラが設定されている場合
             if (fpsCamera != null)
             {
-                float targetFOV = isAiming ? aimFOV : normalFOV;// 目標FOVを決定
-                fpsCamera.fieldOfView = Mathf.Lerp(fpsCamera.fieldOfView, targetFOV, step);// カメラのFOVをスムーズに変化させる
+                // 目標FOVを決定し参照する変数を定義
+                float targetFOV = isAiming ? aimFOV : normalFOV;
+                // カメラのFOVをスムーズに変化させる
+                fpsCamera.fieldOfView = Mathf.Lerp(fpsCamera.fieldOfView, targetFOV, step);
             }
         }
 

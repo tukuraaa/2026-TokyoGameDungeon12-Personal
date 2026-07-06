@@ -46,6 +46,16 @@ namespace PESDISASTER
         /// </summary>
         [SerializeField]
         private float _interactRange = 2.5f;
+        /// <summary>
+        /// 反動が頂点に達する速さを参照する変数
+        /// </summary>
+        [SerializeField]
+        private float _cameraRecoil_Snappiness = 20f;
+        /// <summary>
+        /// 反動が元に戻る速さを参照する変数
+        /// </summary>
+        [SerializeField]
+        private float _cameraRecoil_ReturnSpeed = 5f;
 
         /// <summary>
         /// プレイヤー操作のUIを管理するクラスを参照する変数
@@ -91,6 +101,14 @@ namespace PESDISASTER
         /// 移動入力ベクトルを参照する変数
         /// </summary>
         public Vector2 Move_Input = Vector2.zero;
+        /// <summary>
+        /// 現在のカメラの反動を参照する変数
+        /// </summary>
+        private Vector2 _currentCameraRecoil;
+        /// <summary>
+        /// 目標となるカメラの反動を参照する変数
+        /// </summary>
+        private Vector2 _targetCameraRecoil;
 
         /// <summary>
         /// Rayが当たった情報を格納する変数
@@ -606,13 +624,20 @@ namespace PESDISASTER
             // プレイヤー（体）の左右の回転をマウスX方向の入力に合わせて行う
             transform.Rotate(0, mouseRotationX, 0);
 
+            // --- カメラリコイル（反動）の計算 ---
+            // 目標の反動をゼロ（元の視点）に向かって滑らかに減衰させる
+            _targetCameraRecoil = Vector2.Lerp(_targetCameraRecoil, Vector2.zero, _cameraRecoil_ReturnSpeed * Time.deltaTime);
+            // 現在の反動を目標に向かってスナップさせる
+            _currentCameraRecoil = Vector2.Lerp(_currentCameraRecoil, _targetCameraRecoil, _cameraRecoil_Snappiness * Time.deltaTime);
+
             // --- 首の回転と前後移動をマウスY方向の入力に合わせて更新 ---
             // マウスY方向の入力によって縦方向の回転を更新
             _rotationX -= mouseRotationY;
             // 首の前後移動を指定された範囲に制限
             _translationZ = Mathf.Clamp(_translationZ, _minNeckTranslationZ, _maxNeckTranslationZ);
-            // 首の回転を設定。縦方向のみ回転させる
-            _neckTransform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
+
+            // ベースの回転角度に、リコイルのXとYのブレを上乗せして適用する
+            _neckTransform.localRotation = Quaternion.Euler(_rotationX - _currentCameraRecoil.x, _currentCameraRecoil.y, 0);
 
             // --- 首の前後移動をマウスY方向の入力に合わせて更新 ---
             // マウスY方向の入力によって首の前後移動を更新
@@ -660,6 +685,17 @@ namespace PESDISASTER
             CheckForI_Interactable(_targetShelfName);
             // インタラクト可能なオブジェクト（ドア）を検出する関数を呼び出す
             CheckForI_Interactable(_targetDoorName);
+        }
+
+        /// <summary>
+        /// 外部（銃のスクリプトなど）からカメラに反動を与える関数
+        /// </summary>
+        /// <param name="recoil_X">上方向への跳ね上がり幅</param>
+        /// <param name="recoil_Y">左右のブレ幅</param>
+        public void AddCameraRecoil(float recoil_X, float recoil_Y)
+        {
+            // 上方向(X)と、左右のランダムなブレ(Y)をターゲットに加算
+            _targetCameraRecoil += new Vector2(recoil_X,Random.Range(-recoil_Y, recoil_Y));
         }
     }
 }
