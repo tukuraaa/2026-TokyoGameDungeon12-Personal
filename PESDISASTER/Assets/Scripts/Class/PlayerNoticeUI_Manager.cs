@@ -144,15 +144,13 @@ namespace PESDISASTER
         /// <param name="target"></param>
         public void TargetHide(Transform target)
         {
-            {
                 target.gameObject.SetActive(false);
-            }
         }
 
         /// <summary>
         /// ゲーム目的表示を開始する関数
         /// </summary>
-        public void StartRule()
+        public void NoticeRule()
         {
             TargetShow(gameRuleUI_Target);
             animator.SetTrigger(ruleTrigger);// アニメーターのゲーム目的トリガーを発動
@@ -161,7 +159,7 @@ namespace PESDISASTER
         /// <summary>
         /// マガジン空っぽ表示を開始する関数
         /// </summary>
-        public void StartEmpty()
+        public void NoticeEmpty()
         {
             StartCoroutine(NoticeAnimCoroutine(magazineEmptyUI_Target, emptyTrigger,noticeAnimTime));// 通知のアニメーションを行う
         }
@@ -169,7 +167,7 @@ namespace PESDISASTER
         /// <summary>
         /// リロード完了表示を開始する関数
         /// </summary>
-        public void StartReload()
+        public void NoticeReloadComplete()
         {
             StartCoroutine(NoticeAnimCoroutine(reloadCompleteUI_Target, reloadTrigger,noticeAnimTime));// 通知のアニメーションを行う
         }
@@ -177,7 +175,7 @@ namespace PESDISASTER
         /// <summary>
         /// リロード失敗表示を開始する関数
         /// </summary>
-        public void StartFailed()
+        public void NoticeReloadFailed()
         {
             StartCoroutine(NoticeAnimCoroutine(reloadFailedUI_Target, failedTrigger,noticeAnimTime));// 通知のアニメーションを行う
         }
@@ -204,7 +202,7 @@ namespace PESDISASTER
         /// <summary>
         /// ロック中表示を開始する関数
         /// </summary>
-        public void StartLocked()
+        public void NoticeLocked()
         {
             StartCoroutine(NoticeAnimCoroutine(lockedUI_Target, lockedTrigger,noticeAnimTime));// 通知のアニメーションを行う
         }
@@ -212,7 +210,7 @@ namespace PESDISASTER
         /// <summary>
         /// 棚の開け方表示を開始する関数
         /// </summary>
-        public void StartOpenTutorial()
+        public void NoticeOpenShelfTutorial()
         {
             StartCoroutine(NoticeAnimCoroutine(openShelfTutorial_UI_Target, openTutorialTrigger, openTutorialAnimTime));// 通知のアニメーションを行う
         }
@@ -220,7 +218,7 @@ namespace PESDISASTER
         /// <summary>
         /// ダメージ表示を開始する関数
         /// </summary>
-        public void StartDamageNotice()
+        public void NoticeDamage()
         {
             StartCoroutine(NoticeAnimCoroutine(damageNoticeUI_Target, damageTrigger, damageAnimTime));// ダメージ通知のアニメーションを行う
         }
@@ -228,7 +226,7 @@ namespace PESDISASTER
         /// <summary>
         /// 攻略ナビを開始する関数
         /// </summary>
-        public void StartNavigateNotice()
+        public void NoticeNavigate()
         {
             // 攻略ナビ通知のアニメーションを行う
             StartCoroutine(NoticeAnimCoroutine(_navigateNoticeUI_Target, _navigateTrigger, noticeAnimTime));

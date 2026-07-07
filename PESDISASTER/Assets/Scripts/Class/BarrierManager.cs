@@ -18,7 +18,7 @@ namespace PESDISASTER
             if (collider.CompareTag("Player"))
             {
                 // 攻略ナビを表示
-                PlayerNoticeUI_Manager.Instance.StartNavigateNotice();
+                PlayerNoticeUI_Manager.Instance.NoticeNavigate();
             }
         }
     }

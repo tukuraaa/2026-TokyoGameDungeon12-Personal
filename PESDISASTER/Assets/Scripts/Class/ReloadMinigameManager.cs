@@ -53,9 +53,9 @@ namespace PESDISASTER
         /// </summary>
         private float _accumulatedDragDistance = 0f;
         /// <summary>
-        /// 銃のリロードアニメーション時間を参照する変数
+        /// 銃を普段の手元位置に戻す演出時間を参照する変数
         /// </summary>
-        private float _reloadGunAnimTime = 1f;
+        private float _reloadGunEventAnimTime = 1f;
 
         /// <summary>
         /// リロードのステップを管理する列挙型
@@ -75,8 +75,8 @@ namespace PESDISASTER
         /// <summary>
         /// リロードミニゲームを開始する関数
         /// </summary>
-        /// <param name="_callback"></param>
-        public void StartMinigame(Action<bool> _callback)
+        /// <param name="callback"></param>
+        public void StartMinigame(Action<bool> callback)
         {
             // もしすでにミニゲームがアクティブの場合
             if (_isActive)
@@ -86,19 +86,15 @@ namespace PESDISASTER
 
             // --- ミニゲーム前の準備 ---
             // コールバックを保存
-            _onComplete = _callback;
+            _onComplete = callback;
             // ミニゲーム開始フラグをオン
             _isActive = true;
             // ドラッグ状態フラグをオフ
             _isDragging = false;
             // 開始時フラグをオン
             _isFirstFrame = true;
-            // プレイヤー自身は操作できないようにする
-            PlayerController.Instance.IsSleeping = true;
-            // プレイヤーの視点移動の入力をリセット
-            PlayerController.Instance.Look_Input = Vector2.zero;
-            // プレイヤーの移動入力ベクトルをリセット
-            PlayerController.Instance.Move_Input = Vector2.zero;
+            // ハンドガンのリロード中フラグをオン
+            HandgunController.Instance.IsReloading = true;
 
             // 最初のステップを設定
             _currentStep = ReloadStep.RightClick;
@@ -106,6 +102,9 @@ namespace PESDISASTER
             // --- UIの表示物を指定して表示 ---
             _reloadMinigameUI_Manager.UpdateUI("RightClick");
             _reloadMinigameUI_Manager.Show();
+
+            // ハンドガンを手元に寄せる演出再生
+            HandgunController.Instance.ReloadMotion(HandgunController.Handgun_Intro_Trigger_ID);
         }
 
         /// <summary>
@@ -148,14 +147,14 @@ namespace PESDISASTER
                 case ReloadStep.PressT:
 
                     // 入力判定を開始
-                    CheckKeyInput(Keyboard.current.tKey, ReloadStep.PressR, "PressR");
+                    CheckKeyInput(Keyboard.current.tKey, ReloadStep.PressR, "PressR", HandgunController.HandgunStage2_Trigger_ID);
 
                     break;
 
                 case ReloadStep.PressR:
 
                     // 入力判定を開始
-                    CheckKeyInput(Keyboard.current.rKey, ReloadStep.DragDown, "DragDown");
+                    CheckKeyInput(Keyboard.current.rKey, ReloadStep.DragDown, "DragDown", HandgunController.HandgunStage2_Trigger_ID);
 
                     break;
 
@@ -179,8 +178,10 @@ namespace PESDISASTER
             // もしマウスの右クリックを行った場合
             if (Mouse.current.rightButton.wasPressedThisFrame)
             {
-                // 銃のリロード演出のコルーチンを呼び出し
-                StartCoroutine(ReloadGunAnimCoroutine(ReloadGunModel_Manager.HandgunStage1_TriggerID, ReloadStep.PressT, "PressT"));
+                // ハンドガンのリロードモーションを再生
+                HandgunController.Instance.ReloadMotion(HandgunController.HandgunStage1_Trigger_ID);
+                // 次の状態へ
+                ProceedToNextStep(ReloadStep.PressT, "PressT");
             }
             // 他の入力をした場合
             else if (IsAnyWrongInputPressed())
@@ -196,16 +197,22 @@ namespace PESDISASTER
         /// <summary>
         /// 特定のキー入力の判定をする関数
         /// </summary>
-        private void CheckKeyInput(UnityEngine.InputSystem.Controls.KeyControl _targetKey, ReloadStep _nextStep, string _control_Name)
+        /// <param name="targetKey"></param>
+        /// <param name="nextStep"></param>
+        /// <param name="control_Name"></param>
+        /// <param name="trigger_ID"></param>
+        private void CheckKeyInput(UnityEngine.InputSystem.Controls.KeyControl targetKey, ReloadStep nextStep, string control_Name, int trigger_ID)
         {
             // もし指定のキーを入力した場合
-            if (_targetKey.wasPressedThisFrame)
+            if (targetKey.wasPressedThisFrame)
             {
                 // もしTキーが押された場合
-                if (_targetKey == Keyboard.current.tKey)
+                if (targetKey == Keyboard.current.tKey)
                 {
-                    // 銃のリロード演出のコルーチンを呼び出し
-                    StartCoroutine(ReloadGunAnimCoroutine(ReloadGunModel_Manager.HandgunStage2_TriggerID,_nextStep, _control_Name));
+                    // ハンドガンのリロードモーションを再生
+                    HandgunController.Instance.ReloadMotion(trigger_ID);
+                    // 次の状態へ
+                    ProceedToNextStep(nextStep, control_Name);
                 }
             }
             // 他の入力をした場合
@@ -260,8 +267,8 @@ namespace PESDISASTER
                 // もしマウスドラッグ距離のしきい値以上に下方向への移動数が多い場合
                 if (_accumulatedDragDistance >= _dragDistanceThreshold)
                 {
-                    // 全リロードステップ成功！
-                    Finish(true);
+                    // 全リロードステップ成功時の処理を行うコルーチンを呼び出し
+                    StartCoroutine(ReloadCompleteCoroutine(HandgunController.HandgunStage2_Trigger_ID));   
                 }
                 else
                 {
@@ -277,12 +284,12 @@ namespace PESDISASTER
         /// <summary>
         /// 次のステップへ進む関数
         /// </summary>
-        private void ProceedToNextStep(ReloadStep _nextStep, string _control_Name)
+        private void ProceedToNextStep(ReloadStep nextStep, string control_Name)
         {
             // 次の状態へステートを変更
-            _currentStep = _nextStep;
+            _currentStep = nextStep;
             // UIの画像を切り替える
-            _reloadMinigameUI_Manager.UpdateUI(_control_Name);
+            _reloadMinigameUI_Manager.UpdateUI(control_Name);
         }
 
         /// <summary>
@@ -323,38 +330,48 @@ namespace PESDISASTER
         /// <summary>
         /// 成功または失敗を処理してミニゲームを終了する関数
         /// </summary>
-        /// <param name="_success"></param>
-        private void Finish(bool _success)
+        /// <param name="isSuccess"></param>
+        private void Finish(bool isSuccess)
         {
-            // ミニゲーム稼働中フラグをオフ
-            _isActive = false;
-            // ドラッグフラグをオフ
-            _isDragging = false;
-            // プレイヤー自身を操作できるようにする
-            PlayerController.Instance.IsSleeping = false;
-            // 銃のリロード演出状態をリセットするトリガー呼び出し
-            _reloadMinigameUI_Manager.ReloadGunModel_Manager.ReloadModel_Amimator.SetTrigger(ReloadGunModel_Manager.MinigameEndTriggerID);
-            // ミニゲームのUIを非表示
-            _reloadMinigameUI_Manager.Hide();
-            // ハンドガン側に成否を伝える
-            _onComplete?.Invoke(_success);
+            // 処理を行うコルーチンを呼び出し
+           StartCoroutine(FinishEventCoroutine(isSuccess));
         }
 
         /// <summary>
-        /// リロードの銃のアニメーションを再生するコルーチン
+        /// ミニゲーム終了時の処理を行うコルーチン
         /// </summary>
-        /// <param name="anim_ID"></param>
-        /// <param name="nextStep"></param>
-        /// <param name="control_Name"></param>
+        /// <param name="isSuccess"></param>
         /// <returns></returns>
-        private IEnumerator ReloadGunAnimCoroutine(int anim_ID,ReloadStep nextStep,string control_Name)
+        private IEnumerator FinishEventCoroutine(bool isSuccess)
         {
-            // ハンドガンをアニメーションする
-            _reloadMinigameUI_Manager.ReloadGunModel_Manager.ReloadModel_Amimator.SetTrigger(anim_ID);
-            // アニメーション時間だけ待機
-            yield return new WaitForSeconds(_reloadGunAnimTime);
-            // 次の状態へ
-            ProceedToNextStep(nextStep, control_Name);
+            // ドラッグフラグをオフ
+            _isDragging = false;
+            // ミニゲーム稼働中フラグをオフ
+            _isActive = false;
+            // ハンドガン側に成否を伝える
+            _onComplete?.Invoke(isSuccess);
+            // ミニゲームのUIを非表示
+            _reloadMinigameUI_Manager.Hide(true);
+            // ハンドガンを手元に寄せる演出再生
+            HandgunController.Instance.ReloadMotion(HandgunController.Handgun_Intro_Trigger_ID);
+            // 演出分待機
+            yield return new WaitForSeconds(_reloadGunEventAnimTime);
+            // ハンドガンのリロード中フラグをオフ
+            HandgunController.Instance.IsReloading = false;
+        }
+
+        /// <summary>
+        /// リロードの工程が成功したときの処理を行うコルーチン
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator ReloadCompleteCoroutine(int trigger_ID)
+        {
+            // 指定のリロードモーション演出再生
+            HandgunController.Instance.ReloadMotion(trigger_ID);
+            // 演出分待機
+            yield return new WaitForSeconds(_reloadGunEventAnimTime);
+            // ミニゲームクリア処理を呼び出し
+            Finish(true);
         }
     }
 }

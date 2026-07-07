@@ -5,7 +5,7 @@ namespace PESDISASTER
     /// <summary>
     /// ハンドガンのアニメーションイベントの受け皿クラス（エラー防止）
     /// </summary>
-    public class HandgunAnimControllerSaucer : MonoBehaviour
+    public class HandgunAnimSaucer : MonoBehaviour
     {
         /// <summary>
         /// アニメーションイベント'Shoot'の受け皿の関数

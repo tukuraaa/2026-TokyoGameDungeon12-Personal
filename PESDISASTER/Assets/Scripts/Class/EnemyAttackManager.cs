@@ -49,7 +49,7 @@ namespace PESDISASTER
                 // もしHealthManagerスクリプトがついている場合
                 if (player != null)
                 {
-                    playerNoticeUI_Manager.StartDamageNotice();// ダメージ通知のアニメーションを実行
+                    playerNoticeUI_Manager.NoticeDamage();// ダメージ通知のアニメーションを実行
                     player.TakeDamage(damage);
                 }
             }

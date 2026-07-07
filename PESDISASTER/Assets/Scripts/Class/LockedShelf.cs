@@ -80,7 +80,7 @@ namespace PESDISASTER
             // もし棚のドアが鍵がかかっている場合
             if (isLocked)
             {
-                playerNoticeUI_Manager.StartLocked();// ロック中なのを通知する
+                playerNoticeUI_Manager.NoticeLocked();// ロック中なのを通知する
 
                 // もし初めて調べた場合
                 if (isFirst)
@@ -138,7 +138,7 @@ namespace PESDISASTER
             playerController.enabled = false;// プレイヤーを操作させない
             isFirst = false;
             yield return new WaitForSeconds(noticeAnimTime);// 通知UIを表示する時間分待機
-            playerNoticeUI_Manager.StartOpenTutorial();// 棚の開け方チュートリアルを開始する
+            playerNoticeUI_Manager.NoticeOpenShelfTutorial();// 棚の開け方チュートリアルを開始する
             yield return new WaitForSeconds(tutorialAnimTime);
             playerController.enabled = true;// プレイヤーを操作できるようにする
         }

@@ -60,9 +60,9 @@ namespace PESDISASTER
         public GameObject impactEffectPrefab;
 
         /// <summary>
-        /// 銃のアニメーターを参照する変数
+        /// ハンドガンのアニメーターを参照する変数
         /// </summary>
-        public Animator gunAnimator;
+        public Animator HandgunAnimator;
 
         /// <summary>
         /// エイム時の銃の位置を参照する変数
@@ -74,9 +74,25 @@ namespace PESDISASTER
         private Vector3 _hipPosition;
 
         /// <summary>
+        /// ハンドガンのリロードイントロモーショントリガーIDを参照する変数
+        /// </summary>
+        public static readonly int Handgun_Intro_Trigger_ID = Animator.StringToHash("OnHandgun_Intro");
+        /// <summary>
+        /// ハンドガンのステージ1トリガーIDを参照する変数
+        /// </summary>
+        public static readonly int HandgunStage1_Trigger_ID = Animator.StringToHash("OnHandgunStage1");
+        /// <summary>
+        /// ハンドガンのリロードアウトロモーショントリガーIDを参照する変数
+        /// </summary>
+        public static readonly int HandgunOutroTrigger_ID = Animator.StringToHash("OnHandgunOutro");
+        /// <summary>
+        /// ハンドガンのステージ2トリガーIDを参照する変数
+        /// </summary>
+        public static readonly int HandgunStage2_Trigger_ID = Animator.StringToHash("OnHandgunStage2");
+        /// <summary>
         /// 射撃アニメーションのトリガー名を参照する変数
         /// </summary>
-        private static readonly int gunAnimatorTrigger = Animator.StringToHash("Fire");
+        private static readonly int _shootTrigger_ID = Animator.StringToHash("Fire");
         /// <summary>
         /// マガジンの最大装弾数を参照する変数
         /// </summary>
@@ -130,15 +146,15 @@ namespace PESDISASTER
         /// <summary>
         /// リロード中かどうかを参照する変数
         /// </summary>
-        private bool isReloading = false;
-        /// <summary>
-        /// エイム中かどうかを参照する変数
-        /// </summary>
-        private bool isAiming = false;
+        public bool IsReloading = false;
         /// <summary>
         /// 銃を装備しているかを参照する変数
         /// </summary>
         public bool isEquipped = false;
+        /// <summary>
+        /// エイム中かどうかを参照する変数
+        /// </summary>
+        private bool isAiming = false;
 
         /// <summary>
         /// 初期設定を行う関数
@@ -179,7 +195,7 @@ namespace PESDISASTER
         public void OnShoot(InputAction.CallbackContext context)
         {
             // もし銃が装備されていない、もしくはリロード中の場合、もしくはプレイヤーが動けない場合
-            if (!isEquipped || isReloading || PlayerController.Instance.IsSleeping)
+            if (!isEquipped || IsReloading || PlayerController.Instance.IsSleeping)
             {
                 return;
             }
@@ -200,7 +216,7 @@ namespace PESDISASTER
                     // 空マガジン用SEを再生
                     AudioManager.Instance.PlaySE("NonMagazine");
                     // 弾切れ通知アニメーションをする
-                    _playerNoticeUI.StartEmpty();
+                    _playerNoticeUI.NoticeEmpty();
                 }
             }
         }
@@ -211,7 +227,7 @@ namespace PESDISASTER
         public void OnReload(InputAction.CallbackContext context)
         {
             // もし銃が装備されていない、もしくはリロード中の場合、もしくはプレイヤーが動けない場合
-            if (!isEquipped || isReloading || PlayerController.Instance.IsSleeping)
+            if (!isEquipped || IsReloading || PlayerController.Instance.IsSleeping)
             {
                 return;
             }
@@ -222,17 +238,16 @@ namespace PESDISASTER
                 // ミニゲーム開始し、引数に「終わった後に実行する処理」を渡す
                 _reloadMinigameManager.StartMinigame((bool success) =>
                 {
-
                     // もしミニゲームが成功した場合
                     if (success)
                     {
-                        StartCoroutine(ReloadRoutine());// 成功時のみ実際のリロードを開始
+                        Reload();// 成功時のみ実際のリロードを開始
                     }
                     else
                     {
                         // 失敗時のガシャン！という音などをここで鳴らす
 
-                        _playerNoticeUI.StartFailed();// リロード失敗通知アニメーションを行う
+                        _playerNoticeUI.NoticeReloadFailed();// リロード失敗通知アニメーションを行う
                     }
                 });
             }
@@ -249,10 +264,10 @@ namespace PESDISASTER
             currentAmmo--;
 
             // もし銃のアニメーターが設定されている場合
-            if (gunAnimator != null)
+            if (HandgunAnimator != null)
             {
                 // 射撃アニメーションを再生する
-                gunAnimator.SetTrigger(gunAnimatorTrigger);
+                HandgunAnimator.SetTrigger(_shootTrigger_ID);
             }
 
             // もしエフェクトがついている場合
@@ -305,15 +320,11 @@ namespace PESDISASTER
         }
 
         /// <summary>
-        /// リロードのコルーチン
+        /// リロード処理を行うコルーチン
         /// </summary>
-        private IEnumerator ReloadRoutine()
+        private void Reload()
         {
-            isReloading = true;
-
             AudioManager.Instance.PlaySE("Reload");
-
-            yield return new WaitForSeconds(reloadTime);
 
             // リロード完了後の弾数の計算
             int ammoNeeded = maxClipAmmo - currentAmmo;// 補充すべき弾数を計算
@@ -323,9 +334,7 @@ namespace PESDISASTER
             currentAmmo += ammoToReload;// マガジン内の弾数を補充
             reserveAmmo -= ammoToReload;// 予備弾薬から補充した分を減らす
 
-            isReloading = false;
-
-            _playerNoticeUI.StartReload();// リロード完了通知アニメーションを行う
+            _playerNoticeUI.NoticeReloadComplete();// リロード完了通知アニメーションを行う
         }
 
         /// <summary>
@@ -371,8 +380,8 @@ namespace PESDISASTER
         /// <param name="context"></param>
         public void OnAim(InputAction.CallbackContext context)
         {
-            // もしプレイヤーが動けない場合
-            if (PlayerController.Instance.IsSleeping)
+            // もしプレイヤーが動けないか、リロード中の場合
+            if (PlayerController.Instance.IsSleeping||IsReloading)
             {
                 return;
             }
@@ -387,6 +396,16 @@ namespace PESDISASTER
             {
                 isAiming = false;
             }
+        }
+
+        /// <summary>
+        /// 指定のモーションを再生する関数
+        /// </summary>
+        /// <param name="trigger_ID"></param>
+        public void ReloadMotion(int trigger_ID)
+        {
+            // 指定のモーション再生
+            HandgunAnimator.SetTrigger(trigger_ID);
         }
     }
 }

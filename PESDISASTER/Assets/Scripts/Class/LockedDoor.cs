@@ -63,7 +63,7 @@ namespace PESDISASTER
             }
             else
             {
-                playerNoticeUI_Manager.StartLocked();// ロック中なのを通知する
+                playerNoticeUI_Manager.NoticeLocked();// ロック中なのを通知する
             }
         }
 

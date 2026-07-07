@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -50,33 +51,56 @@ namespace PESDISASTER
         private Image _prompt_Image;
 
         /// <summary>
-        /// リロードガンモデルの管理クラスを参照する変数
+        /// アニメーターを参照する変数
         /// </summary>
-      public ReloadGunModel_Manager ReloadGunModel_Manager;
+        private Animator _animator;
+
+        /// <summary>
+        /// リロードパネル表示演出トリガーを参照する変数
+        /// </summary>
+        private static readonly int _reloadStartTrigger_ID = Animator.StringToHash("OnReloadStart");
+        /// <summary>
+        /// リロードパネル表示演出トリガーを参照する変数
+        /// </summary>
+        private static readonly int _reloadEndTrigger_ID = Animator.StringToHash("OnReloadEnd");
+
+        /// <summary>
+        /// リロードUI非表示演出時間を参照する変数
+        /// </summary>
+        private float _reloadPanel_HideTime = 1;
 
         /// <summary>
         /// 初期設定を行う関数
         /// </summary>
         private void Start()
         {
+            // --- コンポーネントの登録 ---
+            _animator = GetComponent<Animator>();
+
             // UIを隠す
-            Hide();
+            Hide(false);
         }
 
         /// <summary>
         /// UIを非表示にする関数
         /// </summary>
-        public void Hide()
+        public void Hide(bool isAnim)
         {
+            // もしアニメーションフラグがオンの場合
+            if (isAnim)
+            {
+                // 非表示演出を行うコルーチンを呼び出し
+                StartCoroutine(HideAnimCoroutine());
+
+                return;
+            }
+
             // 子オブジェクトを全てチェック
             foreach (Transform _child in transform)
             {
                 // 子オブジェクトを非表示
                 _child.gameObject.SetActive(false);
             }
-
-            // リロードガンモデルのUIも非表示にする
-            ReloadGunModel_Manager.Hide();
         }
 
         /// <summary>
@@ -91,8 +115,8 @@ namespace PESDISASTER
                 _child.gameObject.SetActive(true);
             }
 
-            // リロードガンモデルのUIも表示する
-            ReloadGunModel_Manager.TargetShow(ReloadGunModel_Manager.Handgun);
+            // パネル表示演出再生
+            _animator.SetTrigger(_reloadStartTrigger_ID);
         }
 
         /// <summary>
@@ -138,6 +162,25 @@ namespace PESDISASTER
             {
                 // 追加のスケールを適用
                 _rectTransform.localScale = _data.ExtraScale;
+            }
+        }
+
+        /// <summary>
+        /// UIを非表示にする処理・演出を行うコルーチン
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator HideAnimCoroutine()
+        {
+            // 非表示演出を再生
+            _animator.SetTrigger(_reloadEndTrigger_ID);
+            // 演出時間分待機
+        yield return new WaitForSeconds(_reloadPanel_HideTime);
+
+            // 子オブジェクトを全てチェック
+            foreach (Transform _child in transform)
+            {
+                // 子オブジェクトを非表示
+                _child.gameObject.SetActive(false);
             }
         }
     }
