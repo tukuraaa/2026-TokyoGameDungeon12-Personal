@@ -545,6 +545,8 @@ namespace PESDISASTER
                     _currentSpeed = 0f;
                     // 歩いているかのフラグをオフ
                     _isWalking = false;
+                    // 歩く音を停止
+                    AudioManager.Instance.StopLoopSE("Walk");
 
                     break;
 
@@ -554,6 +556,8 @@ namespace PESDISASTER
                     _currentSpeed = _moveSpeed;
                     // 歩いているかのフラグをオン
                     _isWalking = true;
+                    // 歩く音を再生
+                    AudioManager.Instance.PlaySE("Walk");
 
                     break;
 
@@ -563,6 +567,8 @@ namespace PESDISASTER
                     _currentSpeed = 0f;
                     // 歩いているかのフラグをオフ
                     _isWalking = false;
+                    // 歩く音を停止
+                    AudioManager.Instance.StopLoopSE("Walk");
 
                     break;
             }
