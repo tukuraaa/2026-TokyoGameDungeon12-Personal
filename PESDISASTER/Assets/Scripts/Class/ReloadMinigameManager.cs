@@ -268,7 +268,7 @@ namespace PESDISASTER
                 if (_accumulatedDragDistance >= _dragDistanceThreshold)
                 {
                     // 全リロードステップ成功時の処理を行うコルーチンを呼び出し
-                    StartCoroutine(ReloadCompleteCoroutine(HandgunController.HandgunStage2_Trigger_ID));   
+                    StartCoroutine(ReloadCompleteCoroutine(HandgunController.HandgunStage2_Trigger_ID));
                 }
                 else
                 {
@@ -298,11 +298,24 @@ namespace PESDISASTER
         private bool IsAnyWrongInputPressed()
         {
             // --- 期待されている操作以外で何かしらのキーやクリックが押されたらtrueを返す ---
-            // もし関係のないキー（ESCを除く）が押された場合
-            if (Keyboard.current.anyKey.wasPressedThisFrame && !Keyboard.current.escapeKey.wasPressedThisFrame)
+            // もし何かしらのキーが押された場合
+            if (Keyboard.current.anyKey.wasPressedThisFrame)
             {
-                // 間違った操作をした
-                return true;
+                // 除外するキー（W, A, S, D, ESC）のいずれかが押された場合は、ここではエラーにしない
+                if (Keyboard.current.wKey.wasPressedThisFrame ||
+                    Keyboard.current.aKey.wasPressedThisFrame ||
+                    Keyboard.current.sKey.wasPressedThisFrame ||
+                    Keyboard.current.dKey.wasPressedThisFrame ||
+                    Keyboard.current.escapeKey.wasPressedThisFrame)
+                {
+                    // 間違った判定は行わない
+                    return false;
+                }
+                else
+                {
+                    // 除外キー以外の関係ないキーが押されたので、間違った操作として判定する
+                    return true;
+                }
             }
             // もし関係のないときにマウスの左クリックをした場合
             if (!_isCheckDragDown && Mouse.current.leftButton.wasPressedThisFrame)
@@ -334,7 +347,7 @@ namespace PESDISASTER
         private void Finish(bool isSuccess)
         {
             // 処理を行うコルーチンを呼び出し
-           StartCoroutine(FinishEventCoroutine(isSuccess));
+            StartCoroutine(FinishEventCoroutine(isSuccess));
         }
 
         /// <summary>

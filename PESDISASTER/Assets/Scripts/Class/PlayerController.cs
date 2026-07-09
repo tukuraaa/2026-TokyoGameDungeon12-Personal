@@ -365,8 +365,8 @@ namespace PESDISASTER
         /// <param name="context"></param>
         public void OnLook(InputAction.CallbackContext context)
         {
-            // もしプレイヤーが動ける場合
-            if (!IsSleeping)
+            // もしプレイヤーが動けるかつ銃をリロード中でない場合
+            if (!IsSleeping &&!HandgunControllerClass.IsReloading)
             {
                 // 視点移動の入力を取得
                 Look_Input = context.ReadValue<Vector2>();
@@ -379,8 +379,8 @@ namespace PESDISASTER
         /// <param name="context"></param>
         public void On_Interact(InputAction.CallbackContext context)
         {
-            // もしプレイヤーが動けるかつ、インタラクトの入力が開始された場合
-            if (context.performed && !IsSleeping)
+            // もしプレイヤーが動けるかつ、インタラクトの入力が開始され、銃をリロード中でない場合
+            if (context.performed && !IsSleeping && !HandgunControllerClass.IsReloading)
             {
                 // もしターゲット（アイテム）が存在する場合
                 if (_itemCurrentTarget != null)

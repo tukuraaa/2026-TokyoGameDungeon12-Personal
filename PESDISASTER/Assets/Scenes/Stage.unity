@@ -3820,6 +3820,11 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!95 &446240027 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3202042614940505918, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
+  m_PrefabInstance: {fileID: 5509929395866458618}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &455441925
 GameObject:
   m_ObjectHideFlags: 0
@@ -12475,6 +12480,10 @@ PrefabInstance:
       propertyPath: fpsCamera
       value: 
       objectReference: {fileID: 330585545}
+    - target: {fileID: 4728401525755234587, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
+      propertyPath: HandgunAnimator
+      value: 
+      objectReference: {fileID: 446240027}
     - target: {fileID: 4728401525755234587, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
       propertyPath: _playerNoticeUI
       value: 
