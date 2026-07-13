@@ -554,10 +554,16 @@ namespace PESDISASTER
 
                     // 現在の移動スピードに既定の移動スピードを代入
                     _currentSpeed = _moveSpeed;
-                    // 歩いているかのフラグをオン
-                    _isWalking = true;
-                    // 歩く音を再生
-                    AudioManager.Instance.PlaySE("Walk");
+
+                    // まだ歩いていない場合
+                    if (!_isWalking)
+                    {
+                        // 歩く音を再生
+                        AudioManager.Instance.PlaySE("Walk");
+
+                        // 歩いているかのフラグをオン
+                        _isWalking = true;
+                    }
 
                     break;
 
