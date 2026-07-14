@@ -95,6 +95,10 @@ namespace PESDISASTER
             _isFirstFrame = true;
             // ハンドガンのリロード中フラグをオン
             HandgunController.Instance.IsReloading = true;
+            // ハンドガンのエイムフラグをリセット
+            HandgunController.Instance.IsAiming = false;
+            // プレイヤーの視点移動の力をリセット
+            PlayerController.Instance.Look_Input = Vector2.zero;
 
             // 最初のステップを設定
             _currentStep = ReloadStep.RightClick;

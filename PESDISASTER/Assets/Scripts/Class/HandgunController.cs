@@ -154,7 +154,7 @@ namespace PESDISASTER
         /// <summary>
         /// エイム中かどうかを参照する変数
         /// </summary>
-        private bool isAiming = false;
+        public bool IsAiming = false;
 
         /// <summary>
         /// 初期設定を行う関数
@@ -352,7 +352,7 @@ namespace PESDISASTER
             float step = Time.deltaTime * aimSpeed;
 
             // ターゲットをaimTransformかhipTransformで切り替える
-            Transform target = isAiming ? aimTransform : hipTransform;
+            Transform target = IsAiming ? aimTransform : hipTransform;
 
             // もしターゲットが設定されている場合
             if (target != null)
@@ -368,7 +368,7 @@ namespace PESDISASTER
             if (fpsCamera != null)
             {
                 // 目標FOVを決定し参照する変数を定義
-                float targetFOV = isAiming ? aimFOV : normalFOV;
+                float targetFOV = IsAiming ? aimFOV : normalFOV;
                 // カメラのFOVをスムーズに変化させる
                 fpsCamera.fieldOfView = Mathf.Lerp(fpsCamera.fieldOfView, targetFOV, step);
             }
@@ -389,12 +389,12 @@ namespace PESDISASTER
             // もし銃装備中にボタンが押された場合
             if (context.performed && isEquipped)
             {
-                isAiming = true;
+                IsAiming = true;
             }
             // もし銃装備中にボタンが離された場合
             else if (context.canceled && isEquipped)
             {
-                isAiming = false;
+                IsAiming = false;
             }
         }
 
