@@ -3820,11 +3820,6 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!95 &446240027 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 3202042614940505918, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
-  m_PrefabInstance: {fileID: 5509929395866458618}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &455441925
 GameObject:
   m_ObjectHideFlags: 0
@@ -5997,11 +5992,6 @@ Transform:
 --- !u!4 &852222621 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6738276442426998138, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
-  m_PrefabInstance: {fileID: 5509929395866458618}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &868858469 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 873744830679309344, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
   m_PrefabInstance: {fileID: 5509929395866458618}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &871258445
@@ -10156,11 +10146,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 64925905}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!198 &1803859652 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 873705742319818574, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
-  m_PrefabInstance: {fileID: 5509929395866458618}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1805510984
 GameObject:
   m_ObjectHideFlags: 0
@@ -12325,6 +12310,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c083597835bf2094ba8f03ff55861999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.HandgunController
+--- !u!114 &3678019125913440573 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1771470485187948992, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
+  m_PrefabInstance: {fileID: 5509929395866458618}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c2bf9c2f50b5d747b8ab1ab6b619047, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.PickupItem
 --- !u!1001 &4436576389393910145
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12481,21 +12477,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 330585545}
     - target: {fileID: 4728401525755234587, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
-      propertyPath: HandgunAnimator
+      propertyPath: _itemManager
       value: 
-      objectReference: {fileID: 446240027}
+      objectReference: {fileID: 3678019125913440573}
     - target: {fileID: 4728401525755234587, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
       propertyPath: _playerNoticeUI
       value: 
       objectReference: {fileID: 230252869}
-    - target: {fileID: 4728401525755234587, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
-      propertyPath: _muzzleFlashChild
-      value: 
-      objectReference: {fileID: 868858469}
-    - target: {fileID: 4728401525755234587, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
-      propertyPath: _muzzleFlashParent
-      value: 
-      objectReference: {fileID: 1803859652}
     - target: {fileID: 4728401525755234587, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
       propertyPath: _reloadMinigameManager
       value: 

@@ -108,7 +108,7 @@ namespace PESDISASTER
             _reloadMinigameUI_Manager.Show();
 
             // ハンドガンを手元に寄せる演出再生
-            HandgunController.Instance.ReloadMotion(HandgunController.Handgun_Intro_Trigger_ID);
+            HandgunController.Instance.ReloadMotion(HandgunController.Handgun_IntroTrigger_ID);
         }
 
         /// <summary>
@@ -151,14 +151,14 @@ namespace PESDISASTER
                 case ReloadStep.PressT:
 
                     // 入力判定を開始
-                    CheckKeyInput(Keyboard.current.tKey, ReloadStep.PressR, "PressR", HandgunController.HandgunStage2_Trigger_ID);
+                    CheckKeyInput(Keyboard.current.tKey,null,  ReloadStep.PressR, "PressR" , HandgunController.HandgunStage2_Trigger_ID);
 
                     break;
 
                 case ReloadStep.PressR:
 
                     // 入力判定を開始
-                    CheckKeyInput(Keyboard.current.rKey, ReloadStep.DragDown, "DragDown", HandgunController.HandgunStage2_Trigger_ID);
+                    CheckKeyInput(Keyboard.current.rKey,HandgunController.Instance.Full_MagazineModel, ReloadStep.DragDown, "DragDown", HandgunController.HandgunStage2_Trigger_ID);
 
                     break;
 
@@ -202,22 +202,21 @@ namespace PESDISASTER
         /// 特定のキー入力の判定をする関数
         /// </summary>
         /// <param name="targetKey"></param>
+        /// <param name="addMagazineModel"></param>
         /// <param name="nextStep"></param>
         /// <param name="control_Name"></param>
         /// <param name="trigger_ID"></param>
-        private void CheckKeyInput(UnityEngine.InputSystem.Controls.KeyControl targetKey, ReloadStep nextStep, string control_Name, int trigger_ID)
+        private void CheckKeyInput(UnityEngine.InputSystem.Controls.KeyControl targetKey, GameObject addMagazineModel, ReloadStep nextStep, string control_Name, int trigger_ID)
         {
             // もし指定のキーを入力した場合
             if (targetKey.wasPressedThisFrame)
             {
-                // もしTキーが押された場合
-                if (targetKey == Keyboard.current.tKey)
-                {
+                    // 指定のマガジンモデルを変更
+                    HandgunController.Instance.ChangeMagazine(addMagazineModel,"Hold_Item");
                     // ハンドガンのリロードモーションを再生
                     HandgunController.Instance.ReloadMotion(trigger_ID);
                     // 次の状態へ
                     ProceedToNextStep(nextStep, control_Name);
-                }
             }
             // 他の入力をした場合
             else if (IsAnyWrongInputPressed())
@@ -370,7 +369,7 @@ namespace PESDISASTER
             // ミニゲームのUIを非表示
             _reloadMinigameUI_Manager.Hide(true);
             // ハンドガンを手元に寄せる演出再生
-            HandgunController.Instance.ReloadMotion(HandgunController.Handgun_Intro_Trigger_ID);
+            HandgunController.Instance.ReloadMotion(HandgunController.HandgunOutroTrigger_ID);
             // 演出分待機
             yield return new WaitForSeconds(_reloadGunEventAnimTime);
             // ハンドガンのリロード中フラグをオフ

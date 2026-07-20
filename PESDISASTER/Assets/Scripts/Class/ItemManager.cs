@@ -157,7 +157,7 @@ namespace PESDISASTER
         /// <summary>
         /// 子オブジェクトを含めて再帰的にレイヤーを変更する関数
         /// </summary>
-        private void SetLayerRecursively(GameObject targetObject, int newLayer)
+        public void SetLayerRecursively(GameObject targetObject, int newLayer)
         {
             // 指定オブジェクトのレイヤーに新しくレイヤーを生成
             targetObject.layer = newLayer;

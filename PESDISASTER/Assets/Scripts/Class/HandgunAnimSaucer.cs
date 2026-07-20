@@ -3,7 +3,7 @@ using UnityEngine;
 namespace PESDISASTER
 {
     /// <summary>
-    /// ハンドガンのアニメーションイベントの受け皿クラス（エラー防止）
+    /// ハンドガンのアニメーションイベントの受け皿クラス（アセット設定のエラー防止）
     /// </summary>
     public class HandgunAnimSaucer : MonoBehaviour
     {

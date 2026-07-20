@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +18,11 @@ namespace PESDISASTER
         /// </summary>
         [SerializeField]
         private PlayerNoticeUI_Manager _playerNoticeUI;
+        /// <summary>
+        /// アイテムを管理するクラスを参照する変数
+        /// </summary>
+        [SerializeField]
+        private ItemManager _itemManager;
 
         /// <summary>
         /// マズルフラッシュの親パーティクルシステムを参照する変数
@@ -30,6 +34,12 @@ namespace PESDISASTER
         /// </summary>
         [SerializeField]
         private ParticleSystem _muzzleFlashChild;
+
+        /// <summary>
+        /// 銃モデルにつけるマガジンの位置を参照する変数
+        /// </summary>
+        [SerializeField]
+        private Transform _magazineTransform;
 
         /// <summary>
         /// ハンドガンコントローラーのインスタンスを参照する変数
@@ -58,6 +68,18 @@ namespace PESDISASTER
         /// 着弾時の火花や弾痕のプレハブを参照する変数
         /// </summary>
         public GameObject impactEffectPrefab;
+        /// <summary>
+        /// 空のマガジンモデルを参照する変数
+        /// </summary>
+        public GameObject EmptyMagazineModel;
+        /// <summary>
+        /// 満タンのマガジンモデルを参照する変数
+        /// </summary>
+        public GameObject Full_MagazineModel;
+        /// <summary>
+        /// 現在のマガジンモデルを参照する変数
+        /// </summary>
+        private GameObject _currentMagazineModel = null;
 
         /// <summary>
         /// ハンドガンのアニメーターを参照する変数
@@ -76,7 +98,7 @@ namespace PESDISASTER
         /// <summary>
         /// ハンドガンのリロードイントロモーショントリガーIDを参照する変数
         /// </summary>
-        public static readonly int Handgun_Intro_Trigger_ID = Animator.StringToHash("OnHandgun_Intro");
+        public static readonly int Handgun_IntroTrigger_ID = Animator.StringToHash("OnHandgun_Intro");
         /// <summary>
         /// ハンドガンのステージ1トリガーIDを参照する変数
         /// </summary>
@@ -89,6 +111,14 @@ namespace PESDISASTER
         /// ハンドガンのステージ2トリガーIDを参照する変数
         /// </summary>
         public static readonly int HandgunStage2_Trigger_ID = Animator.StringToHash("OnHandgunStage2");
+        /// <summary>
+        /// ハンドガンのステージ3トリガーIDを参照する変数
+        /// </summary>
+        public static readonly int HandgunStage3_Trigger_ID = Animator.StringToHash("OnHandgunStage3");
+        /// <summary>
+        /// ハンドガンのステージ4トリガーIDを参照する変数
+        /// </summary>
+        public static readonly int HandgunStage4_Trigger_ID = Animator.StringToHash("OnHandgunStage4");
         /// <summary>
         /// 射撃アニメーションのトリガー名を参照する変数
         /// </summary>
@@ -171,13 +201,18 @@ namespace PESDISASTER
                 Destroy(gameObject);
             }
 
-            _hipPosition = transform.localPosition;// ゲーム開始時の銃の位置を「通常時の位置」として記憶しておく
+            // ゲーム開始時の銃の位置を「通常時の位置」として記憶しておく
+            _hipPosition = transform.localPosition;
 
             // もしカメラが設定されている場合
             if (fpsCamera != null)
             {
-                fpsCamera.fieldOfView = normalFOV;// カメラの初期FOVを設定
+                // カメラの初期FOVを設定
+                fpsCamera.fieldOfView = normalFOV;
             }
+
+            // 満タンのマガジンモデルを銃モデルに生成
+            ChangeMagazine(Full_MagazineModel,null);
         }
 
         /// <summary>
@@ -258,30 +293,25 @@ namespace PESDISASTER
         /// </summary>
         public void Shoot()
         {
-            // 射撃SEを再生
-            AudioManager.Instance.PlaySE("Shoot");
+            // --- 射撃演出を行う ---
             // マガジン内の弾数を1減らす
             currentAmmo--;
+            // 射撃SEを再生
+            AudioManager.Instance.PlaySE("Shoot");
+            // 射撃アニメーションを再生する
+            HandgunAnimator.SetTrigger(_shootTrigger_ID);
+            // --- マズルフラッシュの親エフェクトが光る ---
+            _muzzleFlashParent.Stop();
+            _muzzleFlashParent.Play();
+            // --- マズルフラッシュの子エフェクトが光る ---
+            _muzzleFlashChild.Stop();
+            _muzzleFlashChild.Play();
+            // マガジンモデルを変更
+            ChangeMagazine(EmptyMagazineModel,"Hold_Item");
+            // プレイヤーのリコイル画面揺れを起こす
+            PlayerController.Instance.AddCameraRecoil(8.0f, 2.0f);
 
-            // もし銃のアニメーターが設定されている場合
-            if (HandgunAnimator != null)
-            {
-                // 射撃アニメーションを再生する
-                HandgunAnimator.SetTrigger(_shootTrigger_ID);
-            }
-
-            // もしエフェクトがついている場合
-            if (_muzzleFlashChild != null && _muzzleFlashParent != null)
-            {
-                // マズルフラッシュの親エフェクトが光る
-                _muzzleFlashParent.Stop();
-                _muzzleFlashParent.Play();
-
-                // マズルフラッシュの子エフェクトが光る
-                _muzzleFlashChild.Stop();
-                _muzzleFlashChild.Play();
-            }
-
+            // --- レイを発射 ---
             // 画面中央からRayを飛ばして当たり判定を行い参照する変数を定義
             Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             // Rayが何かに当たった情報を格納する変数を定義
@@ -314,9 +344,6 @@ namespace PESDISASTER
                     Destroy(impactGO, impactEffectDestroyLimit);// 指定秒後に消去
                 }
             }
-
-            // プレイヤーのリコイル画面揺れを起こす
-            PlayerController.Instance.AddCameraRecoil(8.0f, 2.0f);
         }
 
         /// <summary>
@@ -381,7 +408,7 @@ namespace PESDISASTER
         public void OnAim(InputAction.CallbackContext context)
         {
             // もしプレイヤーが動けないか、リロード中の場合
-            if (PlayerController.Instance.IsSleeping||IsReloading)
+            if (PlayerController.Instance.IsSleeping || IsReloading)
             {
                 return;
             }
@@ -406,6 +433,44 @@ namespace PESDISASTER
         {
             // 指定のモーション再生
             HandgunAnimator.SetTrigger(trigger_ID);
+        }
+
+        /// <summary>
+        /// マガジンモデルを変更する関数
+        /// </summary>
+        /// <param name="addMagazineModel"></param>
+        /// <param name="layerName"></param>
+        public void ChangeMagazine(GameObject addMagazineModel,string layerName)
+        {
+            // 指定の追加用マガジンが空の場合
+            if (addMagazineModel == null)
+            {
+                return;
+            }
+
+            // すでにシーンに存在する古いマガジンを削除する
+            if (_currentMagazineModel != null)
+            {
+                Destroy(_currentMagazineModel);
+            }
+
+            // --- 銃のマガジンモデルを変更する ---
+            // マガジンモデル自体を生成し、現在のマガジン変数に設定
+            _currentMagazineModel = Instantiate(addMagazineModel);
+            // マガジンモデルを銃モデル内マガジン座標の子にする
+           _currentMagazineModel.transform.SetParent(_magazineTransform);
+            // もしレイヤー名が指定されているなら
+            if (layerName != null)
+            {
+                // 入手アイテムレイヤーをint型に変換
+                int targetLayer = LayerMask.NameToLayer(layerName);
+                // マガジンのレイヤーを変更
+                _itemManager.SetLayerRecursively(_currentMagazineModel, targetLayer);
+            }
+            // マガジンのローカル座標をゼロに設定
+            _currentMagazineModel.transform.localPosition = Vector3.zero;
+            // マガジンのサイズを標準に設定
+            _currentMagazineModel.transform.localScale = Vector3.one;
         }
     }
 }

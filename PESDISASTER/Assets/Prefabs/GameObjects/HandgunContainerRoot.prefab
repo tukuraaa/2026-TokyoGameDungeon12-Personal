@@ -129,6 +129,30 @@ PrefabInstance:
       propertyPath: hipTransform
       value: 
       objectReference: {fileID: 1084718948654326004}
+    - target: {fileID: 3860266587416488999, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
+      propertyPath: HandgunAnimator
+      value: 
+      objectReference: {fileID: 7090881636068141825}
+    - target: {fileID: 3860266587416488999, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
+      propertyPath: _muzzleFlashChild
+      value: 
+      objectReference: {fileID: 873744830679309344}
+    - target: {fileID: 3860266587416488999, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
+      propertyPath: EmptyMagazineModel
+      value: 
+      objectReference: {fileID: 4744447604845139864, guid: 1630d9b67160caa44aad0385aa9bf476, type: 3}
+    - target: {fileID: 3860266587416488999, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
+      propertyPath: Full_MagazineModel
+      value: 
+      objectReference: {fileID: 8107577268597085419, guid: 3891d67bd4812e34db02888d6b7ae428, type: 3}
+    - target: {fileID: 3860266587416488999, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
+      propertyPath: _magazineTransform
+      value: 
+      objectReference: {fileID: 7172923723425277406}
+    - target: {fileID: 3860266587416488999, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
+      propertyPath: _muzzleFlashParent
+      value: 
+      objectReference: {fileID: 873705742319818574}
     - target: {fileID: 4226277991825552129, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.12
@@ -213,13 +237,64 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6828584106548784898, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6678433962658069027, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
+    - {fileID: 6368992484109562370, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4231808364626266739, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7090881636068141825}
   m_SourcePrefab: {fileID: 100100000, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
+--- !u!198 &873705742319818574 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8659510170918564466, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
+  m_PrefabInstance: {fileID: 8362274252175091004}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &873744830679309344 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8659558330541537564, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
+  m_PrefabInstance: {fileID: 8362274252175091004}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5668348928926062141 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4226277991825552129, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
+  m_PrefabInstance: {fileID: 8362274252175091004}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5671900455582166863 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4231808364626266739, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
+  m_PrefabInstance: {fileID: 8362274252175091004}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7090881636068141825
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5671900455582166863}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 03d1fe4e93c9d4445b3a611df2ee5713, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!4 &7172923723425277406 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1695495583100748002, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
   m_PrefabInstance: {fileID: 8362274252175091004}
   m_PrefabAsset: {fileID: 0}
