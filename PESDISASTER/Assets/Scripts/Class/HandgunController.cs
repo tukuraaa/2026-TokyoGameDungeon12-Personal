@@ -469,6 +469,8 @@ namespace PESDISASTER
             }
             // マガジンのローカル座標をゼロに設定
             _currentMagazineModel.transform.localPosition = Vector3.zero;
+            // マガジンの回転値をリセット
+            _currentMagazineModel.transform.localRotation = Quaternion.identity;
             // マガジンのサイズを標準に設定
             _currentMagazineModel.transform.localScale = Vector3.one;
         }

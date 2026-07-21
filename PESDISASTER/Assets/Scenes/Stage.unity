@@ -12310,17 +12310,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c083597835bf2094ba8f03ff55861999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.HandgunController
---- !u!114 &3678019125913440573 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1771470485187948992, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
-  m_PrefabInstance: {fileID: 5509929395866458618}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c2bf9c2f50b5d747b8ab1ab6b619047, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.PickupItem
 --- !u!1001 &4436576389393910145
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12477,10 +12466,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 330585545}
     - target: {fileID: 4728401525755234587, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
-      propertyPath: _itemManager
-      value: 
-      objectReference: {fileID: 3678019125913440573}
-    - target: {fileID: 4728401525755234587, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
       propertyPath: _playerNoticeUI
       value: 
       objectReference: {fileID: 230252869}
@@ -12531,6 +12516,18 @@ PrefabInstance:
     - target: {fileID: 6738276442426998138, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172923723425277406, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99691737
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172923723425277406, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.078459114
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172923723425277406, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
