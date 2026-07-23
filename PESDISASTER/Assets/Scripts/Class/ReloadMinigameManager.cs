@@ -158,7 +158,7 @@ namespace PESDISASTER
                 case ReloadStep.PressR:
 
                     // 入力判定を開始
-                    CheckKeyInput(Keyboard.current.rKey,HandgunController.Instance.Full_MagazineModel, ReloadStep.DragDown, "DragDown", HandgunController.HandgunStage2_Trigger_ID);
+                    CheckKeyInput(Keyboard.current.rKey,HandgunController.Instance.Full_MagazineModel, ReloadStep.DragDown, "DragDown", HandgunController.HandgunStage3_Trigger_ID);
 
                     break;
 
