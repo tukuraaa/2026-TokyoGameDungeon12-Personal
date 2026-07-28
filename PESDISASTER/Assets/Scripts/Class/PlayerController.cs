@@ -131,7 +131,7 @@ namespace PESDISASTER
         /// <summary>
         /// ターゲットとなるインタラクト可能なオブジェクト（棚）を参照するための変数
         /// </summary>
-        private Shelf_Interactable _shelf_CurrentTarget;
+        private Shelf_Interactable _shelfCurrentTarget;
         /// <summary>
         /// Rayが当たったオブジェクト（棚）を参照する変数
         /// </summary>
@@ -139,11 +139,19 @@ namespace PESDISASTER
         /// <summary>
         /// ターゲットとなるインタラクト可能なオブジェクト（ドア）を参照するための変数
         /// </summary>
-        private Door_Interactable _door_CurrentTarget;
+        private Door_Interactable _doorCurrentTarget;
         /// <summary>
         /// Rayが当たったオブジェクト（ドア）を参照する変数
         /// </summary>
         private Door_Interactable _door_Interactable;
+        /// <summary>
+        /// ターゲットとなるインタラクト可能なオブジェクト（メモ）を参照するための変数
+        /// </summary>
+        private Paper_Interactable _paperCurrentTarget;
+        /// <summary>
+        /// Rayが当たったオブジェクト（メモ）を参照する変数
+        /// </summary>
+        private Paper_Interactable _paper_Interactable;
 
         /// <summary>
         /// レイヤーマスクを使用して、インタラクト可能なオブジェクトを特定するための変数
@@ -268,6 +276,10 @@ namespace PESDISASTER
         /// ターゲットとなるインタラクト可能オブジェクト種（ドア）の名前を参照する変数
         /// </summary>
         private string _targetDoorName = "Door";
+        /// <summary>
+        /// ターゲットとなるインタラクト可能オブジェクト種（メモ）の名前を参照する変数
+        /// </summary>
+        private string _targetPaperName = "Paper";
 
         /// <summary>
         /// モーション状態定義の列挙型
@@ -366,7 +378,7 @@ namespace PESDISASTER
         public void OnLook(InputAction.CallbackContext context)
         {
             // もしプレイヤーが動けるかつ銃をリロード中でない場合
-            if (!IsSleeping &&!HandgunControllerClass.IsReloading)
+            if (!IsSleeping && !HandgunControllerClass.IsReloading)
             {
                 // 視点移動の入力を取得
                 Look_Input = context.ReadValue<Vector2>();
@@ -393,20 +405,30 @@ namespace PESDISASTER
                     return;
                 }
                 // もしターゲット（棚）が存在する場合
-                else if (_shelf_CurrentTarget != null)
+                else if (_shelfCurrentTarget != null)
                 {
                     // 棚を開ける処理
-                    _shelf_CurrentTarget.OpenShelf();
+                    _shelfCurrentTarget.OpenShelf();
                     // インタラクトUIを非表示にする
                     PlayerControllerUI_ManagerClass.TargetHide(_interactControl_Icon);
-                    
+
                     return;
                 }
                 // もしターゲット（ドア）が存在する場合
-                else if (_door_CurrentTarget != null)
+                else if (_doorCurrentTarget != null)
                 {
                     // ドアを開ける処理
-                    _door_CurrentTarget.Interact();
+                    _doorCurrentTarget.Interact();
+                    // インタラクトUIを非表示にする
+                    PlayerControllerUI_ManagerClass.TargetHide(_interactControl_Icon);
+
+                    return;
+                }
+                // もしターゲット（メモ）が存在する場合
+                else if (_paperCurrentTarget != null)
+                {
+                    // メモを表示する処理
+                    _paperCurrentTarget.Interact();
                     // インタラクトUIを非表示にする
                     PlayerControllerUI_ManagerClass.TargetHide(_interactControl_Icon);
 
@@ -446,7 +468,7 @@ namespace PESDISASTER
         /// <summary>
         /// インタラクト可能なオブジェクトを検出する関数
         /// </summary>
-        private void CheckForI_Interactable(string targetName)
+        private void CheckFor_Interactable(string targetName)
         {
             // もしRayがインタラクト可能なオブジェクトに当たった場合
             if (Physics.Raycast(_ray, out _hit, _interactRange, InteractableLayer))
@@ -469,6 +491,12 @@ namespace PESDISASTER
                     // Rayが当たったオブジェクトの親オブジェクトにD_Interactableコンポーネントがあるか確認するため登録
                     _door_Interactable = _hit.collider.GetComponentInParent<Door_Interactable>();
                 }
+                // もしターゲットの名前がメモと一致する場合
+                else if (targetName == _targetPaperName)
+                {
+                    // Rayが当たったオブジェクトの親オブジェクトにD_Interactableコンポーネントがあるか確認するため登録
+                    _paper_Interactable = _hit.collider.GetComponentInParent<Paper_Interactable>();
+                }
 
                 // もしIInteractableコンポーネントがある場合
                 if (_item_Interactable != null)
@@ -484,7 +512,7 @@ namespace PESDISASTER
                 else if (_shelf_Interactable != null)
                 {
                     // ターゲットを更新
-                    _shelf_CurrentTarget = _shelf_Interactable;
+                    _shelfCurrentTarget = _shelf_Interactable;
                     // インタラクトUIを表示
                     PlayerControllerUI_ManagerClass.TargetShow(_interactControl_Icon);
 
@@ -494,7 +522,17 @@ namespace PESDISASTER
                 else if (_door_Interactable != null)
                 {
                     // ターゲットを更新
-                    _door_CurrentTarget = _door_Interactable;
+                    _doorCurrentTarget = _door_Interactable;
+                    // インタラクトUIを表示
+                    PlayerControllerUI_ManagerClass.TargetShow(_interactControl_Icon);
+
+                    return;
+                }
+                // もしDInteractableコンポーネントがある場合
+                else if (_paper_Interactable != null)
+                {
+                    // ターゲットを更新
+                    _paperCurrentTarget = _paper_Interactable;
                     // インタラクトUIを表示
                     PlayerControllerUI_ManagerClass.TargetShow(_interactControl_Icon);
 
@@ -504,8 +542,9 @@ namespace PESDISASTER
 
             // --- ターゲットをリセット ---
             _itemCurrentTarget = null;
-            _shelf_CurrentTarget = null;
-            _door_CurrentTarget = null;
+            _shelfCurrentTarget = null;
+            _doorCurrentTarget = null;
+            _paperCurrentTarget = null;
 
             // インタラクトUIを非表示にする
             PlayerControllerUI_ManagerClass.TargetHide(_interactControl_Icon);
@@ -692,11 +731,13 @@ namespace PESDISASTER
         {
             // --- インタラクト可能なオブジェクトを検出する ---
             // インタラクト可能なオブジェクト（アイテム）を検出する関数を呼び出す
-            CheckForI_Interactable(_target_ItemName);
+            CheckFor_Interactable(_target_ItemName);
             // インタラクト可能なオブジェクト（棚）を検出する関数を呼び出す
-            CheckForI_Interactable(_targetShelfName);
+            CheckFor_Interactable(_targetShelfName);
             // インタラクト可能なオブジェクト（ドア）を検出する関数を呼び出す
-            CheckForI_Interactable(_targetDoorName);
+            CheckFor_Interactable(_targetDoorName);
+            // インタラクト可能なオブジェクト（ドア）を検出する関数を呼び出す
+            CheckFor_Interactable(_targetPaperName);
         }
 
         /// <summary>
@@ -707,7 +748,7 @@ namespace PESDISASTER
         public void AddCameraRecoil(float recoil_X, float recoil_Y)
         {
             // 上方向(X)と、左右のランダムなブレ(Y)をターゲットに加算
-            _targetCameraRecoil += new Vector2(recoil_X,Random.Range(-recoil_Y, recoil_Y));
+            _targetCameraRecoil += new Vector2(recoil_X, Random.Range(-recoil_Y, recoil_Y));
         }
     }
 }

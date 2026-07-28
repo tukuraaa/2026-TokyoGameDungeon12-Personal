@@ -351,8 +351,6 @@ namespace PESDISASTER
         /// </summary>
         private void Reload()
         {
-            AudioManager.Instance.PlaySE("Reload");
-
             // リロード完了後の弾数の計算
             int ammoNeeded = maxClipAmmo - currentAmmo;// 補充すべき弾数を計算
             int ammoToReload = Mathf.Min(ammoNeeded, reserveAmmo);// 予備弾薬が足りない場合は、持っている分だけ補充
@@ -429,9 +427,16 @@ namespace PESDISASTER
         /// 指定のモーションを再生する関数
         /// </summary>
         /// <param name="trigger_ID"></param>
-        public void ReloadMotion(int trigger_ID)
+        public void ReloadMotion(int trigger_ID,string sE_Name)
         {
-            // 指定のモーション再生
+            // もしSE名が記述されている場合
+            if (sE_Name != null)
+            {
+                // リロードモーション時、指定のSEを再生
+                AudioManager.Instance.PlaySE(sE_Name);
+            }
+
+                // 指定のモーション再生
             HandgunAnimator.SetTrigger(trigger_ID);
         }
 

@@ -55,7 +55,7 @@ namespace PESDISASTER
         /// <summary>
         /// 銃を普段の手元位置に戻す演出時間を参照する変数
         /// </summary>
-        private float _reloadGunEventAnimTime = 1f;
+        private float _reloadGunEventAnimTime = 1.1f;
 
         /// <summary>
         /// リロードのステップを管理する列挙型
@@ -108,7 +108,7 @@ namespace PESDISASTER
             _reloadMinigameUI_Manager.Show();
 
             // ハンドガンを手元に寄せる演出再生
-            HandgunController.Instance.ReloadMotion(HandgunController.Handgun_IntroTrigger_ID);
+            HandgunController.Instance.ReloadMotion(HandgunController.Handgun_IntroTrigger_ID, null);
         }
 
         /// <summary>
@@ -151,14 +151,14 @@ namespace PESDISASTER
                 case ReloadStep.PressT:
 
                     // 入力判定を開始
-                    CheckKeyInput(Keyboard.current.tKey,null,  ReloadStep.PressR, "PressR" , HandgunController.HandgunStage2_Trigger_ID);
+                    CheckKeyInput(Keyboard.current.tKey, null, ReloadStep.PressR, "PressR", HandgunController.HandgunStage2_Trigger_ID);
 
                     break;
 
                 case ReloadStep.PressR:
 
                     // 入力判定を開始
-                    CheckKeyInput(Keyboard.current.rKey,HandgunController.Instance.Full_MagazineModel, ReloadStep.DragDown, "DragDown", HandgunController.HandgunStage3_Trigger_ID);
+                    CheckKeyInput(Keyboard.current.rKey, HandgunController.Instance.Full_MagazineModel, ReloadStep.DragDown, "DragDown", HandgunController.HandgunStage3_Trigger_ID);
 
                     break;
 
@@ -183,7 +183,7 @@ namespace PESDISASTER
             if (Mouse.current.rightButton.wasPressedThisFrame)
             {
                 // ハンドガンのリロードモーションを再生
-                HandgunController.Instance.ReloadMotion(HandgunController.HandgunStage1_Trigger_ID);
+                HandgunController.Instance.ReloadMotion(HandgunController.HandgunStage1_Trigger_ID, "Reload");
                 // 次の状態へ
                 ProceedToNextStep(ReloadStep.PressT, "PressT");
             }
@@ -211,12 +211,12 @@ namespace PESDISASTER
             // もし指定のキーを入力した場合
             if (targetKey.wasPressedThisFrame)
             {
-                    // 指定のマガジンモデルを変更
-                    HandgunController.Instance.ChangeMagazine(addMagazineModel,"Hold_Item");
-                    // ハンドガンのリロードモーションを再生
-                    HandgunController.Instance.ReloadMotion(trigger_ID);
-                    // 次の状態へ
-                    ProceedToNextStep(nextStep, control_Name);
+                // 指定のマガジンモデルを変更
+                HandgunController.Instance.ChangeMagazine(addMagazineModel, "Hold_Item");
+                // ハンドガンのリロードモーションを再生
+                HandgunController.Instance.ReloadMotion(trigger_ID, "Reload");
+                // 次の状態へ
+                ProceedToNextStep(nextStep, control_Name);
             }
             // 他の入力をした場合
             else if (IsAnyWrongInputPressed())
@@ -271,7 +271,7 @@ namespace PESDISASTER
                 if (_accumulatedDragDistance >= _dragDistanceThreshold)
                 {
                     // 全リロードステップ成功時の処理を行うコルーチンを呼び出し
-                    StartCoroutine(ReloadCompleteCoroutine(HandgunController.HandgunStage2_Trigger_ID));
+                    StartCoroutine(ReloadCompleteCoroutine(HandgunController.HandgunStage4_Trigger_ID));
                 }
                 else
                 {
@@ -369,7 +369,7 @@ namespace PESDISASTER
             // ミニゲームのUIを非表示
             _reloadMinigameUI_Manager.Hide(true);
             // ハンドガンを手元に寄せる演出再生
-            HandgunController.Instance.ReloadMotion(HandgunController.HandgunOutroTrigger_ID);
+            HandgunController.Instance.ReloadMotion(HandgunController.HandgunOutroTrigger_ID, "Reload");
             // 演出分待機
             yield return new WaitForSeconds(_reloadGunEventAnimTime);
             // ハンドガンのリロード中フラグをオフ
@@ -383,7 +383,7 @@ namespace PESDISASTER
         private IEnumerator ReloadCompleteCoroutine(int trigger_ID)
         {
             // 指定のリロードモーション演出再生
-            HandgunController.Instance.ReloadMotion(trigger_ID);
+            HandgunController.Instance.ReloadMotion(trigger_ID, "Reload");
             // 演出分待機
             yield return new WaitForSeconds(_reloadGunEventAnimTime);
             // ミニゲームクリア処理を呼び出し

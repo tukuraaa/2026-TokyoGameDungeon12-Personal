@@ -3,11 +3,11 @@ namespace PESDISASTER
     /// <summary>
     /// インタラクト可能なオブジェクトが実装するインターフェース
     /// </summary>
-    public interface Item_Interactable
+    public interface Paper_Interactable
     {
         /// <summary>
-        /// インタラクトしたときの処理を行う関数
+        /// プレイヤーがメモにアクセスした時に呼ばれる関数
         /// </summary>
-        public void Pickup(string itemName);
+        public void Interact();
     }
 }

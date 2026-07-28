@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace PESDISASTER
@@ -20,6 +19,14 @@ namespace PESDISASTER
                 // 攻略ナビを表示
                 PlayerNoticeUI_Manager.Instance.NoticeNavigate();
             }
+        }
+
+        /// <summary>
+        /// バリアを削除する関数
+        /// </summary>
+        public void DestroyBarrier()
+        {
+            Destroy(gameObject);
         }
     }
 }
