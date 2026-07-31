@@ -55,7 +55,11 @@ namespace PESDISASTER
         /// <summary>
         /// 銃を普段の手元位置に戻す演出時間を参照する変数
         /// </summary>
-        private float _reloadGunEventAnimTime = 1.1f;
+        private float _reloadGunEventAnimTime = 0.2f;
+        /// <summary>
+        /// 銃の最終段階演出時間を参照する変数
+        /// </summary>
+        private float _lastReloadTime = 1.0f;
 
         /// <summary>
         /// リロードのステップを管理する列挙型
@@ -364,8 +368,6 @@ namespace PESDISASTER
             _isDragging = false;
             // ミニゲーム稼働中フラグをオフ
             _isActive = false;
-            // ハンドガン側に成否を伝える
-            _onComplete?.Invoke(isSuccess);
             // ミニゲームのUIを非表示
             _reloadMinigameUI_Manager.Hide(true);
             // ハンドガンを手元に寄せる演出再生
@@ -374,6 +376,8 @@ namespace PESDISASTER
             yield return new WaitForSeconds(_reloadGunEventAnimTime);
             // ハンドガンのリロード中フラグをオフ
             HandgunController.Instance.IsReloading = false;
+            // ハンドガン側に成否を伝える
+            _onComplete?.Invoke(isSuccess);
         }
 
         /// <summary>
@@ -385,7 +389,7 @@ namespace PESDISASTER
             // 指定のリロードモーション演出再生
             HandgunController.Instance.ReloadMotion(trigger_ID, "Reload");
             // 演出分待機
-            yield return new WaitForSeconds(_reloadGunEventAnimTime);
+            yield return new WaitForSeconds(_lastReloadTime);
             // ミニゲームクリア処理を呼び出し
             Finish(true);
         }

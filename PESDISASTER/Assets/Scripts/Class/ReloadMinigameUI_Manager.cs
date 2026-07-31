@@ -67,7 +67,7 @@ namespace PESDISASTER
         /// <summary>
         /// リロードUI非表示演出時間を参照する変数
         /// </summary>
-        private float _reloadPanel_HideTime = 1;
+        private float _reloadPanel_HideTime = 0.2f;
 
         /// <summary>
         /// 初期設定を行う関数
