@@ -1757,13 +1757,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.PlayerNoticeUI_Manager
   _navigateNoticeUI_Target: {fileID: 829586960}
-  gameRuleUI_Target: {fileID: 176680063}
-  magazineEmptyUI_Target: {fileID: 1379976915}
-  reloadCompleteUI_Target: {fileID: 2144423061}
-  reloadFailedUI_Target: {fileID: 1345474338}
-  lockedUI_Target: {fileID: 1086047513}
-  openShelfTutorial_UI_Target: {fileID: 1856870394}
-  damageNoticeUI_Target: {fileID: 207753441}
+  _gameRuleUI_Target: {fileID: 0}
+  _magazineEmptyUI_Target: {fileID: 0}
+  _reloadCompleteUI_Target: {fileID: 0}
+  _reloadFailedUI_Target: {fileID: 0}
+  _lockedUI_Target: {fileID: 0}
+  _openShelfTutorial_UI_Target: {fileID: 0}
+  _damageNoticeUI_Target: {fileID: 0}
 --- !u!1 &233239378
 GameObject:
   m_ObjectHideFlags: 0
@@ -7370,15 +7370,15 @@ RectTransform:
   m_GameObject: {fileID: 1270622356}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.28, y: 0.28, z: 0.28}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1276721761}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -576.1, y: -470.35}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 714, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1270622358
 MonoBehaviour:
@@ -7399,7 +7399,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -7409,10 +7409,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: -1117571969, guid: 16d71e92b9c73b0459cd22e8c8e2a72e, type: 3}
+    m_PressedSprite: {fileID: 421392660, guid: 192bad08e4ad6a542bf49300af436d54, type: 3}
+    m_SelectedSprite: {fileID: -1117571969, guid: 16d71e92b9c73b0459cd22e8c8e2a72e, type: 3}
+    m_DisabledSprite: {fileID: 421392660, guid: 192bad08e4ad6a542bf49300af436d54, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -7444,8 +7444,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 421392660, guid: 192bad08e4ad6a542bf49300af436d54, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
