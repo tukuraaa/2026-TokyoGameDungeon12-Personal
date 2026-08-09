@@ -119,15 +119,6 @@ namespace PESDISASTER
         private bool isPausing = false;
 
         /// <summary>
-        /// タイトルシーン名を参照する変数
-        /// </summary>
-        private string titleSceneName = "Title";
-        /// <summary>
-        /// メインステージシーン名を参照する変数
-        /// </summary>
-        private string stageSceneName = "Stage";
-
-        /// <summary>
         /// 初期設定を行う関数
         /// </summary>
         private void Awake()
@@ -221,7 +212,7 @@ namespace PESDISASTER
             // エイムUIを表示
             _playerStatusUI_Manager.StartAimUI_Show();
             // 操作チュートリアルを開始する
-            playerControllerUI_Manager.StartTutorial_LookMove();
+            playerControllerUI_Manager.StartPlayerDefaultTutorial();
             // イントロ演出の終了処理を呼び出す
             OnIntroEnd();
         }
@@ -304,7 +295,7 @@ namespace PESDISASTER
             else if (button == overTitleButton)
             {
                 // タイトルに遷移
-                MoveScene(titleSceneName);
+                MoveScene("Title");
             }
         }
 
@@ -383,7 +374,7 @@ namespace PESDISASTER
         public void RestartGame()
         {
             // メインステージに遷移
-            MoveScene(stageSceneName);
+            MoveScene("Stage");
         }
     }
 }

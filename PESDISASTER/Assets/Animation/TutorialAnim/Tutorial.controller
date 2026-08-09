@@ -37,7 +37,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: OnTutorial_LookMove
+    m_ConditionEvent: OnPlayerDefaultTutorial
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -789534710655092488}
@@ -60,7 +60,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TutorialShowLookMove
+  m_Name: PlayerDefaultTutorialShow
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -117,7 +117,7 @@ AnimatorController:
   m_Name: Tutorial
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: OnTutorial_LookMove
+  - m_Name: OnPlayerDefaultTutorial
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0

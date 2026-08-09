@@ -35,9 +35,9 @@ namespace PESDISASTER
         private Animator _animator;
 
         /// <summary>
-        /// アニメーターの操作チュートリアルトリガー1を参照する変数
+        /// アニメーターのプレイヤー基本操作チュートリアルトリガーを参照する変数
         /// </summary>
-        private static readonly int _controlTutorialTriggerLookMove = Animator.StringToHash("OnTutorial_LookMove");
+        private static readonly int _playerDefaultTutorialTrigger_ID = Animator.StringToHash("OnPlayerDefaultTutorial");
         /// <summary>
         /// アニメーターの操作チュートリアルトリガー2を参照する変数
         /// </summary>
@@ -46,7 +46,7 @@ namespace PESDISASTER
         /// <summary>
         /// チュートリアル演出時間を参照する変数
         /// </summary>
-        private float _tutorialDuration = 9f;
+        private float _tutorialDuration = 10f;
 
         /// <summary>
         /// 初期設定を行う関数
@@ -90,17 +90,18 @@ namespace PESDISASTER
         }
 
         /// <summary>
-        /// 視点・動作の移動方法チュートリアル演出を行うコルーチン
+        /// プレイヤーの基本操作チュートリアル演出を行うコルーチン 
         /// </summary>
         /// <returns></returns>
-        private IEnumerator TutorialCoroutineLookMove()
+        private IEnumerator PlayerDefaultTutorialCoroutine()
         {
             // --- 指定のUIを表示 ---
             TargetShow(_moveControl_UI_Target);
             TargetShow(_lookControl_UI_Target);
+            TargetShow(_pauseControl_UI_Target);
 
             // アニメーターの操作チュートリアルトリガーを発動
-            _animator.SetTrigger(_controlTutorialTriggerLookMove);
+            _animator.SetTrigger(_playerDefaultTutorialTrigger_ID);
             // 演出時間分待機
             yield return new WaitForSeconds(_tutorialDuration);
 
@@ -110,12 +111,12 @@ namespace PESDISASTER
         }
 
         /// <summary>
-        /// 操作チュートリアルを開始する関数
+        /// プレイヤー基本操作チュートリアルを開始する関数
         /// </summary>
-        public void StartTutorial_LookMove()
+        public void StartPlayerDefaultTutorial()
         {
             // チュートリアル演出を呼び出し
-            StartCoroutine(TutorialCoroutineLookMove());
+            StartCoroutine(PlayerDefaultTutorialCoroutine());
         }
 
         /// <summary>
