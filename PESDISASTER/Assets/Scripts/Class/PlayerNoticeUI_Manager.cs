@@ -209,12 +209,6 @@ namespace PESDISASTER
                 yield break;
             }
 
-            // もしダメージ通知UI以外の通知の場合
-            if (!target == _damageNoticeUI_Target)
-            {
-                AudioManager.Instance.PlaySE("Notice");
-            }
-
             // --- 通知アニメーション処理 ---
             // アニメーション中フラグをオンにする
             _isAnimating = true;

@@ -24,6 +24,11 @@ namespace PESDISASTER
         private Animator _animator;
 
         /// <summary>
+        /// シングルトンインスタンスを参照する変数
+        /// </summary>
+        public static PlayerStatusUI_Manager Instance { get; private set; }
+
+        /// <summary>
         /// アニメーターの体力UI表示トリガーを参照する変数
         /// </summary>
         private static readonly int _showHP_Trigger = Animator.StringToHash("OnHP_Show");
@@ -35,10 +40,21 @@ namespace PESDISASTER
         /// <summary>
         /// 初期設定を行う関数
         /// </summary>
-        private void Start()
+        private void Awake()
         {
-            // コンポーネントの登録
+            // もしインスタンスが存在しない場合
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
+            // --- コンポーネントの登録 ---
             _animator = GetComponent<Animator>();
+
             // 最初はUIを非表示
             Hide();
         }

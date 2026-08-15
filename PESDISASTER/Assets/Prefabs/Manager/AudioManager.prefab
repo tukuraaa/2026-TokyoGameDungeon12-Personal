@@ -53,7 +53,7 @@ MonoBehaviour:
     Volume: 0.8
   - Clip: {fileID: 8300000, guid: dac87fa1c5cc71a42acebb9779e1492a, type: 3}
     BGM_Type: Stage1
-    Volume: 0.8
+    Volume: 0.3
   - Clip: {fileID: 8300000, guid: 9d3930562ba06e14e8b1f0a0ee9ed5a9, type: 3}
     BGM_Type: GameOver
     Volume: 0.8

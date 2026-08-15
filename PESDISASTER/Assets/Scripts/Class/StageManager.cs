@@ -114,6 +114,10 @@ namespace PESDISASTER
         private static readonly int _introLand_ID = Animator.StringToHash("On_IntroLand");
 
         /// <summary>
+        /// メインゲームスタートをしたかどうかを示すフラグを参照する変数
+        /// </summary>
+        public bool IsMainGameStarted = false;
+        /// <summary>
         /// ポーズ中かどうかを示すフラグを参照する変数
         /// </summary>
         private bool isPausing = false;
@@ -375,6 +379,21 @@ namespace PESDISASTER
         {
             // メインステージに遷移
             MoveScene("Stage");
+        }
+
+        /// <summary>
+        /// メインゲーム開始時の処理を行う関数
+        /// </summary>
+        public void MainGameStart()
+        {
+            // メインステージ（第一ステージ）のBGMを再生
+            AudioManager.Instance.PlayBGM("Stage1");
+            // プレイヤーのHPを表示
+            PlayerStatusUI_Manager.Instance.StartHP_UI_Show();
+            // ゲーム目的を記したUIを表示
+            PlayerNoticeUI_Manager.Instance.NoticeRule();
+            // メインゲーム開始フラグをオンにする
+            IsMainGameStarted = true;
         }
     }
 }

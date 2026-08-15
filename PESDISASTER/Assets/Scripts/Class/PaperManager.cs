@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace PESDISASTER
 {
@@ -24,6 +25,11 @@ namespace PESDISASTER
         /// 演出中か判別する変数
         /// </summary>
         private bool _isAnim = false;
+
+        /// <summary>
+        /// アニメーションの時間を参照する変数
+        /// </summary>
+        private float _animTime = 1.0f;
 
         /// <summary>
         /// 初期設定を行う関数
@@ -109,7 +115,7 @@ namespace PESDISASTER
             // 指定のIDを再生
             _paperUI_Manager.PaperUI_Animator.SetTrigger(anim_ID);
             // 演出中待機
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(_animTime);
 
             // 参照しているバリア管理クラスがある場合
             if (_barrierManager != null)
@@ -126,6 +132,16 @@ namespace PESDISASTER
 
                 // オブジェクトを表示非表示
                 _paperUI_Manager.ShowHide(isActive);
+
+                // ボタン選択を解除
+                EventSystem.current.SetSelectedGameObject(null);
+
+                // もしメインゲームが開始されていない場合
+                if (!StageManager.Instance.IsMainGameStarted)
+                {
+                    // メインゲームを開始するイベントを呼び出し
+                    StageManager.Instance.MainGameStart();
+                }
             }
             else
             {
