@@ -127,9 +127,6 @@ namespace PESDISASTER
             // もし非表示処理の場合
             if (!isActive)
             {
-                // プレイヤー操作許可
-                PlayerController.Instance.IsSleeping = false;
-
                 // オブジェクトを表示非表示
                 _paperUI_Manager.ShowHide(isActive);
 
@@ -141,7 +138,14 @@ namespace PESDISASTER
                 {
                     // メインゲームを開始するイベントを呼び出し
                     StageManager.Instance.MainGameStart();
+                    // 演出中待機
+                    yield return new WaitForSeconds(_animTime);
+                    // メインゲーム開始フラグをオンにする
+                    StageManager.Instance.IsMainGameStarted = true;
                 }
+
+                // プレイヤー操作許可
+                PlayerController.Instance.IsSleeping = false;
             }
             else
             {

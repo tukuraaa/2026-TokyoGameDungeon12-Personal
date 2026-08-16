@@ -392,8 +392,6 @@ namespace PESDISASTER
             PlayerStatusUI_Manager.Instance.StartHP_UI_Show();
             // ゲーム目的を記したUIを表示
             PlayerNoticeUI_Manager.Instance.NoticeRule();
-            // メインゲーム開始フラグをオンにする
-            IsMainGameStarted = true;
         }
     }
 }
