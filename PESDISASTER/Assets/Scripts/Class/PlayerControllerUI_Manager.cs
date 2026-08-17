@@ -39,9 +39,9 @@ namespace PESDISASTER
         /// </summary>
         private static readonly int _playerDefaultTutorialTrigger_ID = Animator.StringToHash("OnPlayerDefaultTutorial");
         /// <summary>
-        /// アニメーターの操作チュートリアルトリガー2を参照する変数
+        /// アニメーターのプレイヤー銃操作チュートリアルトリガー2を参照する変数
         /// </summary>
-        private static readonly int _controlTutorialTrigger2 = Animator.StringToHash("OnTutorial2");
+        private static readonly int _playerGunTutorialTrigger_ID = Animator.StringToHash("OnPlayerGunTutorial");
 
         /// <summary>
         /// チュートリアル演出時間を参照する変数
@@ -127,7 +127,7 @@ namespace PESDISASTER
             // 指定のUIを表示
             TargetShow(_handgunControl_UI_Target);
             // アニメーターの操作チュートリアルトリガー2を発動
-            _animator.SetTrigger(_controlTutorialTrigger2);
+            _animator.SetTrigger(_playerGunTutorialTrigger_ID);
         }
     }
 }
