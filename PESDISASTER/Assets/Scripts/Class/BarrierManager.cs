@@ -26,6 +26,12 @@ namespace PESDISASTER
         /// </summary>
         public void DestroyBarrier()
         {
+            // もしチュートリアルが終了していないか、もしくはメモを初めて読んでいない場合
+            if (!PlayerControllerUI_Manager.Instance.IsDefaultTutorialEnd|| !PaperManager.Instance.IsFirstRead)
+            {
+                return;
+            }
+
             Destroy(gameObject);
         }
     }

@@ -22,6 +22,15 @@ namespace PESDISASTER
         private BarrierManager _barrierManager;
 
         /// <summary>
+        /// シングルトンインスタンスを参照する変数
+        /// </summary>
+        public static PaperManager Instance { get; private set; }
+
+        /// <summary>
+        /// 初めてメモを読んだか判別する変数
+        /// </summary>
+        public bool IsFirstRead = false;
+        /// <summary>
         /// 演出中か判別する変数
         /// </summary>
         private bool _isAnim = false;
@@ -34,8 +43,18 @@ namespace PESDISASTER
         /// <summary>
         /// 初期設定を行う関数
         /// </summary>
-        private void Start()
+        private void Awake()
         {
+            // もしインスタンスが無い場合
+            if(Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
             // --- ボタンイベントの登録 ---
             _paperUI_Manager.BackButton.onClick.AddListener(HidePaper);
         }
@@ -120,7 +139,9 @@ namespace PESDISASTER
             // 参照しているバリア管理クラスがある場合
             if (_barrierManager != null)
             {
-                // 参照しているバリアを削除
+                // 初めて読んだかのフラグをオンにする
+                IsFirstRead = true;
+                // バリアを削除を試みる
                 _barrierManager.DestroyBarrier();
             }
 

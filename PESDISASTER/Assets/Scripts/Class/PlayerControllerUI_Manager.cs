@@ -30,9 +30,20 @@ namespace PESDISASTER
         private Transform _handgunControl_UI_Target;
 
         /// <summary>
+        /// 透明バリアの管理クラスを参照する変数
+        /// </summary>
+        [SerializeField]
+        private BarrierManager _barrierManager;
+
+        /// <summary>
         /// アニメーターを参照する変数
         /// </summary>
         private Animator _animator;
+
+        /// <summary>
+        /// シングルトンインスタンスを参照する変数
+        /// </summary>
+        public static PlayerControllerUI_Manager Instance { get; private set; }
 
         /// <summary>
         /// アニメーターのプレイヤー基本操作チュートリアルトリガーを参照する変数
@@ -49,10 +60,25 @@ namespace PESDISASTER
         private float _tutorialDuration = 10f;
 
         /// <summary>
+        /// プレイヤー基本操作チュートリアルが終了したかどうかを示す変数
+        /// </summary>
+        public bool IsDefaultTutorialEnd = false;
+
+        /// <summary>
         /// 初期設定を行う関数
         /// </summary>
-        private void Start()
+        private void Awake()
         {
+            // もしインスタンスが無い場合
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
             _animator = GetComponent<Animator>();
             Hide();
         }
@@ -108,6 +134,15 @@ namespace PESDISASTER
             // --- 指定のUIを非表示 ---
             TargetHide(_moveControl_UI_Target);
             TargetHide(_lookControl_UI_Target);
+
+            // 参照しているバリア管理クラスがある場合
+            if (_barrierManager != null)
+            {
+                // 基本操作チュートリアル終了フラグをオンにする
+                IsDefaultTutorialEnd = true;
+                // バリアを削除を試みる
+                _barrierManager.DestroyBarrier();
+            }
         }
 
         /// <summary>
