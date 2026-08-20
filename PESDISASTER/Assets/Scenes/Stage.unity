@@ -1924,6 +1924,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.PaperManager
   _paperUI_Manager: {fileID: 1276721762}
   _barrierManager: {fileID: 538306215281461593}
+  IsFirstRead: 0
 --- !u!1 &256105351
 GameObject:
   m_ObjectHideFlags: 0
@@ -6906,7 +6907,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1619137644547004633, guid: 683ef90aa7f822445a4d2c9aa878ab2a, type: 3}
       propertyPath: _textKey
-      value: LookNote
+      value: ThereSomething
       objectReference: {fileID: 0}
     - target: {fileID: 4145606603204048621, guid: 683ef90aa7f822445a4d2c9aa878ab2a, type: 3}
       propertyPath: m_text
@@ -6914,11 +6915,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4145606603204048621, guid: 683ef90aa7f822445a4d2c9aa878ab2a, type: 3}
       propertyPath: m_fontSize
-      value: 35
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4145606603204048621, guid: 683ef90aa7f822445a4d2c9aa878ab2a, type: 3}
       propertyPath: m_fontSizeBase
-      value: 35
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4145606603204048621, guid: 683ef90aa7f822445a4d2c9aa878ab2a, type: 3}
       propertyPath: m_VerticalAlignment
@@ -12130,6 +12131,8 @@ MonoBehaviour:
   _lookControl_UI_Target: {fileID: 1503152305}
   _pauseControl_UI_Target: {fileID: 164765330}
   _handgunControl_UI_Target: {fileID: 1789464238}
+  _barrierManager: {fileID: 538306215281461593}
+  IsDefaultTutorialEnd: 0
 --- !u!95 &1941732898
 Animator:
   serializedVersion: 7
