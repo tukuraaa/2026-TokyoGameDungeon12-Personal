@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace PESDISASTER
 {
@@ -52,6 +53,9 @@ namespace PESDISASTER
                 // サーチしたLocalizedTextDisplayを更新する
                 display.UpdateText();
             }
+
+            // ボタン選択を解除
+            EventSystem.current.SetSelectedGameObject(null);
         }
     }
 }
