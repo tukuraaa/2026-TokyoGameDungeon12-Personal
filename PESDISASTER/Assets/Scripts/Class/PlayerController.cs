@@ -121,6 +121,11 @@ namespace PESDISASTER
         private Ray _ray;
 
         /// <summary>
+        /// レイヤーマスクを使用して、インタラクト可能なオブジェクトを特定するための変数
+        /// </summary>
+        public LayerMask InteractableLayer;
+
+        /// <summary>
         /// ターゲットとなるインタラクト可能なオブジェクト（アイテム）を参照するための変数
         /// </summary>
         private Item_Interactable _itemCurrentTarget;
@@ -152,11 +157,6 @@ namespace PESDISASTER
         /// Rayが当たったオブジェクト（メモ）を参照する変数
         /// </summary>
         private Paper_Interactable _paper_Interactable;
-
-        /// <summary>
-        /// レイヤーマスクを使用して、インタラクト可能なオブジェクトを特定するための変数
-        /// </summary>
-        public LayerMask InteractableLayer;
 
         /// <summary>
         /// 首の前後移動の入力を保持するための変数
@@ -201,11 +201,11 @@ namespace PESDISASTER
         /// <summary>
         /// 首の前後移動の最小値を設定するための変数
         /// </summary>
-        private float _minNeckTranslationZ = -1.0f;
+        private float _minNeckTranslationZ = -0.5f;
         /// <summary>
         /// 首の前後移動の最大値を設定するための変数
         /// </summary>
-        private float _maxNeckTranslationZ = 1.0f;
+        private float _maxNeckTranslationZ = 0.5f;
         /// <summary>
         /// 首の前後移動の感度を調整するための変数
         /// </summary>
@@ -354,7 +354,7 @@ namespace PESDISASTER
 
             // --- カメラ関係の管理関数を呼び出し ---
             // カメラ操作の管理を毎フレーム行う
-            CameraControl_Manager();
+            CameraControlManager();
             // カメラの揺れを毎フレーム行う（リアル演出用）
             CameraBobManager();
 
@@ -658,7 +658,7 @@ namespace PESDISASTER
         /// <summary>
         /// カメラ操作を管理する関数
         /// </summary>
-        private void CameraControl_Manager()
+        private void CameraControlManager()
         {
             // --- マウスの入力を感度とフレーム時間で調整して、回転と移動の値を更新 ---
             // マウスX方向の入力を感度とフレーム時間で調整し参照する変数を定義
