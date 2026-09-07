@@ -16,14 +16,17 @@ namespace PESDISASTER
         /// <summary>
         /// 英語のテキストを参照する変数
         /// </summary>
+        [TextArea]
         public string English;
         /// <summary>
         /// 日本語のテキストを参照する変数
         /// </summary>
+        [TextArea]
         public string Japanese;
         /// <summary>
         /// 中国語のテキストを参照する変数
         /// </summary>
+        [TextArea]
         public string Chinese;
     }
 
