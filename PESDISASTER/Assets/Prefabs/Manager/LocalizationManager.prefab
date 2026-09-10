@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be40862bd60aabb4c9bc76f84a3cb609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.LocalizationManager
-  CurrentLanguage: English
+  CurrentLanguage: Japanese
