@@ -48,10 +48,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.LockedShelf
   doorTransform: {fileID: 3258568136698120994}
-  keyTransform: {fileID: 9158215838296407757}
+  keyTransform: {fileID: 0}
   shootableLock: {fileID: 0}
   playerNoticeUI_Manager: {fileID: 0}
   playerController: {fileID: 0}
+  isFirst: 1
 --- !u!65 &58113292968337788
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -104,7 +105,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6412877536241869886}
-  - {fileID: 9158215838296407757}
   m_Father: {fileID: 229515344613491111}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2495635668444305160
@@ -273,74 +273,4 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5516137187869674764, guid: ae8caff6c887543b6aaa26165bf5ecbe, type: 3}
   m_PrefabInstance: {fileID: 1473345235484158258}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &6409646852376382787
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 3258568136698120994}
-    m_Modifications:
-    - target: {fileID: 2876435746906649486, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.046
-      objectReference: {fileID: 0}
-    - target: {fileID: 2876435746906649486, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.081
-      objectReference: {fileID: 0}
-    - target: {fileID: 2876435746906649486, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.214
-      objectReference: {fileID: 0}
-    - target: {fileID: 2876435746906649486, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2876435746906649486, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2876435746906649486, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2876435746906649486, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2876435746906649486, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2876435746906649486, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2876435746906649486, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4030386335865182169, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
-      propertyPath: m_Name
-      value: BedroomKeyRoot
-      objectReference: {fileID: 0}
-    - target: {fileID: 4030386335865182169, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4310132950992365701, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
---- !u!4 &9158215838296407757 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2876435746906649486, guid: 613020cfcc96f5e49aeee8fdc3364f5c, type: 3}
-  m_PrefabInstance: {fileID: 6409646852376382787}
   m_PrefabAsset: {fileID: 0}

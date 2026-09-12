@@ -84,11 +84,22 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator ClearOutroCoroutine()
         {
-            titleButton.enabled = false;// 最初はボタンの機能をオフ
+            // 最初はボタンの機能をオフ
+            titleButton.enabled = false;
+            // BGMを停止
             AudioManager.Instance.StopBGM();
+            // 遷移演出用UIを表示
             transitionUI_Manager.Show();
-            animator.SetTrigger(clearOutro_ID);// アウトロ演出再生
+            // アウトロ演出再生
+            animator.SetTrigger(clearOutro_ID);
+            // アウトロ演出の持続時間だけ待機
             yield return new WaitForSeconds(outroEventDuration);
+
+            // --- ループSEを停止 ---
+            AudioManager.Instance.StopLoopSE("HouseBGS");
+            AudioManager.Instance.StopLoopSE("Walk");
+
+            // タイトルシーンに遷移
             UnityEngine.SceneManagement.SceneManager.LoadScene(titleSceneName);
         }
     }

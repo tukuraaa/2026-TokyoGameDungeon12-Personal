@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6199810366957122688}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.11399987, y: 0.08099997, z: 0.090999484}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e48aa79f035122f4abca35b5391a0d7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.Key_Item
-  keyID: BathKey
+  KeyID: BathRoomKey
 --- !u!114 &8591971372026886784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,11 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2bf9c2f50b5d747b8ab1ab6b619047, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.ItemManager
-  leftHoldPosition: {fileID: 0}
-  playerControllerUI_Manager: {fileID: 0}
-  itemName: "\u98A8\u5442\u5834\u306E\u9375"
-  holdName: LeftHoldPosition
-  moveDuration: 0.5
+  ItemName: "\u9375"
 --- !u!65 &3735050772200904391
 BoxCollider:
   m_ObjectHideFlags: 0

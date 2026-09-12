@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6769924700912453498}
   - component: {fileID: 2000633907685594448}
   m_Layer: 3
-  m_Name: Goal_KeyRoot
+  m_Name: GoalKeyRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,14 +27,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6447528936947018249}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -8.769, y: 0.736, z: -5.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7010322987683088711}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &513635443364948345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e48aa79f035122f4abca35b5391a0d7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.Key_Item
-  keyID: Goal_Key
+  KeyID: GoalKey
 --- !u!114 &6769924700912453498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,11 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2bf9c2f50b5d747b8ab1ab6b619047, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.ItemManager
-  leftHoldPosition: {fileID: 0}
-  playerControllerUI_Manager: {fileID: 0}
-  itemName: "\u7384\u95A2\u306E\u9375"
-  holdName: LeftHoldPosition
-  moveDuration: 0.5
+  ItemName: "\u9375"
 --- !u!65 &2000633907685594448
 BoxCollider:
   m_ObjectHideFlags: 0

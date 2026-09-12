@@ -3739,7 +3739,7 @@ MonoBehaviour:
   leftHandPosition: {fileID: 0}
   doorTransform: {fileID: 237563545110636125}
   playerNoticeUI_Manager: {fileID: 0}
-  requiredKeyID: LivingKey
+  requiredKeyID: LivingRoomKey
   transformDoorRotationY_Value: 106.866
 --- !u!65 &816348133529417095
 BoxCollider:
@@ -3952,7 +3952,7 @@ MonoBehaviour:
   leftHandPosition: {fileID: 0}
   doorTransform: {fileID: 2360283751062937698}
   playerNoticeUI_Manager: {fileID: 0}
-  requiredKeyID: BathKey
+  requiredKeyID: BathRoomKey
   transformDoorRotationY_Value: 269.6
 --- !u!65 &3499809076351615401
 BoxCollider:
@@ -4182,7 +4182,7 @@ MonoBehaviour:
   leftHandPosition: {fileID: 0}
   doorTransform: {fileID: 8442262470655759370}
   playerNoticeUI_Manager: {fileID: 0}
-  requiredKeyID: Goal_Key
+  requiredKeyID: GoalKey
   transformDoorRotationY_Value: -15.25
 --- !u!65 &1217349977051095173
 BoxCollider:

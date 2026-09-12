@@ -34,7 +34,7 @@ namespace PESDISASTER
         /// <summary>
         /// アイテムの名前を定数で保持
         /// </summary>
-        private string _bedKeyName = "寝室の鍵";
+        private string _keyName = "鍵";
         /// <summary>
         /// 特定のレイヤーの名前を参照する変数
         /// </summary>
@@ -135,7 +135,7 @@ namespace PESDISASTER
             }
 
             // もし拾ったアイテムが寝室の鍵の場合
-            if (ItemName == _bedKeyName)
+            if (ItemName == _keyName)
             {
                 // 手元の目標位置を左手元の位置にする
                 _targetHoldPosition = PlayerController.Instance.LeftHoldPosition;

@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 7036241580678074524}
   - component: {fileID: 895163583986734081}
   - component: {fileID: 2309502036552382960}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerRoot
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -396,7 +396,7 @@ MonoBehaviour:
   _weaponCameraPlayerTransform: {fileID: 6949257197755479064}
   _interactControl_Icon: {fileID: 0}
   _stageManager: {fileID: 0}
-  _interactRange: 1.5
+  _interactRange: 2.5
   _cameraRecoil_Snappiness: 20
   _cameraRecoil_ReturnSpeed: 5
   PlayerControllerUI_ManagerClass: {fileID: 0}

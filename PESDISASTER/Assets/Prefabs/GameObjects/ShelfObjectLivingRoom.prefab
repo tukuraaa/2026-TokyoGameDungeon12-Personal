@@ -31,7 +31,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1999506691647788659}
-  - {fileID: 5377499101338082436}
   m_Father: {fileID: 5917732193713090647}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1741655201674821333
@@ -103,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.LockedShelf
   doorTransform: {fileID: 2743699115722319330}
-  keyTransform: {fileID: 5377499101338082436}
+  keyTransform: {fileID: 0}
   shootableLock: {fileID: 0}
   playerNoticeUI_Manager: {fileID: 0}
   playerController: {fileID: 0}
@@ -274,66 +273,4 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5516137187869674764, guid: ae8caff6c887543b6aaa26165bf5ecbe, type: 3}
   m_PrefabInstance: {fileID: 6283345246032337791}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &8352223972039924317
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 2743699115722319330}
-    m_Modifications:
-    - target: {fileID: 4128034502981977817, guid: d2e5428617a3f7d4b83598d703b95a18, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.11399987
-      objectReference: {fileID: 0}
-    - target: {fileID: 4128034502981977817, guid: d2e5428617a3f7d4b83598d703b95a18, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.08099997
-      objectReference: {fileID: 0}
-    - target: {fileID: 4128034502981977817, guid: d2e5428617a3f7d4b83598d703b95a18, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.090999484
-      objectReference: {fileID: 0}
-    - target: {fileID: 4128034502981977817, guid: d2e5428617a3f7d4b83598d703b95a18, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4128034502981977817, guid: d2e5428617a3f7d4b83598d703b95a18, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4128034502981977817, guid: d2e5428617a3f7d4b83598d703b95a18, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4128034502981977817, guid: d2e5428617a3f7d4b83598d703b95a18, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4128034502981977817, guid: d2e5428617a3f7d4b83598d703b95a18, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4128034502981977817, guid: d2e5428617a3f7d4b83598d703b95a18, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4128034502981977817, guid: d2e5428617a3f7d4b83598d703b95a18, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6199810366957122688, guid: d2e5428617a3f7d4b83598d703b95a18, type: 3}
-      propertyPath: m_Name
-      value: BathRoomKeyRoot
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d2e5428617a3f7d4b83598d703b95a18, type: 3}
---- !u!4 &5377499101338082436 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4128034502981977817, guid: d2e5428617a3f7d4b83598d703b95a18, type: 3}
-  m_PrefabInstance: {fileID: 8352223972039924317}
   m_PrefabAsset: {fileID: 0}
