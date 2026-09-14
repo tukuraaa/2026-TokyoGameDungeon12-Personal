@@ -212,7 +212,7 @@ namespace PESDISASTER
             }
 
             // 満タンのマガジンモデルを銃モデルに生成
-            ChangeMagazine(Full_MagazineModel,null);
+            ChangeMagazine(Full_MagazineModel, null);
         }
 
         /// <summary>
@@ -307,7 +307,7 @@ namespace PESDISASTER
             _muzzleFlashChild.Stop();
             _muzzleFlashChild.Play();
             // マガジンモデルを変更
-            ChangeMagazine(EmptyMagazineModel,"Hold_Item");
+            ChangeMagazine(EmptyMagazineModel, "Hold_Item");
             // プレイヤーのリコイル画面揺れを起こす
             PlayerController.Instance.AddCameraRecoil(8.0f, 2.0f);
 
@@ -427,7 +427,7 @@ namespace PESDISASTER
         /// 指定のモーションを再生する関数
         /// </summary>
         /// <param name="trigger_ID"></param>
-        public void ReloadMotion(int trigger_ID,string sE_Name)
+        public void ReloadMotion(int trigger_ID, string sE_Name)
         {
             // もしSE名が記述されている場合
             if (sE_Name != null)
@@ -436,7 +436,7 @@ namespace PESDISASTER
                 AudioManager.Instance.PlaySE(sE_Name);
             }
 
-                // 指定のモーション再生
+            // 指定のモーション再生
             HandgunAnimator.SetTrigger(trigger_ID);
         }
 
@@ -445,7 +445,7 @@ namespace PESDISASTER
         /// </summary>
         /// <param name="addMagazineModel"></param>
         /// <param name="layerName"></param>
-        public void ChangeMagazine(GameObject addMagazineModel,string layerName)
+        public void ChangeMagazine(GameObject addMagazineModel, string layerName)
         {
             // 指定の追加用マガジンが空の場合
             if (addMagazineModel == null)
@@ -463,7 +463,7 @@ namespace PESDISASTER
             // マガジンモデル自体を生成し、現在のマガジン変数に設定
             _currentMagazineModel = Instantiate(addMagazineModel);
             // マガジンモデルを銃モデル内マガジン座標の子にする
-           _currentMagazineModel.transform.SetParent(_magazineTransform);
+            _currentMagazineModel.transform.SetParent(_magazineTransform);
             // もしレイヤー名が指定されているなら
             if (layerName != null)
             {
