@@ -396,7 +396,7 @@ MonoBehaviour:
   _weaponCameraPlayerTransform: {fileID: 6949257197755479064}
   _interactControl_Icon: {fileID: 0}
   _stageManager: {fileID: 0}
-  _interactRange: 2.5
+  _interactRange: 2
   _cameraRecoil_Snappiness: 20
   _cameraRecoil_ReturnSpeed: 5
   PlayerControllerUI_ManagerClass: {fileID: 0}

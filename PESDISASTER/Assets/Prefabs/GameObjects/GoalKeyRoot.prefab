@@ -74,14 +74,14 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.11606546, y: 0.031819105, z: 0.23173657}
-  m_Center: {x: -0.010479428, y: -0.0012952089, z: -0.006906733}
+  m_Size: {x: 0.5, y: 0.6436965, z: 0.27}
+  m_Center: {x: 0, y: 0.30464348, z: -0}
 --- !u!1001 &5918658235012003023
 PrefabInstance:
   m_ObjectHideFlags: 0
