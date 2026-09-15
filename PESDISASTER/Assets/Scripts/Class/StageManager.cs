@@ -246,6 +246,10 @@ namespace PESDISASTER
             {
                 Time.timeScale = 0f;
                 pauseUI_Manager.Show();
+                
+                // プレイヤーの操作を禁止
+                PlayerController.Instance.IsSleeping = true;
+                
                 isPausing = true;
 
                 // カーソル設定
@@ -256,6 +260,10 @@ namespace PESDISASTER
             {
                 Time.timeScale = timeCanMoveValue;
                 pauseUI_Manager.Hide();
+
+                // プレイヤーの操作を許可
+                PlayerController.Instance.IsSleeping = false;
+
                 isPausing = false;
 
                 // カーソル設定

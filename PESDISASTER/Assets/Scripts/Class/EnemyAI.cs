@@ -17,7 +17,7 @@ namespace PESDISASTER
         /// <summary>
         /// 道路網エージェントを参照する変数
         /// </summary>
-        private NavMeshAgent agent;
+        private NavMeshAgent navMeshAgent;
 
         /// <summary>
         /// アニメーターコンポーネントを参照する変数
@@ -70,11 +70,27 @@ namespace PESDISASTER
         /// 視野角の片角度を参照する変数
         /// </summary>
         public float detectionAngle = 60f;
+        /// <summary>
+        /// 叫び声SE再生の待機時間を参照する変数
+        /// </summary>
+        private float _screamWaitTime = 4f;
+        /// <summary>
+        /// 叫び声SE再生の待機時間の最低値を参照する変数
+        /// </summary>
+        private float _minScreamWaitTime = 0.1f;
+        /// <summary>
+        /// 叫び声SE再生の待機時間の最高値を参照する変数
+        /// </summary>
+        private float _maxScreamWaitTime = 2f;
 
         /// <summary>
-        /// プレイヤーのタグを参照する変数
+        /// プレイヤーのタグ名を参照する変数
         /// </summary>
-        private string playerTag = "Player";
+        private string _playerTagName = "Player";
+        /// <summary>
+        /// 叫び声SEのID名を参照する変数
+        /// </summary>
+        private string _screamSEName = "Scream";
 
         /// <summary>
         /// 歩くアニメーションのパラメーターIDを参照する変数
@@ -96,15 +112,19 @@ namespace PESDISASTER
         /// <summary>
         /// 攻撃中かどうかを管理するフラグを参照する変数
         /// </summary>
-        private bool isAttacking = false;
+        private bool _isAttacking = false;
         /// <summary>
         /// 撃退演出中かどうかを管理するフラグを参照する変数
         /// </summary>
-        private bool isDefeating = false;
+        private bool _isDefeating = false;
         /// <summary>
         /// 被ダメージ演出中かどうかを管理するフラグを参照する変数
         /// </summary>
-        private bool isDamaging = false;
+        private bool _isDamaging = false;
+        /// <summary>
+        /// 敵の叫び声演出中かどうかを管理するフラグを参照する変数
+        /// </summary>
+        private bool _isScreaming = false;
 
         /// <summary>
         /// 敵の状態定義の列挙型
@@ -122,17 +142,16 @@ namespace PESDISASTER
         /// </summary>
         private void Start()
         {
-            agent = GetComponent<NavMeshAgent>();
+            navMeshAgent = GetComponent<NavMeshAgent>();
 
-            // もしプレイヤーがセットされていない場合
             if (playerTransform == null)
             {
-                GameObject playerObj = GameObject.FindWithTag(playerTag);
+                // プレイヤータグを見つけて変数で参照
+                GameObject playerObject = GameObject.FindWithTag(_playerTagName);
 
-                // プレイヤーオブジェクトが見つかった場合
-                if (playerObj != null)
+                if (playerObject != null)
                 {
-                    playerTransform = playerObj.transform;// そのTransformを参照する
+                    playerTransform = playerObject.transform;
                 }
             }
         }
@@ -143,7 +162,7 @@ namespace PESDISASTER
         private void Update()
         {
             // もしプレイヤーが見つからない場合
-            if (playerTransform == null || isAttacking || isDefeating || isDamaging)
+            if (playerTransform == null || _isAttacking || _isDefeating || _isDamaging)
             {
                 return;
             }
@@ -194,15 +213,15 @@ namespace PESDISASTER
                     break;
 
                 case EnemyState.Chasing:
-                    agent.isStopped = false;// 移動再開
-                    agent.SetDestination(playerTransform.position);// 目的地をプレイヤーに設定
+                    navMeshAgent.isStopped = false;// 移動再開
+                    navMeshAgent.SetDestination(playerTransform.position);// 目的地をプレイヤーに設定
                     animator.SetFloat(walk_ID, canWalkValue);
                     break;
 
                 case EnemyState.Attacking:
 
                     // もし攻撃中ではない場合
-                    if (!isAttacking)
+                    if (!_isAttacking)
                     {
                         StartCoroutine(PerformAttackCoroutine());// 攻撃の一連の流れを管理するコルーチンを開始
                     }
@@ -214,34 +233,82 @@ namespace PESDISASTER
         /// <summary>
         /// プレイヤーが視界内にいるかどうかを判断する関数
         /// </summary>
-        /// <param name="distance"></param>
+        /// <param name="distance">プレイヤーとの距離を参照する変数</param>
         /// <returns></returns>
         private bool CanSeePlayer(float distance)
         {
             // もしプレイヤーが追いかける距離より遠い場合
             if (distance > chaseRange)
             {
-                return false;// 遠すぎるので見えない
+                return false;
             }
 
-            // 自分の正面方向とプレイヤーへの方向の角度を計算
-            Vector3 directionToPlayer = (playerTransform.position - transform.position).normalized;// プレイヤーへの方向を正規化
-            float angle = Vector3.Angle(transform.forward, directionToPlayer);// 自分の正面とプレイヤーへの方向の角度を計算
+            // --- 自分の正面方向とプレイヤーへの方向の角度を計算 ---
+
+            // プレイヤーへの方向を正規化
+            Vector3 directionToPlayer = (playerTransform.position - transform.position).normalized;
+            // 自分の正面とプレイヤーへの方向の角度を計算
+            float angle = Vector3.Angle(transform.forward, directionToPlayer);
+
+            // ------------------------------------------------------
 
             // もし角度が視野角の範囲外の場合
             if (angle > detectionAngle)
             {
-                return false;// 見えない
+                return false;
             }
 
             // もし壁などの障害物がある場合
             if (Physics.Raycast(transform.position + Vector3.up, directionToPlayer, distance, obstacleMask))
             {
-                return false;// 壁があるので見えない
+                return false;
             }
 
-            AudioManager.Instance.PlaySE("Scream");
-            return true;// すべての条件を満たしているので見える
+            // 叫び声演出を呼び出す
+            PlayScream();
+
+            return true;
+        }
+
+        /// <summary>
+        /// 叫び声を
+        /// </summary>
+        private void PlayScream()
+        {
+            if (!_isScreaming)
+            {
+                // 叫び声演出処理のコルーチン呼び出し
+                StartCoroutine(PlayScreamSECoroutine());
+
+                return;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        /// <summary>
+        /// 叫び声SEの再生処理を管理するコルーチン
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator PlayScreamSECoroutine()
+        {
+            // 叫び声演出中フラグをオン
+            _isScreaming = true;
+
+            // --- ランダムに待機させることで叫び声にリアルな間隔を持たせる ---
+
+            // 叫び声SEを一定の範囲ランダムになるよう設定
+            _screamWaitTime = Random.Range(_minScreamWaitTime, _maxScreamWaitTime);
+
+            AudioManager.Instance.PlaySE(_screamSEName);
+            yield return new WaitForSeconds(_screamWaitTime);
+            
+            // ----------------------------------------------
+
+            // 叫び声演出中フラグをオフ
+            _isScreaming = false;
         }
 
         /// <summary>
@@ -250,7 +317,7 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator PerformAttackCoroutine()
         {
-            isAttacking = true;
+            _isAttacking = true;
 
             StopMovement();
 
@@ -259,7 +326,9 @@ namespace PESDISASTER
             lookPos.y = transform.position.y;// Y軸を固定してプレイヤーの方を向く
             transform.LookAt(lookPos);// プレイヤーの方を向く
 
-            AudioManager.Instance.PlaySE("Scream");
+            // 叫び声演出を呼び出す
+            PlayScream();
+
             animator.SetTrigger(attack_ID);
             yield return new WaitForSeconds(attackBeforeTime);// 攻撃判定出現をアニメーションのタイミングと合うように調整
             attackCollider.enabled = true;// 攻撃コライダーを出現
@@ -267,7 +336,7 @@ namespace PESDISASTER
             attackCollider.enabled = false;// 攻撃コライダーを消去
             yield return new WaitForSeconds(attackCooldown);// 攻撃のクールダウンを待つ
 
-            isAttacking = false;
+            _isAttacking = false;
         }
 
         /// <summary>
@@ -275,8 +344,8 @@ namespace PESDISASTER
         /// </summary>
         public void StopMovement()
         {
-            agent.isStopped = true;
-            agent.velocity = Vector3.zero;// 物理的な勢いも消す
+            navMeshAgent.isStopped = true;
+            navMeshAgent.velocity = Vector3.zero;// 物理的な勢いも消す
             animator.SetFloat(walk_ID, 0f);
         }
 
@@ -294,12 +363,15 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator DieCoroutine()
         {
-            isDefeating = true;// 撃退演出を開始
+            _isDefeating = true;// 撃退演出を開始
             StopMovement();
-            AudioManager.Instance.PlaySE("Scream");
+
+            // 叫び声演出を呼び出す
+            PlayScream();
+
             animator.SetTrigger(defeat_ID);// 敵の撃退アニメーション再生
             yield return new WaitForSeconds(defeatTime);// 演出中待機
-            isDefeating = false;// 撃退演出を終了
+            _isDefeating = false;// 撃退演出を終了
             Destroy(this.gameObject);// 敵を消去
         }
 
@@ -317,12 +389,15 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator DamageCoroutine()
         {
-            isDamaging = true;// ダメージ演出を開始
+            _isDamaging = true;// ダメージ演出を開始
             StopMovement();
-            AudioManager.Instance.PlaySE("Scream");
+
+            // 叫び声演出を呼び出す
+            PlayScream();
+
             animator.SetTrigger(damage_ID);// 敵の被ダメージアニメーション再生
             yield return new WaitForSeconds(damageTime);// 演出中待機
-            isDamaging = false;// ダメージ演出を終了
+            _isDamaging = false;// ダメージ演出を終了
         }
     }
 }

@@ -12704,30 +12704,6 @@ PrefabInstance:
       propertyPath: _reloadMinigameManager
       value: 
       objectReference: {fileID: 1672983392}
-    - target: {fileID: 5668348928926062141, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.659
-      objectReference: {fileID: 0}
-    - target: {fileID: 5668348928926062141, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.658
-      objectReference: {fileID: 0}
-    - target: {fileID: 5668348928926062141, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.774
-      objectReference: {fileID: 0}
-    - target: {fileID: 5668348928926062141, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.71373963
-      objectReference: {fileID: 0}
-    - target: {fileID: 5668348928926062141, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.70041114
-      objectReference: {fileID: 0}
-    - target: {fileID: 5668348928926062141, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 88.92
-      objectReference: {fileID: 0}
     - target: {fileID: 5981309499487379382, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
       propertyPath: m_Name
       value: HandgunContainerRoot
@@ -12771,18 +12747,6 @@ PrefabInstance:
     - target: {fileID: 6738276442426998138, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7172923723425277406, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99691737
-      objectReference: {fileID: 0}
-    - target: {fileID: 7172923723425277406, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.078459114
-      objectReference: {fileID: 0}
-    - target: {fileID: 7172923723425277406, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
