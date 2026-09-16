@@ -397,8 +397,7 @@ MonoBehaviour:
   _interactControl_Icon: {fileID: 0}
   _stageManager: {fileID: 0}
   _interactRange: 2
-  _cameraRecoil_Snappiness: 20
-  _cameraRecoil_ReturnSpeed: 5
+  _mouseSensitivity: 12
   PlayerControllerUI_ManagerClass: {fileID: 0}
   HandgunControllerClass: {fileID: 0}
   MainCamera: {fileID: 0}

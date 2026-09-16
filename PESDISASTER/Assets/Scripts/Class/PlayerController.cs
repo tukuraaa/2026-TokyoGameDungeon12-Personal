@@ -47,15 +47,10 @@ namespace PESDISASTER
         [SerializeField]
         private float _interactRange = 2.5f;
         /// <summary>
-        /// 反動が頂点に達する速さを参照する変数
+        /// マウス感度を調整するための変数
         /// </summary>
         [SerializeField]
-        private float _cameraRecoil_Snappiness = 20f;
-        /// <summary>
-        /// 反動が元に戻る速さを参照する変数
-        /// </summary>
-        [SerializeField]
-        private float _cameraRecoil_ReturnSpeed = 5f;
+        private float _mouseSensitivity = 6.0f;
 
         /// <summary>
         /// プレイヤー操作のUIを管理するクラスを参照する変数
@@ -159,6 +154,14 @@ namespace PESDISASTER
         private Paper_Interactable _paper_Interactable;
 
         /// <summary>
+        /// 反動が頂点に達する速さを参照する変数
+        /// </summary>
+        private float _cameraRecoil_Snappiness = 20f;
+        /// <summary>
+        /// 反動が元に戻る速さを参照する変数
+        /// </summary>
+        private float _cameraRecoil_ReturnSpeed = 5f;
+        /// <summary>
         /// 首の前後移動の入力を保持するための変数
         /// </summary>
         private float _translationZ = 0f;
@@ -226,10 +229,6 @@ namespace PESDISASTER
         /// 現在のカメラが揺れる揺れ幅を参照する変数
         /// </summary>
         private float _currentBobAmount;
-        /// <summary>
-        /// マウス感度を調整するための変数
-        /// </summary>
-        private float _mouseSensitivity = 6.0f;
         /// <summary>
         /// 移動速度を参照する変数
         /// </summary>
