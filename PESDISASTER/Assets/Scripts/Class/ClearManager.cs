@@ -74,8 +74,11 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator Endroll_Coroutine()
         {
+            // エンドロール演出分待機
             yield return new WaitForSeconds(introEventDuration);
-            titleButton.enabled = true;// ボタンの機能をオン
+
+            titleButton.enabled = true;
+            titleButton.Select();
         }
 
         /// <summary>
