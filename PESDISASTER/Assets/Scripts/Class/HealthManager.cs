@@ -39,6 +39,10 @@ namespace PESDISASTER
         /// プレイヤーのタグを参照する変数
         /// </summary>
         private string playerTag = "Player";
+        /// <summary>
+        /// ダメージSE名を参照する変数
+        /// </summary>
+        private string _damageSEName = "Damage";
 
         /// <summary>
         /// 初期設定を行う関数
@@ -51,10 +55,13 @@ namespace PESDISASTER
         /// <summary>
         /// ダメージを受けるための関数
         /// </summary>
-        /// <param name="amount"></param>
-        public void TakeDamage(float amount)
+        /// <param name="damageAmount">ダメージ量を参照する変数</param>
+        public void TakeDamage(float damageAmount)
         {
-            currentHealth -= amount;// ダメージを体力から減算
+            AudioManager.Instance.PlaySE(_damageSEName);
+
+            // ダメージを体力から減算
+            currentHealth -= damageAmount;
 
             // もしこのクラスがアタッチされているオブジェクトにプレイヤータグがついている場合
             if (this.CompareTag(playerTag))

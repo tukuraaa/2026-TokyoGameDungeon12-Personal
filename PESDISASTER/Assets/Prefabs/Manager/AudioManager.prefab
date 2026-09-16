@@ -113,4 +113,8 @@ MonoBehaviour:
     SE_Type: Land
     Volume: 0.2
     IsLooping: 0
+  - Clip: {fileID: 8300000, guid: 927c87c6ae0db2a4c8ab81188a6dfaf8, type: 3}
+    SE_Type: Damage
+    Volume: 1
+    IsLooping: 0
   _maxSE_Channels: 40

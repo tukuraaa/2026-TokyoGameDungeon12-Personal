@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9a9ee0b833bc8c04d8200c5ec440d635
+guid: 64abadb9051be624cabd088d7e9b7b3c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 60
+  spritePixelsToUnits: 20
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -93,17 +93,56 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RetryButtonSpriteON_2
+      name: RetryButtonONSprite_2
       rect:
         serializedVersion: 2
-        x: 101
-        y: 560
-        width: 816
-        height: 311
+        x: 100
+        y: 110
+        width: 1521
+        height: 602
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +151,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 21002eaad89489149993ab3b822f2315
-      internalID: 1885968018
+      spriteID: b2cebcdc33e980e4f845cbcafcce2231
+      internalID: -332695992
       vertices: []
       indices: 
       edges: []
@@ -122,7 +161,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 2978ba9c870dd0740b55afa3e9115376
+    spriteID: 16ba8f013a47a3e47bea2c5a2894242b
     internalID: 0
     vertices: []
     indices: 
@@ -134,9 +173,18 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      RetryButtonSpriteON_0: -1160323086
-      RetryButtonSpriteON_1: 1502005292
-      RetryButtonSpriteON_2: 1885968018
+      RetryButtonONSprite_0: -1278734068
+      RetryButtonONSprite_1: -2065708291
+      RetryButtonONSprite_10: -776543373
+      RetryButtonONSprite_11: -1209179461
+      RetryButtonONSprite_2: -332695992
+      RetryButtonONSprite_3: 506949645
+      RetryButtonONSprite_4: 802065697
+      RetryButtonONSprite_5: 155074360
+      RetryButtonONSprite_6: -1492104114
+      RetryButtonONSprite_7: 1809827615
+      RetryButtonONSprite_8: -911970943
+      RetryButtonONSprite_9: 316404427
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -23,6 +23,11 @@ namespace PESDISASTER
         private float _dragDistanceThreshold = 100f;
 
         /// <summary>
+        /// このクラスのシングルトンインスタンスを参照する変数
+        /// </summary>
+        public static ReloadMinigameManager Instance { get; private set; }
+
+        /// <summary>
         /// 成否を伝えるためのコールバックを参照する変数
         /// </summary>
         private Action<bool> _onComplete;
@@ -75,6 +80,22 @@ namespace PESDISASTER
         /// 現在のステップ状態を参照する変数
         /// </summary>
         private ReloadStep _currentStep;
+
+        /// <summary>
+        /// 初期設定を行う関数
+        /// </summary>
+        private void Awake()
+        {
+            // もしインスタンスがない場合
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
 
         /// <summary>
         /// リロードミニゲームを開始する関数

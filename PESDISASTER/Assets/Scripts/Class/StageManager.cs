@@ -321,8 +321,13 @@ namespace PESDISASTER
             animator.enabled = true;
             // プレイヤーの操作を禁止する
             PlayerController.Instance.IsSleeping = true;
-            // プレイヤーの移動スクリプトを無効にする
+            // プレイヤーの操作スクリプトを無効にする
+            PlayerController.Instance.gameObject.tag = "Untagged";
+            // プレイヤーの操作スクリプトを無効にする
             PlayerController.Instance.enabled = false;
+            // リロードミニゲーム管理スクリプトを無効にする
+            ReloadMinigameManager.Instance.enabled = false;
+            
             // ゲームオーバーUIを表示する
             gameOverUI_Manager.Show();
 
