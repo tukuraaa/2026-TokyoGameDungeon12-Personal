@@ -33,9 +33,9 @@ namespace PESDISASTER
         private Action<bool> _onComplete;
 
         /// <summary>
-        /// アクションが有効かどうかを示すフラグを参照する変数
+        /// ミニゲームが有効かどうかを示すフラグを参照する変数
         /// </summary>
-        private bool _isActive = false;
+        private bool _isMinigameActive = false;
         /// <summary>
         /// マウスドラッグ中かどうかを示すフラグを参照する変数
         /// </summary>
@@ -104,7 +104,7 @@ namespace PESDISASTER
         public void StartMinigame(Action<bool> callback)
         {
             // もしすでにミニゲームがアクティブの場合
-            if (_isActive)
+            if (_isMinigameActive)
             {
                 return;
             }
@@ -113,7 +113,7 @@ namespace PESDISASTER
             // コールバックを保存
             _onComplete = callback;
             // ミニゲーム開始フラグをオン
-            _isActive = true;
+            _isMinigameActive = true;
             // ドラッグ状態フラグをオフ
             _isDragging = false;
             // 開始時フラグをオン
@@ -142,18 +142,17 @@ namespace PESDISASTER
         private void Update()
         {
             // もしミニゲームがアクティブでない場合
-            if (!_isActive)
+            if (!_isMinigameActive)
             {
                 return;
             }
 
-            // --- 開始したフレーム（Rキーが押された瞬間）は入力を無視して次のフレームへ ---
             // もしミニゲーム開始時だった場合
             if (_isFirstFrame)
             {
                 // ミニゲーム開始時フラグをオフ
                 _isFirstFrame = false;
-
+                // 開始したフレーム（Rキーが押された瞬間）は入力を無視して次のフレームへ
                 return;
             }
 
@@ -388,7 +387,7 @@ namespace PESDISASTER
             // ドラッグフラグをオフ
             _isDragging = false;
             // ミニゲーム稼働中フラグをオフ
-            _isActive = false;
+            _isMinigameActive = false;
             // ミニゲームのUIを非表示
             _reloadMinigameUI_Manager.Hide(true);
             // ハンドガンを手元に寄せる演出再生
