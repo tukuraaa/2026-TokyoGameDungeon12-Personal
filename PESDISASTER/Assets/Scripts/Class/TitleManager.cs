@@ -28,7 +28,7 @@ namespace PESDISASTER
         /// <summary>
         /// アニメーターのタイトルアウトロトリガーを参照する変数
         /// </summary>
-        private static readonly int _titleOutroTriggerID = Animator.StringToHash("OnStart");
+        private static readonly int _titleOutroTriggerID = Animator.StringToHash("StartTimer");
 
         /// <summary>
         /// イントロアニメーションの時間を参照する変数

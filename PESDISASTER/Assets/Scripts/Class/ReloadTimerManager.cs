@@ -7,30 +7,49 @@ namespace PESDISASTER
     /// </summary>
     public class ReloadTimerManager : MonoBehaviour
     {
-        private float m_fTimer;
-        public float CurrentTime { get { return m_fTimer; } }
+        /// <summary>
+        /// 現在の経過時間を参照する変数
+        /// </summary>
+        public float CurrentTime;
+        
+        /// <summary>
+        /// タイマーが有効かどうか判別するフラグ変数
+        /// </summary>
+        private bool _timerActive = false;
 
-        public bool m_bActive = false;
-
+        /// <summary>
+        /// 毎フレーム処理を行う関数
+        /// </summary>
         private void Update()
         {
-            if (m_bActive)
+            if (_timerActive)
             {
-                m_fTimer += Time.deltaTime;
+                CurrentTime += Time.deltaTime;
             }
         }
 
-        public void OnStart()
+        /// <summary>
+        /// 時間測定を開始する関数
+        /// </summary>
+        public void StartTimer()
         {
-            m_bActive = true;
+            _timerActive = true;
         }
+
+        /// <summary>
+        /// 時間測定を一時停止する関数
+        /// </summary>
         public void OnStop()
         {
-            m_bActive = false;
+            _timerActive = false;
         }
+
+        /// <summary>
+        /// タイマーをリセットする関数
+        /// </summary>
         public void OnReset()
         {
-            m_fTimer = 0f;
+            CurrentTime = 0f;
             OnStop();
         }
     }
