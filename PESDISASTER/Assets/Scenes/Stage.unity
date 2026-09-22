@@ -12354,6 +12354,10 @@ PrefabInstance:
       propertyPath: _reloadMinigameManager
       value: 
       objectReference: {fileID: 1672983392}
+    - target: {fileID: 4728401525755234587, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
+      propertyPath: _reloadAmmoPlusBranchValue
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5981309499487379382, guid: ee2291733027f3a41afe6d0bdf7b7c1d, type: 3}
       propertyPath: m_Name
       value: HandgunContainerRoot

@@ -42,6 +42,13 @@ namespace PESDISASTER
         private Transform _magazineTransform;
 
         /// <summary>
+        /// リロード残弾が本来より増える分岐数を参照する変数
+        /// </summary>
+        [SerializeField]
+        private float _reloadAmmoPlusBranchValue = 2f;
+
+
+        /// <summary>
         /// ハンドガンコントローラーのインスタンスを参照する変数
         /// </summary>
         public static HandgunController Instance { get; private set; }
@@ -135,6 +142,18 @@ namespace PESDISASTER
         /// 予備の持ち弾を参照する変数
         /// </summary>
         public int reserveAmmo = 5;
+        /// <summary>
+        /// リロード時の最低残弾数を参照する変数
+        /// </summary>
+        private int _reloadAmmoMinValue = 1;
+        /// <summary>
+        /// 補充すべき弾数を参照する変数
+        /// </summary>
+        private int _ammoNeeded;
+        /// <summary>
+        /// リロードする弾数を参照する変数
+        /// </summary>
+        private int _ammoToReload;
 
         /// <summary>
         /// 次に射撃できる時間を参照する変数
@@ -172,6 +191,14 @@ namespace PESDISASTER
         /// エイム時のカメラ視野角を参照する変数
         /// </summary>
         public float aimFOV = 40f;
+        /// <summary>
+        /// 時間から残弾倍率に変換する倍率を参照する変数
+        /// </summary>
+        private float _reloadTimeToAmmoMultiplier = 2f;
+        /// <summary>
+        /// リロード時の残弾への引く数を参照する変数
+        /// </summary>
+        private float _reloadAmmoChangeValue = 1;
 
         /// <summary>
         /// リロード中かどうかを参照する変数
@@ -191,7 +218,6 @@ namespace PESDISASTER
         /// </summary>
         private void Awake()
         {
-            // もしインスタンスが無い場合
             if (Instance == null)
             {
                 Instance = this;
@@ -351,15 +377,43 @@ namespace PESDISASTER
         /// </summary>
         private void Reload()
         {
-            // リロード完了後の弾数の計算
-            int ammoNeeded = maxClipAmmo - currentAmmo;// 補充すべき弾数を計算
-            int ammoToReload = Mathf.Min(ammoNeeded, reserveAmmo);// 予備弾薬が足りない場合は、持っている分だけ補充
+            // --- リロード完了後の弾数の計算 ----------------------------------
+            // 補充すべき弾数を計算する
+            _ammoNeeded = maxClipAmmo - currentAmmo;
 
-            // マガジン内の弾数と予備弾薬を更新
-            currentAmmo += ammoToReload;// マガジン内の弾数を補充
-            reserveAmmo -= ammoToReload;// 予備弾薬から補充した分を減らす
+            // もしリロードにかかった時間が残弾プラス分岐数以上だった場合
+            if (ReloadTimerManager.Instance.CurrentTime <= _reloadAmmoPlusBranchValue)
+            {
+                // リロードのかかった時間からリロード時の残弾調整する値を計算
+                _reloadAmmoChangeValue = ReloadTimerManager.Instance.CurrentTime * _reloadTimeToAmmoMultiplier;
+            }
+            else
+            {
+                // リロードのかかった時間からリロード時の残弾調整する値を計算
+                _reloadAmmoChangeValue = ReloadTimerManager.Instance.CurrentTime / -_reloadTimeToAmmoMultiplier;
+            }
 
-            _playerNoticeUI.NoticeReloadComplete();// リロード完了通知アニメーションを行う
+            // 装填する弾薬の数を計算した値分引く
+            _ammoNeeded += (int)_reloadAmmoChangeValue;
+
+            if (_ammoNeeded <= 0)
+            {
+                _ammoNeeded = _reloadAmmoMinValue;
+            }
+
+            // 予備弾薬が足りない場合は持っている分だけ補充する
+            _ammoToReload = Mathf.Min(_ammoNeeded, reserveAmmo);
+            // -----------------------------------------------------------------
+
+            // --- マガジン内の弾数と予備弾薬を更新 -------
+            // マガジン内の弾数を補充
+            currentAmmo += _ammoToReload;
+            // 予備弾薬から補充した分を減らす
+            reserveAmmo -= _ammoToReload;
+            // --------------------------------------------
+
+            // リロード完了通知アニメーションを行う
+            _playerNoticeUI.NoticeReloadComplete();
         }
 
         /// <summary>

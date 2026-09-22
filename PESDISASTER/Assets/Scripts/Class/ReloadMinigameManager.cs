@@ -134,6 +134,11 @@ namespace PESDISASTER
 
             // ハンドガンを手元に寄せる演出再生
             HandgunController.Instance.ReloadMotion(HandgunController.Handgun_IntroTrigger_ID, null);
+
+            // --- リロードタイマーを開始 ---------------
+            ReloadTimerManager.Instance.ResetTimer();
+            ReloadTimerManager.Instance.StartTimer();
+            // ------------------------------------------
         }
 
         /// <summary>
@@ -396,6 +401,7 @@ namespace PESDISASTER
             yield return new WaitForSeconds(_reloadGunEventAnimTime);
             // ハンドガンのリロード中フラグをオフ
             HandgunController.Instance.IsReloading = false;
+            ReloadTimerManager.Instance.StopTimer();
             // ハンドガン側に成否を伝える
             _onComplete?.Invoke(isSuccess);
         }
