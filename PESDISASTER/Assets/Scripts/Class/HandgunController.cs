@@ -42,6 +42,12 @@ namespace PESDISASTER
         private Transform _magazineTransform;
 
         /// <summary>
+        /// 空のマガジンモデルを参照する変数
+        /// </summary>
+        [SerializeField]
+        private GameObject _emptyMagazineModel;
+
+        /// <summary>
         /// リロード残弾が本来より増える分岐数を参照する変数
         /// </summary>
         [SerializeField]
@@ -52,6 +58,14 @@ namespace PESDISASTER
         /// ハンドガンコントローラーのインスタンスを参照する変数
         /// </summary>
         public static HandgunController Instance { get; private set; }
+        /// <summary>
+        /// 体力ステータス（エネミー）を管理するクラスを参照する変数
+        /// </summary>
+        private HealthManager _enemyHealthManager;
+        /// <summary>
+        /// 錠前オブジェクトを管理するクラスを参照する変数
+        /// </summary>
+        private ShootableLock _shootableLock;
 
         /// <summary>
         /// プレイヤーのメインカメラを参照する変数
@@ -76,10 +90,6 @@ namespace PESDISASTER
         /// </summary>
         public GameObject impactEffectPrefab;
         /// <summary>
-        /// 空のマガジンモデルを参照する変数
-        /// </summary>
-        public GameObject EmptyMagazineModel;
-        /// <summary>
         /// 満タンのマガジンモデルを参照する変数
         /// </summary>
         public GameObject Full_MagazineModel;
@@ -101,6 +111,16 @@ namespace PESDISASTER
         /// 通常時の銃の位置を参照する変数
         /// </summary>
         private Vector3 _hipPosition;
+
+        /// <summary>
+        /// プレイヤーの正面から出るレイを参照する変数
+        /// </summary>
+        private Ray _ray;
+
+        /// <summary>
+        /// Rayが何かに当たった情報を参照する変数
+        /// </summary>
+        private RaycastHit _hit;
 
         /// <summary>
         /// ハンドガンのリロードイントロモーショントリガーIDを参照する変数
@@ -137,7 +157,7 @@ namespace PESDISASTER
         /// <summary>
         /// 現在のマガジン内弾数を参照する変数
         /// </summary>
-        public int currentAmmo = 10;
+        public int _currentAmmo = 10;
         /// <summary>
         /// 予備の持ち弾を参照する変数
         /// </summary>
@@ -163,10 +183,6 @@ namespace PESDISASTER
         /// 着弾エフェクトが残る時間
         /// </summary>
         private float impactEffectDestroyLimit = 2f;
-        /// <summary>
-        /// 射程距離を参照する変数
-        /// </summary>
-        public float range = 50f;
         /// <summary>
         /// 発射レートを参照する変数
         /// </summary>
@@ -199,6 +215,22 @@ namespace PESDISASTER
         /// リロード時の残弾への引く数を参照する変数
         /// </summary>
         private float _reloadAmmoChangeValue = 1;
+        /// <summary>
+        /// 射撃リコイル時のX軸回転幅を参照する変数
+        /// </summary>
+        private float _shootRecoilX = 8.0f;
+        /// <summary>
+        /// 射撃リコイル時のY軸回転幅を参照する変数
+        /// </summary>
+        private float _shootRecoilY = 2.0f;
+        /// <summary>
+        /// レイの大きさを参照する変数
+        /// </summary>
+        private float _raySize=0.5f;
+        /// <summary>
+        /// 射程距離を参照する変数
+        /// </summary>
+        private float _shootRange = 50f;
 
         /// <summary>
         /// リロード中かどうかを参照する変数
@@ -212,6 +244,15 @@ namespace PESDISASTER
         /// エイム中かどうかを参照する変数
         /// </summary>
         public bool IsAiming = false;
+
+        /// <summary>
+        /// 射撃SEのデータ名を参照する変数
+        /// </summary>
+        private string _seShootName = "Shoot";
+        /// <summary>
+        /// 入手可アイテムのレイヤー名を参照する変数
+        /// </summary>
+        private string _layerHoldItemName ="Hold_Item";
 
         /// <summary>
         /// 初期設定を行う関数
@@ -265,7 +306,7 @@ namespace PESDISASTER
             if (context.performed && Time.time >= nextTimeToFire)
             {
                 // もしマガジン内に弾が残っている場合
-                if (currentAmmo > 0)
+                if (_currentAmmo > 0)
                 {
                     // 次に射撃できる時間を更新
                     nextTimeToFire = Time.time + fireRate;
@@ -294,7 +335,7 @@ namespace PESDISASTER
             }
 
             // もしボタンが押された場合と、弾が減っている場合、予備弾薬がある場合
-            if (context.performed && currentAmmo < maxClipAmmo && reserveAmmo > 0)
+            if (context.performed && _currentAmmo < maxClipAmmo && reserveAmmo > 0)
             {
                 // ミニゲーム開始し、引数に「終わった後に実行する処理」を渡す
                 _reloadMinigameManager.StartMinigame((bool success) =>
@@ -315,61 +356,58 @@ namespace PESDISASTER
         }
 
         /// <summary>
-        /// 実際の射撃処理を行う関数
+        /// 射撃処理を行う関数
         /// </summary>
         public void Shoot()
         {
-            // --- 射撃演出を行う ---
-            // マガジン内の弾数を1減らす
-            currentAmmo--;
-            // 射撃SEを再生
-            AudioManager.Instance.PlaySE("Shoot");
-            // 射撃アニメーションを再生する
+            // --- 射撃演出・処理を行う -------------------------------------
+            _currentAmmo--;
+            AudioManager.Instance.PlaySE(_seShootName);
             HandgunAnimator.SetTrigger(_shootTrigger_ID);
-            // --- マズルフラッシュの親エフェクトが光る ---
+
             _muzzleFlashParent.Stop();
             _muzzleFlashParent.Play();
-            // --- マズルフラッシュの子エフェクトが光る ---
             _muzzleFlashChild.Stop();
             _muzzleFlashChild.Play();
-            // マガジンモデルを変更
-            ChangeMagazine(EmptyMagazineModel, "Hold_Item");
-            // プレイヤーのリコイル画面揺れを起こす
-            PlayerController.Instance.AddCameraRecoil(8.0f, 2.0f);
 
-            // --- レイを発射 ---
-            // 画面中央からRayを飛ばして当たり判定を行い参照する変数を定義
-            Ray ray = fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-            // Rayが何かに当たった情報を格納する変数を定義
-            RaycastHit hit;
+            // マガジンのモデルを変更（リロード時用の演出）
+            ChangeMagazine(_emptyMagazineModel, _layerHoldItemName);
+            // プレイヤーのリコイル画面揺れを起こす
+            PlayerController.Instance.AddCameraRecoil(_shootRecoilX, _shootRecoilY);
+            // --------------------------------------------------------
+
+            // --- レイを発射 -------------------------------------------------------------------------------------------------
+            // 画面中央からRayを飛ばして当たり判定を行う
+           _ray = fpsCamera.ViewportPointToRay(new Vector3(_raySize, _raySize, 0));
 
             // もしRayが何かに当たった場合
-            if (Physics.Raycast(ray, out hit, range))
+            if (Physics.Raycast(_ray, out _hit, _shootRange))
             {
-                HealthManager enemy = hit.transform.GetComponent<HealthManager>();// 当たった相手にHealthManagerスクリプトがついているか確認
+                // 当たった相手に体力ステータス管理クラスがついているか確認
+                _enemyHealthManager = _hit.transform.GetComponent<HealthManager>();
 
-                // もしHealthManagerスクリプトがついている場合
-                if (enemy != null)
+                if (_enemyHealthManager != null)
                 {
-                    enemy.TakeDamage(damage);
+                   _enemyHealthManager.TakeDamage(damage);
                 }
 
-                ShootableLock targetLock = hit.collider.GetComponent<ShootableLock>();// 当たったオブジェクトが錠前を持っているか確認
+                // 当たったオブジェクトが錠前管理クラスを持っているか確認
+                _shootableLock = _hit.collider.GetComponent<ShootableLock>();
 
-                // もし錠前を持っている場合
-                if (targetLock != null)
+                if (_shootableLock != null)
                 {
-                    targetLock.StartCoroutine(targetLock.BreakLockCoroutine());// 錠前だったら破壊処理を実行
+                    // 対象の錠前を破壊する
+                    _shootableLock.StartCoroutine(_shootableLock.BreakLockCoroutine());
                 }
 
-                // もし着弾エフェクトのプレハブが設定されている場合
                 if (impactEffectPrefab != null)
                 {
                     // 法線に合わせてエフェクトを生成
-                    GameObject impactGO = Instantiate(impactEffectPrefab, hit.point, Quaternion.LookRotation(hit.normal));// エフェクトを生成
+                    GameObject impactGO = Instantiate(impactEffectPrefab,_hit.point, Quaternion.LookRotation(_hit.normal));// エフェクトを生成
                     Destroy(impactGO, impactEffectDestroyLimit);// 指定秒後に消去
                 }
             }
+            // -----------------------------------------------------------------------------------------------------------------
         }
 
         /// <summary>
@@ -379,7 +417,7 @@ namespace PESDISASTER
         {
             // --- リロード完了後の弾数の計算 ----------------------------------
             // 補充すべき弾数を計算する
-            _ammoNeeded = maxClipAmmo - currentAmmo;
+            _ammoNeeded = maxClipAmmo - _currentAmmo;
 
             // もしリロードにかかった時間が残弾プラス分岐数以上だった場合
             if (ReloadTimerManager.Instance.CurrentTime <= _reloadAmmoPlusBranchValue)
@@ -407,7 +445,7 @@ namespace PESDISASTER
 
             // --- マガジン内の弾数と予備弾薬を更新 -------
             // マガジン内の弾数を補充
-            currentAmmo += _ammoToReload;
+            _currentAmmo += _ammoToReload;
             // 予備弾薬から補充した分を減らす
             reserveAmmo -= _ammoToReload;
             // --------------------------------------------
