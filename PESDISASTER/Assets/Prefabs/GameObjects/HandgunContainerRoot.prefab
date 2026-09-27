@@ -169,6 +169,14 @@ PrefabInstance:
       propertyPath: _muzzleFlashParent
       value: 
       objectReference: {fileID: 873705742319818574}
+    - target: {fileID: 3860266587416488999, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
+      propertyPath: _emptyMagazineModel
+      value: 
+      objectReference: {fileID: 4744447604845139864, guid: 1630d9b67160caa44aad0385aa9bf476, type: 3}
+    - target: {fileID: 3860266587416488999, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
+      propertyPath: _reloadAmmoPlusBranchValue
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4226277991825552129, guid: be9ecf1e7713e9642824df0f76f67c65, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.885

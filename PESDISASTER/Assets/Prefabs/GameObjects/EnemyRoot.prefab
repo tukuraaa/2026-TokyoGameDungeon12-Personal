@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 4511479400716097623}
   - component: {fileID: 7816035824001073345}
   - component: {fileID: 6395575922421539653}
+  - component: {fileID: 2367678355482773627}
   - component: {fileID: 1756813434740032671}
   m_Layer: 8
   m_Name: EnemyRoot
@@ -113,7 +114,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3823136240335717123}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.62
+  m_Radius: 0.28
   m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
@@ -122,7 +123,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2.54
+  m_Height: 1.93
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -163,6 +164,21 @@ MonoBehaviour:
   enemyAI: {fileID: 7816035824001073345}
   stageManager: {fileID: 0}
   maxHealth: 100
+--- !u!114 &2367678355482773627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3823136240335717123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3655c58c4ce78d748b9b1e0f46bd2b2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.EnemyBodyPartManager
+  _enemyHealthManager: {fileID: 6395575922421539653}
+  _headshotMultiplier: 4
+  _bodyPartType: 1
 --- !u!143 &1756813434740032671
 CharacterController:
   m_ObjectHideFlags: 0
@@ -424,6 +440,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 2898355158428612036, guid: b15153fd2edd7a6438c946d26ce75560, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 3047284246813455858, guid: b15153fd2edd7a6438c946d26ce75560, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -522,6 +542,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2898355158428612036, guid: b15153fd2edd7a6438c946d26ce75560, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2383788713398155414}
+    - targetCorrespondingSourceObject: {fileID: 2898355158428612036, guid: b15153fd2edd7a6438c946d26ce75560, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3968341654400392677}
   m_SourcePrefab: {fileID: 100100000, guid: b15153fd2edd7a6438c946d26ce75560, type: 3}
 --- !u!1 &425843995493781624 stripped
 GameObject:
@@ -549,6 +572,21 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.23
   m_Center: {x: 0, y: -0.12, z: -0.14}
+--- !u!114 &3968341654400392677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425843995493781624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3655c58c4ce78d748b9b1e0f46bd2b2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.EnemyBodyPartManager
+  _enemyHealthManager: {fileID: 6395575922421539653}
+  _headshotMultiplier: 4
+  _bodyPartType: 0
 --- !u!1 &2382555537765046509 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b15153fd2edd7a6438c946d26ce75560, type: 3}

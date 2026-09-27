@@ -14,12 +14,6 @@ namespace PESDISASTER
         private HealthManager _enemyHealthManager;
 
         /// <summary>
-        /// ヘッドショット時のダメージ倍率を参照する変数
-        /// </summary>
-        [SerializeField]
-        private float _headshotMultiplier = 2.0f;
-
-        /// <summary>
         /// 体部位の種類を参照する変数
         /// </summary>
         [SerializeField]
@@ -29,6 +23,10 @@ namespace PESDISASTER
         /// 調整後のダメージを参照する変数
         /// </summary>
         private float _changedDamage;
+        /// <summary>
+        /// ヘッドショット時のダメージ倍率を参照する変数
+        /// </summary>
+        private float _headshotMultiplier = 5.0f;
 
         /// <summary>
         /// 部位の種類を参照する列挙型変数
@@ -59,7 +57,6 @@ namespace PESDISASTER
 
                     // 代入されたダメージに部位別の倍率をかける
                     _changedDamage *= _headshotMultiplier;
-                    Debug.Log("ヘッドショット！！");
 
                     break;
 

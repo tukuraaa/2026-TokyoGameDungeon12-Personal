@@ -52,16 +52,20 @@ namespace PESDISASTER
         /// </summary>
         [SerializeField]
         private float _reloadAmmoPlusBranchValue = 2f;
-
+        /// <summary>
+        /// 射撃時のダメージ量を参照する変数
+        /// </summary>
+        [SerializeField]
+        private float _shootDamage = 5f;
 
         /// <summary>
         /// ハンドガンコントローラーのインスタンスを参照する変数
         /// </summary>
         public static HandgunController Instance { get; private set; }
         /// <summary>
-        /// 体力ステータス（エネミー）を管理するクラスを参照する変数
+        /// エネミーの体部位別ダメージを管理するクラスを参照する変数
         /// </summary>
-        private HealthManager _enemyHealthManager;
+        private EnemyBodyPartManager _enemyBodyPartManager;
         /// <summary>
         /// 錠前オブジェクトを管理するクラスを参照する変数
         /// </summary>
@@ -192,10 +196,6 @@ namespace PESDISASTER
         /// </summary>
         public float reloadTime = 1f;
         /// <summary>
-        /// 1発のダメージ量を参照する変数
-        /// </summary>
-        public float damage = 20f;
-        /// <summary>
         /// 構えるスピードを参照する変数
         /// </summary>
         public float aimSpeed = 10f;
@@ -226,7 +226,7 @@ namespace PESDISASTER
         /// <summary>
         /// レイの大きさを参照する変数
         /// </summary>
-        private float _raySize=0.5f;
+        private float _raySize = 0.5f;
         /// <summary>
         /// 射程距離を参照する変数
         /// </summary>
@@ -252,7 +252,7 @@ namespace PESDISASTER
         /// <summary>
         /// 入手可アイテムのレイヤー名を参照する変数
         /// </summary>
-        private string _layerHoldItemName ="Hold_Item";
+        private string _layerHoldItemName = "Hold_Item";
 
         /// <summary>
         /// 初期設定を行う関数
@@ -378,17 +378,18 @@ namespace PESDISASTER
 
             // --- レイを発射 -------------------------------------------------------------------------------------------------
             // 画面中央からRayを飛ばして当たり判定を行う
-           _ray = fpsCamera.ViewportPointToRay(new Vector3(_raySize, _raySize, 0));
+            _ray = fpsCamera.ViewportPointToRay(new Vector3(_raySize, _raySize, 0));
 
             // もしRayが何かに当たった場合
             if (Physics.Raycast(_ray, out _hit, _shootRange))
             {
-                // 当たった相手に体力ステータス管理クラスがついているか確認
-                _enemyHealthManager = _hit.transform.GetComponent<HealthManager>();
+                // 当たった相手に体部位別ダメージ管理クラスがついているか確認
+                _enemyBodyPartManager = _hit.transform.GetComponent<EnemyBodyPartManager>();
 
-                if (_enemyHealthManager != null)
+                if (_enemyBodyPartManager != null)
                 {
-                   _enemyHealthManager.TakeDamage(damage);
+                    // 攻撃が当たった体の部位別でダメージ量を変更してエネミーに与える
+                    _enemyBodyPartManager.DamageValueChange(_shootDamage);
                 }
 
                 // 当たったオブジェクトが錠前管理クラスを持っているか確認
@@ -403,7 +404,7 @@ namespace PESDISASTER
                 if (impactEffectPrefab != null)
                 {
                     // 法線に合わせてエフェクトを生成
-                    GameObject impactGO = Instantiate(impactEffectPrefab,_hit.point, Quaternion.LookRotation(_hit.normal));// エフェクトを生成
+                    GameObject impactGO = Instantiate(impactEffectPrefab, _hit.point, Quaternion.LookRotation(_hit.normal));// エフェクトを生成
                     Destroy(impactGO, impactEffectDestroyLimit);// 指定秒後に消去
                 }
             }
