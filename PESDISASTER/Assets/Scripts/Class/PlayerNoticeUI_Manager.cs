@@ -44,7 +44,12 @@ namespace PESDISASTER
         [SerializeField]
         private Transform _openShelfTutorial_UI_Target;
         /// <summary>
-        /// 棚の開け方UIのターゲットを参照する変数
+        /// リロードチュートリアルUIを参照する変数
+        /// </summary>
+        [SerializeField]
+        private Transform _reloadTutorialUI;
+        /// <summary>
+        /// 被ダメージ通知UIのターゲットを参照する変数
         /// </summary>
         [SerializeField]
         private Transform _damageNoticeUI_Target;
