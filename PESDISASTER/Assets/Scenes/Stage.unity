@@ -1386,6 +1386,7 @@ MonoBehaviour:
   _reloadFailedUI_Target: {fileID: 1345474338}
   _lockedUI_Target: {fileID: 1086047513}
   _openShelfTutorial_UI_Target: {fileID: 1856870394}
+  _reloadTutorialUI: {fileID: 1531579576}
   _damageNoticeUI_Target: {fileID: 207753441}
 --- !u!1 &233239378
 GameObject:
