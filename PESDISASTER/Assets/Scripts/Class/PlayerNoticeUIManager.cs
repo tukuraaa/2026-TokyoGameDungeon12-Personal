@@ -77,7 +77,7 @@ namespace PESDISASTER
 
             _animator = GetComponent<Animator>();
 
-            UIGeneralManager.Instance.UIShowHide(false, this.transform);
+            UIGeneralManager.Instance.SetActiveUI(false, this.transform);
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace PESDISASTER
         /// </summary>
         public void NoticeRule()
         {
-            UIGeneralManager.Instance.UIShowHide(true, _gameRuleUITarget);
+            UIGeneralManager.Instance.SetActiveUI(true, _gameRuleUITarget);
             _animator.SetTrigger(_ruleTrigger_ID);
         }
 
@@ -103,10 +103,10 @@ namespace PESDISASTER
 
             // --- 通知アニメーション処理 -----------------------------
             _isAnimating = true;
-            UIGeneralManager.Instance.UIShowHide(true, target);
+            UIGeneralManager.Instance.SetActiveUI(true, target);
             _animator.SetTrigger(_navigateTrigger_ID);
             yield return new WaitForSeconds(_noticeAnimTime);
-            UIGeneralManager.Instance.UIShowHide(false, target);
+            UIGeneralManager.Instance.SetActiveUI(false, target);
             _isAnimating = false;
             // --------------------------------------------------------
         }

@@ -32,7 +32,7 @@ namespace PESDISASTER
         /// </summary>
         /// <param name="isActive">表示・非表示を指定するフラグ変数</param>
         /// <param name="target">表示・非表示の対象となるオブジェクト変数</param>
-        public void UIShowHide(bool isActive, Transform target)
+        public void SetActiveUI(bool isActive, Transform target)
         {
             // 対象UIの全子オブジェクトをサーチ
             foreach (Transform child in target.transform)
