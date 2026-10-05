@@ -17,7 +17,7 @@ namespace PESDISASTER
         /// プレイヤーへの通知UIを管理するクラスを参照する変数
         /// </summary>
         [SerializeField]
-        private PlayerNoticeUI_Manager _playerNoticeUI;
+        private PlayerNoticeUIManager _playerNoticeUI;
         /// <summary>
         /// アイテムを管理するクラスを参照する変数
         /// </summary>
@@ -318,7 +318,7 @@ namespace PESDISASTER
                     // 空マガジン用SEを再生
                     AudioManager.Instance.PlaySE("NonMagazine");
                     // 弾切れ通知アニメーションをする
-                    _playerNoticeUI.NoticeEmpty();
+                    //_playerNoticeUI.NoticeEmpty();
                 }
             }
         }
@@ -349,7 +349,7 @@ namespace PESDISASTER
                     {
                         // 失敗時のガシャン！という音などをここで鳴らす
 
-                        _playerNoticeUI.NoticeReloadFailed();// リロード失敗通知アニメーションを行う
+                       // _playerNoticeUI.NoticeReloadFailed();// リロード失敗通知アニメーションを行う
                     }
                 });
             }
@@ -452,7 +452,7 @@ namespace PESDISASTER
             // --------------------------------------------
 
             // リロード完了通知アニメーションを行う
-            _playerNoticeUI.NoticeReloadComplete();
+           // _playerNoticeUI.NoticeReloadComplete();
         }
 
         /// <summary>

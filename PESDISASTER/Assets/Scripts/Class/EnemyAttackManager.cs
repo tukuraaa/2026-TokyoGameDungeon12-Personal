@@ -13,7 +13,7 @@ namespace PESDISASTER
         /// <summary>
         /// プレイヤー通知UIを管理するクラスを参照する変数
         /// </summary>
-        public PlayerNoticeUI_Manager playerNoticeUI_Manager;
+        public PlayerNoticeUIManager playerNoticeUI_Manager;
 
         /// <summary>
         /// プレイヤーのタグを参照する変数
@@ -49,7 +49,7 @@ namespace PESDISASTER
                 // もしHealthManagerスクリプトがついている場合
                 if (player != null)
                 {
-                    playerNoticeUI_Manager.NoticeDamage();// ダメージ通知のアニメーションを実行
+                    //playerNoticeUI_Manager.NoticeDamage();// ダメージ通知のアニメーションを実行
                     player.TakeDamage(damage);
                 }
             }

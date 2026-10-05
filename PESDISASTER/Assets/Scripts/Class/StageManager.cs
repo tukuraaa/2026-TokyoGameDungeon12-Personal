@@ -42,7 +42,7 @@ namespace PESDISASTER
         /// <summary>
         /// プレイヤー通知UIを管理するクラスを参照する変数
         /// </summary>
-        public PlayerNoticeUI_Manager playerNoticeUI_Manager;
+        public PlayerNoticeUIManager playerNoticeUI_Manager;
         /// <summary>
         /// プレイヤーステータスUIを管理するクラスを参照する変数
         /// </summary>
@@ -404,7 +404,7 @@ namespace PESDISASTER
             // プレイヤーのHPを表示
             PlayerStatusUI_Manager.Instance.StartHP_UI_Show();
             // ゲーム目的を記したUIを表示
-            PlayerNoticeUI_Manager.Instance.NoticeRule();
+            PlayerNoticeUIManager.Instance.NoticeRule();
         }
     }
 }

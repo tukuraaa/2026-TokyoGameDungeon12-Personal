@@ -20,7 +20,7 @@ namespace PESDISASTER
         /// <summary>
         /// プレイヤー通知UIを管理するクラスを参照する変数
         /// </summary>
-        public PlayerNoticeUI_Manager playerNoticeUI_Manager;
+        public PlayerNoticeUIManager playerNoticeUI_Manager;
 
         /// <summary>
         /// 開けるのに必要な鍵のIDを参照する変数
@@ -63,7 +63,7 @@ namespace PESDISASTER
             }
             else
             {
-                playerNoticeUI_Manager.NoticeLocked();// ロック中なのを通知する
+                //playerNoticeUI_Manager.NoticeLocked();// ロック中なのを通知する
             }
         }
 

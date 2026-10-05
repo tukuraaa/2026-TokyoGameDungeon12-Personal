@@ -1376,18 +1376,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 230252866}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73bb34e5f5c848f4582e03db7896b2b6, type: 3}
+  m_Script: {fileID: 11500000, guid: e6576bdd1c009d944a40410c9462b941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.PlayerNoticeUI_Manager
-  _navigateNoticeUI_Target: {fileID: 829586960}
-  _gameRuleUI_Target: {fileID: 176680063}
-  _magazineEmptyUI_Target: {fileID: 1379976915}
-  _reloadCompleteUI_Target: {fileID: 2144423061}
-  _reloadFailedUI_Target: {fileID: 1345474338}
-  _lockedUI_Target: {fileID: 1086047513}
-  _openShelfTutorial_UI_Target: {fileID: 1856870394}
-  _reloadTutorialUI: {fileID: 1531579576}
-  _damageNoticeUI_Target: {fileID: 207753441}
+  _navigateNoticeUITarget: {fileID: 0}
+  _gameRuleUITarget: {fileID: 0}
 --- !u!1 &233239378
 GameObject:
   m_ObjectHideFlags: 0
@@ -3989,6 +3982,7 @@ GameObject:
   - component: {fileID: 591244756}
   - component: {fileID: 591244755}
   - component: {fileID: 591244754}
+  - component: {fileID: 591244757}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -4086,6 +4080,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &591244757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591244752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f51364eba7df14c89db447004c3906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.UIGeneralManager
 --- !u!1 &597625294
 GameObject:
   m_ObjectHideFlags: 0
