@@ -81,7 +81,7 @@ namespace PESDISASTER
         }
 
         /// <summary>
-        /// ゲーム目的表示を開始する関数
+        /// ゲーム目的UIを表示する関数
         /// </summary>
         public void NoticeRule()
         {
@@ -90,11 +90,11 @@ namespace PESDISASTER
         }
 
         /// <summary>
-        /// 攻略ナビ通知アニメーションを行うコルーチン
+        /// 指定アクションに反応する通知アニメーションを行うコルーチン
         /// </summary>
-        /// <param name="target"></param>
+        /// <param name="target">指定のUIターゲットを参照する変数</param>
         /// <returns></returns>
-        private IEnumerator NoticeNavigateCoroutine(Transform target)
+        private IEnumerator NoticeActionCoroutine(Transform target)
         {
             if (_isAnimating)
             {
@@ -117,16 +117,16 @@ namespace PESDISASTER
         /*public void NoticeDamage()
         {
             // ダメージ通知のアニメーションを行う
-            StartCoroutine(NoticeNavigateCoroutine(_damageNoticeUI_Target, _damageTrigger_ID, _damageAnimTime));
+            StartCoroutine(NoticeActionCoroutine(_damageNoticeUI_Target, _damageTrigger_ID, _damageAnimTime));
         }*/
 
         /// <summary>
-        /// 攻略ナビ関する通知を開始する関数
+        /// 指定アクションに反応する通知を開始する関数
         /// </summary>
-        public void NoticeNavigate()
+        public void NoticeAction()
         {
-            // 攻略ナビ通知のアニメーションを行う
-            StartCoroutine(NoticeNavigateCoroutine(_navigateNoticeUITarget));
+            // 指定アクションに反応する通知のアニメーションを行う
+            StartCoroutine(NoticeActionCoroutine(_navigateNoticeUITarget));
         }
     }
 }
