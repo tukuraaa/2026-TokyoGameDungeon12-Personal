@@ -28,11 +28,21 @@ namespace PESDISASTER
         }
 
         /// <summary>
-        /// UIを表示・非表示にする関数
+        /// 指定のUIを表示・非表示にする関数
         /// </summary>
         /// <param name="isActive">表示・非表示を指定するフラグ変数</param>
         /// <param name="target">表示・非表示の対象となるオブジェクト変数</param>
         public void SetActiveUI(bool isActive, Transform target)
+        {
+            target.gameObject.SetActive(isActive);
+        }
+
+        /// <summary>
+        /// 指定のUIの子要素を表示・非表示にする関数
+        /// </summary>
+        /// <param name="isActive">表示・非表示を指定するフラグ変数</param>
+        /// <param name="target">表示・非表示の対象となるオブジェクト変数</param>
+        public void SetActiveChildUI(bool isActive, Transform target)
         {
             // 対象UIの全子オブジェクトをサーチ
             foreach (Transform child in target.transform)

@@ -37,7 +37,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: OnHP_Show
+    m_ConditionEvent: OnHPShow
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2720701445581090790}
@@ -116,7 +116,7 @@ AnimatorController:
   m_Name: PlayerStatus
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: OnHP_Show
+  - m_Name: OnHPShow
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0

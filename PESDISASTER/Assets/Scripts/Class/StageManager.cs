@@ -11,12 +11,6 @@ namespace PESDISASTER
     public class StageManager : MonoBehaviour
     {
         /// <summary>
-        /// プレイヤーステータスUIを管理するクラスを参照する変数
-        /// </summary>
-        [SerializeField]
-        private PlayerStatusUI_Manager _playerStatusUI_Manager;
-
-        /// <summary>
         /// ゲームイントロ演出時間の倍率を参照する変数
         /// </summary>
         [SerializeField]
@@ -214,7 +208,7 @@ namespace PESDISASTER
 
             // --- 操作チュートリアル演出 ---
             // エイムUIを表示
-            _playerStatusUI_Manager.StartAimUI_Show();
+            PlayerStatusUIManager.Instance.ShowStatusUI(PlayerStatusUIManager.Instance.AimUI);
             // 操作チュートリアルを開始する
             playerControllerUI_Manager.StartPlayerDefaultTutorial();
             // イントロ演出の終了処理を呼び出す
@@ -402,7 +396,7 @@ namespace PESDISASTER
             // メインステージ（第一ステージ）のBGMを再生
             AudioManager.Instance.PlayBGM("Stage1");
             // プレイヤーのHPを表示
-            PlayerStatusUI_Manager.Instance.StartHP_UI_Show();
+            PlayerStatusUIManager.Instance.ShowStatusUI(PlayerStatusUIManager.Instance.HP_UI);
             // ゲーム目的を記したUIを表示
             PlayerNoticeUIManager.Instance.NoticeRule();
         }

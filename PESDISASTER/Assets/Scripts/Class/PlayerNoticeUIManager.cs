@@ -18,11 +18,6 @@ namespace PESDISASTER
         /// </summary>
         [SerializeField]
         private Transform _gameRuleUITarget;
-        /// <summary>
-        /// 被ダメージ通知UIのターゲットを参照する変数
-        /// </summary>
-        //[SerializeField]
-        //private Transform _damageNoticeUI_Target;
 
         /// <summary>
         /// アニメーターを参照する変数
@@ -39,10 +34,6 @@ namespace PESDISASTER
         /// </summary>
         private static readonly int _ruleTrigger_ID = Animator.StringToHash("OnRule");
         /// <summary>
-        /// アニメーターのダメージ時トリガーを参照する変数
-        /// </summary>
-        //private static readonly int _damageTrigger_ID = Animator.StringToHash("OnDamage");
-        /// <summary>
         /// アニメーターの攻略ナビ時トリガーを参照する変数
         /// </summary>
         private static readonly int _navigateTrigger_ID = Animator.StringToHash("OnNavigate");
@@ -51,10 +42,6 @@ namespace PESDISASTER
         /// 通知アニメーションの時間を参照する変数
         /// </summary>
         private float _noticeAnimTime = 2f;
-        /// <summary>
-        /// ダメージ時アニメーションの時間を参照する変数
-        /// </summary>
-        //private float _damageAnimTime = 1f;
 
         /// <summary>
         /// アニメーション中かどうかを参照する変数
@@ -76,8 +63,15 @@ namespace PESDISASTER
             }
 
             _animator = GetComponent<Animator>();
+        }
 
-            UIGeneralManager.Instance.SetActiveUI(false, this.transform);
+        /// <summary>
+        /// クラスの最初に呼び出される関数
+        /// </summary>
+        private void Start()
+        {
+            // 最初はUIの子要素を非表示
+            UIGeneralManager.Instance.SetActiveChildUI(false, this.transform);
         }
 
         /// <summary>
@@ -110,15 +104,6 @@ namespace PESDISASTER
             _isAnimating = false;
             // --------------------------------------------------------
         }
-
-        /// <summary>
-        /// ダメージ表示を開始する関数
-        /// </summary>
-        /*public void NoticeDamage()
-        {
-            // ダメージ通知のアニメーションを行う
-            StartCoroutine(NoticeActionCoroutine(_damageNoticeUI_Target, _damageTrigger_ID, _damageAnimTime));
-        }*/
 
         /// <summary>
         /// 指定アクションに反応する通知を開始する関数

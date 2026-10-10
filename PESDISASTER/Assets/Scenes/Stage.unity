@@ -1436,7 +1436,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b4d3283ad7f40e438eb457e1ee459c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageManager
-  _playerStatusUI_Manager: {fileID: 342438212}
   _introTimeMultiplier: 0.1
   transitionUI_Manager: {fileID: 1565021249651991167}
   playerControllerUI_Manager: {fileID: 1941732897}
@@ -2135,8 +2134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6617bb926e69d3144afaaf11de83078a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.PlayerStatusUI_Manager
-  _aimUI: {fileID: 1144545386}
-  _hP_UI: {fileID: 933802477}
+  _damageEffectUI: {fileID: 207753441}
+  AimUI: {fileID: 1144545386}
+  HP_UI: {fileID: 933802477}
 --- !u!95 &342438213
 Animator:
   serializedVersion: 7
