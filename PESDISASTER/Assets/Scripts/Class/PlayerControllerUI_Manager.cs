@@ -28,6 +28,16 @@ namespace PESDISASTER
         /// </summary>
         [SerializeField]
         private Transform _handgunControl_UI_Target;
+        /// <summary>
+        /// 棚開錠チュートリアルUIを参照する変数
+        /// </summary>
+        [SerializeField]
+        private Transform _openShelfTutorialUI;
+        /// <summary>
+        /// リロードチュートリアルUIを参照する変数
+        /// </summary>
+        [SerializeField]
+        private Transform _reloadTutorialUI;
 
         /// <summary>
         /// 透明バリアの管理クラスを参照する変数
