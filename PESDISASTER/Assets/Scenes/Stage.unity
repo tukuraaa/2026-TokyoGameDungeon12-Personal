@@ -10894,6 +10894,8 @@ MonoBehaviour:
   _lookControl_UI_Target: {fileID: 1503152305}
   _pauseControl_UI_Target: {fileID: 164765330}
   _handgunControl_UI_Target: {fileID: 224867689}
+  _openShelfTutorialUI: {fileID: 1856870394}
+  _reloadTutorialUI: {fileID: 1531579576}
   _barrierManager: {fileID: 538306215281461593}
   IsDefaultTutorialEnd: 0
 --- !u!95 &1941732898
