@@ -28,7 +28,7 @@ namespace PESDISASTER
         /// <summary>
         /// プレイヤーの操作UIを管理するクラスを参照する変数
         /// </summary>
-        public PlayerControllerUI_Manager playerControllerUI_Manager;
+        public PlayerControlUIManager playerControllerUI_Manager;
         /// <summary>
         /// プレイヤー操作のUIを管理するクラスを参照する変数
         /// </summary>
@@ -209,8 +209,9 @@ namespace PESDISASTER
             // --- 操作チュートリアル演出 ---
             // エイムUIを表示
             PlayerStatusUIManager.Instance.ShowStatusUI(PlayerStatusUIManager.Instance.AimUI);
+            
             // 操作チュートリアルを開始する
-            playerControllerUI_Manager.StartPlayerDefaultTutorial();
+
             // イントロ演出の終了処理を呼び出す
             OnIntroEnd();
         }

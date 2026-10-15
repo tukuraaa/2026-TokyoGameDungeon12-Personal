@@ -148,7 +148,7 @@ namespace PESDISASTER
             if (ItemName == _handgunName)
             {
                 // ハンドガンのチュートリアルを開始する
-                PlayerController.Instance.PlayerControllerUI_ManagerClass.StartGunTutorial();
+
                 // ハンドガンを装備する
                 HandgunController.Instance.EquipGun(PlayerController.Instance.MainCamera);
             }

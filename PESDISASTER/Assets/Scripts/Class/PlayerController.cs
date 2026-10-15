@@ -55,7 +55,7 @@ namespace PESDISASTER
         /// <summary>
         /// プレイヤー操作のUIを管理するクラスを参照する変数
         /// </summary>
-        public PlayerControllerUI_Manager PlayerControllerUI_ManagerClass;
+        public PlayerControlUIManager PlayerControllerUI_ManagerClass;
         /// <summary>
         /// ハンドガン操作を管理するクラスを参照する変数
         /// </summary>
@@ -398,8 +398,8 @@ namespace PESDISASTER
                 {
                     // アイテムを拾う準備を行って拾う
                     PerformPickup_Interaction();
+
                     // インタラクトUIを非表示にする
-                    PlayerControllerUI_ManagerClass.TargetHide(_interactControl_Icon);
 
                     return;
                 }
@@ -408,8 +408,8 @@ namespace PESDISASTER
                 {
                     // 棚を開ける処理
                     _shelfCurrentTarget.OpenShelf();
+
                     // インタラクトUIを非表示にする
-                    PlayerControllerUI_ManagerClass.TargetHide(_interactControl_Icon);
 
                     return;
                 }
@@ -418,8 +418,8 @@ namespace PESDISASTER
                 {
                     // ドアを開ける処理
                     _doorCurrentTarget.Interact();
+
                     // インタラクトUIを非表示にする
-                    PlayerControllerUI_ManagerClass.TargetHide(_interactControl_Icon);
 
                     return;
                 }
@@ -428,8 +428,8 @@ namespace PESDISASTER
                 {
                     // メモを表示する処理
                     _paperCurrentTarget.Interact();
+
                     // インタラクトUIを非表示にする
-                    PlayerControllerUI_ManagerClass.TargetHide(_interactControl_Icon);
 
                     return;
                 }
@@ -502,8 +502,8 @@ namespace PESDISASTER
                 {
                     // ターゲットを更新
                     _itemCurrentTarget = _item_Interactable;
+
                     // インタラクトUIを表示
-                    PlayerControllerUI_ManagerClass.TargetShow(_interactControl_Icon);
 
                     return;
                 }
@@ -512,8 +512,8 @@ namespace PESDISASTER
                 {
                     // ターゲットを更新
                     _shelfCurrentTarget = _shelf_Interactable;
+
                     // インタラクトUIを表示
-                    PlayerControllerUI_ManagerClass.TargetShow(_interactControl_Icon);
 
                     return;
                 }
@@ -522,8 +522,8 @@ namespace PESDISASTER
                 {
                     // ターゲットを更新
                     _doorCurrentTarget = _door_Interactable;
+
                     // インタラクトUIを表示
-                    PlayerControllerUI_ManagerClass.TargetShow(_interactControl_Icon);
 
                     return;
                 }
@@ -532,8 +532,8 @@ namespace PESDISASTER
                 {
                     // ターゲットを更新
                     _paperCurrentTarget = _paper_Interactable;
+
                     // インタラクトUIを表示
-                    PlayerControllerUI_ManagerClass.TargetShow(_interactControl_Icon);
 
                     return;
                 }
@@ -546,7 +546,6 @@ namespace PESDISASTER
             _paperCurrentTarget = null;
 
             // インタラクトUIを非表示にする
-            PlayerControllerUI_ManagerClass.TargetHide(_interactControl_Icon);
         }
 
         /// <summary>
