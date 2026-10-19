@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace PESDISASTER
 {
@@ -9,26 +10,16 @@ namespace PESDISASTER
     public class PlayerControlUIManager : MonoBehaviour
     {
         /// <summary>
-        /// 基礎操作方法UIを参照する変数
-        /// </summary>
-        [SerializeField]
-        private Transform _defaultControlTutorialUI;
-        /// <summary>
-        /// 銃操作方法UIを参照する変数
-        /// </summary>
-        [SerializeField]
-        private Transform _gunControlTutorialUI;
-        /// <summary>
-        /// リロードミニゲームのチュートリアルUIを参照する変数
-        /// </summary>
-        [SerializeField]
-        private Transform _reloadMinigameTutorialUI;
-
-        /// <summary>
         /// 対象の透明バリア管理クラスを参照する変数
         /// </summary>
         [SerializeField]
         private BarrierManager _targetBarrierManager;
+
+        /// <summary>
+        /// 戻るボタンを参照する変数
+        /// </summary>
+        [SerializeField]
+        private Button _backButton;
 
         /// <summary>
         /// アニメーターを参照する変数
@@ -38,7 +29,11 @@ namespace PESDISASTER
         /// <summary>
         /// シングルトンインスタンスを参照する変数
         /// </summary>
-        public static PlayerControlUIManager Instance { get; private set; }
+        public static PlayerControlUIManager Instance 
+        {
+            get;
+            private set; 
+        }
 
         /// <summary>
         /// 操作チュートリアルのイントロトリガーを参照する変数
@@ -64,16 +59,12 @@ namespace PESDISASTER
         /// </summary>
         private void Awake()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            if (Instance == null){Instance = this;}
+            else{Destroy(gameObject);}
 
             _animator = GetComponent<Animator>();
+
+            _backButton.onClick.AddListener(EndTutorial);
             
             // 最初はUIの子オブジェクトを非表示
             UIGeneralManager.Instance.SetActiveChildUI(false,this.transform);
@@ -82,15 +73,14 @@ namespace PESDISASTER
         /// <summary>
         /// 操作チュートリアルのイントロ処理・演出を行うコルーチン 
         /// </summary>
-        /// <param name="targetUI">対象のUIを参照する変数</param>
         /// <returns></returns>
-        private IEnumerator ControlTutorialIntroCoroutine(Transform targetUI)
+        private IEnumerator ControlTutorialIntroCoroutine()
         {
             if (_isTutorial) { yield break; }
 
             _isTutorial = true;
-            // 指定のUIを表示
-            UIGeneralManager.Instance.SetActiveUI(true,targetUI);
+            // UIを表示
+            UIGeneralManager.Instance.SetActiveChildUI(true, this.transform);
             _animator.SetTrigger(_tutorialIntroID);
             yield return new WaitForSeconds(_tutorialAnimTime);
         }
@@ -98,24 +88,32 @@ namespace PESDISASTER
         /// <summary>
         /// 操作チュートリアルのアウトロ処理・演出を行うコルーチン 
         /// </summary>
-        /// <param name="targetUI">対象のUIを参照する変数</param>
         /// <returns></returns>
-        private IEnumerator ControlTutorialOutroCoroutine(Transform targetUI)
+        private IEnumerator ControlTutorialOutroCoroutine()
         {
             _animator.SetTrigger(_tutorialOutroID);
             yield return new WaitForSeconds(_tutorialAnimTime);
-            // 指定のUIを非表示
-            UIGeneralManager.Instance.SetActiveUI(false, targetUI);
+            // UIを非表示
+            UIGeneralManager.Instance.SetActiveChildUI(false, this.transform);
             _isTutorial = false;
         }
 
         /// <summary>
-        /// プレイヤー基本操作チュートリアルを開始する関数
+        /// プレイヤー操作チュートリアルを開始する関数
         /// </summary>
-        public void StartDefaultTutorial()
+        public void StartTutorial()
         {
-            // チュートリアル演出を呼び出し
-            StartCoroutine(ControlTutorialIntroCoroutine(_defaultControlTutorialUI));
+            // チュートリアルイントロ演出を呼び出し
+            StartCoroutine(ControlTutorialIntroCoroutine());
+        }
+
+        /// <summary>
+        /// プレイヤー操作チュートリアルを終了する関数
+        /// </summary>
+        private void EndTutorial()
+        {
+            // チュートリアルアウトロ演出を呼び出し
+            StartCoroutine(ControlTutorialOutroCoroutine());
         }
     }
 }
