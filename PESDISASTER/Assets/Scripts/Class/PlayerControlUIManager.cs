@@ -22,6 +22,12 @@ namespace PESDISASTER
         private Button _backButton;
 
         /// <summary>
+        /// チュートリアル用のスクショ画像を参照する変数
+        /// </summary>
+        [SerializeField]
+        private Image _tutorialScImage;
+
+        /// <summary>
         /// アニメーターを参照する変数
         /// </summary>
         private Animator _animator;
