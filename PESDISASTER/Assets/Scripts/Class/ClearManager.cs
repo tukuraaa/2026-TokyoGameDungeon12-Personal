@@ -22,7 +22,7 @@ namespace PESDISASTER
         /// <summary>
         /// 遷移演出用UIを管理するクラスを参照する変数
         /// </summary>
-        public TransitionUI_Manager transitionUI_Manager;
+        public TransitionUIManager transitionUI_Manager;
 
         /// <summary>
         /// タイトルシーン名を参照する変数
@@ -92,7 +92,7 @@ namespace PESDISASTER
             // BGMを停止
             AudioManager.Instance.StopBGM();
             // 遷移演出用UIを表示
-            transitionUI_Manager.Show();
+            UIGeneralManager.Instance.SetActiveChildUI(true,transitionUI_Manager.transform);
             // アウトロ演出再生
             animator.SetTrigger(clearOutro_ID);
             // アウトロ演出の持続時間だけ待機

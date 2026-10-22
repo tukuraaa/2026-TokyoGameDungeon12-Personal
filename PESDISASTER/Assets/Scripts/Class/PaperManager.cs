@@ -45,14 +45,12 @@ namespace PESDISASTER
         /// </summary>
         private void Awake()
         {
-            // もしインスタンスが無い場合
-            if(Instance == null)
-            {
-                Instance = this;
-            }
+            if (Instance == null) { Instance = this; }
             else
             {
+                this.enabled = false;
                 Destroy(gameObject);
+                return;
             }
 
             // --- ボタンイベントの登録 ---
@@ -111,7 +109,7 @@ namespace PESDISASTER
             if (isActive)
             {
                 // プレイヤー操作禁止
-                PlayerController.Instance.IsSleeping = true;
+                PlayerController.Instance.IsCanMove = true;
 
                 // --- 各プレイヤー操作入力値のリセット ---
                 PlayerController.Instance.Move_Input = Vector2.zero;
@@ -166,7 +164,7 @@ namespace PESDISASTER
                 }
 
                 // プレイヤー操作許可
-                PlayerController.Instance.IsSleeping = false;
+                PlayerController.Instance.IsCanMove = false;
             }
             else
             {

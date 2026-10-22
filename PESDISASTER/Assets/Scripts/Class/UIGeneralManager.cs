@@ -3,27 +3,30 @@ using UnityEngine;
 namespace PESDISASTER
 {
     /// <summary>
-    /// プレイヤー通知UIを管理するクラス
+    /// UI全般の要素を管理するクラス
     /// </summary>
     public class UIGeneralManager : MonoBehaviour
     {
         /// <summary>
         /// クラス自身のシングルトンインスタンスを参照する変数
         /// </summary>
-        public static UIGeneralManager Instance { get; private set; }
+        public static UIGeneralManager Instance
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// 初期設定を行う関数
         /// </summary>
         private void Awake()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
+            if (Instance == null) { Instance = this; }
             else
             {
+                this.enabled = false;
                 Destroy(gameObject);
+                return;
             }
         }
 
@@ -32,10 +35,7 @@ namespace PESDISASTER
         /// </summary>
         /// <param name="isActive">表示・非表示を指定するフラグ変数</param>
         /// <param name="target">表示・非表示の対象となるオブジェクト変数</param>
-        public void SetActiveUI(bool isActive, Transform target)
-        {
-            target.gameObject.SetActive(isActive);
-        }
+        public void SetActiveUI(bool isActive, Transform target) { target.gameObject.SetActive(isActive); }
 
         /// <summary>
         /// 指定のUIの子要素を表示・非表示にする関数
@@ -45,10 +45,7 @@ namespace PESDISASTER
         public void SetActiveChildUI(bool isActive, Transform target)
         {
             // 対象UIの全子オブジェクトをサーチ
-            foreach (Transform child in target.transform)
-            {
-                child.gameObject.SetActive(isActive);
-            }
+            foreach (Transform child in target.transform) { child.gameObject.SetActive(isActive); }
         }
     }
 }

@@ -23,15 +23,16 @@ namespace PESDISASTER
         /// </summary>
         private void Awake()
         {
-            // もしシングルトンではない場合
-            if (Instance == null)
+            if (Instance == null) 
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
             }
             else
             {
+                this.enabled = false;
                 Destroy(gameObject);
+                return;
             }
         }
 

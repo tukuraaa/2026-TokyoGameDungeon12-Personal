@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,11 @@ namespace PESDISASTER
         /// </summary>
         [SerializeField]
         private BarrierManager _targetBarrierManager;
+        /// <summary>
+        /// 指定のローカライズテキスト管理クラスを参照する変数
+        /// </summary>
+        [SerializeField]
+        private LocalizedTextDisplay _targetLocalizedTextDisplay;
 
         /// <summary>
         /// 戻るボタンを参照する変数
@@ -35,10 +41,10 @@ namespace PESDISASTER
         /// <summary>
         /// シングルトンインスタンスを参照する変数
         /// </summary>
-        public static PlayerControlUIManager Instance 
+        public static PlayerControlUIManager Instance
         {
             get;
-            private set; 
+            private set;
         }
 
         /// <summary>
@@ -48,7 +54,7 @@ namespace PESDISASTER
         /// <summary>
         /// 操作チュートリアルのアウトロトリガーを参照する変数
         /// </summary>
-        private static readonly int _tutorialOutroID= Animator.StringToHash("OnTutorialEnd");
+        private static readonly int _tutorialOutroID = Animator.StringToHash("OnTutorialEnd");
 
         /// <summary>
         /// チュートリアル演出時間を参照する変数
@@ -61,31 +67,56 @@ namespace PESDISASTER
         private bool _isTutorial = false;
 
         /// <summary>
+        /// 基本チュートリアルのID名を参照する変数
+        /// </summary>
+        public string NoemalTutorialIDName = "NormalControlTutorial";
+        /// <summary>
+        /// 現在のチュートリアルID名を参照する変数
+        /// </summary>
+        private string _currentTutorialIDName;
+
+        /// <summary>
         /// 初期設定を行う関数
         /// </summary>
         private void Awake()
         {
-            if (Instance == null){Instance = this;}
-            else{Destroy(gameObject);}
+            if (Instance == null) { Instance = this; }
+            else
+            {
+                this.enabled = false;
+                Destroy(gameObject);
+                return;
+            }
 
             _animator = GetComponent<Animator>();
 
             _backButton.onClick.AddListener(EndTutorial);
-            
+
             // 最初はUIの子オブジェクトを非表示
-            UIGeneralManager.Instance.SetActiveChildUI(false,this.transform);
+            UIGeneralManager.Instance.SetActiveChildUI(false, this.transform);
         }
 
         /// <summary>
         /// 操作チュートリアルのイントロ処理・演出を行うコルーチン 
         /// </summary>
+        /// <param name="idName">個別のチュートリアルIDの名前を参照する変数</param>
         /// <returns></returns>
-        private IEnumerator ControlTutorialIntroCoroutine()
+        private IEnumerator ControlTutorialIntroCoroutine(string idName)
         {
             if (_isTutorial) { yield break; }
 
             _isTutorial = true;
-            // UIを表示
+
+            // このチュートリアルが基本操作の場合
+            if (idName == NoemalTutorialIDName)
+            {
+                // 現在のチュートリアルIDを基本操作のIDに変更
+                _currentTutorialIDName = NoemalTutorialIDName;
+                // テキストを基本操作チュートリアルように変更
+                _targetLocalizedTextDisplay.TextKey = NoemalTutorialIDName;
+            }
+
+            PlayerController.Instance.IsCanMove = false;
             UIGeneralManager.Instance.SetActiveChildUI(true, this.transform);
             _animator.SetTrigger(_tutorialIntroID);
             yield return new WaitForSeconds(_tutorialAnimTime);
@@ -101,16 +132,22 @@ namespace PESDISASTER
             yield return new WaitForSeconds(_tutorialAnimTime);
             // UIを非表示
             UIGeneralManager.Instance.SetActiveChildUI(false, this.transform);
+            PlayerController.Instance.IsCanMove = true;
+
+            // このチュートリアルが基本操作の場合、チュートリアル終了後にエイムアイコンUI（酔い防止の白点）を表示
+            if (_currentTutorialIDName == NoemalTutorialIDName) { PlayerStatusUIManager.Instance.ShowStatusUI(PlayerStatusUIManager.Instance.AimUI); }
+
             _isTutorial = false;
         }
 
         /// <summary>
         /// プレイヤー操作チュートリアルを開始する関数
         /// </summary>
-        public void StartTutorial()
+        /// <param name="idName">個別のチュートリアルIDの名前を参照する変数</param>
+        public void StartTutorial(string idName)
         {
             // チュートリアルイントロ演出を呼び出し
-            StartCoroutine(ControlTutorialIntroCoroutine());
+            StartCoroutine(ControlTutorialIntroCoroutine(idName));
         }
 
         /// <summary>

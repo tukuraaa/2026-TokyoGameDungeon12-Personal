@@ -13,7 +13,7 @@ namespace PESDISASTER
         /// 遷移演出用UIを管理するクラスを参照する変数
         /// </summary>
         [SerializeField]
-        private TransitionUI_Manager _transitionUI_Manager;
+        private TransitionUIManager _transitionUI_Manager;
         /// <summary>
         /// 遷移演出用UIを管理するクラスを参照する変数
         /// </summary>
@@ -82,12 +82,12 @@ namespace PESDISASTER
             AudioManager.Instance.PlayBGM("Title");
             // タイトルUIのボタン・イベントトリガーのアクセスをオフにする
             _titleUI_Manager.ChangeEnabled(false);
-            // 演出用UIを表示
-            _transitionUI_Manager.Show();
+            // 遷移演出用UIを表示
+            UIGeneralManager.Instance.SetActiveChildUI(true, _transitionUI_Manager.transform);
             // イントロアニメーションの時間だけ待機
             yield return new WaitForSeconds(_introAnimDuration);
             // 演出用UIを非表示
-            _transitionUI_Manager.Hide();
+            UIGeneralManager.Instance.SetActiveChildUI(false, _transitionUI_Manager.transform);
             // タイトルUIのボタン・イベントトリガーのアクセスをオンにする
             _titleUI_Manager.ChangeEnabled(true);
         }
@@ -103,8 +103,8 @@ namespace PESDISASTER
             AudioManager.Instance.StopBGM();
             // 最初はタイトルUIのボタン・イベントトリガーのアクセスをオフにする
             _titleUI_Manager.ChangeEnabled(false);
-            // 演出用UIを表示
-            _transitionUI_Manager.Show();
+            // 遷移演出用UIを表示
+            UIGeneralManager.Instance.SetActiveChildUI(true, _transitionUI_Manager.transform);
             // タイトルアウトロトリガーを発動
             _animator.SetTrigger(_titleOutroTriggerID);
             // アウトロアニメーションの時間だけ待機
@@ -124,8 +124,8 @@ namespace PESDISASTER
             AudioManager.Instance.StopBGM();
             // タイトルUIのボタン・イベントトリガーのアクセスをオフにする
             _titleUI_Manager.ChangeEnabled(false);
-            // 演出用UIを表示
-            _transitionUI_Manager.Show();
+            // 遷移演出用UIを表示
+            UIGeneralManager.Instance.SetActiveChildUI(true, _transitionUI_Manager.transform);
             // タイトルアウトロトリガーを発動
             _animator.SetTrigger(_titleOutroTriggerID);
             // アウトロアニメーションの時間だけ待機

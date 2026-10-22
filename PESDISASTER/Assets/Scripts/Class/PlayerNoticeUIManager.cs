@@ -53,13 +53,12 @@ namespace PESDISASTER
         /// </summary>
         private void Awake()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
+            if (Instance == null) { Instance = this; }
             else
             {
+                this.enabled = false;
                 Destroy(gameObject);
+                return;
             }
 
             _animator = GetComponent<Animator>();

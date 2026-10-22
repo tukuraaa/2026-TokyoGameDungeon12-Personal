@@ -257,7 +257,7 @@ namespace PESDISASTER
         /// <summary>
         /// プレイヤーの操作を有効にするかどうかを示すフラグを参照する変数
         /// </summary>
-        public bool IsSleeping = false;
+        public bool IsCanMove = false;
         /// <summary>
         /// プレイヤーが歩いているかどうかの判定フラグを参照する変数
         /// </summary>
@@ -298,14 +298,12 @@ namespace PESDISASTER
         /// </summary>
         private void Awake()
         {
-            // もしインスタンスが無い場合
-            if (Instance == null)
-            {
-                Instance = this;
-            }
+            if (Instance == null) { Instance = this; }
             else
             {
+                this.enabled = false;
                 Destroy(gameObject);
+                return;
             }
 
             // コライダーコンポーネントを登録
@@ -376,8 +374,15 @@ namespace PESDISASTER
         /// <param name="context"></param>
         public void OnLook(InputAction.CallbackContext context)
         {
+            if (!IsCanMove)
+            {
+                // 入力量をゼロにリセット
+                Look_Input = Vector2.zero;
+                return;
+            }
+
             // もしプレイヤーが動けるかつ銃をリロード中でない場合
-            if (!IsSleeping && !HandgunControllerClass.IsReloading)
+            if (!HandgunControllerClass.IsReloading)
             {
                 // 視点移動の入力を取得
                 Look_Input = context.ReadValue<Vector2>();
@@ -390,8 +395,10 @@ namespace PESDISASTER
         /// <param name="context"></param>
         public void On_Interact(InputAction.CallbackContext context)
         {
+            if (!IsCanMove){return;}
+
             // もしプレイヤーが動けるかつ、インタラクトの入力が開始され、銃をリロード中でない場合
-            if (context.performed && !IsSleeping && !HandgunControllerClass.IsReloading)
+            if (context.performed && !HandgunControllerClass.IsReloading)
             {
                 // もしターゲット（アイテム）が存在する場合
                 if (_itemCurrentTarget != null)
@@ -442,12 +449,15 @@ namespace PESDISASTER
         /// <param name="context"></param>
         public void OnMove(InputAction.CallbackContext context)
         {
-            // もしプレイヤーが動ける場合
-            if (!IsSleeping)
+            if (!IsCanMove)
             {
+                // 入力量をゼロにリセット
+                Move_Input =Vector2.zero;
+                return;
+            }
+
                 // 移動の入力を取得
                 Move_Input = context.ReadValue<Vector2>();
-            }
         }
 
         /// <summary>

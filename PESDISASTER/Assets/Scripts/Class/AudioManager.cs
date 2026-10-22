@@ -104,7 +104,6 @@ namespace PESDISASTER
         /// </summary>
         private void Awake()
         {
-            // もしシングルトンではない場合
             if (Instance == null)
             {
                 Instance = this;
@@ -115,7 +114,9 @@ namespace PESDISASTER
             }
             else
             {
+                this.enabled = false;
                 Destroy(gameObject);
+                return;
             }
         }
 

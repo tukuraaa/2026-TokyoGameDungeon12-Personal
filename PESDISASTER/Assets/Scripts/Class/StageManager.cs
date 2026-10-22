@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -21,10 +22,6 @@ namespace PESDISASTER
         /// </summary>
         private Animator animator;
 
-        /// <summary>
-        /// 遷移演出用UIを管理するクラスを参照する変数
-        /// </summary>
-        public TransitionUI_Manager transitionUI_Manager;
         /// <summary>
         /// プレイヤーの操作UIを管理するクラスを参照する変数
         /// </summary>
@@ -101,11 +98,11 @@ namespace PESDISASTER
         /// <summary>
         /// イントロ時の起きるアニメーションのパラメーターIDを参照する変数
         /// </summary>
-        private static readonly int _introGetUp_ID = Animator.StringToHash("On_IntroGetUp");
+        private static readonly int _introEventGetUpID = Animator.StringToHash("On_IntroGetUp");
         /// <summary>
         /// イントロ時の足着くアニメーションのパラメーターIDを参照する変数
         /// </summary>
-        private static readonly int _introLand_ID = Animator.StringToHash("On_IntroLand");
+        private static readonly int _introEventLandID = Animator.StringToHash("On_IntroLand");
 
         /// <summary>
         /// メインゲームスタートをしたかどうかを示すフラグを参照する変数
@@ -117,44 +114,40 @@ namespace PESDISASTER
         private bool isPausing = false;
 
         /// <summary>
+        /// 廃屋のBGS名を参照する変数
+        /// </summary>
+        private string _houseBGSName = "HouseBGS";
+        /// <summary>
+        /// 着地SE名を参照する変数
+        /// </summary>
+        private string _landSEBGSName = "Land";
+        /// <summary>
+        /// 起き上がるSE名を参照する変数
+        /// </summary>
+        private string _getUpSEName = "GetUp";
+
+        /// <summary>
         /// 初期設定を行う関数
         /// </summary>
         private void Awake()
         {
-            // もしインスタンスが無い場合
-            if (Instance == null)
-            {
-                Instance = this;
-            }
+            if (Instance == null) { Instance = this; }
             else
             {
+                this.enabled = false;
                 Destroy(gameObject);
+                return;
             }
 
-            // コンポーネントの登録
             animator = GetComponent<Animator>();
 
-            // --- クリックイベントにリスナーを追加 ---
-            // リトライボタンがクリックされたとき、Retry関数を呼び出すように設定
             retryButton.onClick.AddListener(Retry);
-            // ゲームオーバーのタイトルボタンがクリックされたとき、OverTitle関数を呼び出すように設定
             overTitleButton.onClick.AddListener(GoTitle);
 
-            // --- カーソル設定 ---
-            // カーソルをロックする
+            // --- カーソルをロック ------------------
             Cursor.lockState = CursorLockMode.Locked;
-            // カーソルを非表示にする
             Cursor.visible = false;
-        }
-
-        /// <summary>
-        /// 起動時の初期処理を行う関数
-        /// </summary>
-        private void Start()
-        {
-            // --- イントロ演出準備 ---
-            // プレイヤーの操作を禁止
-            PlayerController.Instance.IsSleeping = true;
+            // ---------------------------------------
 
             // イントロ演出を開始
             StartCoroutine(IntroEventCoroutine());
@@ -176,57 +169,37 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator IntroEventCoroutine()
         {
-            // --- イントロイベント初期処理 ---
-            // 演出用UIを表示
-            transitionUI_Manager.Show();
+            // --- イントロイベント初期処理 ---------------------------------------------------
+            PlayerController.Instance.IsCanMove = false;
             // 廃屋BGSを再生
-            AudioManager.Instance.PlaySE("HouseBGS");
+            AudioManager.Instance.PlaySE(_houseBGSName);
 
-            // --- 目覚める演出 ---
+            // --- 目覚める演出 ----------------------------------------------------------
             // 目覚める演出の持続時間を待つ
             yield return new WaitForSeconds(_introWakeUpDuration * _introTimeMultiplier);
-            // 遷移演出用UIを非表示
-            transitionUI_Manager.Hide();
+            UIGeneralManager.Instance.SetActiveChildUI(false, TransitionUIManager.Instance.transform);
+            // ---------------------------------------------------------------------------
 
-            // --- 起きる演出 ---
-            // 起きるときのSEを再生
-            AudioManager.Instance.PlaySE("GetUp");
-            // 起きる演出開始
-            animator.SetTrigger(_introGetUp_ID);
-            // 起きる演出の持続時間を待つ
+            // --- ベッドから起きる演出 ----------------------------------------------------
+            AudioManager.Instance.PlaySE(_getUpSEName);
+            animator.SetTrigger(_introEventGetUpID);
             yield return new WaitForSeconds(_introGetUpDuration * _introTimeMultiplier);
-            // 起きるときのSEを停止
-            AudioManager.Instance.StopLoopSE("GetUp");
+            // 起きるときのSEを停止（ループ状態のSEを停止）
+            AudioManager.Instance.StopLoopSE(_getUpSEName);
+            // -----------------------------------------------------------------------------
 
-            // --- 足着く演出 ---
-            // 足着くときのSEを再生
-            AudioManager.Instance.PlaySE("Land");
-            // 足着く演出開始
-            animator.SetTrigger(_introLand_ID);
-            // 足着く演出の持続時間を待つ
+            // --- 足着く演出 ---------------------------------------------------------------------
+            AudioManager.Instance.PlaySE(_landSEBGSName);
+            animator.SetTrigger(_introEventLandID);
             yield return new WaitForSeconds(_introLandDuration * _introTimeMultiplier);
+            // ------------------------------------------------------------------------------------
 
-            // --- 操作チュートリアル演出 ---
-            // エイムUIを表示
-            PlayerStatusUIManager.Instance.ShowStatusUI(PlayerStatusUIManager.Instance.AimUI);
-            
-            // 操作チュートリアルを開始する
-
-            // イントロ演出の終了処理を呼び出す
-            OnIntroEnd();
-        }
-
-        /// <summary>
-        /// イントロ演出の終了時にプレイヤーの操作を許可する関数
-        /// </summary>
-        private void OnIntroEnd()
-        {
-            // プレイヤー操作停止フラグをオフ
-            PlayerController.Instance.IsSleeping = false;
-            // アニメーターを止める
+            // --- 基本操作チュートリアル演出 -----------------------------------------------------
+            // プレイヤーが操作できるようにアニメーターの管理を解除
             animator.enabled = false;
-            // プレイヤーの操作スクリプトを有効にする
-            PlayerController.Instance.enabled = true;
+            // 基本操作のチュートリアルを開始する
+            PlayerControlUIManager.Instance.StartTutorial(PlayerControlUIManager.Instance.NoemalTutorialIDName);
+            // --------------------------------------------------------------------------------
         }
 
         /// <summary>
@@ -241,10 +214,10 @@ namespace PESDISASTER
             {
                 Time.timeScale = 0f;
                 pauseUI_Manager.Show();
-                
+
                 // プレイヤーの操作を禁止
-                PlayerController.Instance.IsSleeping = true;
-                
+                PlayerController.Instance.IsCanMove = true;
+
                 isPausing = true;
 
                 // カーソル設定
@@ -257,7 +230,7 @@ namespace PESDISASTER
                 pauseUI_Manager.Hide();
 
                 // プレイヤーの操作を許可
-                PlayerController.Instance.IsSleeping = false;
+                PlayerController.Instance.IsCanMove = false;
 
                 isPausing = false;
 
@@ -288,7 +261,7 @@ namespace PESDISASTER
             overTitleButton.enabled = false;// ゲームオーバーのタイトルボタンを最初は無効にする
             overTitleEvent.enabled = false;// ゲームオーバーのタイトルボタンイベントを最初は無効にする
 
-            transitionUI_Manager.Show();
+            UIGeneralManager.Instance.SetActiveChildUI(false, TransitionUIManager.Instance.transform);
             animator.SetTrigger(overOutro_ID);// アウトロ再生
             yield return new WaitForSeconds(overOutroDuration);// 演出中は待機
 
@@ -315,14 +288,14 @@ namespace PESDISASTER
             // アニメーターを起動
             animator.enabled = true;
             // プレイヤーの操作を禁止する
-            PlayerController.Instance.IsSleeping = true;
+            PlayerController.Instance.IsCanMove = true;
             // プレイヤーの操作スクリプトを無効にする
             PlayerController.Instance.gameObject.tag = "Untagged";
             // プレイヤーの操作スクリプトを無効にする
             PlayerController.Instance.enabled = false;
             // リロードミニゲーム管理スクリプトを無効にする
             ReloadMinigameManager.Instance.enabled = false;
-            
+
             // ゲームオーバーUIを表示する
             gameOverUI_Manager.Show();
 

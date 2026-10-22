@@ -259,13 +259,12 @@ namespace PESDISASTER
         /// </summary>
         private void Awake()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
+            if (Instance == null) { Instance = this; }
             else
             {
+                this.enabled = false;
                 Destroy(gameObject);
+                return;
             }
 
             // ゲーム開始時の銃の位置を「通常時の位置」として記憶しておく
@@ -297,7 +296,7 @@ namespace PESDISASTER
         public void OnShoot(InputAction.CallbackContext context)
         {
             // もし銃が装備されていない、もしくはリロード中の場合、もしくはプレイヤーが動けない場合
-            if (!isEquipped || IsReloading || PlayerController.Instance.IsSleeping)
+            if (!isEquipped || IsReloading || PlayerController.Instance.IsCanMove)
             {
                 return;
             }
@@ -329,7 +328,7 @@ namespace PESDISASTER
         public void OnReload(InputAction.CallbackContext context)
         {
             // もし銃が装備されていない、もしくはリロード中の場合、もしくはプレイヤーが動けない場合
-            if (!isEquipped || IsReloading || PlayerController.Instance.IsSleeping)
+            if (!isEquipped || IsReloading || PlayerController.Instance.IsCanMove)
             {
                 return;
             }
@@ -499,7 +498,7 @@ namespace PESDISASTER
         public void OnAim(InputAction.CallbackContext context)
         {
             // もしプレイヤーが動けないか、リロード中の場合
-            if (PlayerController.Instance.IsSleeping || IsReloading)
+            if (PlayerController.Instance.IsCanMove || IsReloading)
             {
                 return;
             }
