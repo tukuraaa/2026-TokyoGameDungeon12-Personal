@@ -25,7 +25,7 @@ namespace PESDISASTER
         /// <summary>
         /// プレイヤーの操作UIを管理するクラスを参照する変数
         /// </summary>
-        public PlayerControlUIManager playerControllerUI_Manager;
+        public TutorialUIManager playerControllerUI_Manager;
         /// <summary>
         /// プレイヤー操作のUIを管理するクラスを参照する変数
         /// </summary>
@@ -198,7 +198,7 @@ namespace PESDISASTER
             // プレイヤーが操作できるようにアニメーターの管理を解除
             animator.enabled = false;
             // 基本操作のチュートリアルを開始する
-            PlayerControlUIManager.Instance.StartTutorial(PlayerControlUIManager.Instance.NoemalTutorialIDName);
+            TutorialUIManager.Instance.StartTutorial(TutorialUIManager.Instance.NoemalTutorialIDName);
             // --------------------------------------------------------------------------------
         }
 

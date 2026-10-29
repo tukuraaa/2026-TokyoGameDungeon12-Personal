@@ -10032,7 +10032,7 @@ PrefabInstance:
       objectReference: {fileID: 538306215281461593}
     - target: {fileID: 1472101787798988007, guid: 2df2399fe013caa4a8256c3b54c70e3d, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 754974719
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 1814927898490427534, guid: 2df2399fe013caa4a8256c3b54c70e3d, type: 3}
       propertyPath: m_Pivot.x
@@ -10116,7 +10116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9031559160085213018, guid: 2df2399fe013caa4a8256c3b54c70e3d, type: 3}
       propertyPath: m_Name
-      value: PlayerControllUI
+      value: TutorialUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

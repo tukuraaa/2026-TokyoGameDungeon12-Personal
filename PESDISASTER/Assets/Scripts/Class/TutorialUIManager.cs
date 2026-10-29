@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,13 +7,8 @@ namespace PESDISASTER
     /// <summary>
     /// プレイヤー操作方法UIを管理するクラス
     /// </summary>
-    public class PlayerControlUIManager : MonoBehaviour
+    public class TutorialUIManager : MonoBehaviour
     {
-        /// <summary>
-        /// 対象の透明バリア管理クラスを参照する変数
-        /// </summary>
-        [SerializeField]
-        private BarrierManager _targetBarrierManager;
         /// <summary>
         /// 指定のローカライズテキスト管理クラスを参照する変数
         /// </summary>
@@ -41,7 +35,7 @@ namespace PESDISASTER
         /// <summary>
         /// シングルトンインスタンスを参照する変数
         /// </summary>
-        public static PlayerControlUIManager Instance
+        public static TutorialUIManager Instance
         {
             get;
             private set;

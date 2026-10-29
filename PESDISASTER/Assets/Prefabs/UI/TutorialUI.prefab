@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 230217804540378588}
   - component: {fileID: 8793982621555987709}
   m_Layer: 5
-  m_Name: PlayerControllUI
+  m_Name: TutorialUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

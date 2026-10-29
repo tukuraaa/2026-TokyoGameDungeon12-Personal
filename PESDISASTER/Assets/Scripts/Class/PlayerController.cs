@@ -55,7 +55,7 @@ namespace PESDISASTER
         /// <summary>
         /// プレイヤー操作のUIを管理するクラスを参照する変数
         /// </summary>
-        public PlayerControlUIManager PlayerControllerUI_ManagerClass;
+        public TutorialUIManager PlayerControllerUI_ManagerClass;
         /// <summary>
         /// ハンドガン操作を管理するクラスを参照する変数
         /// </summary>
