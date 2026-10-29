@@ -940,7 +940,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &230252867
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1058,7 +1058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b4d3283ad7f40e438eb457e1ee459c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageManager
-  _introTimeMultiplier: 0.1
+  _introTimeMultiplier: 1
   playerControllerUI_Manager: {fileID: 1941732897}
   pauseUI_Manager: {fileID: 880709873}
   playerNoticeUI_Manager: {fileID: 230252869}
@@ -1571,7 +1571,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &342438211
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4628,7 +4628,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &880709872
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5440,7 +5440,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1213762710
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5780,7 +5780,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1276721761
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9026,7 +9026,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4684126322688692555, guid: 1463dd84e3140e64cb3cab75bdb49bf2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5047484017923123694, guid: 1463dd84e3140e64cb3cab75bdb49bf2, type: 3}
       propertyPath: m_IsActive
@@ -10011,7 +10011,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2306614665820740506, guid: afc48925a84fbcb4aa2a4bbc34f7679c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10030,6 +10030,10 @@ PrefabInstance:
       propertyPath: _targetBarrierManager
       value: 
       objectReference: {fileID: 538306215281461593}
+    - target: {fileID: 1472101787798988007, guid: 2df2399fe013caa4a8256c3b54c70e3d, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 754974719
+      objectReference: {fileID: 0}
     - target: {fileID: 1814927898490427534, guid: 2df2399fe013caa4a8256c3b54c70e3d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

@@ -220,9 +220,10 @@ namespace PESDISASTER
 
                 isPausing = true;
 
-                // カーソル設定
+                // --- カーソルロック解除 ---------------------
                 Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;// カーソルを表示にする
+                Cursor.visible = true;
+                // --------------------------------------------
             }
             else
             {
@@ -234,9 +235,10 @@ namespace PESDISASTER
 
                 isPausing = false;
 
-                // カーソル設定
+                // --- カーソルロック --------------------------
                 Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;// カーソルを非表示にする
+                Cursor.visible = false;
+                // ---------------------------------------------
             }
         }
 

@@ -257,7 +257,11 @@ namespace PESDISASTER
         /// <summary>
         /// プレイヤーの操作を有効にするかどうかを示すフラグを参照する変数
         /// </summary>
-        public bool IsCanMove = false;
+        public bool IsCanMove = true;
+        /// <summary>
+        /// プレイヤーのポーズ操作を有効にするかどうかを示すフラグを参照する変数
+        /// </summary>
+        public bool IsCanPause = true;
         /// <summary>
         /// プレイヤーが歩いているかどうかの判定フラグを参照する変数
         /// </summary>
@@ -395,7 +399,7 @@ namespace PESDISASTER
         /// <param name="context"></param>
         public void On_Interact(InputAction.CallbackContext context)
         {
-            if (!IsCanMove){return;}
+            if (!IsCanMove) { return; }
 
             // もしプレイヤーが動けるかつ、インタラクトの入力が開始され、銃をリロード中でない場合
             if (context.performed && !HandgunControllerClass.IsReloading)
@@ -452,12 +456,12 @@ namespace PESDISASTER
             if (!IsCanMove)
             {
                 // 入力量をゼロにリセット
-                Move_Input =Vector2.zero;
+                Move_Input = Vector2.zero;
                 return;
             }
 
-                // 移動の入力を取得
-                Move_Input = context.ReadValue<Vector2>();
+            // 移動の入力を取得
+            Move_Input = context.ReadValue<Vector2>();
         }
 
         /// <summary>
@@ -466,6 +470,8 @@ namespace PESDISASTER
         /// <param name="context"></param>
         public void OnPause(InputAction.CallbackContext context)
         {
+            if (!IsCanPause) { return; }
+
             // もしポーズの入力が開始された場合
             if (context.performed)
             {

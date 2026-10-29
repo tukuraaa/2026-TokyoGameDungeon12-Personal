@@ -59,7 +59,7 @@ namespace PESDISASTER
         /// <summary>
         /// チュートリアル演出時間を参照する変数
         /// </summary>
-        private float _tutorialAnimTime = 10f;
+        private float _tutorialAnimTime = 1f;
 
         /// <summary>
         /// チュートリアル中かどうかを判別する変数
@@ -92,6 +92,8 @@ namespace PESDISASTER
 
             _backButton.onClick.AddListener(EndTutorial);
 
+            // 最初は戻るボタンの機能をオフ
+            _backButton.enabled = false;
             // 最初はUIの子オブジェクトを非表示
             UIGeneralManager.Instance.SetActiveChildUI(false, this.transform);
         }
@@ -116,10 +118,17 @@ namespace PESDISASTER
                 _targetLocalizedTextDisplay.TextKey = NoemalTutorialIDName;
             }
 
+            PlayerController.Instance.IsCanPause = false;
             PlayerController.Instance.IsCanMove = false;
             UIGeneralManager.Instance.SetActiveChildUI(true, this.transform);
             _animator.SetTrigger(_tutorialIntroID);
             yield return new WaitForSeconds(_tutorialAnimTime);
+            _backButton.enabled = true;
+
+            // --- カーソルロック解除 --------------------------
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            // ---------------------------------------------
         }
 
         /// <summary>
@@ -128,11 +137,18 @@ namespace PESDISASTER
         /// <returns></returns>
         private IEnumerator ControlTutorialOutroCoroutine()
         {
+            // --- カーソルロック --------------------------
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            // ---------------------------------------------
+
+            _backButton.enabled = false;
             _animator.SetTrigger(_tutorialOutroID);
             yield return new WaitForSeconds(_tutorialAnimTime);
             // UIを非表示
             UIGeneralManager.Instance.SetActiveChildUI(false, this.transform);
             PlayerController.Instance.IsCanMove = true;
+            PlayerController.Instance.IsCanPause = true;
 
             // このチュートリアルが基本操作の場合、チュートリアル終了後にエイムアイコンUI（酔い防止の白点）を表示
             if (_currentTutorialIDName == NoemalTutorialIDName) { PlayerStatusUIManager.Instance.ShowStatusUI(PlayerStatusUIManager.Instance.AimUI); }
