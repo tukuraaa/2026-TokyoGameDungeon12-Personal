@@ -18,6 +18,11 @@ namespace PESDISASTER
         /// </summary>
         [SerializeField]
         private Transform _gameRuleUITarget;
+        /// <summary>
+        /// インタラクト可能通知UIのターゲットを参照する変数
+        /// </summary>
+        [SerializeField]
+        private Transform _interactUITarget;
 
         /// <summary>
         /// アニメーターを参照する変数
@@ -80,6 +85,15 @@ namespace PESDISASTER
         {
             UIGeneralManager.Instance.SetActiveUI(true, _gameRuleUITarget);
             _animator.SetTrigger(_ruleTrigger_ID);
+        }
+
+        /// <summary>
+        /// インタラクト可能通知UIを表示する関数
+        /// </summary>
+        /// <param name="isActive">表示・非表示を判定するフラグを参照する変数</param>
+        public void NoticeInteract(bool isActive)
+        {
+            UIGeneralManager.Instance.SetActiveUI(isActive, _interactUITarget);
         }
 
         /// <summary>

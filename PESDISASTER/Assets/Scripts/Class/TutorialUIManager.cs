@@ -22,10 +22,16 @@ namespace PESDISASTER
         private Button _backButton;
 
         /// <summary>
-        /// チュートリアル用のスクショ画像を参照する変数
+        /// チュートリアル用スクショ画像を参照する変数
         /// </summary>
         [SerializeField]
         private Image _tutorialScImage;
+
+        /// <summary>
+        /// チュートリアル用スクショ画像の素材そのものを参照する変数
+        /// </summary>
+        [SerializeField]
+        private Sprite[] _tutorialScSprite;
 
         /// <summary>
         /// アニメーターを参照する変数
@@ -54,6 +60,11 @@ namespace PESDISASTER
         /// チュートリアル演出時間を参照する変数
         /// </summary>
         private float _tutorialAnimTime = 1f;
+
+        /// <summary>
+        /// 基本操作チュートリアル用スクショ画像の素材IDを参照する変数
+        /// </summary>
+        private int _normalTutorialSpriteID = 0;
 
         /// <summary>
         /// チュートリアル中かどうかを判別する変数
@@ -110,6 +121,8 @@ namespace PESDISASTER
                 _currentTutorialIDName = NoemalTutorialIDName;
                 // テキストを基本操作チュートリアルように変更
                 _targetLocalizedTextDisplay.TextKey = NoemalTutorialIDName;
+                // スクショ画像を基本操作チュートリアル用に変更
+                _tutorialScImage.sprite = _tutorialScSprite[_normalTutorialSpriteID];
             }
 
             PlayerController.Instance.IsCanPause = false;
