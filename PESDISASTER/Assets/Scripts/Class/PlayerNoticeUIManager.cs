@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using System.Xml.Linq;
+using UnityEngine;
 
 namespace PESDISASTER
 {
@@ -23,6 +24,12 @@ namespace PESDISASTER
         /// </summary>
         [SerializeField]
         private Transform _interactUITarget;
+
+        /// <summary>
+        /// 指定のローカライズテキスト管理クラスを参照する変数
+        /// </summary>
+        [SerializeField]
+        private LocalizedTextDisplay _targetLocalizedTextDisplay;
 
         /// <summary>
         /// アニメーターを参照する変数
@@ -52,6 +59,15 @@ namespace PESDISASTER
         /// アニメーション中かどうかを参照する変数
         /// </summary>
         private bool _isAnimating = false;
+
+        /// <summary>
+        /// 気になるものがあるときの文章ID名を参照する変数
+        /// </summary>
+        public string SomethingTextIDName = "ThereSomething";
+        /// <summary>
+        /// 現在のナビ通知文章ID名を参照する変数
+        /// </summary>
+        private string _currentNaviTextIDName;
 
         /// <summary>
         /// 初期設定を行う関数
@@ -100,8 +116,9 @@ namespace PESDISASTER
         /// 指定アクションに反応する通知アニメーションを行うコルーチン
         /// </summary>
         /// <param name="target">指定のUIターゲットを参照する変数</param>
+        /// <param name="idName">文章のIDを参照する変数</param>
         /// <returns></returns>
-        private IEnumerator NoticeActionCoroutine(Transform target)
+        private IEnumerator NoticeActionCoroutine(Transform target, string idName)
         {
             if (_isAnimating)
             {
@@ -110,10 +127,14 @@ namespace PESDISASTER
 
             // --- 通知アニメーション処理 -----------------------------
             _isAnimating = true;
+
             UIGeneralManager.Instance.SetActiveUI(true, target);
+            // 表示したいテキストに変更する
+            ChangeTextMessage(idName);
             _animator.SetTrigger(_navigateTrigger_ID);
             yield return new WaitForSeconds(_noticeAnimTime);
             UIGeneralManager.Instance.SetActiveUI(false, target);
+            
             _isAnimating = false;
             // --------------------------------------------------------
         }
@@ -121,10 +142,28 @@ namespace PESDISASTER
         /// <summary>
         /// 指定アクションに反応する通知を開始する関数
         /// </summary>
-        public void NoticeAction()
+        /// <param name="idName">文章ID名を参照する変数</param>
+        public void NoticeAction(string idName)
         {
             // 指定アクションに反応する通知のアニメーションを行う
-            StartCoroutine(NoticeActionCoroutine(_navigateNoticeUITarget));
+            StartCoroutine(NoticeActionCoroutine(_navigateNoticeUITarget, idName));
+        }
+
+        /// <summary>
+        /// テキストの文章内容を変更する関数
+        /// </summary>
+        /// <param name="idName"></param>
+        private void ChangeTextMessage(string idName)
+        {
+            // このチュートリアルが基本操作の場合
+            if (idName == SomethingTextIDName)
+            {
+                // 現在のナビ通知文章ID名を気になるものがあるときの文章ID名に変更
+                _currentNaviTextIDName = SomethingTextIDName;
+            }
+
+            // テキストを変更
+            _targetLocalizedTextDisplay.TextKey = _currentNaviTextIDName;
         }
     }
 }

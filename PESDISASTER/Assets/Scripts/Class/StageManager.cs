@@ -198,7 +198,7 @@ namespace PESDISASTER
             // プレイヤーが操作できるようにアニメーターの管理を解除
             animator.enabled = false;
             // 基本操作のチュートリアルを開始する
-            TutorialUIManager.Instance.StartTutorial(TutorialUIManager.Instance.NoemalTutorialIDName);
+            TutorialUIManager.Instance.StartTutorial(TutorialUIManager.Instance.NormalTutorialIDName);
             // --------------------------------------------------------------------------------
         }
 

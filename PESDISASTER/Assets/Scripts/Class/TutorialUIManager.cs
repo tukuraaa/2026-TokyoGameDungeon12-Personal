@@ -65,6 +65,10 @@ namespace PESDISASTER
         /// 基本操作チュートリアル用スクショ画像の素材IDを参照する変数
         /// </summary>
         private int _normalTutorialSpriteID = 0;
+        /// <summary>
+        /// 現在のチュートリアル用スクショ画像IDを参照する変数
+        /// </summary>
+        private int _currentTutorialSpriteID;
 
         /// <summary>
         /// チュートリアル中かどうかを判別する変数
@@ -74,7 +78,7 @@ namespace PESDISASTER
         /// <summary>
         /// 基本チュートリアルのID名を参照する変数
         /// </summary>
-        public string NoemalTutorialIDName = "NormalControlTutorial";
+        public string NormalTutorialIDName = "NormalControlTutorial";
         /// <summary>
         /// 現在のチュートリアルID名を参照する変数
         /// </summary>
@@ -115,15 +119,18 @@ namespace PESDISASTER
             _isTutorial = true;
 
             // このチュートリアルが基本操作の場合
-            if (idName == NoemalTutorialIDName)
+            if (idName == NormalTutorialIDName)
             {
                 // 現在のチュートリアルIDを基本操作のIDに変更
-                _currentTutorialIDName = NoemalTutorialIDName;
-                // テキストを基本操作チュートリアルように変更
-                _targetLocalizedTextDisplay.TextKey = NoemalTutorialIDName;
-                // スクショ画像を基本操作チュートリアル用に変更
-                _tutorialScImage.sprite = _tutorialScSprite[_normalTutorialSpriteID];
+                _currentTutorialIDName = NormalTutorialIDName;
+                // 現在のチュートリアル画像素材IDを基本操作のIDに変更
+                _currentTutorialSpriteID = _normalTutorialSpriteID;
             }
+
+            // テキストを変更
+            _targetLocalizedTextDisplay.TextKey = _currentTutorialIDName;
+            // スクショ画像を変更
+            _tutorialScImage.sprite = _tutorialScSprite[_currentTutorialSpriteID];
 
             PlayerController.Instance.IsCanPause = false;
             PlayerController.Instance.IsCanMove = false;
@@ -158,7 +165,7 @@ namespace PESDISASTER
             PlayerController.Instance.IsCanPause = true;
 
             // このチュートリアルが基本操作の場合、チュートリアル終了後にエイムアイコンUI（酔い防止の白点）を表示
-            if (_currentTutorialIDName == NoemalTutorialIDName) { PlayerStatusUIManager.Instance.ShowStatusUI(PlayerStatusUIManager.Instance.AimUI); }
+            if (_currentTutorialIDName == NormalTutorialIDName) { PlayerStatusUIManager.Instance.ShowStatusUI(PlayerStatusUIManager.Instance.AimUI); }
 
             _isTutorial = false;
         }

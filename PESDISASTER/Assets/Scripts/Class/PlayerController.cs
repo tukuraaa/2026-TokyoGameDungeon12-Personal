@@ -29,11 +29,6 @@ namespace PESDISASTER
         /// </summary>
         [SerializeField]
         private Transform _weaponCameraPlayerTransform;
-        /// <summary>
-        /// インタラクト操作のUIアイコンを参照する変数
-        /// </summary>
-        [SerializeField]
-        private Transform _interactControl_Icon;
 
         /// <summary>
         /// プレイヤー操作のUIを管理するクラスを参照する変数

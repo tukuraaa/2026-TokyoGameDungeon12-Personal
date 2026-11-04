@@ -16,8 +16,8 @@ namespace PESDISASTER
             // もし衝突してきた相手のタグが"Player"だった場合
             if (collider.CompareTag("Player"))
             {
-                // 攻略ナビを表示
-                PlayerNoticeUIManager.Instance.NoticeAction();
+                // 気になるものがある場合の攻略ナビを表示
+                PlayerNoticeUIManager.Instance.NoticeAction(PlayerNoticeUIManager.Instance.SomethingTextIDName);
             }
         }
 
