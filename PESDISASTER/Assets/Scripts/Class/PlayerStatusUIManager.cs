@@ -78,7 +78,7 @@ namespace PESDISASTER
         private void Start()
         {
             // 最初はUIの子要素を非表示
-            UIGeneralManager.Instance.SetActiveChildUI(false, this.transform);
+            UIGeneralManager.Instance.SetActiveChildUI(this.transform, false);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace PESDISASTER
         /// </summary>
         public void ShowStatusUI(Transform target)
         {
-            UIGeneralManager.Instance.SetActiveUI(true,target);
+            UIGeneralManager.Instance.SetActiveUI(target, true);
 
             if (target == HP_UI)
             {
@@ -122,10 +122,10 @@ namespace PESDISASTER
 
             // --- 通知アニメーション処理 -----------------------------
             _isAnimating = true;
-            UIGeneralManager.Instance.SetActiveUI(true, _damageEffectUI);
+            UIGeneralManager.Instance.SetActiveUI(_damageEffectUI, true);
             _animator.SetTrigger(_damageTriggerID);
             yield return new WaitForSeconds(_damageAnimTime);
-            UIGeneralManager.Instance.SetActiveUI(false, _damageEffectUI);
+            UIGeneralManager.Instance.SetActiveUI(_damageEffectUI, false);
             _isAnimating = false;
             // --------------------------------------------------------
         }

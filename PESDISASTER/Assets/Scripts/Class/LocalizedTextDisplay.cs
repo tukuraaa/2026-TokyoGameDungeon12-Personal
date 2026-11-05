@@ -11,7 +11,7 @@ namespace PESDISASTER
         /// <summary>
         /// インスペクターで言語テーブルを設定するための変数
         /// </summary>
-        [SerializeField] 
+        [SerializeField]
         private LanguageTable _languageTable;
 
         /// <summary>
@@ -23,13 +23,16 @@ namespace PESDISASTER
         /// インスペクターでテキストキーを設定するための変数
         /// </summary>
         public string TextKey;
+        /// <summary>
+        /// 現在の言語ID名を参照する変数
+        /// </summary>
+        private string _currentLanguage;
 
         /// <summary>
         /// 初期設定を行う関数
         /// </summary>
         private void Start()
         {
-            // TextMeshProUGUIコンポーネントの取得
             _textComponent = GetComponent<TextMeshProUGUI>();
 
             // 初期表示の更新
@@ -41,9 +44,10 @@ namespace PESDISASTER
         /// </summary>
         public void UpdateText()
         {
-            // Managerから現在の言語設定を取得して反映（後述のManager作成後に修正）
-            string currentLang = LocalizationManager.Instance.CurrentLanguage;
-            _textComponent.text = _languageTable.GetText(TextKey, currentLang);
+            // --- Managerから現在の言語設定を取得して反映 -------------------------------
+            _currentLanguage = LocalizationManager.Instance.CurrentLanguage;
+            _textComponent.text = _languageTable.GetText(TextKey, _currentLanguage);
+            // ---------------------------------------------------------------------------
         }
     }
 }

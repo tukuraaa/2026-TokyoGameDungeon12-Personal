@@ -142,11 +142,11 @@ namespace PESDISASTER
         /// <summary>
         /// ターゲットとなるインタラクト可能なオブジェクト（メモ）を参照するための変数
         /// </summary>
-        private Paper_Interactable _paperCurrentTarget;
+        private PaperInteractable _paperCurrentTarget;
         /// <summary>
         /// Rayが当たったオブジェクト（メモ）を参照する変数
         /// </summary>
-        private Paper_Interactable _paper_Interactable;
+        private PaperInteractable _paper_Interactable;
 
         /// <summary>
         /// 反動が頂点に達する速さを参照する変数
@@ -509,7 +509,7 @@ namespace PESDISASTER
                 else if (targetName == _targetPaperName)
                 {
                     // Rayが当たったオブジェクトの親オブジェクトにD_Interactableコンポーネントがあるか確認するため登録
-                    _paper_Interactable = _hit.collider.GetComponentInParent<Paper_Interactable>();
+                    _paper_Interactable = _hit.collider.GetComponentInParent<PaperInteractable>();
                 }
 
                 // もしIInteractableコンポーネントがある場合

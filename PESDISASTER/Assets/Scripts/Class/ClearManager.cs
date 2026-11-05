@@ -92,7 +92,7 @@ namespace PESDISASTER
             // BGMを停止
             AudioManager.Instance.StopBGM();
             // 遷移演出用UIを表示
-            UIGeneralManager.Instance.SetActiveChildUI(true,transitionUI_Manager.transform);
+            UIGeneralManager.Instance.SetActiveChildUI(transitionUI_Manager.transform, true);
             // アウトロ演出再生
             animator.SetTrigger(clearOutro_ID);
             // アウトロ演出の持続時間だけ待機

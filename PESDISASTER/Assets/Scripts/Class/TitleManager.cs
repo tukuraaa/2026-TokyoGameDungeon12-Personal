@@ -83,11 +83,11 @@ namespace PESDISASTER
             // タイトルUIのボタン・イベントトリガーのアクセスをオフにする
             _titleUI_Manager.ChangeEnabled(false);
             // 遷移演出用UIを表示
-            UIGeneralManager.Instance.SetActiveChildUI(true, _transitionUI_Manager.transform);
+            UIGeneralManager.Instance.SetActiveChildUI(_transitionUI_Manager.transform, true);
             // イントロアニメーションの時間だけ待機
             yield return new WaitForSeconds(_introAnimDuration);
             // 演出用UIを非表示
-            UIGeneralManager.Instance.SetActiveChildUI(false, _transitionUI_Manager.transform);
+            UIGeneralManager.Instance.SetActiveChildUI(_transitionUI_Manager.transform, false);
             // タイトルUIのボタン・イベントトリガーのアクセスをオンにする
             _titleUI_Manager.ChangeEnabled(true);
         }
@@ -104,7 +104,7 @@ namespace PESDISASTER
             // 最初はタイトルUIのボタン・イベントトリガーのアクセスをオフにする
             _titleUI_Manager.ChangeEnabled(false);
             // 遷移演出用UIを表示
-            UIGeneralManager.Instance.SetActiveChildUI(true, _transitionUI_Manager.transform);
+            UIGeneralManager.Instance.SetActiveChildUI(_transitionUI_Manager.transform, true);
             // タイトルアウトロトリガーを発動
             _animator.SetTrigger(_titleOutroTriggerID);
             // アウトロアニメーションの時間だけ待機
@@ -125,7 +125,7 @@ namespace PESDISASTER
             // タイトルUIのボタン・イベントトリガーのアクセスをオフにする
             _titleUI_Manager.ChangeEnabled(false);
             // 遷移演出用UIを表示
-            UIGeneralManager.Instance.SetActiveChildUI(true, _transitionUI_Manager.transform);
+            UIGeneralManager.Instance.SetActiveChildUI(_transitionUI_Manager.transform, true);
             // タイトルアウトロトリガーを発動
             _animator.SetTrigger(_titleOutroTriggerID);
             // アウトロアニメーションの時間だけ待機

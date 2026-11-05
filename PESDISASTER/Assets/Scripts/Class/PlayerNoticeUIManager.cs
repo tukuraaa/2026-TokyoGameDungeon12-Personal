@@ -91,7 +91,7 @@ namespace PESDISASTER
         private void Start()
         {
             // 最初はUIの子要素を非表示
-            UIGeneralManager.Instance.SetActiveChildUI(false, this.transform);
+            UIGeneralManager.Instance.SetActiveChildUI(this.transform, false);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace PESDISASTER
         /// </summary>
         public void NoticeRule()
         {
-            UIGeneralManager.Instance.SetActiveUI(true, _gameRuleUITarget);
+            UIGeneralManager.Instance.SetActiveUI(_gameRuleUITarget, true);
             _animator.SetTrigger(_ruleTrigger_ID);
         }
 
@@ -109,7 +109,7 @@ namespace PESDISASTER
         /// <param name="isActive">表示・非表示を判定するフラグを参照する変数</param>
         public void NoticeInteract(bool isActive)
         {
-            UIGeneralManager.Instance.SetActiveUI(isActive, _interactUITarget);
+            UIGeneralManager.Instance.SetActiveUI(_interactUITarget, isActive);
         }
 
         /// <summary>
@@ -128,13 +128,13 @@ namespace PESDISASTER
             // --- 通知アニメーション処理 -----------------------------
             _isAnimating = true;
 
-            UIGeneralManager.Instance.SetActiveUI(true, target);
+            UIGeneralManager.Instance.SetActiveUI(target, true);
             // 表示したいテキストに変更する
             ChangeTextMessage(idName);
             _animator.SetTrigger(_navigateTrigger_ID);
             yield return new WaitForSeconds(_noticeAnimTime);
-            UIGeneralManager.Instance.SetActiveUI(false, target);
-            
+            UIGeneralManager.Instance.SetActiveUI(target, false);
+
             _isAnimating = false;
             // --------------------------------------------------------
         }

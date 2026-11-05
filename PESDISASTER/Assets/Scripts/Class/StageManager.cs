@@ -177,7 +177,7 @@ namespace PESDISASTER
             // --- 目覚める演出 ----------------------------------------------------------
             // 目覚める演出の持続時間を待つ
             yield return new WaitForSeconds(_introWakeUpDuration * _introTimeMultiplier);
-            UIGeneralManager.Instance.SetActiveChildUI(false, TransitionUIManager.Instance.transform);
+            UIGeneralManager.Instance.SetActiveChildUI(TransitionUIManager.Instance.transform,false);
             // ---------------------------------------------------------------------------
 
             // --- ベッドから起きる演出 ----------------------------------------------------
@@ -263,7 +263,7 @@ namespace PESDISASTER
             overTitleButton.enabled = false;// ゲームオーバーのタイトルボタンを最初は無効にする
             overTitleEvent.enabled = false;// ゲームオーバーのタイトルボタンイベントを最初は無効にする
 
-            UIGeneralManager.Instance.SetActiveChildUI(false, TransitionUIManager.Instance.transform);
+            UIGeneralManager.Instance.SetActiveChildUI(TransitionUIManager.Instance.transform, false);
             animator.SetTrigger(overOutro_ID);// アウトロ再生
             yield return new WaitForSeconds(overOutroDuration);// 演出中は待機
 
@@ -369,6 +369,8 @@ namespace PESDISASTER
         /// </summary>
         public void MainGameStart()
         {
+            // メインゲームが始まったことを示すフラグをオンにする
+            IsMainGameStarted = true;
             // メインステージ（第一ステージ）のBGMを再生
             AudioManager.Instance.PlayBGM("Stage1");
             // プレイヤーのHPを表示

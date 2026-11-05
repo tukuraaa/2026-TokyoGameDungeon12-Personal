@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PaperOutro
+  m_Name: OutroPaperAnim
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -58,7 +58,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: OnPaper_Intro
+    m_ConditionEvent: OnIntro
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6590319495940018954}
@@ -81,7 +81,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PaperHide
+  m_Name: HidePaperAnim
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -110,7 +110,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: OnPaperOutro
+    m_ConditionEvent: OnOutro
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8918556355696345376}
@@ -166,13 +166,13 @@ AnimatorController:
   m_Name: Paper
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: OnPaper_Intro
+  - m_Name: OnIntro
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: OnPaperOutro
+  - m_Name: OnOutro
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -198,7 +198,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PaperShow
+  m_Name: ShowPaperAnim
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -225,7 +225,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Paper_Intro
+  m_Name: IntroPaperAnim
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

@@ -104,7 +104,7 @@ namespace PESDISASTER
             // 最初は戻るボタンの機能をオフ
             _backButton.enabled = false;
             // 最初はUIの子オブジェクトを非表示
-            UIGeneralManager.Instance.SetActiveChildUI(false, this.transform);
+            UIGeneralManager.Instance.SetActiveChildUI(this.transform, false);
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace PESDISASTER
 
             PlayerController.Instance.IsCanPause = false;
             PlayerController.Instance.IsCanMove = false;
-            UIGeneralManager.Instance.SetActiveChildUI(true, this.transform);
+            UIGeneralManager.Instance.SetActiveChildUI(this.transform, true);
             _animator.SetTrigger(_tutorialIntroID);
             yield return new WaitForSeconds(_tutorialAnimTime);
             _backButton.enabled = true;
@@ -160,7 +160,7 @@ namespace PESDISASTER
             _animator.SetTrigger(_tutorialOutroID);
             yield return new WaitForSeconds(_tutorialAnimTime);
             // UIを非表示
-            UIGeneralManager.Instance.SetActiveChildUI(false, this.transform);
+            UIGeneralManager.Instance.SetActiveChildUI(this.transform, false);
             PlayerController.Instance.IsCanMove = true;
             PlayerController.Instance.IsCanPause = true;
 
