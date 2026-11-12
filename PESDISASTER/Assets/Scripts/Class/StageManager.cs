@@ -1,5 +1,6 @@
+using System;
 using System.Collections;
-using TMPro;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,8 +10,24 @@ namespace PESDISASTER
     /// <summary>
     /// ステージシーンの管理クラス
     /// </summary>
-    public class StageManager : MonoBehaviour
+    public class StageManager : MonoBehaviour, IUIViewer
     {
+        /// <summary>
+        /// プレイヤーステータスUI管理クラスを参照する変数
+        /// </summary>
+        [SerializeField]
+        private PlayerStatusUIManager _playerStatusUIManager;
+        /// <summary>
+        /// 操作チュートリアルUI管理クラスを参照する変数
+        /// </summary>
+        [SerializeField]
+        private TutorialUIManager _tutorialUIManager;
+        /// <summary>
+        /// 読み物UI管理クラスを参照する変数
+        /// </summary>
+        [SerializeField]
+        private PauseUIManager _pauseUIManager;
+
         /// <summary>
         /// ゲームイントロ演出時間の倍率を参照する変数
         /// </summary>
@@ -22,14 +39,6 @@ namespace PESDISASTER
         /// </summary>
         private Animator animator;
 
-        /// <summary>
-        /// プレイヤーの操作UIを管理するクラスを参照する変数
-        /// </summary>
-        public TutorialUIManager playerControllerUI_Manager;
-        /// <summary>
-        /// プレイヤー操作のUIを管理するクラスを参照する変数
-        /// </summary>
-        public PauseUI_Manager pauseUI_Manager;
         /// <summary>
         /// プレイヤー通知UIを管理するクラスを参照する変数
         /// </summary>
@@ -61,6 +70,11 @@ namespace PESDISASTER
         /// ステージマネージャーのインスタンスを参照する変数
         /// </summary>
         public static StageManager Instance { get; private set; }
+
+        /// <summary>
+        /// UIを表示するイベントを行う変数
+        /// </summary>
+        public event Action<Transform> OnViewUI;
 
         /// <summary>
         /// ゲームオーバーアウトロ演出の時間を参照する変数
@@ -144,6 +158,8 @@ namespace PESDISASTER
             retryButton.onClick.AddListener(Retry);
             overTitleButton.onClick.AddListener(GoTitle);
 
+            _playerStatusUIManager.Init(this);
+
             // --- カーソルをロック ------------------
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -151,6 +167,48 @@ namespace PESDISASTER
 
             // イントロ演出を開始
             StartCoroutine(IntroEventCoroutine());
+        }
+
+        /// <summary>
+        /// 毎フレーム処理を行う関数
+        /// </summary>
+        private void Update()
+        {
+            if (IsInvokeEvent())
+            {
+                InvokeEventManager();
+            }
+        }
+
+        /// <summary>
+        /// イベント発火できるか判別するフラグ関数
+        /// </summary>
+        /// <returns></returns>
+        private bool IsInvokeEvent()
+        {
+            if (!_tutorialUIManager.IsExitNormalTutorial
+                && !PaperUIManager.Instance.IsInvokeEventAfterRead) { return false; }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 発生するイベント管理を行う関数
+        /// </summary>
+        private void InvokeEventManager()
+        {
+            if (_tutorialUIManager.IsExitNormalTutorial)
+            {
+                // プレイヤーのエイムアイコンを表示
+                OnViewUI?.Invoke(_playerStatusUIManager.AimIcon);
+                _tutorialUIManager.IsExitNormalTutorial = false;
+            }
+            else if (PaperUIManager.Instance.IsInvokeEventAfterRead)
+            {
+                // メインゲームを開始する
+                MainGameStart();
+                PaperUIManager.Instance.IsInvokeEventAfterRead = false;
+            }
         }
 
         /// <summary>
@@ -177,7 +235,7 @@ namespace PESDISASTER
             // --- 目覚める演出 ----------------------------------------------------------
             // 目覚める演出の持続時間を待つ
             yield return new WaitForSeconds(_introWakeUpDuration * _introTimeMultiplier);
-            UIGeneralManager.Instance.SetActiveChildUI(TransitionUIManager.Instance.transform,false);
+            UIGeneralManager.Instance.SetActiveChildUI(TransitionUIManager.Instance.transform, false);
             // ---------------------------------------------------------------------------
 
             // --- ベッドから起きる演出 ----------------------------------------------------
@@ -213,7 +271,7 @@ namespace PESDISASTER
             if (!isPausing)
             {
                 Time.timeScale = 0f;
-                pauseUI_Manager.Show();
+                _pauseUIManager.Show();
 
                 // プレイヤーの操作を禁止
                 PlayerController.Instance.IsCanMove = true;
@@ -228,7 +286,7 @@ namespace PESDISASTER
             else
             {
                 Time.timeScale = timeCanMoveValue;
-                pauseUI_Manager.Hide();
+                _pauseUIManager.Hide();
 
                 // プレイヤーの操作を許可
                 PlayerController.Instance.IsCanMove = false;
@@ -367,14 +425,14 @@ namespace PESDISASTER
         /// <summary>
         /// メインゲーム開始時の処理を行う関数
         /// </summary>
-        public void MainGameStart()
+        private void MainGameStart()
         {
             // メインゲームが始まったことを示すフラグをオンにする
             IsMainGameStarted = true;
             // メインステージ（第一ステージ）のBGMを再生
             AudioManager.Instance.PlayBGM("Stage1");
             // プレイヤーのHPを表示
-            PlayerStatusUIManager.Instance.ShowStatusUI(PlayerStatusUIManager.Instance.HP_UI);
+            OnViewUI?.Invoke(_playerStatusUIManager.HPIcon);
             // ゲーム目的を記したUIを表示
             PlayerNoticeUIManager.Instance.NoticeRule();
         }

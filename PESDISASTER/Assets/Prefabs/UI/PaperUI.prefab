@@ -130,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PESDISASTER.PaperManager
   _backButton: {fileID: 8807214129833216364}
   _targetLocalizedTextDisplay: {fileID: 3088272032883456477}
+  IsInvokeEventAfterRead: 0
 --- !u!95 &3371950624153325504
 Animator:
   serializedVersion: 7

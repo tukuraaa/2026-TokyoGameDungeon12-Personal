@@ -328,6 +328,7 @@ MonoBehaviour:
   _tutorialScImage: {fileID: 8949242204677075715}
   _tutorialScSprite:
   - {fileID: 749646058, guid: 770a4f7b39a9d1c49baaa56fcf9a3887, type: 3}
+  IsExitNormalTutorial: 0
   NormalTutorialIDName: NormalControlTutorial
 --- !u!95 &8793982621555987709
 Animator:

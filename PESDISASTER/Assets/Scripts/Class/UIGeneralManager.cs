@@ -10,23 +10,20 @@ namespace PESDISASTER
         /// <summary>
         /// クラス自身のシングルトンインスタンスを参照する変数
         /// </summary>
-        public static UIGeneralManager Instance
-        {
-            get;
-            private set;
-        }
+        public static UIGeneralManager Instance { get; private set; }
 
         /// <summary>
         /// 初期設定を行う関数
         /// </summary>
         private void Awake()
         {
-            if (Instance == null) { Instance = this; }
+            if (Instance == null)
+            {
+                Instance = this;
+            }
             else
             {
-                this.enabled = false;
                 Destroy(gameObject);
-                return;
             }
         }
 
@@ -45,7 +42,7 @@ namespace PESDISASTER
         public void SetActiveChildUI(Transform target, bool isActive)
         {
             // 対象UIの全子オブジェクトをサーチ
-            foreach (Transform child in target.transform) { child.gameObject.SetActive(isActive); }
+            foreach (Transform child in target) { child.gameObject.SetActive(isActive); }
         }
     }
 }

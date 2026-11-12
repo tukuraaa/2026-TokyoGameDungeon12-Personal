@@ -1,12 +1,11 @@
 using System.Collections;
-using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace PESDISASTER
 {
     /// <summary>
-    /// メモUIを管理するクラス
+    /// 読み物UIを管理するクラス
     /// </summary>
     public class PaperUIManager : MonoBehaviour
     {
@@ -30,11 +29,7 @@ namespace PESDISASTER
         /// <summary>
         /// このクラスのシングルトンインスタンスを参照する変数
         /// </summary>
-        public static PaperUIManager Instance 
-        {
-            get; 
-            private set; 
-        }
+        public static PaperUIManager Instance{get;private set;}
 
         /// <summary>
         /// アニメーターのメモイベントイントロトリガーIDを参照する変数
@@ -50,6 +45,14 @@ namespace PESDISASTER
         /// </summary>
         private float _animTime = 1.0f;
 
+        /// <summary>
+        /// 紙を読んだ後でイベントを発火するか判別する変数
+        /// </summary>
+        public bool IsInvokeEventAfterRead = false;
+        /// <summary>
+        /// ゲーム内一番最初にある紙を読んだか判別する変数
+        /// </summary>
+        private bool _isReadFirstPaper = true;
         /// <summary>
         /// 演出中か判別する変数
         /// </summary>
@@ -160,11 +163,13 @@ namespace PESDISASTER
             {
                 UIGeneralManager.Instance.SetActiveChildUI(this.transform, false);
 
-                // もしメインゲームが開始されていない場合
-                if (!StageManager.Instance.IsMainGameStarted)
+                if (_isReadFirstPaper)
                 {
-                    // メインゲームを開始するイベントを呼び出し
-                    StageManager.Instance.MainGameStart();
+                    _isReadFirstPaper = false;
+
+                    // 紙を読んだ後、特定のイベントを発火するようにフラグで示す
+                    IsInvokeEventAfterRead = true;
+                    // 専用演出のために少し待機する
                     yield return new WaitForSeconds(_animTime);
                 }
 

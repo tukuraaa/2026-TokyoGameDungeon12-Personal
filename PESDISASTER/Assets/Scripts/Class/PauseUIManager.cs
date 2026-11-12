@@ -6,7 +6,7 @@ namespace PESDISASTER
     /// <summary>
     /// ポーズUIを管理するクラス
     /// </summary>
-    public class PauseUI_Manager : MonoBehaviour
+    public class PauseUIManager : MonoBehaviour
     {
         /// <summary>
         /// 続行ボタンを参照する変数

@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 namespace PESDISASTER
@@ -11,8 +10,8 @@ namespace PESDISASTER
         /// <summary>
         /// ダメージエフェクトUIオブジェクトを参照する変数
         /// </summary>
-        [SerializeField]
-        private Transform _damageEffectUI;
+        //[SerializeField]
+        //private Transform _damageEffectUI;
 
         /// <summary>
         /// アニメーターを参照する変数
@@ -22,16 +21,16 @@ namespace PESDISASTER
         /// <summary>
         /// エイムUIオブジェクトを参照する変数
         /// </summary>
-        public Transform AimUI;
+        public Transform AimIcon;
         /// <summary>
         /// 体力UIオブジェクトを参照する変数
         /// </summary>
-        public Transform HP_UI;
+        public Transform HPIcon;
 
         /// <summary>
-        /// シングルトンインスタンスを参照する変数
+        /// UI表示を行うインターフェースを参照する変数
         /// </summary>
-        public static PlayerStatusUIManager Instance { get; private set; }
+        private IUIViewer _uiViewerSource;
 
         /// <summary>
         /// アニメーターの体力UI表示トリガーを参照する変数
@@ -44,41 +43,37 @@ namespace PESDISASTER
         /// <summary>
         /// アニメーターのダメージ時トリガーを参照する変数
         /// </summary>
-        private static readonly int _damageTriggerID = Animator.StringToHash("OnDamage");
+        //private static readonly int _damageTriggerID = Animator.StringToHash("OnDamage");
 
         /// <summary>
         /// ダメージ時アニメーションの時間を参照する変数
         /// </summary>
-        private float _damageAnimTime = 1f;
+        //private float _damageAnimTime = 1f;
 
         /// <summary>
         /// アニメーション中かどうかを参照する変数
         /// </summary>
-        private bool _isAnimating = false;
-
-        /// <summary>
-        /// 初期設定を行う関数
-        /// </summary>
-        private void Awake()
-        {
-            if (Instance == null) { Instance = this; }
-            else
-            {
-                this.enabled = false;
-                Destroy(gameObject);
-                return;
-            }
-
-            _animator = GetComponent<Animator>();
-        }
+        //private bool _isAnimating = false;
 
         /// <summary>
         /// クラスの最初に呼び出される関数
         /// </summary>
         private void Start()
         {
+            _animator = GetComponent<Animator>();
+
             // 最初はUIの子要素を非表示
             UIGeneralManager.Instance.SetActiveChildUI(this.transform, false);
+        }
+
+        /// <summary>
+        /// イベント登録の初期設定を行う関数
+        /// </summary>
+        /// <param name="source">インターフェースのソースを参照する変数</param>
+        public void Init(IUIViewer source)
+        {
+            _uiViewerSource = source;
+            _uiViewerSource.OnViewUI += ShowStatusUI;
         }
 
         /// <summary>
@@ -88,18 +83,19 @@ namespace PESDISASTER
         {
             UIGeneralManager.Instance.SetActiveUI(target, true);
 
-            if (target == HP_UI)
+            if (target == HPIcon)
             {
                 _animator.SetTrigger(_showHPTriggerID);
                 return;
             }
-            else if (target == AimUI)
+            else if (target == AimIcon)
             {
                 _animator.SetTrigger(_showAimTriggerID);
                 return;
             }
         }
 
+        /*
         /// <summary>
         /// ダメージ表示を開始する関数
         /// </summary>
@@ -129,5 +125,6 @@ namespace PESDISASTER
             _isAnimating = false;
             // --------------------------------------------------------
         }
+        */
     }
 }
