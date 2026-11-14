@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PESDISASTER
 {
@@ -9,66 +8,37 @@ namespace PESDISASTER
     public class PauseUIManager : MonoBehaviour
     {
         /// <summary>
-        /// 続行ボタンを参照する変数
+        /// UI表示を行うインターフェースを参照する変数
         /// </summary>
-        [SerializeField]
-        private Button _continueButton;
-        /// <summary>
-        /// リトライボタンを参照する変数
-        /// </summary>
-        [SerializeField]
-        private Button _restartButton;
-        /// <summary>
-        /// ポーズのタイトルボタンを参照する変数
-        /// </summary>
-        [SerializeField]
-        private Button _titleButton;
+        private IUIViewer _uiViewerSource;
 
         /// <summary>
-        /// タイトルシーン名を参照する変数
+        /// イベント登録の初期設定を行う関数
         /// </summary>
-        private string titleSceneName = "Title";
+        /// <param name="source">インターフェースのソースを参照する変数</param>
+        public void Init(IUIViewer source)
+        {
+            _uiViewerSource = source;
+            _uiViewerSource.OnSetActiveUI += SetActivePauseUI;
+        }
 
         /// <summary>
         /// 初期設定を行う関数
         /// </summary>
         private void Start()
         {
-            // --- クリックイベントにリスナーを追加 ---
-            // 続行ボタンがクリックされたとき、Pause関数を呼び出すように設定
-            _continueButton.onClick.AddListener(StageManager.Instance.Pause);
-            // リスタートボタンがクリックされたとき、Retry関数を呼び出すように設定
-            _restartButton.onClick.AddListener(StageManager.Instance.RestartGame);
-            // タイトルボタンがクリックされたとき、MoveScene関数を呼び出すように設定
-            _titleButton.onClick.AddListener(() => StageManager.Instance.MoveScene(titleSceneName));
-
-            Hide();
+            // 最初は演出など抜きでUIを非表示
+            UIGeneralManager.Instance.SetActiveChildUI(this.transform, false);
         }
 
         /// <summary>
-        /// UIを非表示にする関数
+        /// ポーズUIを表示・非表示する際の処理・演出を行う関数
         /// </summary>
-        public void Hide()
-        {
-            // 子オブジェクトを全てチェック
-            foreach (Transform child in transform)
-            {
-                // 子オブジェクトを非表示
-                child.gameObject.SetActive(false);
-            }
-        }
-
-        /// <summary>
-        /// UIを表示にする関数
-        /// </summary>
-        public void Show()
-        {
-            // 子オブジェクトを全てチェック
-            foreach (Transform child in transform)
-            {
-                // 子オブジェクトを表示
-                child.gameObject.SetActive(true);
-            }
+        /// <param name="transform">対象の座標を参照する変数</param>
+        /// <param name="isActive">表示・非表示を判別するフラグ</param>
+        public void SetActivePauseUI(Transform transform, bool isActive)
+        { 
+            UIGeneralManager.Instance.SetActiveChildUI(transform, isActive);
         }
     }
 }

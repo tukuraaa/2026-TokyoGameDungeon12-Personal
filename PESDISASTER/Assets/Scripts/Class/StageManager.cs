@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -22,11 +21,6 @@ namespace PESDISASTER
         /// </summary>
         [SerializeField]
         private TutorialUIManager _tutorialUIManager;
-        /// <summary>
-        /// 読み物UI管理クラスを参照する変数
-        /// </summary>
-        [SerializeField]
-        private PauseUIManager _pauseUIManager;
 
         /// <summary>
         /// ゲームイントロ演出時間の倍率を参照する変数
@@ -74,7 +68,7 @@ namespace PESDISASTER
         /// <summary>
         /// UIを表示するイベントを行う変数
         /// </summary>
-        public event Action<Transform> OnViewUI;
+        public event Action<Transform, bool> OnSetActiveUI;
 
         /// <summary>
         /// ゲームオーバーアウトロ演出の時間を参照する変数
@@ -98,9 +92,10 @@ namespace PESDISASTER
         private float _introLandDuration = 2f;
 
         /// <summary>
-        /// ポーズ解除後に時間を動かすための値を参照する変数
+        /// 時間を動かすための値を参照する変数
         /// </summary>
-        private int timeCanMoveValue = 1;
+        private int _canMoveTimeValue = 1;
+
         /// <summary>
         /// ゲームオーバー時イントロアニメーションのパラメーターIDを参照する変数
         /// </summary>
@@ -122,10 +117,6 @@ namespace PESDISASTER
         /// メインゲームスタートをしたかどうかを示すフラグを参照する変数
         /// </summary>
         public bool IsMainGameStarted = false;
-        /// <summary>
-        /// ポーズ中かどうかを示すフラグを参照する変数
-        /// </summary>
-        private bool isPausing = false;
 
         /// <summary>
         /// 廃屋のBGS名を参照する変数
@@ -145,12 +136,13 @@ namespace PESDISASTER
         /// </summary>
         private void Awake()
         {
-            if (Instance == null) { Instance = this; }
+            if (Instance == null) 
+            {
+                Instance = this; 
+            }
             else
             {
-                this.enabled = false;
                 Destroy(gameObject);
-                return;
             }
 
             animator = GetComponent<Animator>();
@@ -200,7 +192,7 @@ namespace PESDISASTER
             if (_tutorialUIManager.IsExitNormalTutorial)
             {
                 // プレイヤーのエイムアイコンを表示
-                OnViewUI?.Invoke(_playerStatusUIManager.AimIcon);
+                OnSetActiveUI?.Invoke(_playerStatusUIManager.AimIcon, true);
                 _tutorialUIManager.IsExitNormalTutorial = false;
             }
             else if (PaperUIManager.Instance.IsInvokeEventAfterRead)
@@ -217,7 +209,7 @@ namespace PESDISASTER
         public void MoveScene(string name)
         {
             AudioManager.Instance.StopBGM();
-            Time.timeScale = timeCanMoveValue;
+            Time.timeScale = _canMoveTimeValue;
             UnityEngine.SceneManagement.SceneManager.LoadScene(name);
         }
 
@@ -258,46 +250,6 @@ namespace PESDISASTER
             // 基本操作のチュートリアルを開始する
             TutorialUIManager.Instance.StartTutorial(TutorialUIManager.Instance.NormalTutorialIDName);
             // --------------------------------------------------------------------------------
-        }
-
-        /// <summary>
-        /// ポーズの処理を行う関数
-        /// </summary>
-        public void Pause()
-        {
-            AudioManager.Instance.PlaySE("Pause");
-
-            // もしポーズ中でない場合
-            if (!isPausing)
-            {
-                Time.timeScale = 0f;
-                _pauseUIManager.Show();
-
-                // プレイヤーの操作を禁止
-                PlayerController.Instance.IsCanMove = true;
-
-                isPausing = true;
-
-                // --- カーソルロック解除 ---------------------
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                // --------------------------------------------
-            }
-            else
-            {
-                Time.timeScale = timeCanMoveValue;
-                _pauseUIManager.Hide();
-
-                // プレイヤーの操作を許可
-                PlayerController.Instance.IsCanMove = false;
-
-                isPausing = false;
-
-                // --- カーソルロック --------------------------
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                // ---------------------------------------------
-            }
         }
 
         /// <summary>
@@ -432,7 +384,7 @@ namespace PESDISASTER
             // メインステージ（第一ステージ）のBGMを再生
             AudioManager.Instance.PlayBGM("Stage1");
             // プレイヤーのHPを表示
-            OnViewUI?.Invoke(_playerStatusUIManager.HPIcon);
+            OnSetActiveUI?.Invoke(_playerStatusUIManager.HPIcon, true);
             // ゲーム目的を記したUIを表示
             PlayerNoticeUIManager.Instance.NoticeRule();
         }

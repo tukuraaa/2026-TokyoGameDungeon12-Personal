@@ -73,15 +73,17 @@ namespace PESDISASTER
         public void Init(IUIViewer source)
         {
             _uiViewerSource = source;
-            _uiViewerSource.OnViewUI += ShowStatusUI;
+            _uiViewerSource.OnSetActiveUI += SetActiveStatusUI;
         }
 
         /// <summary>
         /// 指定UI表示を開始する関数
         /// </summary>
-        public void ShowStatusUI(Transform target)
+        /// <param name="target">指定UIオブジェクト</param>
+        /// <param name="isActive">表示状態</param>
+        public void SetActiveStatusUI(Transform target, bool isActive)
         {
-            UIGeneralManager.Instance.SetActiveUI(target, true);
+            UIGeneralManager.Instance.SetActiveUI(target, isActive);
 
             if (target == HPIcon)
             {

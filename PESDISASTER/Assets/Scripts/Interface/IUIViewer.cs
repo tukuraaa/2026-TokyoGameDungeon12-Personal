@@ -11,6 +11,6 @@ namespace PESDISASTER
         /// <summary>
         /// UIを表示するイベントを行う変数
         /// </summary>
-        public event Action<Transform> OnViewUI;
+        public event Action<Transform,bool> OnSetActiveUI;
     }
 }

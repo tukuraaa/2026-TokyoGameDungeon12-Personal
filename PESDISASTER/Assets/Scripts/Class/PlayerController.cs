@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,7 +7,7 @@ namespace PESDISASTER
     /// <summary>
     /// プレイヤーの操作を管理するクラス
     /// </summary>
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IPlayerSystem
     {
         /// <summary>
         /// アイテム表示カメラの参照用変数
@@ -35,6 +36,11 @@ namespace PESDISASTER
         /// </summary>
         [SerializeField]
         private StageManager _stageManager;
+        /// <summary>
+        /// ポーズ機能を管理するクラスを参照する変数
+        /// </summary>
+        [SerializeField]
+        private PauseManager _pauseManager;
 
         /// <summary>
         /// インタラクト可能なオブジェクトを検出するための範囲を設定する変数
@@ -82,6 +88,11 @@ namespace PESDISASTER
         /// カメラ左手元の位置を参照する変数
         /// </summary>
         public Transform LeftHoldPosition;
+
+        /// <summary>
+        /// プレイヤー機能を発火するイベント
+        /// </summary>
+        public event Action OnInvokeSystem;
 
         /// <summary>
         /// 視点移動の入力を参照する変数
@@ -338,6 +349,8 @@ namespace PESDISASTER
             // --- 初期状態は待機時の値にする ---
             _currentBobSpeed = _idleBobSpeed;
             _currentBobAmount = _idleBobAmount;
+
+            _pauseManager.Init(this);
         }
 
         /// <summary>
@@ -466,16 +479,14 @@ namespace PESDISASTER
         /// <summary>
         /// ポーズの入力を処理する関数
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="context">プレイヤー入力情報</param>
         public void OnPause(InputAction.CallbackContext context)
         {
             if (!IsCanPause) { return; }
 
-            // もしポーズの入力が開始された場合
             if (context.performed)
             {
-                // ポーズ処理を呼び出す
-                _stageManager.Pause();
+                OnInvokeSystem?.Invoke();
             }
         }
 
@@ -766,7 +777,7 @@ namespace PESDISASTER
         public void AddCameraRecoil(float recoil_X, float recoil_Y)
         {
             // 上方向(X)と、左右のランダムなブレ(Y)をターゲットに加算
-            _targetCameraRecoil += new Vector2(recoil_X, Random.Range(-recoil_Y, recoil_Y));
+            _targetCameraRecoil += new Vector2(recoil_X, UnityEngine.Random.Range(-recoil_Y, recoil_Y));
         }
     }
 }
