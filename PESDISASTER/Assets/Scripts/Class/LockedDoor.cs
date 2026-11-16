@@ -26,6 +26,10 @@ namespace PESDISASTER
         /// 開けるのに必要な鍵のIDを参照する変数
         /// </summary>
         public string requiredKeyID = "BedroomKey";
+        /// <summary>
+        /// オブジェクトがロックされているときの文章ID名を参照する変数
+        /// </summary>
+        private string _lockedIDName = "ObjectLocked";
 
         /// <summary>
         /// 開いているかどうかのフラグを参照する変数
@@ -63,7 +67,7 @@ namespace PESDISASTER
             }
             else
             {
-                //playerNoticeUI_Manager.NoticeLocked();// ロック中なのを通知する
+                PlayerNoticeUIManager.Instance.NoticeAction(_lockedIDName);
             }
         }
 

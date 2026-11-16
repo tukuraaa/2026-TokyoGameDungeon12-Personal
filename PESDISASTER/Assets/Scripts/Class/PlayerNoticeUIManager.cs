@@ -107,7 +107,7 @@ namespace PESDISASTER
         /// インタラクト可能通知UIを表示する関数
         /// </summary>
         /// <param name="isActive">表示・非表示を判定するフラグを参照する変数</param>
-        public void NoticeInteract(bool isActive)
+        public void NoticeCanInteract(bool isActive)
         {
             UIGeneralManager.Instance.SetActiveUI(_interactUITarget, isActive);
         }
@@ -155,15 +155,12 @@ namespace PESDISASTER
         /// <param name="idName"></param>
         private void ChangeTextMessage(string idName)
         {
-            // このチュートリアルが基本操作の場合
-            if (idName == SomethingTextIDName)
-            {
-                // 現在のナビ通知文章ID名を気になるものがあるときの文章ID名に変更
-                _currentNaviTextIDName = SomethingTextIDName;
-            }
+            // 現在のナビ通知文章ID名を指定の文章ID名に変更
+            _currentNaviTextIDName = idName;
 
             // テキストを変更
             _targetLocalizedTextDisplay.TextKey = _currentNaviTextIDName;
+            _targetLocalizedTextDisplay.UpdateText();
         }
     }
 }

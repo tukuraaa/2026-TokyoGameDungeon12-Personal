@@ -419,7 +419,7 @@ namespace PESDISASTER
                     PerformPickup_Interaction();
 
                     // インタラクトUIを非表示にする
-                    PlayerNoticeUIManager.Instance.NoticeInteract(false);
+                    PlayerNoticeUIManager.Instance.NoticeCanInteract(false);
 
                     return;
                 }
@@ -430,7 +430,7 @@ namespace PESDISASTER
                     _shelfCurrentTarget.OpenShelf();
 
                     // インタラクトUIを非表示にする
-                    PlayerNoticeUIManager.Instance.NoticeInteract(false);
+                    PlayerNoticeUIManager.Instance.NoticeCanInteract(false);
 
                     return;
                 }
@@ -441,7 +441,7 @@ namespace PESDISASTER
                     _doorCurrentTarget.Interact();
 
                     // インタラクトUIを非表示にする
-                    PlayerNoticeUIManager.Instance.NoticeInteract(false);
+                    PlayerNoticeUIManager.Instance.NoticeCanInteract(false);
 
                     return;
                 }
@@ -452,7 +452,7 @@ namespace PESDISASTER
                     _paperCurrentTarget.Interact();
 
                     // インタラクトUIを非表示にする
-                    PlayerNoticeUIManager.Instance.NoticeInteract(false);
+                    PlayerNoticeUIManager.Instance.NoticeCanInteract(false);
 
                     return;
                 }
@@ -530,7 +530,7 @@ namespace PESDISASTER
                     _itemCurrentTarget = _item_Interactable;
 
                     // インタラクトUIを表示にする
-                    PlayerNoticeUIManager.Instance.NoticeInteract(true);
+                    PlayerNoticeUIManager.Instance.NoticeCanInteract(true);
 
                     return;
                 }
@@ -541,7 +541,7 @@ namespace PESDISASTER
                     _shelfCurrentTarget = _shelf_Interactable;
 
                     // インタラクトUIを表示にする
-                    PlayerNoticeUIManager.Instance.NoticeInteract(true);
+                    PlayerNoticeUIManager.Instance.NoticeCanInteract(true);
 
                     return;
                 }
@@ -552,7 +552,7 @@ namespace PESDISASTER
                     _doorCurrentTarget = _door_Interactable;
 
                     // インタラクトUIを表示にする
-                    PlayerNoticeUIManager.Instance.NoticeInteract(true);
+                    PlayerNoticeUIManager.Instance.NoticeCanInteract(true);
 
                     return;
                 }
@@ -563,7 +563,7 @@ namespace PESDISASTER
                     _paperCurrentTarget = _paper_Interactable;
 
                     // インタラクトUIを表示にする
-                    PlayerNoticeUIManager.Instance.NoticeInteract(true);
+                    PlayerNoticeUIManager.Instance.NoticeCanInteract(true);
 
                     return;
                 }
@@ -576,7 +576,7 @@ namespace PESDISASTER
             _paperCurrentTarget = null;
 
             // インタラクトUIを非表示にする
-            PlayerNoticeUIManager.Instance.NoticeInteract(false);
+            PlayerNoticeUIManager.Instance.NoticeCanInteract(false);
         }
 
         /// <summary>
