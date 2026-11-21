@@ -28,7 +28,7 @@ namespace PESDISASTER
         /// <summary>
         /// アニメーターのタイトルアウトロトリガーを参照する変数
         /// </summary>
-        private static readonly int _titleOutroTriggerID = Animator.StringToHash("StartTimer");
+        private int _titleOutroTriggerID = Animator.StringToHash("OnOutro");
 
         /// <summary>
         /// イントロアニメーションの時間を参照する変数
@@ -130,8 +130,13 @@ namespace PESDISASTER
             _animator.SetTrigger(_titleOutroTriggerID);
             // アウトロアニメーションの時間だけ待機
             yield return new WaitForSeconds(_outroAnimDuration);
-            // アプリ終了
+
+            // アプリ終了 ---
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
             Application.Quit();
+#endif
         }
 
         /// <summary>
