@@ -7,6 +7,9 @@ namespace PESDISASTER
     /// </summary>
     public class TransitionUIManager : MonoBehaviour
     {
+        /// <summary>
+        /// このクラスのシングルトンインスタンス
+        /// </summary>
         public static TransitionUIManager Instance
         {
             get;
@@ -14,16 +17,17 @@ namespace PESDISASTER
         }
 
         /// <summary>
-        /// 初期設定を行う関数
+        /// 初期設定を行うメソッド
         /// </summary>
         private void Awake()
         {
-            if (Instance == null) { Instance = this; }
+            if (Instance == null) 
+            {
+                Instance = this; 
+            }
             else
             {
-                this.enabled = false;
                 Destroy(gameObject);
-                return;
             }
         }
     }

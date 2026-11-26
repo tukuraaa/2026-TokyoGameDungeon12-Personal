@@ -114,9 +114,7 @@ namespace PESDISASTER
             }
             else
             {
-                this.enabled = false;
                 Destroy(gameObject);
-                return;
             }
         }
 
