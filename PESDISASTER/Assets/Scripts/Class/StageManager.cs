@@ -221,6 +221,7 @@ namespace PESDISASTER
         {
             // --- イントロイベント初期処理 ---------------------------------------------------
             PlayerController.Instance.IsCanMove = false;
+            PlayerController.Instance.IsCanPause = false;
             // 廃屋BGSを再生
             AudioManager.Instance.PlaySE(_houseBGSName);
 
@@ -300,7 +301,8 @@ namespace PESDISASTER
             // アニメーターを起動
             animator.enabled = true;
             // プレイヤーの操作を禁止する
-            PlayerController.Instance.IsCanMove = true;
+            PlayerController.Instance.IsCanMove = false;
+            PlayerController.Instance.IsCanPause = false;
             // プレイヤーの操作スクリプトを無効にする
             PlayerController.Instance.gameObject.tag = "Untagged";
             // プレイヤーの操作スクリプトを無効にする

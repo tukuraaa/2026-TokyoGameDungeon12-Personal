@@ -82,11 +82,11 @@ namespace PESDISASTER
             {
                // playerNoticeUI_Manager.NoticeLocked();// ロック中なのを通知する
 
-                // もし初めて調べた場合
+                /*// もし初めて調べた場合
                 if (isFirst)
                 {
                     StartCoroutine(OpenShelfTutorialCoroutine());// 棚の開け方チュートリアルを開始する
-                }
+                }*/
 
                 return;
             }

@@ -29,7 +29,7 @@ namespace PESDISASTER
         /// <summary>
         /// このクラスのシングルトンインスタンスを参照する変数
         /// </summary>
-        public static PaperUIManager Instance{get;private set;}
+        public static PaperUIManager Instance { get; private set; }
 
         /// <summary>
         /// アニメーターのメモイベントイントロトリガーIDを参照する変数
@@ -43,7 +43,7 @@ namespace PESDISASTER
         /// <summary>
         /// アニメーションの時間を参照する変数
         /// </summary>
-        private float _animTime = 1.0f;
+        private float _animTime = 1.5f;
 
         /// <summary>
         /// 紙を読んだ後でイベントを発火するか判別する変数

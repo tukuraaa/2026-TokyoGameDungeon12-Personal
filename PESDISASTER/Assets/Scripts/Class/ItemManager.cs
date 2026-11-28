@@ -147,10 +147,11 @@ namespace PESDISASTER
             // もし拾ったアイテムがハンドガンの場合
             if (ItemName == _handgunName)
             {
-                // ハンドガンのチュートリアルを開始する
-
                 // ハンドガンを装備する
                 HandgunController.Instance.EquipGun(PlayerController.Instance.MainCamera);
+
+                // ハンドガンのチュートリアルを開始する
+                TutorialUIManager.Instance.StartTutorial(TutorialUIManager.Instance.GunTutorialIDName);
             }
         }
 

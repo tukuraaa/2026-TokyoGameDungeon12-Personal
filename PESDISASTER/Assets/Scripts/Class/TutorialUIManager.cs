@@ -59,12 +59,16 @@ namespace PESDISASTER
         /// <summary>
         /// チュートリアル演出時間を参照する変数
         /// </summary>
-        private float _tutorialAnimTime = 1f;
+        private float _tutorialAnimTime = 1.5f;
 
         /// <summary>
         /// 基本操作チュートリアル用スクショ画像の素材IDを参照する変数
         /// </summary>
         private int _normalTutorialSpriteID = 0;
+        /// <summary>
+        /// 銃操作チュートリアル用スクショ画像の素材IDを参照する変数
+        /// </summary>
+        private int _gunTutorialSpriteID = 1;
         /// <summary>
         /// 現在のチュートリアル用スクショ画像IDを参照する変数
         /// </summary>
@@ -83,6 +87,10 @@ namespace PESDISASTER
         /// 基本チュートリアルのID名を参照する変数
         /// </summary>
         public string NormalTutorialIDName = "NormalControlTutorial";
+        /// <summary>
+        /// 銃チュートリアルのID名を参照する変数
+        /// </summary>
+        public string GunTutorialIDName = "GunControlTutorial";
         /// <summary>
         /// 現在のチュートリアルID名を参照する変数
         /// </summary>
@@ -141,6 +149,13 @@ namespace PESDISASTER
                 _currentTutorialIDName = NormalTutorialIDName;
                 // 現在のチュートリアル画像素材IDを基本操作のIDに変更
                 _currentTutorialSpriteID = _normalTutorialSpriteID;
+            }
+            else if (idName == GunTutorialIDName)
+            {
+                // 現在のチュートリアルIDを銃操作のIDに変更
+                _currentTutorialIDName = GunTutorialIDName;
+                // 現在のチュートリアル画像素材IDを銃操作のIDに変更
+                _currentTutorialSpriteID = _gunTutorialSpriteID;
             }
 
             // テキストデータを変更
